@@ -1,4 +1,4 @@
-package cuexpo.chulaexpo;
+package cuexpo.chulaexpo.activity;
 
 import android.content.Context;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,9 +16,11 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.fragment.HomeFragment;
+import cuexpo.chulaexpo.fragment.MoreFragment;
+
 public class MainActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

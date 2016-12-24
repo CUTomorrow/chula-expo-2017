@@ -1,0 +1,8 @@
+AdjustableImageView
+-app/build.gradle
+	compile 'com.inthecheesefactory.thecheeselibrary:adjustable-imageview:1.0.1'
+
+<com.inthecheesefactory.thecheeselibrary.widget.AdjustableImageView />
+
+Simple Nine Patch Generator
+-https://romannurik.github.io/AndroidAssetStudio/nine-patches.html
