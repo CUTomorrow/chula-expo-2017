@@ -31,4 +31,6 @@ dependencies {
     compile 'com.android.support:support-v4:25.1.0'
     testCompile 'junit:junit:4.12'
     compile project(':TheCheeseLibrary')
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 }

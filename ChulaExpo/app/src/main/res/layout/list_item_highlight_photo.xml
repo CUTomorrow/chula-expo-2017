@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/ivHighlight"
+        android:src="@drawable/highlight_vidva_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/highlight_title_padding"
+        android:background="@color/highlight_tab_backgroud">
+        <TextView
+            android:id="@+id/tvHighlightTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vidva Highlight"
+            android:textColor="@color/highlight_tab_text"
+            android:textSize="@dimen/highlight_title"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/tvHighlightDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="นิทรรศการวิชาการทางวิศวกรรมครั้งที่ 17 (Nitad 17)"
+            android:textColor="@color/highlight_tab_text"
+            android:textSize="@dimen/highlight_desc"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
