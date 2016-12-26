@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<PhotoItemCollectionDao> call, Response<PhotoItemCollectionDao> response) {
                 if(response.isSuccessful()){
                     PhotoItemCollectionDao dao = response.body();
-                    PhotoListManager.getInstance().setDao(dao);
+                    listAdapter.setDao(dao);
                      listAdapter.notifyDataSetChanged();
                 } else {
                     //response but not success

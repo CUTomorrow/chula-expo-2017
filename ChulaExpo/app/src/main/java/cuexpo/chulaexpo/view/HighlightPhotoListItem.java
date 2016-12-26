@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
@@ -117,8 +118,10 @@ public class HighlightPhotoListItem extends BaseCustomViewGroup {
     }
 
     public void setImageUrl(String url){
-        // TODO:Load Image
-
+        /*
+        Glide.with(getContext())
+                .load(url)
+                .into(ivHighlight);*/
         //mock
         if(url.equals("0")) ivHighlight.setImageResource(R.drawable.highlight_vidva_1);
         else if(url.equals("1")) ivHighlight.setImageResource(R.drawable.highlight_stat_1);

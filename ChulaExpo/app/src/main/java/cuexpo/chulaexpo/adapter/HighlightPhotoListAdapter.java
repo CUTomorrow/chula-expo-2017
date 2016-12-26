@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.manager.PhotoListManager;
 import cuexpo.chulaexpo.view.HighlightPhotoListItem;
+import dao.PhotoItemCollectionDao;
 
 /**
  * Created by dragonnight on 26/12/2559.
@@ -15,19 +16,27 @@ import cuexpo.chulaexpo.view.HighlightPhotoListItem;
 
 public class HighlightPhotoListAdapter extends BaseAdapter{
 
+    PhotoItemCollectionDao dao;
+
+    public void setDao(PhotoItemCollectionDao dao) {
+        this.dao = dao;
+    }
+
     @Override
     public int getCount() {
-        return 20;
+        return 100;
         /*
-        if(PhotoListManager.getInstance().getDao() == null) return  0;
-        if(PhotoListManager.getInstance().getDao().getData() == null) return 0;
-        return PhotoListManager.getInstance().getDao().getData().size();
+        if(dao == null) return  0;
+        if(dao.getData() == null) return 0;
+        return dao.getData().size();
         */
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return null;
+        // return dao.getData().get(position);
     }
 
     @Override

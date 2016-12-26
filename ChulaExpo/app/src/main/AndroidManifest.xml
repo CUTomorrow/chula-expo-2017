@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data android:name="cuexpo.chulaexpo.configuration.GlideConfiguration"
+            android:value="GlideModule"/>
     </application>
 
 </manifest>
