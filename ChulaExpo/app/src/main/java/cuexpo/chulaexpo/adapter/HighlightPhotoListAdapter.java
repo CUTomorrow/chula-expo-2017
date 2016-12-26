@@ -5,10 +5,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import cuexpo.chulaexpo.R;
-import cuexpo.chulaexpo.manager.PhotoListManager;
+import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.view.HighlightPhotoListItem;
-import dao.PhotoItemCollectionDao;
+import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
 
 /**
  * Created by dragonnight on 26/12/2559.
@@ -17,6 +16,11 @@ import dao.PhotoItemCollectionDao;
 public class HighlightPhotoListAdapter extends BaseAdapter{
 
     PhotoItemCollectionDao dao;
+    MutableInteger lastPositionInteger;
+
+    public HighlightPhotoListAdapter(MutableInteger lastPositionInteger) {
+        this.lastPositionInteger = lastPositionInteger;
+    }
 
     public void setDao(PhotoItemCollectionDao dao) {
         this.dao = dao;
@@ -26,9 +30,9 @@ public class HighlightPhotoListAdapter extends BaseAdapter{
     public int getCount() {
         return 100;
         /*
-        if(dao == null) return  0;
-        if(dao.getData() == null) return 0;
-        return dao.getData().size();
+        if(cuexpo.chulaexpo.dao == null) return  0;
+        if(cuexpo.chulaexpo.dao.getData() == null) return 0;
+        return cuexpo.chulaexpo.dao.getData().size();
         */
     }
 
@@ -36,7 +40,7 @@ public class HighlightPhotoListAdapter extends BaseAdapter{
     public Object getItem(int position)
     {
         return null;
-        // return dao.getData().get(position);
+        // return cuexpo.chulaexpo.dao.getData().get(position);
     }
 
     @Override

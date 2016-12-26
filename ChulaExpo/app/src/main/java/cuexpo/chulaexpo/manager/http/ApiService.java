@@ -1,6 +1,6 @@
 package cuexpo.chulaexpo.manager.http;
 
-import dao.PhotoItemCollectionDao;
+import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
 import retrofit2.Call;
 import retrofit2.http.POST;
 

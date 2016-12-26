@@ -1,7 +1,5 @@
 package cuexpo.chulaexpo.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,30 +9,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
-
-import java.io.IOException;
+import java.io.File;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.HighlightPhotoListAdapter;
-import cuexpo.chulaexpo.manager.HttpManager;
+import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.PhotoListManager;
-import dao.PhotoItemCollectionDao;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
     Toolbar toolbar;
     ListView listView;
     HighlightPhotoListAdapter listAdapter;
+    PhotoListManager photoListManager;
+    MutableInteger lastPositionInteger;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+        //Initialize Fragment level's variables
+        init(savedInstanceState);
+
+
+        if(savedInstanceState != null){
+            onRestoreInstanceState(savedInstanceState);  // restore Instance State
+        }
     }
 
     @Override
@@ -47,18 +48,28 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
-        initInstances(rootView);
+        initInstances(rootView,savedInstanceState);
         return rootView;
     }
 
+    private void init(Bundle savedInstanceState) {
+        //can save state
+        photoListManager = new PhotoListManager();
+        lastPositionInteger = new MutableInteger(-1);
 
-    private void initInstances(View rootView) {
+    }
+
+
+    private void initInstances(View rootView,Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
+        //Cannot save state
         toolbar = (Toolbar)rootView.findViewById(R.id.home_toolbar);
         toolbar.setTitle("");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
         listView = (ListView)rootView.findViewById(R.id.lvHighlight);
-        listAdapter = new HighlightPhotoListAdapter();
+        listAdapter = new HighlightPhotoListAdapter(lastPositionInteger);
+        listAdapter.setDao(photoListManager.getDao());
         listView.setAdapter(listAdapter);
 
         /* Fetch Data From Server
@@ -67,8 +78,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<PhotoItemCollectionDao> call, Response<PhotoItemCollectionDao> response) {
                 if(response.isSuccessful()){
-                    PhotoItemCollectionDao dao = response.body();
-                    listAdapter.setDao(dao);
+                    PhotoItemCollectionDao cuexpo.chulaexpo.dao = response.body();
+                    listAdapter.setDao(cuexpo.chulaexpo.dao);
                      listAdapter.notifyDataSetChanged();
                 } else {
                     //response but not success
@@ -117,17 +128,19 @@ public class HomeFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         // Save Instance State here
+        outState.putBundle("photoListManager",photoListManager.onSavedInstanceState());
+        outState.putBundle("lastPositionInteger",lastPositionInteger.onSavedInstanceState());
     }
 
-    /*
-     * Restore Instance State Here
-     */
+    private  void onRestoreInstanceState(Bundle savedInstanceState){
+        //Restore instance state here
+        photoListManager.onRestoreInstanceState(savedInstanceState.getBundle("photoListManager"));
+        lastPositionInteger.onRestoreInstanceState(savedInstanceState.getBundle("lastPositionInteger"));
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            // Restore Instance State here
-        }
     }
 
 }
