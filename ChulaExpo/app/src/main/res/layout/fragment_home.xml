@@ -2,12 +2,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuexpo.chulaexpo.HomeFragment">
+    tools:context="cuexpo.chulaexpo.fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Home jaaa" />
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/home_toolbar"
+            android:background="@drawable/toolbar_bg"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <TextView
+                android:id="@+id/home_toolbar_title"
+                android:text="@string/home_title"
+                android:textSize="@dimen/title_toolbar_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center" />
+         </android.support.v7.widget.Toolbar>
+        <ListView
+            android:id="@+id/lvHighlight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </LinearLayout>
+
 
 </FrameLayout>
