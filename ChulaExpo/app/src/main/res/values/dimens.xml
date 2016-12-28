@@ -6,4 +6,6 @@
     <dimen name="highlight_title">24sp</dimen>
     <dimen name="highlight_desc">18sp</dimen>
     <dimen name="highlight_title_padding">16dp</dimen>
+    <dimen name="buttonRadius">24dp</dimen>
+    <dimen name="buttonText">14sp</dimen>
 </resources>
