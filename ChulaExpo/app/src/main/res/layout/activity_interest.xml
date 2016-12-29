@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_interest"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="cuexpo.chulaexpo.activity.InterestActivity">
+
+    <cuexpo.chulaexpo.utility.CenteringHorizontalScrollView
+        android:id="@+id/HSVImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <!--android:layout_below="@+id/Horizontalalternative">-->
+
+        <LinearLayout
+            android:id="@+id/linearImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="50dp">
+        </LinearLayout>
+    </cuexpo.chulaexpo.utility.CenteringHorizontalScrollView>
+
+</RelativeLayout>
