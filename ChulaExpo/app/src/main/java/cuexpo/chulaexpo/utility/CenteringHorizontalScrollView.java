@@ -5,7 +5,6 @@ package cuexpo.chulaexpo.utility;
  */
 
 import android.content.Context;
-import android.content.Loader;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -75,29 +73,6 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
         return (LinearLayout) getChildAt(0);
     }
 
-    /**
-     * Centers the current view the best it can.
-     */
-    public void centerCurrentItem() {
-        if (getMaxItemCount() == 0) {
-            return;
-        }
-        int currentX = getScrollX();
-        View targetChild;
-        int currentChild = -1;
-        do {
-            currentChild++;
-            targetChild = getLinearLayout().getChildAt(currentChild);
-        } while (currentChild < getMaxItemCount() && targetChild.getLeft() < currentX);
-        if (mActiveItem != currentChild) {
-            mActiveItem = currentChild;
-            scrollToActiveItem();
-        }
-    }
-
-    /**
-     * Scrolls the list view to the currently active child.
-     */
     private void scrollToActiveItem() {
         int maxItemCount = getMaxItemCount();
         if (maxItemCount == 0) {
@@ -168,22 +143,9 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
             rightDescriptionText.setVisibility(GONE);
         }
 
-//        int targetLeft = targetView.getLeft();
-//        Log.d("target left", "" + targetLeft);
-//        int childWidth = targetView.getRight() - targetLeft;
-//        Log.d("child width", "" + childWidth);
-
-//        int width = getWidth() - getPaddingLeft() - getPaddingRight();
-//        int targetScroll = targetLeft - ((width - childWidth) / 2);
-//        Log.d("target scroll", "" + targetScroll);
-//        super.smoothScrollTo(targetScroll, 0);
         super.smoothScrollTo((429*mActiveItem) - 156, 0);
     }
 
-    /**
-     * Sets the current item and centers it.
-     * @param currentItem The new current item.
-     */
     public void setCurrentItemAndCenter(int currentItem) {
         mActiveItem = currentItem;
         scrollToActiveItem();
