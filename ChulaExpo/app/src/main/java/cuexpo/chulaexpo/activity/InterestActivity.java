@@ -41,7 +41,7 @@ public class InterestActivity extends AppCompatActivity {
                     " production of goods or services in the accomplishment of objectives"
     };
     boolean[] isInterested = { false, false, true, false, true, false, false, false, false,
-            false, true, false, false,
+            false, false
     };
 
     @Override
@@ -52,17 +52,31 @@ public class InterestActivity extends AppCompatActivity {
         LinearLayout imageGallery;
         imageGallery = (LinearLayout) findViewById(R.id.linearImage);
         for (int i = 0; i < images.length; i++) {
-            RelativeLayout imageFrame = new RelativeLayout(InterestActivity.this);
+            RelativeLayout frame = new RelativeLayout(InterestActivity.this);
+                RelativeLayout imageFrame = new RelativeLayout(InterestActivity.this);
 
-            ImageView image = new ImageView(InterestActivity.this);
-            image.setBackgroundResource(images[i]);
-            RelativeLayout.LayoutParams imageParams = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            imageParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-            image.setLayoutParams(imageParams);
-            image.setId(i);
-            imageFrame.addView(image);
+                ImageView image = new ImageView(InterestActivity.this);
+                image.setBackgroundResource(images[i]);
+                RelativeLayout.LayoutParams imageParams = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.MATCH_PARENT);
+                imageParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                image.setLayoutParams(imageParams);
+                imageFrame.addView(image);
+
+                ImageView check = new ImageView(InterestActivity.this);
+                check.setBackgroundResource(R.drawable.interest_check);
+                RelativeLayout.LayoutParams checkParams = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.MATCH_PARENT);
+                checkParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                check.setLayoutParams(checkParams);
+                if(isInterested[i]) check.setVisibility(View.VISIBLE);
+                else check.setVisibility(View.INVISIBLE);
+                imageFrame.addView(check);
+                imageFrame.setId(i);
+                imageFrame.setOnClickListener(imgListener);
+            frame.addView(imageFrame);
 
             TextView titleText = new TextView(InterestActivity.this);
             titleText.setText(titles[i]);
@@ -71,10 +85,10 @@ public class InterestActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams.MATCH_PARENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
             titleParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-            titleParams.addRule(RelativeLayout.BELOW, image.getId());
+            titleParams.addRule(RelativeLayout.BELOW, imageFrame.getId());
             titleText.setLayoutParams(titleParams);
             titleText.setId(images.length + i);
-            imageFrame.addView(titleText);
+            frame.addView(titleText);
 
             TextView descriptionText = new TextView(InterestActivity.this);
             descriptionText.setText(descriptions[0]);
@@ -91,10 +105,10 @@ public class InterestActivity extends AppCompatActivity {
             descriptionText.setLayoutParams(descriptionParams);
             descriptionText.setVisibility(View.GONE);
             descriptionText.setTextColor(Color.parseColor("#95989A"));
-            imageFrame.invalidate();
-            imageFrame.addView(descriptionText);
+            frame.addView(descriptionText);
 
-            imageGallery.addView(imageFrame);
+            frame.invalidate();
+            imageGallery.addView(frame);
         }
         CenteringHorizontalScrollView HSV = (CenteringHorizontalScrollView) findViewById(R.id.HSVImage);
         HSV.setCurrentItemAndCenter(1);
@@ -148,7 +162,16 @@ public class InterestActivity extends AppCompatActivity {
     private View.OnClickListener imgListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            v.get
+            int id = v.getId();
+            RelativeLayout layout = (RelativeLayout) v;
+            ImageView check = (ImageView) layout.getChildAt(1);
+            if(isInterested[id]){
+                check.setVisibility(View.INVISIBLE);
+                isInterested[id] = false;
+            } else {
+                check.setVisibility(View.VISIBLE);
+                isInterested[id] = true;
+            }
         }
     };
 }

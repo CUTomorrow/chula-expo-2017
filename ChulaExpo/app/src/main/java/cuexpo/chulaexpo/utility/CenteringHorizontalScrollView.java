@@ -28,8 +28,6 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
     private int mItemWidth;
 
     View targetLeft, targetRight;
-    ImageView centerImage, leftImage, rightImage;
-    TextView centerText, leftText, rightText;
 
     public CenteringHorizontalScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -123,14 +121,14 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
         // Center
         RelativeLayout centerFrame = (RelativeLayout) targetView;
 
-        centerImage = (ImageView) centerFrame.getChildAt(0);
+        RelativeLayout centerImage = (RelativeLayout) centerFrame.getChildAt(0);
         int center_img_width = dpToPx(272);
         int center_img_height = dpToPx(272);
         RelativeLayout.LayoutParams flparams = new RelativeLayout.LayoutParams(center_img_width, center_img_height);
         flparams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         centerImage.setLayoutParams(flparams);
 
-        centerText = (TextView) centerFrame.getChildAt(1);
+        TextView centerText = (TextView) centerFrame.getChildAt(1);
         centerText.setTextSize(19);
         centerText.setPadding(0, dpToPx(6), 0, 0);
         TextView centerDescriptionText = (TextView) centerFrame.getChildAt(2);
@@ -143,12 +141,12 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
             targetLeft = getLinearLayout().getChildAt(targetItem-1);
             RelativeLayout leftFrame = (RelativeLayout)targetLeft;
 
-            leftImage = (ImageView)leftFrame.getChildAt(0);
+            RelativeLayout leftImage = (RelativeLayout)leftFrame.getChildAt(0);
             RelativeLayout.LayoutParams leftParams = new RelativeLayout.LayoutParams(side_img_width, side_img_height);
             leftParams.setMargins(0, dpToPx(51), 0, 0);
             leftImage.setLayoutParams(leftParams);
 
-            leftText = (TextView)leftFrame.getChildAt(1);
+            TextView leftText = (TextView)leftFrame.getChildAt(1);
             leftText.setTextSize(11);
             TextView leftDescriptionText = (TextView) leftFrame.getChildAt(2);
             leftDescriptionText.setVisibility(GONE);
@@ -159,12 +157,12 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
             targetRight = getLinearLayout().getChildAt(targetItem+1);
             RelativeLayout rightFrame = (RelativeLayout)targetRight;
 
-            rightImage = (ImageView)rightFrame.getChildAt(0);
+            RelativeLayout rightImage = (RelativeLayout)rightFrame.getChildAt(0);
             RelativeLayout.LayoutParams rightParams = new RelativeLayout.LayoutParams(side_img_width, side_img_height);
             rightParams.setMargins(0, dpToPx(51), 0, 0);
             rightImage.setLayoutParams(rightParams);
 
-            rightText = (TextView)rightFrame.getChildAt(1);
+            TextView rightText = (TextView)rightFrame.getChildAt(1);
             rightText.setTextSize(11);
             TextView rightDescriptionText = (TextView) rightFrame.getChildAt(2);
             rightDescriptionText.setVisibility(GONE);
