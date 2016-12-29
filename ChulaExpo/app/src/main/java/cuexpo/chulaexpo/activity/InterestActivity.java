@@ -1,10 +1,12 @@
 package cuexpo.chulaexpo.activity;
 
-import android.graphics.drawable.Drawable;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,9 +27,17 @@ public class InterestActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    int[] catagory_pictures = { R.drawable.mock_cir, R.drawable.mock_cir, R.drawable.mock_cir,
-            R.drawable.mock_cir, R.drawable.mock_cir, R.drawable.mock_cir, R.drawable.mock_cir,
-            R.drawable.mock_cir, R.drawable.mock_cir, R.drawable.mock_cir, R.drawable.mock_cir, };
+    int[] images = { R.drawable.cir_invisible, R.drawable.cir_mock, R.drawable.cir_mock,
+            R.drawable.cir_mock, R.drawable.cir_mock, R.drawable.cir_mock, R.drawable.cir_mock,
+            R.drawable.cir_mock, R.drawable.cir_mock, R.drawable.cir_mock, R.drawable.cir_invisible
+    };
+    String[] titles = {
+            "", "Energy", "Technology", "Economy", "Title", "Title", "Title", "Title", "Title", "Title", ""
+    };
+    String[] descriptions = {
+            "Technology is the collection of techniques, skills, methods, and process used in the" +
+                    " production of goods or services in the accomplishment of objectives"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +46,50 @@ public class InterestActivity extends AppCompatActivity {
 
         LinearLayout imageGallery;
         imageGallery = (LinearLayout) findViewById(R.id.linearImage);
-        for (int i = 0; i < catagory_pictures.length; i++) {
+        for (int i = 0; i < images.length; i++) {
+            RelativeLayout imageFrame = new RelativeLayout(InterestActivity.this);
 
             ImageView image = new ImageView(InterestActivity.this);
-            image.setBackgroundResource(catagory_pictures[i]);
-            imageGallery.addView(image);
+            image.setBackgroundResource(images[i]);
+            RelativeLayout.LayoutParams imageParams = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            imageParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+            image.setLayoutParams(imageParams);
+            image.setId(i);
+            image.setOnClickListener(imgListener);
+            imageFrame.addView(image);
+
+            TextView titleText = new TextView(InterestActivity.this);
+            titleText.setText(titles[i]);
+            titleText.setTextColor(Color.BLACK);
+            RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            titleParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+            titleParams.addRule(RelativeLayout.BELOW, image.getId());
+            titleText.setLayoutParams(titleParams);
+            titleText.setId(images.length + i);
+            imageFrame.addView(titleText);
+
+            TextView descriptionText = new TextView(InterestActivity.this);
+            descriptionText.setText(descriptions[0]);
+            descriptionText.setMaxWidth(dpToPx(300));
+            descriptionText.setGravity(Gravity.CENTER_HORIZONTAL);
+            descriptionText.setTextSize(17);
+            descriptionText.setPadding(0, dpToPx(30), 0, 0);
+            titleText.setTextColor(Color.parseColor("#95989A"));
+            RelativeLayout.LayoutParams descriptionParams = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            descriptionParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+            descriptionParams.addRule(RelativeLayout.BELOW, titleText.getId());
+            descriptionText.setLayoutParams(descriptionParams);
+            descriptionText.setVisibility(View.GONE);
+            imageFrame.invalidate();
+            imageFrame.addView(descriptionText);
+
+            imageGallery.addView(imageFrame);
         }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -83,5 +132,15 @@ public class InterestActivity extends AppCompatActivity {
         client.disconnect();
     }
 
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
 
+    private View.OnClickListener imgListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
 }

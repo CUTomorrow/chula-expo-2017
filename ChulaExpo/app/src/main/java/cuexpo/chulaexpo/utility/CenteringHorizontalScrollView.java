@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class CenteringHorizontalScrollView extends HorizontalScrollView implements View.OnTouchListener {
 
@@ -26,15 +28,14 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
     private int mItemWidth;
 
     View targetLeft, targetRight;
-    ImageView leftImage, rightImage;
+    ImageView centerImage, leftImage, rightImage;
+    TextView centerText, leftText, rightText;
 
     public CenteringHorizontalScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
         mItemWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-//        mActiveItem = 0;
-//        setCurrentItemAndCenter(mActiveItem);
-//        centerCurrentItem();
+//        setCurrentItemAndCenter(1);
         setOnTouchListener(this);
     }
 
@@ -105,6 +106,14 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
         if (maxItemCount == 0) {
             return;
         }
+        if(mActiveItem == 0) {
+            setCurrentItemAndCenter(1);
+            return;
+        }
+        else if(mActiveItem == maxItemCount-1) {
+            setCurrentItemAndCenter(maxItemCount-2);
+            return;
+        }
         int targetItem = Math.min(maxItemCount - 1, mActiveItem);
         targetItem = Math.max(0, targetItem);
         mActiveItem = targetItem;
@@ -113,30 +122,53 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
         View targetView = getLinearLayout().getChildAt(targetItem);
 
         // Center
-        ImageView centerImage = (ImageView)targetView;
+        RelativeLayout centerFrame = (RelativeLayout) targetView;
+
+        centerImage = (ImageView) centerFrame.getChildAt(0);
         int center_img_width = dpToPx(272);
         int center_img_height = dpToPx(272);
-        LinearLayout.LayoutParams flparams = new LinearLayout.LayoutParams(center_img_width, center_img_height);
+        RelativeLayout.LayoutParams flparams = new RelativeLayout.LayoutParams(center_img_width, center_img_height);
+        flparams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         centerImage.setLayoutParams(flparams);
+
+        centerText = (TextView) centerFrame.getChildAt(1);
+        centerText.setTextSize(19);
+        centerText.setPadding(0, dpToPx(6), 0, 0);
+        TextView centerDescriptionText = (TextView) centerFrame.getChildAt(2);
+        centerDescriptionText.setVisibility(VISIBLE);
 
         // Left
         int side_img_width = dpToPx(170);
         int side_img_height = dpToPx(170);
         if((targetItem-1) >= 0){
             targetLeft = getLinearLayout().getChildAt(targetItem-1);
-            leftImage = (ImageView)targetLeft;
-            LinearLayout.LayoutParams leftParams = new LinearLayout.LayoutParams(side_img_width, side_img_height);
+            RelativeLayout leftFrame = (RelativeLayout)targetLeft;
+
+            leftImage = (ImageView)leftFrame.getChildAt(0);
+            RelativeLayout.LayoutParams leftParams = new RelativeLayout.LayoutParams(side_img_width, side_img_height);
             leftParams.setMargins(0, dpToPx(51), 0, 0);
             leftImage.setLayoutParams(leftParams);
+
+            leftText = (TextView)leftFrame.getChildAt(1);
+            leftText.setTextSize(11);
+            TextView leftDescriptionText = (TextView) leftFrame.getChildAt(2);
+            leftDescriptionText.setVisibility(GONE);
         }
 
         // Right
         if((targetItem+1) < maxItemCount){
             targetRight = getLinearLayout().getChildAt(targetItem+1);
-            rightImage = (ImageView)targetRight;
-            LinearLayout.LayoutParams rightParams = new LinearLayout.LayoutParams(side_img_width, side_img_height);
+            RelativeLayout rightFrame = (RelativeLayout)targetRight;
+
+            rightImage = (ImageView)rightFrame.getChildAt(0);
+            RelativeLayout.LayoutParams rightParams = new RelativeLayout.LayoutParams(side_img_width, side_img_height);
             rightParams.setMargins(0, dpToPx(51), 0, 0);
             rightImage.setLayoutParams(rightParams);
+
+            rightText = (TextView)rightFrame.getChildAt(1);
+            rightText.setTextSize(11);
+            TextView rightDescriptionText = (TextView) rightFrame.getChildAt(2);
+            rightDescriptionText.setVisibility(GONE);
         }
 
 //        int targetLeft = targetView.getLeft();
@@ -148,7 +180,8 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
 //        int targetScroll = targetLeft - ((width - childWidth) / 2);
 //        Log.d("target scroll", "" + targetScroll);
 //        super.smoothScrollTo(targetScroll, 0);
-        super.smoothScrollTo((429*mActiveItem) - 197, 0);
+        if(mActiveItem != 0 && mActiveItem != maxItemCount-1)
+            super.smoothScrollTo((429*mActiveItem) - 164, 0);
     }
 
     /**
