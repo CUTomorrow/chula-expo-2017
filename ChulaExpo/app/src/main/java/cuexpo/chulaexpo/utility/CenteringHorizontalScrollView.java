@@ -35,7 +35,6 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
         super(context, attrs);
         mContext = context;
         mItemWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-//        setCurrentItemAndCenter(1);
         setOnTouchListener(this);
     }
 
@@ -180,8 +179,7 @@ public class CenteringHorizontalScrollView extends HorizontalScrollView implemen
 //        int targetScroll = targetLeft - ((width - childWidth) / 2);
 //        Log.d("target scroll", "" + targetScroll);
 //        super.smoothScrollTo(targetScroll, 0);
-        if(mActiveItem != 0 && mActiveItem != maxItemCount-1)
-            super.smoothScrollTo((429*mActiveItem) - 164, 0);
+        super.smoothScrollTo((429*mActiveItem) - 156, 0);
     }
 
     /**

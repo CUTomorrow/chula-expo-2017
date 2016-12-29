@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.utility.CenteringHorizontalScrollView;
 
 public class InterestActivity extends AppCompatActivity {
 
@@ -35,8 +37,11 @@ public class InterestActivity extends AppCompatActivity {
             "", "Energy", "Technology", "Economy", "Title", "Title", "Title", "Title", "Title", "Title", ""
     };
     String[] descriptions = {
-            "Technology is the collection of techniques, skills, methods, and process used in the" +
+            "Technology is the collection of techniques, skills, methods, and processes used in the" +
                     " production of goods or services in the accomplishment of objectives"
+    };
+    boolean[] isInterested = { false, false, true, false, true, false, false, false, false,
+            false, true, false, false,
     };
 
     @Override
@@ -57,7 +62,6 @@ public class InterestActivity extends AppCompatActivity {
             imageParams.addRule(RelativeLayout.CENTER_IN_PARENT);
             image.setLayoutParams(imageParams);
             image.setId(i);
-            image.setOnClickListener(imgListener);
             imageFrame.addView(image);
 
             TextView titleText = new TextView(InterestActivity.this);
@@ -74,11 +78,11 @@ public class InterestActivity extends AppCompatActivity {
 
             TextView descriptionText = new TextView(InterestActivity.this);
             descriptionText.setText(descriptions[0]);
-            descriptionText.setMaxWidth(dpToPx(300));
+            descriptionText.setWidth(dpToPx(310));
             descriptionText.setGravity(Gravity.CENTER_HORIZONTAL);
             descriptionText.setTextSize(17);
             descriptionText.setPadding(0, dpToPx(30), 0, 0);
-            titleText.setTextColor(Color.parseColor("#95989A"));
+            titleText.setTextColor(Color.BLACK);
             RelativeLayout.LayoutParams descriptionParams = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -86,11 +90,15 @@ public class InterestActivity extends AppCompatActivity {
             descriptionParams.addRule(RelativeLayout.BELOW, titleText.getId());
             descriptionText.setLayoutParams(descriptionParams);
             descriptionText.setVisibility(View.GONE);
+            descriptionText.setTextColor(Color.parseColor("#95989A"));
             imageFrame.invalidate();
             imageFrame.addView(descriptionText);
 
             imageGallery.addView(imageFrame);
         }
+        CenteringHorizontalScrollView HSV = (CenteringHorizontalScrollView) findViewById(R.id.HSVImage);
+        HSV.setCurrentItemAndCenter(1);
+//        HSV.centerCurrentItem();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -140,7 +148,7 @@ public class InterestActivity extends AppCompatActivity {
     private View.OnClickListener imgListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+//            v.get
         }
     };
 }
