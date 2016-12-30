@@ -19,7 +19,8 @@
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="48dp"></cuexpo.chulaexpo.utility.NonSwipeableViewPager>
+                android:layout_marginBottom="48dp"
+                android:layout_alignParentBottom="false"></cuexpo.chulaexpo.utility.NonSwipeableViewPager>
 
             <com.ogaclejapan.smarttablayout.SmartTabLayout
                 android:id="@+id/viewpagertab"

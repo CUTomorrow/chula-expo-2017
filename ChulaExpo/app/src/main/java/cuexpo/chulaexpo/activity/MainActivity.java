@@ -1,6 +1,7 @@
 package cuexpo.chulaexpo.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        Intent intent = new Intent(this, InterestActivity.class);
+//        startActivity(intent);
         initTab();
     }
 
@@ -74,6 +77,5 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);
         viewPagerTab.setViewPager(viewPager);
-        
     }
 }
