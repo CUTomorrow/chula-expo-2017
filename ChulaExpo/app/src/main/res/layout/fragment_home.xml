@@ -23,10 +23,40 @@
                 android:textColor="@color/white"
                 android:layout_gravity="center" />
          </android.support.v7.widget.Toolbar>
-        <ListView
-            android:id="@+id/lvHighlight"
+        <ScrollView
+            android:fillViewport="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vpHighlight"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp">
+                </android.support.v4.view.ViewPager>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#f35199">
+                    <TextView
+                        android:id="@+id/tvHighlightLabel"
+                        android:text="ACTIVITY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        style="@style/tvHighlightHeader"
+                        android:background="@drawable/iv_trapezoid_pink"/>
+                </RelativeLayout>
+                <ListView
+                    android:id="@+id/lvActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></ListView>
+            </LinearLayout>
+        </ScrollView
+            android:fillViewport="true">
+
     </LinearLayout>
 
 

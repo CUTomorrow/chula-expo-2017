@@ -5,7 +5,11 @@
     <color name="colorAccent">#ff4081</color>
     <color name="white">#ffffff</color>
     <!-- Highlight -->
-    <color name="highlight_tab_backgroud">#80000000</color>
+    <color name="highlight_tab_backgroud">#AA000000</color>
     <color name="highlight_tab_text">#FFFFFF</color>
     <color name="buttonPrimaryColor">#e289cb</color>
+    <!--Booking -->
+    <color name="booking_available">#00df5e</color>
+    <color name="booking_almostFull">#ff9001</color>
+    <color name="booking_full">#b90004</color>
 </resources>

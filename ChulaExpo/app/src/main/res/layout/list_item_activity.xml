@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingRight="16dp">
+    <ImageView
+        android:id="@+id/ivActivity"
+        android:src="@drawable/highlight_vidva_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:scaleType="centerCrop"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="72dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvActivityTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="สาธิตอาจารย์ใหญ่"
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="@dimen/activity_title"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+            <TextView
+                android:id="@+id/tvActivityFaculty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ENG"
+                android:padding="3dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="12dp"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@id/tvActivityTitle"
+                android:background="@android:color/holo_red_dark"/>
+            <TextView
+                android:id="@+id/tvActivityBookingCount"
+                android:text="43/45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="12dp"
+                android:layout_alignParentRight="true"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/shape_rounded_rectangle_orange"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvActivityTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 Mar 09.40 - 10.40"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="@dimen/activity_desc"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/tvActivityDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="นิทรรศการวิชาการทางวิศวกรรมครั้งที่ 17 (Nitad 17)"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="@dimen/activity_desc"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
