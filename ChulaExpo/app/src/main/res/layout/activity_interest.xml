@@ -11,21 +11,16 @@
     android:paddingTop="0dp"
     tools:context="cuexpo.chulaexpo.activity.InterestActivity">
 
-    <cuexpo.chulaexpo.utility.CenteringHorizontalScrollView
-        android:id="@+id/HSVImage"
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
-        <!--android:layout_below="@+id/Horizontalalternative">-->
-
-        <LinearLayout
-            android:id="@+id/linearImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="50dp">
-        </LinearLayout>
-    </cuexpo.chulaexpo.utility.CenteringHorizontalScrollView>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:id="@+id/grid_view"
+        android:numColumns="3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
     <ImageView
         android:layout_width="match_parent"
