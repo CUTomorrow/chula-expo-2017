@@ -27,7 +27,6 @@ import cuexpo.chulaexpo.fragment.MoreFragment;
 import cuexpo.chulaexpo.utility.LocationTask;
 
 public class MainActivity extends AppCompatActivity {
-    private WifiManager wifiManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
         initTab();
 
+        WifiManager wifiManager;
         wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new LocationTask(wifiManager), 3000, 3000);
