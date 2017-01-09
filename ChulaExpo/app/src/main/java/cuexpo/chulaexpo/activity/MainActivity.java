@@ -2,6 +2,7 @@ package cuexpo.chulaexpo.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
@@ -18,9 +19,12 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import java.util.Timer;
+
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.fragment.HomeFragment;
 import cuexpo.chulaexpo.fragment.MoreFragment;
+import cuexpo.chulaexpo.utility.LocationTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,9 +32,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Intent intent = new Intent(this, InterestActivity.class);
-//        startActivity(intent);
         initTab();
+
+        WifiManager wifiManager;
+        wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new LocationTask(wifiManager), 3000, 3000);
     }
 
     private void initTab(){

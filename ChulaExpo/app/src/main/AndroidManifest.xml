@@ -3,6 +3,7 @@
     package="cuexpo.chulaexpo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:name=".MainApplication"
@@ -13,13 +14,6 @@
         android:theme="@style/AppTheme"
         android:screenOrientation="portrait">
 
-        <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
         <activity android:name=".activity.RegisActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,12 +21,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.InterestActivity"></activity>
+
         <meta-data
             android:name="cuexpo.chulaexpo.configuration.GlideConfiguration"
             android:value="GlideModule" />
-
-        <activity android:name=".activity.RegisActivity"></activity>
-        <activity android:name=".activity.InterestActivity"></activity>
       
         <meta-data
             android:name="com.google.android.gms.version"
