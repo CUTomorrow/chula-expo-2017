@@ -2,6 +2,7 @@ package cuexpo.chulaexpo.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -9,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
-import java.io.File;
+import android.widget.TextView;
 
 import cuexpo.chulaexpo.R;
-import cuexpo.chulaexpo.adapter.HighlightPhotoListAdapter;
+import cuexpo.chulaexpo.adapter.ActivityListAdapter;
+import cuexpo.chulaexpo.adapter.HighlightListAdapter;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.PhotoListManager;
 
@@ -21,9 +22,12 @@ public class HomeFragment extends Fragment {
 
     Toolbar toolbar;
     ListView listView;
-    HighlightPhotoListAdapter listAdapter;
+    ActivityListAdapter listAdapter;
+    HighlightListAdapter highlightListAdapter;
     PhotoListManager photoListManager;
     MutableInteger lastPositionInteger;
+    ViewPager vpHighlight;
+    TextView tvHighlightLabel,tvHighlightTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -56,7 +60,6 @@ public class HomeFragment extends Fragment {
         //can save state
         photoListManager = new PhotoListManager();
         lastPositionInteger = new MutableInteger(-1);
-
     }
 
 
@@ -67,10 +70,17 @@ public class HomeFragment extends Fragment {
         toolbar.setTitle("");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        listView = (ListView)rootView.findViewById(R.id.lvHighlight);
-        listAdapter = new HighlightPhotoListAdapter(lastPositionInteger);
+        vpHighlight = (ViewPager)rootView.findViewById(R.id.vpHighlight);
+        tvHighlightLabel = (TextView)rootView.findViewById(R.id.tvHighlightLabel);
+        tvHighlightTime = (TextView)rootView.findViewById(R.id.tvHighlightTime);
+        highlightListAdapter = new HighlightListAdapter();
+        vpHighlight.setAdapter(highlightListAdapter);
+
+        listView = (ListView)rootView.findViewById(R.id.lvActivity);
+        listAdapter = new ActivityListAdapter(lastPositionInteger);
         listAdapter.setDao(photoListManager.getDao());
         listView.setAdapter(listAdapter);
+
 
         /* Fetch Data From Server
         Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadPhotoList();
