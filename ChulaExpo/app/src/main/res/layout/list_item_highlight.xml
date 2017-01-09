@@ -9,6 +9,29 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvHighlightLabel"
+            android:text="EXPO HIGHLIGHT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            style="@style/tvHighlightHeader"
+            android:background="@drawable/iv_trapezoid_pink"/>
+        <TextView
+            android:id="@+id/tvHighlightTime"
+            android:text="13.00 - 15.00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/tvHighlightHeader"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:background="@drawable/iv_trapezoid_pink"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -22,7 +45,8 @@
             android:text="Vidva Highlight"
             android:textColor="@color/highlight_tab_text"
             android:textSize="@dimen/highlight_title"
-            android:maxLines="2"
+            android:maxLines="1"
+            android:textStyle="bold"
             android:ellipsize="end"/>
         <TextView
             android:id="@+id/tvHighlightDesc"
@@ -31,7 +55,7 @@
             android:text="นิทรรศการวิชาการทางวิศวกรรมครั้งที่ 17 (Nitad 17)"
             android:textColor="@color/highlight_tab_text"
             android:textSize="@dimen/highlight_desc"
-            android:maxLines="2"
+            android:maxLines="1"
             android:ellipsize="end"/>
 
     </LinearLayout>

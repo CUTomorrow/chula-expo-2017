@@ -1,24 +1,25 @@
 package cuexpo.chulaexpo.adapter;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import cuexpo.chulaexpo.datatype.MutableInteger;
-import cuexpo.chulaexpo.view.HighlightPhotoListItem;
+import cuexpo.chulaexpo.view.ActivityListItem;
 import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
 
 /**
  * Created by dragonnight on 26/12/2559.
  */
 
-public class HighlightPhotoListAdapter extends BaseAdapter{
+public class ActivityListAdapter extends BaseAdapter{
 
     PhotoItemCollectionDao dao;
     MutableInteger lastPositionInteger;
 
-    public HighlightPhotoListAdapter(MutableInteger lastPositionInteger) {
+    public ActivityListAdapter(MutableInteger lastPositionInteger) {
         this.lastPositionInteger = lastPositionInteger;
     }
 
@@ -50,27 +51,36 @@ public class HighlightPhotoListAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        HighlightPhotoListItem item;
+        ActivityListItem item;
         if(convertView!=null)
-            item = (HighlightPhotoListItem) convertView;
+            item = (ActivityListItem) convertView;
         else
-            item = new HighlightPhotoListItem(parent.getContext());
+            item = new ActivityListItem(parent.getContext());
 
         //Mock
-        ImageView ivHighlight;
+        ImageView ivActivity;
         if(position%3==0){
             item.setNameText("Vidva Highlight");
             item.setDescriptionText("นิทรรศการวิชาการทางวิศวกรรมครั้งที่ 17 (Nitad 17)");
+            item.setTimeText("15 Mar 09.40 - 10.40");
+            item.setFacultyText("ENG", Color.rgb(185,0,4));
+            item.setBookingCountText(43,45);
             item.setImageUrl("0");
         }
         else if(position%3==1){
             item.setNameText("Stat Highlight");
             item.setDescriptionText("งาน STAT CHULA EXPO 2017 ของภาควิชาสถิติ คณะพาณิชยศาสตร์และการบัญชี จุฬาฯ วันที่ 15-19 มีนาคม 2017");
+            item.setTimeText("15 Mar 11.40 - 12.40");
+            item.setFacultyText("SHI", Color.rgb(111,152,244));
+            item.setBookingCountText(10,50);
             item.setImageUrl("1");
         } else {
             item.setNameText("Psyxcho Highlight");
             item.setDescriptionText("งานจุฬาฯ Expo 2017 คณะจิตวิทยา\n" +
                     "Psyche Chula Expo 2017");
+            item.setTimeText("15 Mar 13.00 - 15.00");
+            item.setFacultyText("PSY", Color.rgb(234,220,0));
+            item.setBookingCountText(30,30);
             item.setImageUrl("2");
         }
 

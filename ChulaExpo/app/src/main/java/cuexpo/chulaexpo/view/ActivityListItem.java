@@ -5,38 +5,40 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.bumptech.glide.Glide;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
+
+import org.w3c.dom.Text;
 
 import cuexpo.chulaexpo.R;
 
 /**
  * Created by James on 12/25/2016.
  */
-public class HighlightPhotoListItem extends BaseCustomViewGroup {
+public class ActivityListItem extends BaseCustomViewGroup {
 
-    TextView tvHighlightTitle,tvHighlightDesc;
-    ImageView ivHighlight;
+    TextView tvActivityTitle, tvActivityDesc, tvActivityTime,tvActivityFaculty,tvActivityBookingCount;
+    ImageView ivActivity;
 
-    public HighlightPhotoListItem(Context context) {
+    public ActivityListItem(Context context) {
         super(context);
         initInflate();
         initInstances();
     }
 
-    public HighlightPhotoListItem(Context context, AttributeSet attrs) {
+    public ActivityListItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         initInflate();
         initInstances();
         initWithAttrs(attrs, 0, 0);
     }
 
-    public HighlightPhotoListItem(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ActivityListItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initInflate();
         initInstances();
@@ -44,7 +46,7 @@ public class HighlightPhotoListItem extends BaseCustomViewGroup {
     }
 
     @TargetApi(21)
-    public HighlightPhotoListItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ActivityListItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initInflate();
         initInstances();
@@ -52,14 +54,17 @@ public class HighlightPhotoListItem extends BaseCustomViewGroup {
     }
 
     private void initInflate() {
-        inflate(getContext(), R.layout.list_item_highlight_photo, this);
+        inflate(getContext(), R.layout.list_item_activity, this);
     }
 
     private void initInstances() {
         // findViewById here
-        tvHighlightTitle = (TextView)findViewById(R.id.tvHighlightTitle);
-        tvHighlightDesc = (TextView)findViewById(R.id.tvHighlightDesc);
-        ivHighlight = (ImageView)findViewById(R.id.ivHighlight);
+        tvActivityTitle = (TextView)findViewById(R.id.tvActivityTitle);
+        tvActivityDesc = (TextView)findViewById(R.id.tvActivityDesc);
+        ivActivity = (ImageView)findViewById(R.id.ivActivity);
+        tvActivityTime = (TextView) findViewById(R.id.tvActivityTime);
+        tvActivityFaculty = (TextView) findViewById(R.id.tvActivityFaculty);
+        tvActivityBookingCount = (TextView) findViewById(R.id.tvActivityBookingCount);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -100,31 +105,47 @@ public class HighlightPhotoListItem extends BaseCustomViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = width*1/2;
-        int newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height,MeasureSpec.EXACTLY);
+
         //change Child View
-        super.onMeasure(widthMeasureSpec, newHeightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        /*
         //change Self View
         setMeasuredDimension(width,height);
+        */
     }
 
     public void setNameText(String text){
-        tvHighlightTitle.setText(text);
+        tvActivityTitle.setText(text);
     }
 
     public void setDescriptionText(String text){
-        tvHighlightDesc.setText(text);
+        tvActivityDesc.setText(text);
+    }
+
+    public void setTimeText(String text){
+        tvActivityTime.setText(text);
+    }
+
+    public void setFacultyText(String text, int color){
+        tvActivityFaculty.setText(text);
+        tvActivityFaculty.setBackgroundColor(color);
+    }
+
+    public void setBookingCountText(int booked, int capacity){
+        tvActivityBookingCount.setText(booked+"/"+capacity);
+        if(booked == capacity)  tvActivityBookingCount.setBackgroundResource(R.drawable.shape_rounded_rectangle_red);
+        else if( (double)(capacity - booked) / (double)booked <= 0.2 ) tvActivityBookingCount.setBackgroundResource(R.drawable.shape_rounded_rectangle_orange);
+        else tvActivityBookingCount.setBackgroundResource(R.drawable.shape_rounded_rectangle_green);
     }
 
     public void setImageUrl(String url){
         /*
         Glide.with(getContext())
                 .load(url)
-                .into(ivHighlight);*/
+                .into(ivActivity);*/
         //mock
-        if(url.equals("0")) ivHighlight.setImageResource(R.drawable.highlight_vidva_1);
-        else if(url.equals("1")) ivHighlight.setImageResource(R.drawable.highlight_stat_1);
-        else ivHighlight.setImageResource(R.drawable.highlight_psy_1);
+        if(url.equals("0")) ivActivity.setImageResource(R.drawable.highlight_vidva_1);
+        else if(url.equals("1")) ivActivity.setImageResource(R.drawable.highlight_stat_1);
+        else ivActivity.setImageResource(R.drawable.highlight_psy_1);
     }
 }
