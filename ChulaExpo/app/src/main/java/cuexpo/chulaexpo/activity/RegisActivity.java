@@ -1,5 +1,6 @@
 package cuexpo.chulaexpo.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class RegisActivity extends AppCompatActivity implements View.OnClickList
         btnStudent.setOnClickListener(this);
         btnWorker.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+
 
         //Load Image
         Glide.with(this)
@@ -109,7 +111,8 @@ public class RegisActivity extends AppCompatActivity implements View.OnClickList
             etYear.setText("Software Engineer");
         }
         if(v == btnNext){
-
+            Intent intent = new Intent(this, InterestActivity.class);
+            startActivity(intent);
         }
     }
 }
