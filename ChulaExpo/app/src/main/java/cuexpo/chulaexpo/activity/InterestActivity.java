@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,11 +29,13 @@ public class InterestActivity extends AppCompatActivity {
     String[] images = { "http://keenthemes.com/preview/metronic/theme/assets/global/plugins/jcrop/demos/demo_files/image1.jpg"
     };
     String[] titles = {
-            "Architecture", "Energy", "Technology", "Economy", "Title", "Title", "Title", "Title", "Title", "Title", "Title"
+            "Architecture", "Energy", "Technology", "Economy", "Title", "Title", "Title", "Title",
+            "Title", "Title", "Title", "Title", "Title", "Title"
     };
     boolean[] isInterested = { false, false, true, false, true, false, false, false, false,
-            false, false
+            false, false, true, true, false
     };
+    ArrayList<InterestItem> interestItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +43,14 @@ public class InterestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_interest);
 
         activity = this;
-        ArrayList<InterestItem> interestItems = new ArrayList<>();
+        interestItems = new ArrayList<>();
         for(int i=0; i<titles.length; i++){
             InterestItem interestItem = new InterestItem(titles[i], images[0], isInterested[i]);
             interestItems.add(interestItem);
         }
-        GridView gridview = (GridView) findViewById(R.id.grid_view);
-        gridview.setAdapter(new InterestListAdapter(this, interestItems));
+        GridView gridView = (GridView) findViewById(R.id.grid_view);
+        gridView.setAdapter(new InterestListAdapter(this, interestItems));
+        gridView.setOnItemClickListener(onItemClick);
 
         ImageView doneBtn = (ImageView) findViewById(R.id.done_btn);
         doneBtn.setOnClickListener(doneListener);
@@ -63,6 +67,22 @@ public class InterestActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(activity, MainActivity.class);
             startActivity(intent);
+        }
+    };
+
+    private AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener(){
+        @Override
+        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+            InterestItem interestItem = interestItems.get(position);
+            ImageView checkImage = (ImageView) v.findViewById(R.id.check_image);
+            if(interestItem.isInterest()) {
+                checkImage.setVisibility(View.INVISIBLE);
+                interestItem.setInterest(false);
+            }
+            else {
+                checkImage.setVisibility(View.VISIBLE);
+                interestItem.setInterest(true);
+            }
         }
     };
 

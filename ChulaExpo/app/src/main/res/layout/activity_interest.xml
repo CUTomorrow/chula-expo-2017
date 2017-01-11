@@ -19,8 +19,7 @@
         android:layout_marginBottom="100dp"
         android:id="@+id/grid_view"
         android:numColumns="3"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:listSelector="#00000000" />
 
     <ImageView
         android:layout_width="match_parent"
