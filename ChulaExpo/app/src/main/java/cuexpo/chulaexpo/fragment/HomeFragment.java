@@ -45,7 +45,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("HOMEFRAG", "IMdestroyed");
     }
 
     @Override

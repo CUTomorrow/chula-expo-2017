@@ -23,6 +23,7 @@ import java.util.Timer;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.fragment.HomeFragment;
+import cuexpo.chulaexpo.fragment.MapFragment;
 import cuexpo.chulaexpo.fragment.MoreFragment;
 import cuexpo.chulaexpo.utility.LocationTask;
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 .add("2", MoreFragment.class)
                 .add("3", HomeFragment.class)
                 .add("4", MoreFragment.class)
-                .add("5", HomeFragment.class)
+                .add("5", MapFragment.class)
                 .create());
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
