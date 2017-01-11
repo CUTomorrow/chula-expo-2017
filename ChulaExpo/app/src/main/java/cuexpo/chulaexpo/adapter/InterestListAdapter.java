@@ -51,30 +51,35 @@ public class InterestListAdapter extends BaseAdapter{
         return position;
     }
 
-    private class InterestItemHolder {
+    private class InterestViewHolder {
         TextView titleTxt;
         ImageView interestImage;
+        ImageView checkImage;
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        InterestItemHolder interestItemHolder = new InterestItemHolder();
-        View interestItem;
-        if(convertView!=null)
-            interestItem = convertView;
-        else
-            interestItem = inflater.inflate(R.layout.item_interest, null);
-        interestItemHolder.interestImage = (ImageView) interestItem.findViewById(R.id.interest_image);
-        interestItemHolder.titleTxt = (TextView) interestItem.findViewById(R.id.interest_title);
+        InterestViewHolder interestViewHolder = new InterestViewHolder();
+        View interestView;
+        InterestItem interestItem = interestItems.get(position);
 
-        Log.e("get view", "get view jaa");
+        if(convertView!=null)
+            interestView = convertView;
+        else
+            interestView = inflater.inflate(R.layout.item_interest, null);
+        interestViewHolder.interestImage = (ImageView) interestView.findViewById(R.id.interest_image);
+        interestViewHolder.titleTxt = (TextView) interestView.findViewById(R.id.interest_title);
+        interestViewHolder.checkImage = (ImageView) interestView.findViewById(R.id.check_image);
+
         Glide.with(context)
-                .load(interestItems.get(position).getImageUrl())
-                .placeholder(R.drawable.iv_profile)
+                .load(interestItem.getImageUrl())
+                .placeholder(R.drawable.cir_mock)
                 .bitmapTransform(new CropCircleTransformation(context))
-                .into(interestItemHolder.interestImage);
-        interestItemHolder.titleTxt.setText(interestItems.get(position).getTitle());
-        return interestItem;
+                .into(interestViewHolder.interestImage);
+        if(interestItem.isInterest()) interestViewHolder.checkImage.setVisibility(View.VISIBLE);
+        else interestViewHolder.checkImage.setVisibility(View.INVISIBLE);
+        interestViewHolder.titleTxt.setText(interestItem.getTitle());
+        return interestView;
     }
 }
