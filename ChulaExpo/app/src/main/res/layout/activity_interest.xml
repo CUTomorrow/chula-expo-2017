@@ -11,27 +11,83 @@
     android:paddingTop="0dp"
     tools:context="cuexpo.chulaexpo.activity.InterestActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/home_toolbar"
+        android:background="@drawable/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <TextView
+            android:id="@+id/home_toolbar_title"
+            android:text="@string/interest_title"
+            android:textSize="@dimen/title_action_bar_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="center" />
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:text="Selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/selected_title"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="14dp" />
+
+    <TextView
+        android:text="4/15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/selected"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp" />
+
     <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/grid_view"
         android:numColumns="3"
         android:listSelector="#00000000"
         android:paddingLeft="13dp"
-        android:paddingRight="13dp" />
+        android:paddingRight="13dp"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbarStyle="outsideOverlay" />
 
     <ImageView
-        android:layout_width="match_parent"
-        app:srcCompat="@drawable/done_btn"
+        android:layout_width="wrap_content"
+        app:srcCompat="@drawable/white_gradient"
+        android:id="@+id/white_gradient"
+        android:layout_alignParentBottom="true"
+        android:layout_height="150dp"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        app:srcCompat="@drawable/dottab_3"
+        android:id="@+id/dot_3"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="14dp"
+        android:layout_height="9dp" />
+
+    <ImageView
+        app:srcCompat="@drawable/done_button"
         android:id="@+id/done_btn"
         android:layout_alignParentBottom="true"
-        android:layout_height="100dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp" />
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        android:layout_width="320dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp" />
 
 </RelativeLayout>
