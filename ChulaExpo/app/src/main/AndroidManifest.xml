@@ -4,39 +4,38 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="portrait">
-
-        <activity android:name=".activity.RegisActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".activity.InterestActivity"></activity>
+        <activity android:name=".activity.RegisActivity" />
+        <activity android:name=".activity.InterestActivity" />
+        <activity android:name=".activity.MainActivity" />
 
         <meta-data
             android:name="cuexpo.chulaexpo.configuration.GlideConfiguration"
             android:value="GlideModule" />
-      
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAY84UvXm-fLC6xkNN6tq9I30XAhKrQ124"/>
+            android:value="AIzaSyAY84UvXm-fLC6xkNN6tq9I30XAhKrQ124" />
 
+        <activity android:name=".activity.LoginActivity"></activity>
     </application>
 
 </manifest>
