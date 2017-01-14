@@ -36,6 +36,7 @@ public class InterestActivity extends AppCompatActivity {
             false, false, true, true, false
     };
     ArrayList<InterestItem> interestItems;
+    TextView selectedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,9 @@ public class InterestActivity extends AppCompatActivity {
 
         ImageView doneBtn = (ImageView) findViewById(R.id.done_btn);
         doneBtn.setOnClickListener(doneListener);
+
+        selectedText = (TextView) findViewById(R.id.selected);
+        setSelectedText();
     }
 
     public int dpToPx(int dp) {
@@ -83,7 +87,17 @@ public class InterestActivity extends AppCompatActivity {
                 checkImage.setVisibility(View.VISIBLE);
                 interestItem.setInterest(true);
             }
+            setSelectedText();
         }
     };
 
+    private void setSelectedText(){
+        int selectedItem = 0;
+        int totalItem = 0;
+        for(InterestItem interestItem: interestItems){
+            if(interestItem.isInterest()) selectedItem++;
+            totalItem++;
+        }
+        selectedText.setText(selectedItem + "/" + totalItem);
+    }
 }
