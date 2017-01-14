@@ -1,5 +1,6 @@
 package cuexpo.chulaexpo.activity;
 
+<<<<<<< HEAD
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +8,16 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+=======
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+>>>>>>> edit intent flow
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+<<<<<<< HEAD
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -34,11 +41,17 @@ public class LoginActivity extends AppCompatActivity {
     private List<String> permissionNeeds = Arrays.asList("user_photos", "email",
             "user_birthday", "public_profile");
     private CallbackManager callbackManager;
+=======
+import cuexpo.chulaexpo.R;
+
+public class LoginActivity extends AppCompatActivity {
+>>>>>>> edit intent flow
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+<<<<<<< HEAD
         activity = this;
 
         ImageView facebookLogin = (ImageView) findViewById(R.id.login_facebook);
@@ -46,10 +59,17 @@ public class LoginActivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, facebookCallback);
+=======
+
+        ImageView facebookLogin = (ImageView) findViewById(R.id.login_facebook);
+        TextView guestLogin  = (TextView) findViewById(R.id.login_guest);
+
+>>>>>>> edit intent flow
         facebookLogin.setOnClickListener(facebookLoginOnClick);
         guestLogin.setOnClickListener(guestLoginOnClick);
     }
 
+<<<<<<< HEAD
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -105,10 +125,28 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(LoginActivity.this, RoleActivity.class);
+=======
+    View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(LoginActivity.this, RegisActivity.class);
+            // TODO pass facebook information through intent / store in database / sharepref
+//            intent.putExtra("facebook", facebook);
             LoginActivity.this.startActivity(intent);
             LoginActivity.this.finish();
         }
     };
+
+    View.OnClickListener guestLoginOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(LoginActivity.this, RegisActivity.class);
+>>>>>>> edit intent flow
+            LoginActivity.this.startActivity(intent);
+            LoginActivity.this.finish();
+        }
+    };
+<<<<<<< HEAD
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -120,4 +158,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+=======
+>>>>>>> edit intent flow
 }
