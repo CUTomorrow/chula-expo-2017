@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'CUExpoKey'
+            keyPassword 'CU3xp0pa22w0rd'
+            storeFile file('C:/Users/dell-pc/keystore/android.jks')
+            storePassword 'CU3xp0S70r3opa22w0rd'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -15,8 +23,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -25,7 +38,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':TheCheeseLibrary')
-
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
@@ -39,4 +51,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.0.1'
     compile 'com.google.android.gms:play-services-gcm:10.0.1'
     compile 'in.srain.cube:grid-view-with-header-footer:1.0.12'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
