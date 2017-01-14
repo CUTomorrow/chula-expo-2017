@@ -20,9 +20,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                SharedPreferences sharedPreferences = getSharedPreferences("StartAppPref", MODE_PRIVATE);
-                boolean hasLogedIn = sharedPreferences.getBoolean("hasLogedIn", false);
-                if(!hasLogedIn){
+                SharedPreferences sharedPreferences = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
+                String id = sharedPreferences.getString("id", "");
+                if(id.equals("")){
                     Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                     SplashScreenActivity.this.startActivity(intent);
                     SplashScreenActivity.this.finish();
