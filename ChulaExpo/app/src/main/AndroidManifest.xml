@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisActivity" />
         <activity android:name=".activity.InterestActivity" />
         <activity android:name=".activity.MainActivity" />
@@ -34,8 +35,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAY84UvXm-fLC6xkNN6tq9I30XAhKrQ124" />
-
-        <activity android:name=".activity.LoginActivity"></activity>
+        
     </application>
 
 </manifest>
