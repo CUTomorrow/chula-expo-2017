@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".MainApplication"
@@ -14,7 +14,11 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".activity.MainActivity">
+=======
+        <activity android:name=".activity.SplashScreenActivity">
+>>>>>>> finish splash screen
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +27,10 @@
         </activity>
         <activity android:name=".activity.RegisActivity" />
         <activity android:name=".activity.InterestActivity" />
+<<<<<<< HEAD
+=======
+        <activity android:name=".activity.MainActivity" />
+>>>>>>> finish splash screen
 
         <meta-data
             android:name="cuexpo.chulaexpo.configuration.GlideConfiguration"
@@ -30,15 +38,19 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+<<<<<<< HEAD
 
 
         <activity android:name=".activity.FavouriteActivity" />
         <activity android:name=".activity.ReservedActivity"/>
 
+=======
+>>>>>>> finish splash screen
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAY84UvXm-fLC6xkNN6tq9I30XAhKrQ124"/>
+            android:value="AIzaSyAY84UvXm-fLC6xkNN6tq9I30XAhKrQ124" />
 
+        <activity android:name=".activity.LoginActivity"></activity>
     </application>
 
 </manifest>
