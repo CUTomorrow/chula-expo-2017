@@ -43,6 +43,7 @@ import java.util.Arrays;
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> finish facebook login task
@@ -54,6 +55,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.manager.http.ApiService;
 >>>>>>> ...
+=======
+import cuexpo.chulaexpo.R;
+
+>>>>>>> clear comment
 
 public class LoginActivity extends AppCompatActivity {
     private Activity activity;
@@ -105,12 +110,6 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            ApiService apiService = HttpManager.getInstance().getService();
-//            apiService.
-//            HttpClient httpclient = new DefaultHttpClient();
-
-
-//            http://192.168.43.134:3000/
             LoginManager.getInstance().logInWithReadPermissions(activity, permissionNeeds);
         }
     };
