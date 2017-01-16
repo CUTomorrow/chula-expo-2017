@@ -21,6 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 android:layout_gravity="center" />
          </android.support.v7.widget.Toolbar>
 
@@ -28,12 +29,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+                <!--
                 <android.support.v4.view.ViewPager
                     android:id="@+id/vpHighlight"
                     android:layout_width="match_parent"
                     android:layout_height="210dp">
                 </android.support.v4.view.ViewPager>
                 <RelativeLayout
+                    android:id="@+id/layoutActivityHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#f35199">
@@ -46,6 +49,7 @@
                         style="@style/tvHighlightHeader"
                         android:background="@drawable/iv_trapezoid_pink"/>
                 </RelativeLayout>
+                -->
                 <ListView
                     android:id="@+id/lvActivity"
                     android:layout_width="match_parent"
