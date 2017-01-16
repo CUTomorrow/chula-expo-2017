@@ -1,6 +1,7 @@
 package cuexpo.chulaexpo.adapter;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -122,82 +123,133 @@ public class StageListAdapter extends BaseExpandableListAdapter {
 =======
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
+=======
+import android.content.Context;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
+>>>>>>> Merge code from Boom-sama
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.TextView;
 
-import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
-import cuexpo.chulaexpo.datatype.MutableInteger;
-import cuexpo.chulaexpo.view.ActivityListItem;
+import java.util.HashMap;
+import java.util.List;
+
+import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.fragment.StageFragment;
+import cuexpo.chulaexpo.manager.StageManager;
+import cuexpo.chulaexpo.view.StageInsideListItem;
 import cuexpo.chulaexpo.view.StageListItem;
 
 /**
- * Created by dragonnight on 26/12/2559.
+ * Created by TEST on 1/14/2017.
  */
 
-public class StageListAdapter extends BaseAdapter{
+public class StageListAdapter extends BaseExpandableListAdapter {
 
-    public StageListAdapter() {
+    List<StageListItem> listDataHeader;
+    HashMap<StageListItem, StageInsideListItem> listDataChild;
+
+    public StageListAdapter(List<StageListItem> listDataHeader,
+                                 HashMap<StageListItem, StageInsideListItem> listChildData) {
+        this.listDataHeader = listDataHeader;
+        this.listDataChild = listChildData;
 
     }
 
     @Override
-    public int getCount() {
-        return 3;
-        /*
-        if(cuexpo.chulaexpo.dao == null) return  0;
-        if(cuexpo.chulaexpo.dao.getData() == null) return 0;
-        return cuexpo.chulaexpo.dao.getData().size();
-        */
+    public Object getChild(int groupPosition, int childPosititon) {
+        return listDataChild.get(getGroup(groupPosition));
     }
 
     @Override
-    public Object getItem(int position)
-    {
-        return null;
-        // return cuexpo.chulaexpo.dao.getData().get(position);
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        StageListItem item;
-        if(convertView!=null)
-            item = (StageListItem) convertView;
-        else
-            item = new StageListItem(parent.getContext());
-
-        //Mock
-        if(position%3==0){
-            item.setTvStageId("STAGE 1");
-            item.setTvStageLocation("Main Stage");
-            item.setTvStageTime("08.30 - 09.30");
-            item.setTvStageTitle("Innovation Show");
-            item.setIvStageStatus(1);
+    public View getChildView(int groupPosition, final int childPosition,
+                             boolean isLastChild, View convertView, ViewGroup parent) {
+        StageInsideListItem item;
+        StageManager manager = StageManager.getInstance();
+        if(convertView!=null){
+            item = (StageInsideListItem) convertView;
+        }else{
+            item = new StageInsideListItem(parent.getContext());
         }
-        else if(position%3==1){
-            item.setTvStageId("STAGE 2");
-            item.setTvStageLocation("Grand Auditorium");
-            item.setTvStageTime("09.00 - 10.30");
-            item.setTvStageTitle("โครงการหุ่นยนต์ดำน้ำ");
-            item.setIvStageStatus(0);
+
+        if(groupPosition!=getGroupCount()-1){
+            StageListItem item2= (StageListItem) getGroup(groupPosition+1);
+            item.setLineStatus(manager.setLine(groupPosition,item2.getTime(),getGroupCount()));
+        }else{
+            item.setLineStatus(manager.setLine(groupPosition,new int[2],getGroupCount()));
+        }
+
+        return item;
+    }
+
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return 1;
+    }
+
+    @Override
+    public Object getGroup(int groupPosition) {
+        return listDataHeader.get(groupPosition);
+    }
+
+    @Override
+    public int getGroupCount() {
+        return listDataHeader.size();
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded,
+                             View convertView, ViewGroup parent) {
+
+        StageListItem item = (StageListItem) getGroup(groupPosition);
+        StageListItem itemDown;
+        StageManager manager = StageManager.getInstance();
+
+        if(groupPosition==getGroupCount()-1) {
+            item.setLineMode(manager.setGroupLine(groupPosition, item.getTime(),getGroupCount()));
+        }else if(groupPosition==0){
+            itemDown = (StageListItem) getGroup(groupPosition +1);
+            item.setLineMode(manager.setGroupLine(groupPosition, itemDown.getTime(), getGroupCount()));
+            item.setStatus(manager.setCircle(itemDown.getTime(),item.getTime()));
+        }else{
+            itemDown = (StageListItem) getGroup(groupPosition +1);
+            item.setLineMode(manager.setGroupLine(itemDown.getTime(),item.getTime()));
+            item.setStatus(manager.setCircle(itemDown.getTime(),item.getTime()));
+        }
+
+        if (isExpanded) {
+            item.setDrop(2);
         } else {
+<<<<<<< HEAD
             item.setTvStageId("STAGE 3");
             item.setTvStageLocation("ศาลาพระเกี้ยว");
             item.setTvStageTime("10.00 - 10.30");
             item.setTvStageTitle("Chula 100 years showcase");
             item.setIvStageStatus(1);
 >>>>>>> Commit
+=======
+            item.setDrop(1);
+>>>>>>> Merge code from Boom-sama
         }
 
         return item;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Merge code from Boom-sama
 
     @Override
     public boolean hasStableIds() {
@@ -208,6 +260,9 @@ public class StageListAdapter extends BaseAdapter{
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+<<<<<<< HEAD
 =======
 >>>>>>> Commit
+=======
+>>>>>>> Merge code from Boom-sama
 }

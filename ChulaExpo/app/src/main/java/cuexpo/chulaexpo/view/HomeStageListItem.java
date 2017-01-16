@@ -5,10 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-<<<<<<< HEAD
-=======
-import android.view.Gravity;
->>>>>>> Merge code from Boom-sama
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,30 +14,27 @@ import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 import cuexpo.chulaexpo.R;
 
 /**
- * Created by nuuneoi on 11/16/2014.
+ * Created by James on 12/25/2016.
  */
-public class FavouriteListItem extends BaseCustomViewGroup {
+public class HomeStageListItem extends BaseCustomViewGroup {
 
-    TextView tvName;
-    TextView tvTime;
-    TextView tvFac;
-    ImageView ivThumbnail;
+    TextView tvStageId, tvStageLocation, tvStageTitle, tvStageTime;
+    ImageView ivStageStatus;
 
-
-    public FavouriteListItem(Context context) {
+    public HomeStageListItem(Context context) {
         super(context);
         initInflate();
         initInstances();
     }
 
-    public FavouriteListItem(Context context, AttributeSet attrs) {
+    public HomeStageListItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         initInflate();
         initInstances();
         initWithAttrs(attrs, 0, 0);
     }
 
-    public FavouriteListItem(Context context, AttributeSet attrs, int defStyleAttr) {
+    public HomeStageListItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initInflate();
         initInstances();
@@ -49,7 +42,7 @@ public class FavouriteListItem extends BaseCustomViewGroup {
     }
 
     @TargetApi(21)
-    public FavouriteListItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public HomeStageListItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initInflate();
         initInstances();
@@ -57,15 +50,17 @@ public class FavouriteListItem extends BaseCustomViewGroup {
     }
 
     private void initInflate() {
-        inflate(getContext(), R.layout.list_favourite, this);
+        inflate(getContext(), R.layout.list_item_stage, this);
     }
 
     private void initInstances() {
         // findViewById here
-        tvName = (TextView) findViewById(R.id.favourite_tv_name);
-        tvTime = (TextView) findViewById(R.id.favourite_tv_time);
-        tvFac = (TextView) findViewById(R.id.favourite_tv_fac);
-        ivThumbnail = (ImageView) findViewById(R.id.favourite_iv_thumbnail);
+        tvStageId = (TextView) findViewById(R.id.tvStageId);
+        tvStageLocation = (TextView) findViewById(R.id.tvStageLocation);
+        tvStageTitle = (TextView)findViewById(R.id.tvStageTitle);
+        tvStageTime = (TextView)findViewById(R.id.tvStageTime);
+        ivStageStatus = (ImageView) findViewById(R.id.ivStageStatus);
+
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -104,20 +99,36 @@ public class FavouriteListItem extends BaseCustomViewGroup {
         // Restore State from bundle here
     }
 
-    public void setName(String text) {
-        tvName.setText(text);
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        //change Child View
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        /*
+        //change Self View
+        setMeasuredDimension(width,height);
+        */
     }
 
-    public void setTime(String text) {
-        tvTime.setText(text);
+    public void setTvStageId(String text) {
+        tvStageId.setText(text);
     }
 
-    public void setFaculty(String text) {
-        tvFac.setText(text);
+    public void setTvStageLocation(String text) {
+        tvStageLocation.setText(text);
     }
 
-    public void setImage(int resId) {
-        ivThumbnail.setImageResource(resId);
+    public void setTvStageTitle(String  text) {
+        tvStageTitle.setText(text);
     }
 
+    public void setTvStageTime(String text) {
+        tvStageTime.setText(text);
+    }
+
+    public void setIvStageStatus(int status){
+        //TODO : Input Time Logic
+        if(status == 1) ivStageStatus.setImageResource(R.drawable.shape_stage_circle);
+        else  ivStageStatus.setImageResource(R.drawable.shape_stage_circle_off);
+    }
 }

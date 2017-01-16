@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import android.widget.TextView;
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.HighlightListAdapter;
-import cuexpo.chulaexpo.adapter.StageListAdapter;
+import cuexpo.chulaexpo.adapter.HomeStageListAdapter;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.PhotoListManager;
 import cuexpo.chulaexpo.view.HeaderView;
@@ -27,7 +26,7 @@ public class HomeFragment extends Fragment {
     ListView lvActivity, lvStage;
     ActivityListAdapter activityListAdapter;
     HighlightListAdapter highlightListAdapter;
-    StageListAdapter stageListAdapter;
+    HomeStageListAdapter homeStageListAdapter;
     PhotoListManager photoListManager;
     MutableInteger lastPositionInteger;
     ViewPager vpHighlight;
@@ -86,22 +85,21 @@ public class HomeFragment extends Fragment {
         highlightListAdapter = new HighlightListAdapter();
         vpHighlight.setAdapter(highlightListAdapter);
 
-        lvActivity = (ListView)rootView.findViewById(R.id.lvActivity);
-        activityListAdapter = new ActivityListAdapter(lastPositionInteger);
-        activityListAdapter.setDao(photoListManager.getDao());
-        lvActivity.setAdapter(activityListAdapter);
-
         lvStage = (ListView) stageView.findViewById(R.id.lvStage);
-        stageListAdapter = new StageListAdapter();
+        homeStageListAdapter = new HomeStageListAdapter();
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) lvStage.getLayoutParams();
-        lp.height = stageListAdapter.getCount()*75*2 + lvStage.getDividerHeight()*(stageListAdapter.getCount()-1);
+        lp.height = homeStageListAdapter.getCount()*75*2 + lvStage.getDividerHeight()*(homeStageListAdapter.getCount()-1);
         lvStage.setLayoutParams(lp);
-        lvStage.setAdapter(stageListAdapter);
+        lvStage.setAdapter(homeStageListAdapter);
 
+        lvActivity = (ListView)rootView.findViewById(R.id.lvActivity);
         lvActivity.addHeaderView(highlightView);
         lvActivity.addHeaderView(stageHeaderView);
         lvActivity.addHeaderView(stageView);
         lvActivity.addHeaderView(activityHeaderView);
+        activityListAdapter = new ActivityListAdapter(lastPositionInteger);
+        activityListAdapter.setDao(photoListManager.getDao());
+        lvActivity.setAdapter(activityListAdapter);
 
 
 //        activityListAdapter.notifyDataSetChanged();

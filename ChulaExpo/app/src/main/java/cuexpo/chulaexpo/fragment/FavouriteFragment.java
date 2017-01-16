@@ -10,6 +10,10 @@ import android.widget.ListView;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.FavouriteListAdapter;
+<<<<<<< HEAD
+=======
+import cuexpo.chulaexpo.manager.FavouriteManager;
+>>>>>>> Merge code from Boom-sama
 
 
 /**

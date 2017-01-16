@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+<<<<<<< HEAD
         android:weightSum="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,11 +48,35 @@
             <LinearLayout
                 android:id="@+id/stage_status_container2"
                 android:weightSum="1"
+=======
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--android:background="@drawable/selector_list_tab"-->
+        <TextView
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/stage_tv_time"
+            android:textColor="#000000"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:text="08.00"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:weightSum="2"
+>>>>>>> Merge code from Boom-sama
                 android:orientation="vertical"
                 android:layout_centerInParent="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
+<<<<<<< HEAD
                     android:id="@+id/stage_iv_up_line"
                     android:layout_weight="0.2"
                     android:src="@color/white"
@@ -69,18 +94,37 @@
                     android:src="@color/white"
                     android:layout_gravity="center"
                     android:layout_width="3dp"
+=======
+                    android:id="@+id/stage_iv_upper"
+                    android:layout_weight="1"
+                    android:src="#d1d1d1"
+                    android:layout_gravity="center"
+                    android:layout_width="5dp"
+                    android:layout_height="0dp" />
+                <ImageView
+                    android:id="@+id/stage_iv_lower"
+                    android:layout_weight="1"
+                    android:src="#E92A85"
+                    android:layout_gravity="center"
+                    android:layout_width="5dp"
+>>>>>>> Merge code from Boom-sama
                     android:layout_height="0dp" />
             </LinearLayout>
 
             <ImageView
                 android:layout_centerInParent="true"
+<<<<<<< HEAD
                 android:id="@+id/stage_iv_status_circle"
+=======
+                android:id="@+id/stage_iv_status"
+>>>>>>> Merge code from Boom-sama
                 android:src="@drawable/soon_event"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
 
+<<<<<<< HEAD
         <LinearLayout
             android:background="#d9d9d9"
             android:orientation="horizontal"
@@ -130,6 +174,25 @@
             </LinearLayout>
         </LinearLayout>
 
+=======
+        <TextView
+            android:layout_weight="6"
+            android:id="@+id/stage_tv_name"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:text="Opening"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/stage_iv_drop"
+            android:scaleType="center"
+            android:layout_gravity="center"
+            android:src="@drawable/down"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+>>>>>>> Merge code from Boom-sama
     </LinearLayout>
 
 </RelativeLayout>

@@ -14,7 +14,10 @@ import java.util.List;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.StageListAdapter;
+<<<<<<< HEAD
 import cuexpo.chulaexpo.view.DateSelector;
+=======
+>>>>>>> Merge code from Boom-sama
 import cuexpo.chulaexpo.view.StageInsideListItem;
 import cuexpo.chulaexpo.view.StageListItem;
 
@@ -23,18 +26,25 @@ import cuexpo.chulaexpo.view.StageListItem;
  * Created by nuuneoi on 11/16/2014.
  */
 @SuppressWarnings("unused")
+<<<<<<< HEAD
 public class StageFragment extends Fragment implements View.OnClickListener {
+=======
+public class StageFragment extends Fragment {
+>>>>>>> Merge code from Boom-sama
 
     List<StageListItem> listDataHeader;
     HashMap<StageListItem, StageInsideListItem> listDataChild;
     ExpandableListView expandableListView;
     StageListAdapter listAdapter;
+<<<<<<< HEAD
     DateSelector day15;
     DateSelector day16;
     DateSelector day17;
     DateSelector day18;
     DateSelector day19;
 
+=======
+>>>>>>> Merge code from Boom-sama
     int previousGroup = -1;
 
     public StageFragment() {
@@ -67,6 +77,7 @@ public class StageFragment extends Fragment implements View.OnClickListener {
         StageListItem item = new StageListItem(getContext());
         StageInsideListItem item2 = new StageInsideListItem(getContext());
 
+<<<<<<< HEAD
         day15.setDate("15");
         day16.setDate("16");
         day17.setDate("17");
@@ -123,6 +134,33 @@ public class StageFragment extends Fragment implements View.OnClickListener {
 
 
         listAdapter = new StageListAdapter(listDataHeader, listDataChild);
+=======
+        item.setTime("08.00");
+        item.setStatus(1);
+        item.setName("Opening");
+        item.setLineMode(1);
+        listDataHeader.add(item);
+
+        item = new StageListItem(getContext());
+        item.setTime("08.20");
+        item.setStatus(1);
+        item.setName("Chulalongkorn Talk");
+        item.setLineMode(3);
+        listDataHeader.add(item);
+
+        item = new StageListItem(getContext());
+        item.setTime("08.30");
+        item.setStatus(1);
+        item.setName("Robotic Vaccum Cleaner");
+        item.setLineMode(6);
+        listDataHeader.add(item);
+
+        listDataChild.put(listDataHeader.get(0),item2);
+        listDataChild.put(listDataHeader.get(1),item2);
+        listDataChild.put(listDataHeader.get(2),item2);
+
+        listAdapter = new StageListAdapter(listDataHeader,listDataChild);
+>>>>>>> Merge code from Boom-sama
 
         // setting list adapter
         expandableListView.setAdapter(listAdapter);
@@ -179,6 +217,7 @@ public class StageFragment extends Fragment implements View.OnClickListener {
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.stage_content_container);
         listDataHeader = new ArrayList<>();
         listDataChild = new HashMap<>();
+<<<<<<< HEAD
         day15 = (DateSelector) rootView.findViewById(R.id.stage_date_selector);
         day16 = (DateSelector) rootView.findViewById(R.id.stage_date_selector2);
         day17 = (DateSelector) rootView.findViewById(R.id.stage_date_selector3);
@@ -221,6 +260,8 @@ public class StageFragment extends Fragment implements View.OnClickListener {
         } else {
 
         }
+=======
+>>>>>>> Merge code from Boom-sama
     }
 
     @Override
@@ -250,5 +291,8 @@ public class StageFragment extends Fragment implements View.OnClickListener {
         // Restore Instance State here
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Merge code from Boom-sama
 }

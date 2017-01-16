@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+=======
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+>>>>>>> Merge code from Boom-sama
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<<<<<<< HEAD
 
     <RelativeLayout
         android:background="#d9d9d9"
@@ -92,3 +97,31 @@
 
 
 </android.support.design.widget.CoordinatorLayout>
+=======
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/stage_toolbar"
+        android:background="@drawable/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <TextView
+            android:id="@+id/stage_toolbar_title"
+            android:text="Main Stage"
+            android:textSize="@dimen/title_toolbar_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="center" />
+    </android.support.v7.widget.Toolbar>
+
+    <ExpandableListView
+        android:listSelector="@color/transparent"
+        android:divider="@null"
+        android:groupIndicator="@null"
+        android:childDivider="@color/white"
+        android:id="@+id/stage_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ExpandableListView>
+
+</LinearLayout>
+>>>>>>> Merge code from Boom-sama

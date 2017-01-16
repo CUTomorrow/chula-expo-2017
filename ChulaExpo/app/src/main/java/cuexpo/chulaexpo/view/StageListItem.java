@@ -9,15 +9,21 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import cuexpo.chulaexpo.R;
 
 /**
+<<<<<<< HEAD
 <<<<<<< HEAD
  * Created by nuuneoi on 11/16/2014.
  */
@@ -39,6 +45,18 @@ public class StageListItem extends BaseCustomViewGroup {
     TextView tvStageId, tvStageLocation, tvStageTitle, tvStageTime;
     ImageView ivStageStatus;
 >>>>>>> Commit
+=======
+ * Created by nuuneoi on 11/16/2014.
+ */
+public class StageListItem extends BaseCustomViewGroup {
+
+    TextView tvTime;
+    TextView tvName;
+    ImageView ivStatus;
+    ImageView ivDrop;
+    ImageView ivUpper;
+    ImageView ivLower;
+>>>>>>> Merge code from Boom-sama
 
     public StageListItem(Context context) {
         super(context);
@@ -70,14 +88,19 @@ public class StageListItem extends BaseCustomViewGroup {
 
     private void initInflate() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         inflate(getContext(), R.layout.list_stage, this);
 =======
         inflate(getContext(), R.layout.list_item_stage, this);
 >>>>>>> Commit
+=======
+        inflate(getContext(), R.layout.list_stage, this);
+>>>>>>> Merge code from Boom-sama
     }
 
     private void initInstances() {
         // findViewById here
+<<<<<<< HEAD
 <<<<<<< HEAD
         tvStartTime = (TextView) findViewById(R.id.stage_tv_start_time);
         tvEndTime = (TextView) findViewById(R.id.stage_tv_end_time);
@@ -95,6 +118,14 @@ public class StageListItem extends BaseCustomViewGroup {
         ivStageStatus = (ImageView) findViewById(R.id.ivStageStatus);
 
 >>>>>>> Commit
+=======
+        tvTime = (TextView) findViewById(R.id.stage_tv_time);
+        tvName = (TextView) findViewById(R.id.stage_tv_name);
+        ivStatus = (ImageView) findViewById(R.id.stage_iv_status);
+        ivDrop = (ImageView) findViewById(R.id.stage_iv_drop);
+        ivUpper = (ImageView) findViewById(R.id.stage_iv_upper);
+        ivLower = (ImageView) findViewById(R.id.stage_iv_lower);
+>>>>>>> Merge code from Boom-sama
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -133,6 +164,7 @@ public class StageListItem extends BaseCustomViewGroup {
         // Restore State from bundle here
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public int[] getStartTime() {
         String time = tvStartTime.getText().toString();
@@ -205,28 +237,68 @@ public class StageListItem extends BaseCustomViewGroup {
         //change Self View
         setMeasuredDimension(width,height);
         */
+=======
+    public int[] getTime(){
+        String time = tvTime.getText().toString();
+        int param[] = new int[2];
+        param[0] = Integer.parseInt(time.substring(0,time.indexOf(".")));
+        param[1] = Integer.parseInt(time.substring(time.indexOf(".")+1));
+        return param;
+>>>>>>> Merge code from Boom-sama
     }
 
-    public void setTvStageId(String text) {
-        tvStageId.setText(text);
+    public void setTime(String time) {
+        tvTime.setText(time);
     }
 
-    public void setTvStageLocation(String text) {
-        tvStageLocation.setText(text);
+    public void setStatus(int status) {
+        if(status == 1)
+            ivStatus.setImageResource(R.drawable.soon_event);
+        else if(status == 2)ivStatus.setImageResource(R.drawable.pass_event);
+        else{
+            ivStatus.setImageResource(R.drawable.now_event);
+        }
     }
 
-    public void setTvStageTitle(String  text) {
-        tvStageTitle.setText(text);
+    public void setName(String name) {
+        tvName.setText(name);
     }
 
-    public void setTvStageTime(String text) {
-        tvStageTime.setText(text);
+    public void setDrop(int state) {
+        if (state == 1)
+            ivDrop.setImageResource(R.drawable.down);
+        else
+            ivDrop.setImageResource(R.drawable.up);
     }
 
-    public void setIvStageStatus(int status){
-        //TODO : Input Time Logic
-        if(status == 1) ivStageStatus.setImageResource(R.drawable.shape_stage_circle);
-        else  ivStageStatus.setImageResource(R.drawable.shape_stage_circle_off);
+    public void setLineMode(int state) {
+
+        if (state == 1) {           //Start no pass
+            ivUpper.setImageResource(R.color.transparent);
+            ivLower.setImageResource(R.color.stage_soon);
+        } else if (state == 2) {     //Start pass
+            ivUpper.setImageResource(R.color.transparent);
+            ivLower.setImageResource(R.color.stage_pass);
+        } else if (state == 3) {     //Other soon
+            ivUpper.setImageResource(R.color.stage_soon);
+            ivLower.setImageResource(R.color.stage_soon);
+        } else if (state == 4) {      //Other half pass
+            ivUpper.setImageResource(R.color.stage_pass);
+            ivLower.setImageResource(R.color.stage_soon);
+        } else if (state == 5) {      //Other pass
+            ivUpper.setImageResource(R.color.stage_pass);
+            ivLower.setImageResource(R.color.stage_pass);
+        } else if (state == 6) {      //Last soon
+            ivUpper.setImageResource(R.color.stage_soon);
+            ivLower.setImageResource(R.color.transparent);
+        } else {                  //Last pass
+            ivUpper.setImageResource(R.color.stage_pass);
+            ivLower.setImageResource(R.color.transparent);
+        }
     }
+<<<<<<< HEAD
 >>>>>>> Commit
+=======
+
+>>>>>>> Merge code from Boom-sama
 }

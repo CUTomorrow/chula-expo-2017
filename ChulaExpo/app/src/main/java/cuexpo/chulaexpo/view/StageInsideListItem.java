@@ -2,9 +2,15 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+<<<<<<< HEAD
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+=======
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.text.Layout;
+>>>>>>> Merge code from Boom-sama
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,8 +21,14 @@ import android.widget.TextView;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
+<<<<<<< HEAD
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.activity.FavouriteActivity;
+=======
+import org.w3c.dom.Text;
+
+import cuexpo.chulaexpo.R;
+>>>>>>> Merge code from Boom-sama
 
 /**
  * Created by nuuneoi on 11/16/2014.
@@ -24,10 +36,19 @@ import cuexpo.chulaexpo.activity.FavouriteActivity;
 public class StageInsideListItem extends BaseCustomViewGroup implements View.OnTouchListener {
 
     TextView tvDescription;
+<<<<<<< HEAD
     ImageView ivLine;
     View vBottomDivider;
     LinearLayout btnView;
     LinearLayout btnFavourite;
+=======
+    ImageView ivStatus;
+    View vBottomDivider;
+    TextView btnView;
+    /*LinearLayout btnReserve;
+    LinearLayout btnShare;
+    LinearLayout btnFavourite;*/
+>>>>>>> Merge code from Boom-sama
 
     public StageInsideListItem(Context context) {
         super(context);
@@ -65,11 +86,23 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
         // findViewById here
         tvDescription = (TextView) findViewById(R.id.stage_inside_tv_description);
         vBottomDivider = findViewById(R.id.stage_inside_bottom_divider);
+<<<<<<< HEAD
         ivLine = (ImageView) findViewById(R.id.stage_inside_iv_line);
         btnView = (LinearLayout) findViewById(R.id.stage_inside_btn_info);
         btnFavourite = (LinearLayout) findViewById(R.id.stage_inside_btn_favourite);
         btnView.setOnTouchListener(this);
         btnFavourite.setOnTouchListener(this);
+=======
+        ivStatus = (ImageView) findViewById(R.id.stage_inside_iv_status);
+        btnView = (TextView) findViewById(R.id.stage_inside_view);
+        btnView.setOnTouchListener(this);
+        /*btnReserve = (LinearLayout) findViewById(R.id.stage_inside_reserve);
+        btnShare = (LinearLayout) findViewById(R.id.stage_inside_share);
+        btnFavourite = (LinearLayout) findViewById(R.id.stage_inside_favourite);
+        btnReserve.setOnTouchListener(this);
+        btnShare.setOnTouchListener(this);
+        btnFavourite.setOnTouchListener(this);*/
+>>>>>>> Merge code from Boom-sama
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -120,6 +153,7 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
         }
     }
 
+<<<<<<< HEAD
     public void setLineStatus(int state){
         if(state==1){
             ivLine.setImageResource(R.color.white);
@@ -127,6 +161,16 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
             ivLine.setImageResource(R.color.transparent);
         }
 
+=======
+    public void setLineStatus(int state) {
+        if (state == 1) {
+            ivStatus.setImageResource(R.color.stage_soon);
+        } else if (state == 2) {
+            ivStatus.setImageResource(R.color.stage_pass);
+        } else {
+            ivStatus.setImageResource(R.color.transparent);
+        }
+>>>>>>> Merge code from Boom-sama
     }
 
     @Override
@@ -142,6 +186,7 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
                     break;
                 }
             }
+<<<<<<< HEAD
         }else if (v == btnFavourite) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
@@ -158,4 +203,43 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
     }
 
 
+=======
+        }
+        /*if (v == btnReserve) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    btnReserve.setBackgroundResource(R.drawable.border_selected);
+                    break;
+                }
+                case MotionEvent.ACTION_UP: {
+                    btnReserve.setBackgroundResource(R.drawable.border);
+                    break;
+                }
+            }
+        } else if (v == btnShare) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    btnShare.setBackgroundResource(R.drawable.border2_selected);
+                    break;
+                }
+                case MotionEvent.ACTION_UP: {
+                    btnShare.setBackgroundResource(R.drawable.border2);
+                    break;
+                }
+            }
+        }else if (v == btnFavourite) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    btnFavourite.setBackgroundResource(R.drawable.border3_selected);
+                    break;
+                }
+                case MotionEvent.ACTION_UP: {
+                    btnFavourite.setBackgroundResource(R.drawable.border3);
+                    break;
+                }
+            }
+        }*/
+        return true;
+    }
+>>>>>>> Merge code from Boom-sama
 }

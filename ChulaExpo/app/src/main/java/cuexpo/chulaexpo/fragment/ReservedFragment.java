@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import cuexpo.chulaexpo.R;
+<<<<<<< HEAD
+=======
+import cuexpo.chulaexpo.adapter.FavouriteListAdapter;
+>>>>>>> Merge code from Boom-sama
 import cuexpo.chulaexpo.adapter.ReservedListAdapter;
 
 
