@@ -11,8 +11,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+<<<<<<< HEAD
     <string name="home_title">CHULA EXPO 2017</string>
     <string name="interest_title">Select Your Interest</string>
+=======
+    <string name="home_title">Home</string>
+    <string name="regis_adult_title">Adult Register</string>
+    <string name="regis_student_title">Student Register</string>
+    <!--Role-->
+    <string name="register_title">Register</string>
+    <string name="role_title">Select Your Role</string>
+    <string name="role_student">STUDENT</string>
+    <string name="role_adult">ADULT</string>
+>>>>>>> Commit
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>

@@ -2,6 +2,7 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -22,7 +23,7 @@ import cuexpo.chulaexpo.R;
  */
 public class ActivityListItem extends BaseCustomViewGroup {
 
-    TextView tvActivityTitle, tvActivityDesc, tvActivityTime,tvActivityFaculty,tvActivityBookingCount;
+    TextView tvActivityTitle, tvActivityTime,tvActivityFaculty, tvActivityBookingCount;
     ImageView ivActivity;
 
     public ActivityListItem(Context context) {
@@ -60,7 +61,6 @@ public class ActivityListItem extends BaseCustomViewGroup {
     private void initInstances() {
         // findViewById here
         tvActivityTitle = (TextView)findViewById(R.id.tvActivityTitle);
-        tvActivityDesc = (TextView)findViewById(R.id.tvActivityDesc);
         ivActivity = (ImageView)findViewById(R.id.ivActivity);
         tvActivityTime = (TextView) findViewById(R.id.tvActivityTime);
         tvActivityFaculty = (TextView) findViewById(R.id.tvActivityFaculty);
@@ -118,10 +118,6 @@ public class ActivityListItem extends BaseCustomViewGroup {
         tvActivityTitle.setText(text);
     }
 
-    public void setDescriptionText(String text){
-        tvActivityDesc.setText(text);
-    }
-
     public void setTimeText(String text){
         tvActivityTime.setText(text);
     }
@@ -133,9 +129,9 @@ public class ActivityListItem extends BaseCustomViewGroup {
 
     public void setBookingCountText(int booked, int capacity){
         tvActivityBookingCount.setText(booked+"/"+capacity);
-        if(booked == capacity)  tvActivityBookingCount.setBackgroundResource(R.drawable.shape_rounded_rectangle_red);
-        else if( (double)(capacity - booked) / (double)booked <= 0.2 ) tvActivityBookingCount.setBackgroundResource(R.drawable.shape_rounded_rectangle_orange);
-        else tvActivityBookingCount.setBackgroundResource(R.drawable.shape_rounded_rectangle_green);
+        if(booked == capacity)  tvActivityBookingCount.setBackgroundColor(Color.rgb(176,7,7));
+        else if( (double)(capacity - booked) / (double)booked <= 0.2 ) tvActivityBookingCount.setBackgroundColor(Color.rgb(255,137,33));
+        else tvActivityBookingCount.setBackgroundColor(Color.rgb(0,223,94));
     }
 
     public void setImageUrl(String url){

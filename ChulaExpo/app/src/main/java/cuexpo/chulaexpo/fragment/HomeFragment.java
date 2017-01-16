@@ -9,25 +9,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.HighlightListAdapter;
+import cuexpo.chulaexpo.adapter.StageListAdapter;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.PhotoListManager;
+import cuexpo.chulaexpo.view.HeaderView;
 
 public class HomeFragment extends Fragment {
 
     Toolbar toolbar;
-    ListView listView;
-    ActivityListAdapter listAdapter;
+    ListView lvActivity, lvStage;
+    ActivityListAdapter activityListAdapter;
     HighlightListAdapter highlightListAdapter;
+    StageListAdapter stageListAdapter;
     PhotoListManager photoListManager;
     MutableInteger lastPositionInteger;
     ViewPager vpHighlight;
     TextView tvHighlightLabel,tvHighlightTime;
+    View activityHeaderView, stageHeaderView, highlightView, stageView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -51,6 +56,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
+        activityHeaderView =  new HeaderView(getContext(),"ACTIVITY");
+        stageHeaderView = new HeaderView(getContext(),"ON STAGE");
+        highlightView =  inflater.inflate(R.layout.viewpager_highlight, container, false);
+        stageView = inflater.inflate(R.layout.listview_stage,container,false);
         initInstances(rootView,savedInstanceState);
         return rootView;
     }
@@ -69,16 +78,34 @@ public class HomeFragment extends Fragment {
         toolbar.setTitle("");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        vpHighlight = (ViewPager)rootView.findViewById(R.id.vpHighlight);
-        tvHighlightLabel = (TextView)rootView.findViewById(R.id.tvHighlightLabel);
-        tvHighlightTime = (TextView)rootView.findViewById(R.id.tvHighlightTime);
+//        layoutActivityHeader = (RelativeLayout) rootView.findViewById(R.id.layoutActivityHeader);
+
+        vpHighlight = (ViewPager)highlightView.findViewById(R.id.vpHighlight);
+        tvHighlightLabel = (TextView)highlightView.findViewById(R.id.tvHighlightLabel);
+        tvHighlightTime = (TextView)highlightView.findViewById(R.id.tvHighlightTime);
         highlightListAdapter = new HighlightListAdapter();
         vpHighlight.setAdapter(highlightListAdapter);
 
-        listView = (ListView)rootView.findViewById(R.id.lvActivity);
-        listAdapter = new ActivityListAdapter(lastPositionInteger);
-        listAdapter.setDao(photoListManager.getDao());
-        listView.setAdapter(listAdapter);
+        lvActivity = (ListView)rootView.findViewById(R.id.lvActivity);
+        activityListAdapter = new ActivityListAdapter(lastPositionInteger);
+        activityListAdapter.setDao(photoListManager.getDao());
+        lvActivity.setAdapter(activityListAdapter);
+
+        lvStage = (ListView) stageView.findViewById(R.id.lvStage);
+        stageListAdapter = new StageListAdapter();
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) lvStage.getLayoutParams();
+        lp.height = stageListAdapter.getCount()*75*2 + lvStage.getDividerHeight()*(stageListAdapter.getCount()-1);
+        lvStage.setLayoutParams(lp);
+        lvStage.setAdapter(stageListAdapter);
+
+        lvActivity.addHeaderView(highlightView);
+        lvActivity.addHeaderView(stageHeaderView);
+        lvActivity.addHeaderView(stageView);
+        lvActivity.addHeaderView(activityHeaderView);
+
+
+//        activityListAdapter.notifyDataSetChanged();
+        //lvActivity.addHeaderView(vpHighlight);
 
 
         /* Fetch Data From Server
@@ -88,8 +115,8 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<PhotoItemCollectionDao> call, Response<PhotoItemCollectionDao> response) {
                 if(response.isSuccessful()){
                     PhotoItemCollectionDao cuexpo.chulaexpo.dao = response.body();
-                    listAdapter.setDao(cuexpo.chulaexpo.dao);
-                     listAdapter.notifyDataSetChanged();
+                    activityListAdapter.setDao(cuexpo.chulaexpo.dao);
+                     activityListAdapter.notifyDataSetChanged();
                 } else {
                     //response but not success
                     try {

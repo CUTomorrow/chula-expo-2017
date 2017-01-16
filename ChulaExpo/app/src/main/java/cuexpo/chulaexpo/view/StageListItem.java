@@ -2,7 +2,10 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+<<<<<<< HEAD
 import android.graphics.Typeface;
+=======
+>>>>>>> Commit
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -15,6 +18,7 @@ import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 import cuexpo.chulaexpo.R;
 
 /**
+<<<<<<< HEAD
  * Created by nuuneoi on 11/16/2014.
  */
 public class StageListItem extends BaseCustomViewGroup {
@@ -27,6 +31,14 @@ public class StageListItem extends BaseCustomViewGroup {
     ImageView ivUpper;
     ImageView kuy;
     ImageView ivLower;
+=======
+ * Created by James on 12/25/2016.
+ */
+public class StageListItem extends BaseCustomViewGroup {
+
+    TextView tvStageId, tvStageLocation, tvStageTitle, tvStageTime;
+    ImageView ivStageStatus;
+>>>>>>> Commit
 
     public StageListItem(Context context) {
         super(context);
@@ -57,11 +69,16 @@ public class StageListItem extends BaseCustomViewGroup {
     }
 
     private void initInflate() {
+<<<<<<< HEAD
         inflate(getContext(), R.layout.list_stage, this);
+=======
+        inflate(getContext(), R.layout.list_item_stage, this);
+>>>>>>> Commit
     }
 
     private void initInstances() {
         // findViewById here
+<<<<<<< HEAD
         tvStartTime = (TextView) findViewById(R.id.stage_tv_start_time);
         tvEndTime = (TextView) findViewById(R.id.stage_tv_end_time);
         ivStatus = (ImageView) findViewById(R.id.stage_iv_status_circle);
@@ -70,6 +87,14 @@ public class StageListItem extends BaseCustomViewGroup {
         ivLower = (ImageView) findViewById(R.id.stage_iv_down_line);
         //kuy = (ImageView) findViewById(R.id.whatthefuck);
         tvName = (TextView) findViewById(R.id.stage_tv_name);
+=======
+        tvStageId = (TextView) findViewById(R.id.tvStageId);
+        tvStageLocation = (TextView) findViewById(R.id.tvStageLocation);
+        tvStageTitle = (TextView)findViewById(R.id.tvStageTitle);
+        tvStageTime = (TextView)findViewById(R.id.tvStageTime);
+        ivStageStatus = (ImageView) findViewById(R.id.ivStageStatus);
+
+>>>>>>> Commit
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -108,6 +133,7 @@ public class StageListItem extends BaseCustomViewGroup {
         // Restore State from bundle here
     }
 
+<<<<<<< HEAD
     public int[] getStartTime() {
         String time = tvStartTime.getText().toString();
         int param[] = new int[2];
@@ -169,4 +195,38 @@ public class StageListItem extends BaseCustomViewGroup {
         }
     }
 
+=======
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        //change Child View
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        /*
+        //change Self View
+        setMeasuredDimension(width,height);
+        */
+    }
+
+    public void setTvStageId(String text) {
+        tvStageId.setText(text);
+    }
+
+    public void setTvStageLocation(String text) {
+        tvStageLocation.setText(text);
+    }
+
+    public void setTvStageTitle(String  text) {
+        tvStageTitle.setText(text);
+    }
+
+    public void setTvStageTime(String text) {
+        tvStageTime.setText(text);
+    }
+
+    public void setIvStageStatus(int status){
+        //TODO : Input Time Logic
+        if(status == 1) ivStageStatus.setImageResource(R.drawable.shape_stage_circle);
+        else  ivStageStatus.setImageResource(R.drawable.shape_stage_circle_off);
+    }
+>>>>>>> Commit
 }

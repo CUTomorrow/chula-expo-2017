@@ -13,12 +13,19 @@
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
+<<<<<<< HEAD
         android:theme="@style/AppTheme">
 <<<<<<< HEAD
         <activity android:name=".activity.MainActivity">
 =======
         <activity android:name=".activity.SplashScreenActivity">
 >>>>>>> finish splash screen
+=======
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
+
+        <activity android:name=".activity.RoleActivity">
+>>>>>>> Commit
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +33,7 @@
             </intent-filter>
         </activity>
 
+<<<<<<< HEAD
         <!--facebook login-->
         <activity android:name=".activity.LoginActivity" />
         <activity
@@ -49,6 +57,12 @@
 =======
         <activity android:name=".activity.MainActivity" />
 >>>>>>> finish splash screen
+=======
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.RegisAdultActivity"></activity>
+        <activity android:name=".activity.RegisStudentActivity"></activity>
+        <activity android:name=".activity.InterestActivity"></activity>
+>>>>>>> Commit
 
         <meta-data
             android:name="cuexpo.chulaexpo.configuration.GlideConfiguration"
