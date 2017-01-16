@@ -8,29 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
         <TextView
             android:id="@+id/tvHighlightLabel"
             android:text="EXPO HIGHLIGHT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
             style="@style/tvHighlightHeader"
-            android:background="@drawable/iv_trapezoid_pink"/>
-        <TextView
-            android:id="@+id/tvHighlightTime"
-            android:text="13.00 - 15.00"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/tvHighlightHeader"
-            android:textSize="16sp"
-            android:textAlignment="center"
-            android:background="@drawable/iv_trapezoid_pink"/>
-    </LinearLayout>
-
+            android:background="@drawable/shape_rounded_rectangle_pink"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,16 +29,30 @@
         android:layout_alignParentBottom="true"
         android:padding="@dimen/highlight_title_padding"
         android:background="@color/highlight_tab_backgroud">
-        <TextView
-            android:id="@+id/tvHighlightTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vidva Highlight"
-            android:textColor="@color/highlight_tab_text"
-            android:textSize="@dimen/highlight_title"
-            android:maxLines="1"
-            android:textStyle="bold"
-            android:ellipsize="end"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvHighlightTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vidva Highlight"
+                android:textColor="@color/highlight_tab_text"
+                android:textSize="@dimen/highlight_title"
+                android:maxLines="1"
+                android:textStyle="bold"
+                android:ellipsize="end"/>
+            <TextView
+                android:id="@+id/tvHighlightTime"
+                android:text="13.00 - 15.00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/tvHighlightHeader"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/tvHighlightDesc"
             android:layout_width="wrap_content"

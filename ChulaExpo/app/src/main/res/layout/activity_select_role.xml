@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/home_toolbar"
+        android:background="@drawable/toolbar_bg"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <TextView
+            android:id="@+id/role_toolbar_title"
+            android:text="@string/register_title"
+            android:textSize="@dimen/title_toolbar_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_primary">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/blackTransparent"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:layout_margin="20dp">
+            <TextView
+                android:text="@string/role_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:textSize="18dp"
+                style="@style/etRegis"/>
+            <Button
+                android:id="@+id/btnStudent"
+                android:text="Student"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                style="@style/buttonPrimaryStyle" />
+            <Button
+                android:id="@+id/btnAdult"
+                android:text="Adult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                style="@style/buttonPrimaryStyle"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
