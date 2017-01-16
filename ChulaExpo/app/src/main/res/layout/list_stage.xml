@@ -6,6 +6,7 @@
 
     <LinearLayout
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:weightSum="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,10 +50,12 @@
                 android:id="@+id/stage_status_container2"
                 android:weightSum="1"
 =======
+=======
+        android:background="@drawable/selector_list_tab"
+>>>>>>> add resource file
         android:weightSum="10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!--android:background="@drawable/selector_list_tab"-->
         <TextView
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
