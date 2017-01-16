@@ -47,8 +47,13 @@ import java.util.List;
 
 >>>>>>> finish facebook login task
 import cuexpo.chulaexpo.R;
+<<<<<<< HEAD
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+=======
+import cuexpo.chulaexpo.manager.HttpManager;
+import cuexpo.chulaexpo.manager.http.ApiService;
+>>>>>>> ...
 
 public class LoginActivity extends AppCompatActivity {
     private Activity activity;
@@ -100,6 +105,12 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+//            ApiService apiService = HttpManager.getInstance().getService();
+//            apiService.
+//            HttpClient httpclient = new DefaultHttpClient();
+
+
+//            http://192.168.43.134:3000/
             LoginManager.getInstance().logInWithReadPermissions(activity, permissionNeeds);
         }
     };
@@ -140,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.apply();
 
                 Intent intent = new Intent(LoginActivity.this, RoleActivity.class);
+<<<<<<< HEAD
                 LoginActivity.this.startActivity(intent);
                 LoginActivity.this.finish();
             } catch (JSONException error) {
@@ -199,6 +211,8 @@ public class LoginActivity extends AppCompatActivity {
                 editor.apply();
 
                 Intent intent = new Intent(LoginActivity.this, RegisActivity.class);
+=======
+>>>>>>> ...
                 LoginActivity.this.startActivity(intent);
                 LoginActivity.this.finish();
             } catch (JSONException error) {
@@ -210,8 +224,12 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener guestLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+<<<<<<< HEAD
             Intent intent = new Intent(LoginActivity.this, RegisActivity.class);
 >>>>>>> edit intent flow
+=======
+            Intent intent = new Intent(LoginActivity.this, RoleActivity.class);
+>>>>>>> ...
             LoginActivity.this.startActivity(intent);
             LoginActivity.this.finish();
         }
