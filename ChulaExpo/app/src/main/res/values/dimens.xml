@@ -2,9 +2,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="title_toolbar_size">24sp</dimen>
+    <dimen name="title_toolbar_size">22sp</dimen>
     <dimen name="title_action_bar_size">18sp</dimen>
-    <dimen name="highlight_title">18sp</dimen>
+    <dimen name="highlight_title">20sp</dimen>
     <dimen name="highlight_desc">16sp</dimen>
     <dimen name="highlight_title_padding">12dp</dimen>
     <dimen name="buttonRadius">24dp</dimen>

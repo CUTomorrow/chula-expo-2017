@@ -2,44 +2,39 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
-
-import org.w3c.dom.Text;
 
 import cuexpo.chulaexpo.R;
 
 /**
  * Created by James on 12/25/2016.
  */
-public class ActivityListItem extends BaseCustomViewGroup {
+public class StageListItem extends BaseCustomViewGroup {
 
-    TextView tvActivityTitle, tvActivityTime,tvActivityFaculty, tvActivityBookingCount;
-    ImageView ivActivity;
+    TextView tvStageId, tvStageLocation, tvStageTitle, tvStageTime;
+    ImageView ivStageStatus;
 
-    public ActivityListItem(Context context) {
+    public StageListItem(Context context) {
         super(context);
         initInflate();
         initInstances();
     }
 
-    public ActivityListItem(Context context, AttributeSet attrs) {
+    public StageListItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         initInflate();
         initInstances();
         initWithAttrs(attrs, 0, 0);
     }
 
-    public ActivityListItem(Context context, AttributeSet attrs, int defStyleAttr) {
+    public StageListItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initInflate();
         initInstances();
@@ -47,7 +42,7 @@ public class ActivityListItem extends BaseCustomViewGroup {
     }
 
     @TargetApi(21)
-    public ActivityListItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public StageListItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initInflate();
         initInstances();
@@ -55,16 +50,17 @@ public class ActivityListItem extends BaseCustomViewGroup {
     }
 
     private void initInflate() {
-        inflate(getContext(), R.layout.list_item_activity, this);
+        inflate(getContext(), R.layout.list_item_stage, this);
     }
 
     private void initInstances() {
         // findViewById here
-        tvActivityTitle = (TextView)findViewById(R.id.tvActivityTitle);
-        ivActivity = (ImageView)findViewById(R.id.ivActivity);
-        tvActivityTime = (TextView) findViewById(R.id.tvActivityTime);
-        tvActivityFaculty = (TextView) findViewById(R.id.tvActivityFaculty);
-        tvActivityBookingCount = (TextView) findViewById(R.id.tvActivityBookingCount);
+        tvStageId = (TextView) findViewById(R.id.tvStageId);
+        tvStageLocation = (TextView) findViewById(R.id.tvStageLocation);
+        tvStageTitle = (TextView)findViewById(R.id.tvStageTitle);
+        tvStageTime = (TextView)findViewById(R.id.tvStageTime);
+        ivStageStatus = (ImageView) findViewById(R.id.ivStageStatus);
+
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -114,34 +110,25 @@ public class ActivityListItem extends BaseCustomViewGroup {
         */
     }
 
-    public void setNameText(String text){
-        tvActivityTitle.setText(text);
+    public void setTvStageId(String text) {
+        tvStageId.setText(text);
     }
 
-    public void setTimeText(String text){
-        tvActivityTime.setText(text);
+    public void setTvStageLocation(String text) {
+        tvStageLocation.setText(text);
     }
 
-    public void setFacultyText(String text, int color){
-        tvActivityFaculty.setText(text);
-        tvActivityFaculty.setBackgroundColor(color);
+    public void setTvStageTitle(String  text) {
+        tvStageTitle.setText(text);
     }
 
-    public void setBookingCountText(int booked, int capacity){
-        tvActivityBookingCount.setText(booked+"/"+capacity);
-        if(booked == capacity)  tvActivityBookingCount.setBackgroundColor(Color.rgb(176,7,7));
-        else if( (double)(capacity - booked) / (double)booked <= 0.2 ) tvActivityBookingCount.setBackgroundColor(Color.rgb(255,137,33));
-        else tvActivityBookingCount.setBackgroundColor(Color.rgb(0,223,94));
+    public void setTvStageTime(String text) {
+        tvStageTime.setText(text);
     }
 
-    public void setImageUrl(String url){
-        /*
-        Glide.with(getContext())
-                .load(url)
-                .into(ivActivity);*/
-        //mock
-        if(url.equals("0")) ivActivity.setImageResource(R.drawable.highlight_vidva_1);
-        else if(url.equals("1")) ivActivity.setImageResource(R.drawable.highlight_stat_1);
-        else ivActivity.setImageResource(R.drawable.highlight_psy_1);
+    public void setIvStageStatus(int status){
+        //TODO : Input Time Logic
+        if(status == 1) ivStageStatus.setImageResource(R.drawable.shape_stage_circle);
+        else  ivStageStatus.setImageResource(R.drawable.shape_stage_circle_off);
     }
 }
