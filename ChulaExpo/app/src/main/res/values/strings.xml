@@ -1,4 +1,9 @@
 <resources>
+    <!--facebook-->
+    <string name="facebook_app_id">252924075145357</string>
+    <string name="fb_login_protocol_scheme">fb252924075145357</string>
+
+
     <string name="app_name">ChulaExpo</string>
     <string name="tab_1">ChulaExpo</string>
     <string name="tab_2">ChulaExpo</string>
@@ -14,6 +19,7 @@
     <string name="role_title">Select Your Role</string>
     <string name="role_student">STUDENT</string>
     <string name="role_adult">ADULT</string>
+    <string name="interest_title">Select Your Interest</string>
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>

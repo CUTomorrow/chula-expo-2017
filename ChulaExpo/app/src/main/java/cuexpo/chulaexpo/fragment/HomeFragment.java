@@ -50,7 +50,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("HOMEFRAG", "IMdestroyed");
     }
 
     @Override
@@ -72,7 +71,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void initInstances(View rootView,Bundle savedInstanceState) {
+    private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
         //Cannot save state
         toolbar = (Toolbar)rootView.findViewById(R.id.home_toolbar);
