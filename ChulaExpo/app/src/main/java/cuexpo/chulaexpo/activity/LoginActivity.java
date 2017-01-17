@@ -24,10 +24,8 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.List;
 
-
 import cuexpo.chulaexpo.R;
-import cuexpo.chulaexpo.manager.HttpManager;
-import cuexpo.chulaexpo.manager.http.ApiService;
+
 
 public class LoginActivity extends AppCompatActivity {
     private Activity activity;
@@ -53,12 +51,6 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            ApiService apiService = HttpManager.getInstance().getService();
-//            apiService.
-//            HttpClient httpclient = new DefaultHttpClient();
-
-
-//            http://192.168.43.134:3000/
             LoginManager.getInstance().logInWithReadPermissions(activity, permissionNeeds);
         }
     };
