@@ -26,6 +26,7 @@ import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.PhotoListManager;
 import cuexpo.chulaexpo.view.ExpandableHeightListView;
 import cuexpo.chulaexpo.view.HeaderView;
+import me.relex.circleindicator.CircleIndicator;
 
 public class HomeFragment extends Fragment {
 
@@ -38,6 +39,7 @@ public class HomeFragment extends Fragment {
     MutableInteger lastPositionInteger;
     ViewPager vpHighlight;
     TextView tvHighlightLabel,tvHighlightTime;
+    CircleIndicator indicatorHighlight;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -80,10 +82,13 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         vpHighlight = (ViewPager)rootView.findViewById(R.id.vpHighlight);
+        indicatorHighlight = (CircleIndicator)rootView.findViewById(R.id.indicatorHighlight);
         tvHighlightLabel = (TextView)rootView.findViewById(R.id.tvHighlightLabel);
         tvHighlightTime = (TextView)rootView.findViewById(R.id.tvHighlightTime);
         highlightListAdapter = new HighlightListAdapter();
         vpHighlight.setAdapter(highlightListAdapter);
+        indicatorHighlight.setViewPager(vpHighlight);
+
 
         lvStage = (ExpandableHeightListView) rootView.findViewById(R.id.lvStage);
         lvStage.setExpanded(true);

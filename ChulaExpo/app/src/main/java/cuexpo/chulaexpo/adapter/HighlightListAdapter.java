@@ -39,7 +39,7 @@ public class HighlightListAdapter extends PagerAdapter {
             item.setImageUrl("1");
         } else {
             item.setNameText("Psyxcho Highlight");
-            item.setDescriptionText("งานจุฬาฯ Expo 2017 คณะจิตวิทยา\n" +
+            item.setDescriptionText("งานจุฬาฯ Expo 2017 คณะจิตวิทยา" +
                     "Psyche Chula Expo 2017");
             item.setImageUrl("2");
         }
