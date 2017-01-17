@@ -1,5 +1,6 @@
 package cuexpo.chulaexpo.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.activity.StageActivity;
 import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.HighlightListAdapter;
 import cuexpo.chulaexpo.adapter.HomeStageListAdapter;
@@ -86,6 +89,7 @@ public class HomeFragment extends Fragment {
         lvStage.setExpanded(true);
         homeStageListAdapter = new HomeStageListAdapter();
         lvStage.setAdapter(homeStageListAdapter);
+        lvStage.setOnItemClickListener(lvStageItemClickListener);
 
         lvActivity = (ExpandableHeightListView) rootView.findViewById(R.id.lvActivity);
         activityListAdapter = new ActivityListAdapter(lastPositionInteger);
@@ -167,5 +171,16 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
+    /**************
+     * Listener
+     *************/
+    AdapterView.OnItemClickListener lvStageItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(getContext(),StageActivity.class);
+            startActivity(intent);
+        }
+    };
 
 }
