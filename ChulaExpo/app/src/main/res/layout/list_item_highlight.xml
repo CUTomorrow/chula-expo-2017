@@ -62,6 +62,9 @@
             android:textSize="@dimen/highlight_desc"
             android:maxLines="1"
             android:ellipsize="end"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="14dp"></LinearLayout>
 
     </LinearLayout>
 

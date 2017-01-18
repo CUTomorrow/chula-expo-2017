@@ -1,29 +1,37 @@
 package cuexpo.chulaexpo.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.activity.StageActivity;
 import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.HighlightListAdapter;
 import cuexpo.chulaexpo.adapter.HomeStageListAdapter;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.PhotoListManager;
+import cuexpo.chulaexpo.view.ExpandableHeightListView;
 import cuexpo.chulaexpo.view.HeaderView;
+import me.relex.circleindicator.CircleIndicator;
 
 public class HomeFragment extends Fragment {
 
     Toolbar toolbar;
-    ListView lvActivity, lvStage;
+    ExpandableHeightListView lvActivity, lvStage;
     ActivityListAdapter activityListAdapter;
     HighlightListAdapter highlightListAdapter;
     HomeStageListAdapter homeStageListAdapter;
@@ -31,7 +39,7 @@ public class HomeFragment extends Fragment {
     MutableInteger lastPositionInteger;
     ViewPager vpHighlight;
     TextView tvHighlightLabel,tvHighlightTime;
-    View activityHeaderView, stageHeaderView, highlightView, stageView;
+    CircleIndicator indicatorHighlight;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -55,10 +63,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
-        activityHeaderView =  new HeaderView(getContext(),"ACTIVITY");
-        stageHeaderView = new HeaderView(getContext(),"ON STAGE");
-        highlightView =  inflater.inflate(R.layout.viewpager_highlight, container, false);
-        stageView = inflater.inflate(R.layout.listview_stage,container,false);
         initInstances(rootView,savedInstanceState);
         return rootView;
     }
@@ -77,30 +81,26 @@ public class HomeFragment extends Fragment {
         toolbar.setTitle("");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-//        layoutActivityHeader = (RelativeLayout) rootView.findViewById(R.id.layoutActivityHeader);
-
-        vpHighlight = (ViewPager)highlightView.findViewById(R.id.vpHighlight);
-        tvHighlightLabel = (TextView)highlightView.findViewById(R.id.tvHighlightLabel);
-        tvHighlightTime = (TextView)highlightView.findViewById(R.id.tvHighlightTime);
+        vpHighlight = (ViewPager)rootView.findViewById(R.id.vpHighlight);
+        indicatorHighlight = (CircleIndicator)rootView.findViewById(R.id.indicatorHighlight);
+        tvHighlightLabel = (TextView)rootView.findViewById(R.id.tvHighlightLabel);
+        tvHighlightTime = (TextView)rootView.findViewById(R.id.tvHighlightTime);
         highlightListAdapter = new HighlightListAdapter();
         vpHighlight.setAdapter(highlightListAdapter);
+        indicatorHighlight.setViewPager(vpHighlight);
 
-        lvStage = (ListView) stageView.findViewById(R.id.lvStage);
+
+        lvStage = (ExpandableHeightListView) rootView.findViewById(R.id.lvStage);
+        lvStage.setExpanded(true);
         homeStageListAdapter = new HomeStageListAdapter();
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) lvStage.getLayoutParams();
-        lp.height = homeStageListAdapter.getCount()*75*2 + lvStage.getDividerHeight()*(homeStageListAdapter.getCount()-1);
-        lvStage.setLayoutParams(lp);
         lvStage.setAdapter(homeStageListAdapter);
+        lvStage.setOnItemClickListener(lvStageItemClickListener);
 
-        lvActivity = (ListView)rootView.findViewById(R.id.lvActivity);
-        lvActivity.addHeaderView(highlightView);
-        lvActivity.addHeaderView(stageHeaderView);
-        lvActivity.addHeaderView(stageView);
-        lvActivity.addHeaderView(activityHeaderView);
+        lvActivity = (ExpandableHeightListView) rootView.findViewById(R.id.lvActivity);
         activityListAdapter = new ActivityListAdapter(lastPositionInteger);
         activityListAdapter.setDao(photoListManager.getDao());
         lvActivity.setAdapter(activityListAdapter);
-
+        lvActivity.setExpanded(true);
 
 //        activityListAdapter.notifyDataSetChanged();
         //lvActivity.addHeaderView(vpHighlight);
@@ -176,5 +176,16 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
+    /**************
+     * Listener
+     *************/
+    AdapterView.OnItemClickListener lvStageItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(getContext(),StageActivity.class);
+            startActivity(intent);
+        }
+    };
 
 }

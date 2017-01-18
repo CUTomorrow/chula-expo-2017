@@ -12,6 +12,7 @@ import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
 import cuexpo.chulaexpo.R;
+import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by James on 12/25/2016.
@@ -76,6 +77,7 @@ public class HighlightListItem extends BaseCustomViewGroup {
         }
         */
     }
+
 
     @Override
     protected Parcelable onSaveInstanceState() {
