@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cuexpo.chulaexpo.fragment.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,6 +12,13 @@
             android:background="@drawable/toolbar_bg"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
+            <ImageView
+                android:id="@+id/home_toolbar_qr"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="3dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/iv_qr_icon" />
             <TextView
                 android:id="@+id/home_toolbar_title"
                 android:text="@string/home_title"
@@ -97,6 +102,11 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/containerQR"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 
 
 </FrameLayout>

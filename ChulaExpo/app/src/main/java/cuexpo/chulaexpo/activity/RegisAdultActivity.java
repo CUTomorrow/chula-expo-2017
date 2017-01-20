@@ -47,7 +47,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         //Load Image
         Glide.with(this)
                 .load(R.drawable.iv_profile)
-                .placeholder(R.drawable.iv_profile)
+                .placeholder(R.drawable.iv_profile_temp)
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into(ivRegisProfile);
         //Spinner

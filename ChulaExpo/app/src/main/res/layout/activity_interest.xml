@@ -66,9 +66,9 @@
         android:layout_width="wrap_content"
         app:srcCompat="@drawable/white_gradient"
         android:id="@+id/white_gradient"
-        android:layout_alignParentBottom="true"
-        android:layout_height="150dp"
-        android:scaleType="fitXY" />
+    android:layout_alignParentBottom="true"
+    android:layout_height="150dp"
+    android:scaleType="fitXY" />
 
     <ImageView
         android:layout_width="wrap_content"

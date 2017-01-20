@@ -24,7 +24,7 @@
         android:layout_weight="1">
         <ImageView
             android:id="@+id/ivRegisProfile"
-            android:src="@drawable/iv_profile"
+            android:src="@drawable/iv_profile_temp"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
             android:layout_width="170dp"
