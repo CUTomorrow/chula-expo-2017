@@ -1,5 +1,7 @@
 package cuexpo.chulaexpo.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +28,12 @@ public class QRFragment extends Fragment implements View.OnClickListener {
 
     ImageView ivQRProfile,ivQR, ivClear;
     TextView tvQRName, tvQRPersonalInfo;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+    String id,name,year,school,company;
+    int role;
+    public static final int STUDENT = 1;
+    public static final int ADULT = 2;
 
     public QRFragment() {
         super();
@@ -58,9 +66,23 @@ public class QRFragment extends Fragment implements View.OnClickListener {
 
     private void init(Bundle savedInstanceState) {
         // Init Fragment level's variable(s) here
+
+        //get SharedPref
+        sharedPref = this.getActivity().getSharedPreferences("FacebookInfo", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        id = sharedPref.getString("id","");
+        name = sharedPref.getString("name","");
+        role = sharedPref.getInt("role",STUDENT);
+        if(role == STUDENT){
+            year = sharedPref.getString("year","");
+            school = sharedPref.getString("school","");
+        } else {
+            company = sharedPref.getString("company","");
+        }
+
+
     }
 
-    @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
         ivQRProfile = (ImageView) rootView.findViewById(R.id.ivQRProfile);
@@ -71,10 +93,15 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         ivClear.setOnClickListener(this);
 
         Glide.with(getContext())
-                .load(R.drawable.iv_profile)
+                .load("http://graph.facebook.com/"+id+"/picture?type=large")
                 .placeholder(R.drawable.iv_profile_temp)
+                .error(R.drawable.iv_profile_temp)
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(ivQRProfile);
+
+        tvQRName.setText(name);
+        if(role == STUDENT) tvQRPersonalInfo.setText("Year"+year+" • "+school);
+        else tvQRPersonalInfo.setText(company);
 
         try {
             Bitmap qrBm = QRCode.from((String) tvQRName.getText()).bitmap();
