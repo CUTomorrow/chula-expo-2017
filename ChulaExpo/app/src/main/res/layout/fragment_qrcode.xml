@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blackOverlay">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="45dp">
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4.5"
+        android:background="@drawable/background_primary"
+        android:orientation="vertical">
+            <ImageView
+                android:id="@+id/ivClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_clear_white"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:alpha="0.5"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
+            <ImageView
+                android:id="@+id/ivQRProfile"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                app:srcCompat="@drawable/iv_profile_temp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/tvQrName"
+                android:text="EXPO CONSULTANT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:maxLines="1"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                style="@style/tvQR"/>
+            <TextView
+                android:id="@+id/tvQRPersonalInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Student • Year2 • Chulalongkorn University"
+                android:textAlignment="center"
+                android:maxLines="2"
+                style="@style/tvQR"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5.5"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/ivQR"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

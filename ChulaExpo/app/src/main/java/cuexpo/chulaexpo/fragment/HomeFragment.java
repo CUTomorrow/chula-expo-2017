@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -28,7 +29,7 @@ import cuexpo.chulaexpo.view.ExpandableHeightListView;
 import cuexpo.chulaexpo.view.HeaderView;
 import me.relex.circleindicator.CircleIndicator;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     Toolbar toolbar;
     ExpandableHeightListView lvActivity, lvStage;
@@ -40,6 +41,8 @@ public class HomeFragment extends Fragment {
     ViewPager vpHighlight;
     TextView tvHighlightLabel,tvHighlightTime;
     CircleIndicator indicatorHighlight;
+    ImageView ivToolbarQR;
+    View rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -62,7 +65,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
+        rootView =  inflater.inflate(R.layout.fragment_home, container, false);
         initInstances(rootView,savedInstanceState);
         return rootView;
     }
@@ -79,6 +82,8 @@ public class HomeFragment extends Fragment {
         //Cannot save state
         toolbar = (Toolbar)rootView.findViewById(R.id.home_toolbar);
         toolbar.setTitle("");
+        ivToolbarQR = (ImageView) rootView.findViewById(R.id.home_toolbar_qr);
+        ivToolbarQR.setOnClickListener(this);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         vpHighlight = (ViewPager)rootView.findViewById(R.id.vpHighlight);
@@ -188,4 +193,13 @@ public class HomeFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onClick(View v) {
+        if(v == ivToolbarQR){
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .add(R.id.containerQR,new QRFragment().newInstance(), "QRFragment")
+                    .addToBackStack(null)
+                    .commit();
+        }
+    }
 }
