@@ -7,6 +7,11 @@
     <color name="blackTransparent">#30000000</color>
     <color name="blackOverlay">#88000000</color>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    <color name="light_grey">#e8e8e8</color>
+    <color name="dark_grey">#444444</color>
+>>>>>>> add schedule part
     <!-- Home -->
 =======
     <color name="light_grey">#e8e8e8</color>
