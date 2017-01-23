@@ -82,6 +82,12 @@
                     android:paddingTop="3dp"
                     style="@style/tvHighlightHeader" />
             </LinearLayout>
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_play_arrow_white_24dp"/>
 
         </RelativeLayout>
         <LinearLayout
@@ -94,7 +100,8 @@
             <cuexpo.chulaexpo.view.ExpandableHeightListView
                 android:id="@+id/lvStage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></cuexpo.chulaexpo.view.ExpandableHeightListView>
+                android:layout_height="wrap_content"
+                android:background="@color/white"></cuexpo.chulaexpo.view.ExpandableHeightListView>
         </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/layoutActivityHeader"
@@ -126,6 +133,12 @@
                             android:paddingTop="3dp"
                             style="@style/tvHighlightHeader" />
                     </LinearLayout>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_favorite_white_24dp"/>
 
                 </RelativeLayout>
         <LinearLayout
@@ -135,8 +148,7 @@
                 <cuexpo.chulaexpo.view.ExpandableHeightListView
                     android:id="@+id/lvActivity"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"></cuexpo.chulaexpo.view.ExpandableHeightListView>
+                    android:layout_height="wrap_content"></cuexpo.chulaexpo.view.ExpandableHeightListView>
             </LinearLayout>
             </LinearLayout>
         </ScrollView>

@@ -4,7 +4,8 @@
     android:layout_height="80dp"
     android:layout_marginBottom="8dp"
     android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp">
+    android:layout_marginRight="8dp"
+    android:background="@color/white">
     <ImageView
         android:id="@+id/ivActivity"
         android:src="@drawable/highlight_vidva_1"
