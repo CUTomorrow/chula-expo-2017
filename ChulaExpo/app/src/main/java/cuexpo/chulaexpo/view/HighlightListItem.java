@@ -127,7 +127,7 @@ public class HighlightListItem extends BaseCustomViewGroup {
                 .load(url)
                 .into(ivActivity);*/
         //mock
-        if(url.equals("0")) ivHighlight.setImageResource(R.drawable.highlight_vidva_1);
+        if(url.equals("0")) ivHighlight.setImageResource(R.drawable.highlight_vidva_2);
         else if(url.equals("1")) ivHighlight.setImageResource(R.drawable.highlight_stat_1);
         else ivHighlight.setImageResource(R.drawable.highlight_psy_1);
     }
