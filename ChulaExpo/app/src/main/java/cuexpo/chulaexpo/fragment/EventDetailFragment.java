@@ -21,7 +21,6 @@ import cuexpo.chulaexpo.adapter.EventDetailListAdapter;
 
 public class EventDetailFragment extends Fragment {
 
-    private static final int MAX_ROWS = 100;
     View rootView;
     private ListView listView;
     private View eventImageView;
