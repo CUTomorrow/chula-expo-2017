@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="88dp"
     android:layout_marginBottom="8dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
@@ -9,8 +9,8 @@
     <ImageView
         android:id="@+id/ivActivity"
         android:src="@drawable/highlight_vidva_1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
         android:scaleType="centerCrop"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,6 +27,7 @@
             android:text="สาธิตอาจารย์ใหญ่"
             android:textColor="@android:color/primary_text_light"
             android:textSize="@dimen/activity_title"
+            fontPath="@string/font_bold"
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"/>
@@ -46,7 +47,8 @@
                 android:text="ENG"
                 android:padding="3dp"
                 android:layout_marginTop="4dp"
-                android:textSize="12dp"
+                android:textSize="16dp"
+                fontPath="@string/font_bold"
                 android:textColor="@android:color/white"
                 android:background="@android:color/holo_red_dark"/>
 
