@@ -53,17 +53,41 @@ public class EventDetailListAdapter extends BaseAdapter {
         if (convertView != null)
             eventDetailView = convertView;
         else {
-//            switch (position) {
-//                case 0:
+            switch (position) {
+                case 0:
                     convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
                     TextView title = (TextView) convertView.findViewById(R.id.detail);
-                    title.setText("Detail Jaaaa");
-//                    break;
-//                case 1:
-//                    convertView = inflater.inflate(R.layout.item2, null);
-//                    holder.textView = (TextView)convertView.findViewById(R.id.textSeparator);
-//                    break;
-//            }
+                    title.setText("ปกติทุกคนมีขั้นตอนการทำความสะอาดบ้าน ห้องคอนโดฯ หรือ\n" +
+                            "ที่อยู่อาศัยกันยังไงบ้าง? เชื่อว่าหลายคนก็ต้องตอบเหมือนๆ กันว่า\n" +
+                            "ต้องเริ่มจากการกวาดบ้าน เพื่อกำจัดฝุ่นผงที่อยู่บนพื้นออกให้\n" +
+                            "หมดก่อนใช่ไหมล่ะ ซึ่งแน่นอนว่าการกวาดบ้านมันก็ไม่ใช่เรื่องเล็กๆ\n" +
+                            "เลย แถมถ้าเราไม่มีอุปกรณ์ดีๆ บางทีก็ไม่สามารถเก็บฝุ่นผงจากที่\n" +
+                            "ซอกหลืบต่างๆ ได้อีกด้วย นี่แหละถึงเป็นเหตุผลว่า ทำไมเราถึงต้อง\n" +
+                            "เลือกใช้ “หุ่นยนต์ดูดฝุ่นอัตโนมัติ” แทนการพึ่งพาไม้กวาดแบบเดิม");
+                    break;
+                case 1:
+                    convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
+                    title = (TextView) convertView.findViewById(R.id.detail);
+                    title.setText("ปกติทุกคนมีขั้นตอนการทำความสะอาดบ้าน ห้องคอนโดฯ หรือ\n" +
+                            "ที่อยู่อาศัยกันยังไงบ้าง? เชื่อว่าหลายคนก็ต้องตอบเหมือนๆ กันว่า\n" +
+                            "ต้องเริ่มจากการกวาดบ้าน เพื่อกำจัดฝุ่นผงที่อยู่บนพื้นออกให้\n" +
+                            "หมดก่อนใช่ไหมล่ะ ซึ่งแน่นอนว่าการกวาดบ้านมันก็ไม่ใช่เรื่องเล็กๆ\n" +
+                            "เลย แถมถ้าเราไม่มีอุปกรณ์ดีๆ บางทีก็ไม่สามารถเก็บฝุ่นผงจากที่\n" +
+                            "ซอกหลืบต่างๆ ได้อีกด้วย นี่แหละถึงเป็นเหตุผลว่า ทำไมเราถึงต้อง\n" +
+                            "เลือกใช้ “หุ่นยนต์ดูดฝุ่นอัตโนมัติ” แทนการพึ่งพาไม้กวาดแบบเดิม");
+                    break;
+                case 2:
+                    convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
+                    title = (TextView) convertView.findViewById(R.id.detail);
+                    title.setText("ปกติทุกคนมีขั้นตอนการทำความสะอาดบ้าน ห้องคอนโดฯ หรือ\n" +
+                            "ที่อยู่อาศัยกันยังไงบ้าง? เชื่อว่าหลายคนก็ต้องตอบเหมือนๆ กันว่า\n" +
+                            "ต้องเริ่มจากการกวาดบ้าน เพื่อกำจัดฝุ่นผงที่อยู่บนพื้นออกให้\n" +
+                            "หมดก่อนใช่ไหมล่ะ ซึ่งแน่นอนว่าการกวาดบ้านมันก็ไม่ใช่เรื่องเล็กๆ\n" +
+                            "เลย แถมถ้าเราไม่มีอุปกรณ์ดีๆ บางทีก็ไม่สามารถเก็บฝุ่นผงจากที่\n" +
+                            "ซอกหลืบต่างๆ ได้อีกด้วย นี่แหละถึงเป็นเหตุผลว่า ทำไมเราถึงต้อง\n" +
+                            "เลือกใช้ “หุ่นยนต์ดูดฝุ่นอัตโนมัติ” แทนการพึ่งพาไม้กวาดแบบเดิม");
+                    break;
+            }
             eventDetailView = convertView;
         }
         return eventDetailView;
