@@ -23,7 +23,7 @@ import cuexpo.chulaexpo.R;
  */
 public class ActivityListItem extends BaseCustomViewGroup {
 
-    TextView tvActivityTitle, tvActivityTime,tvActivityFaculty, tvActivityBookingCount;
+    TextView tvActivityTitle, tvActivityTime,tvActivityFaculty;
     ImageView ivActivity;
 
     public ActivityListItem(Context context) {
@@ -64,7 +64,6 @@ public class ActivityListItem extends BaseCustomViewGroup {
         ivActivity = (ImageView)findViewById(R.id.ivActivity);
         tvActivityTime = (TextView) findViewById(R.id.tvActivityTime);
         tvActivityFaculty = (TextView) findViewById(R.id.tvActivityFaculty);
-        tvActivityBookingCount = (TextView) findViewById(R.id.tvActivityBookingCount);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -122,17 +121,19 @@ public class ActivityListItem extends BaseCustomViewGroup {
         tvActivityTime.setText(text);
     }
 
-    public void setFacultyText(String text, int color){
+    public void setFacultyText(String text,int textColor, int bgColor){
         tvActivityFaculty.setText(text);
-        tvActivityFaculty.setBackgroundColor(color);
+        tvActivityFaculty.setTextColor(textColor);
+        tvActivityFaculty.setBackgroundColor(bgColor);
     }
-
+    /*
     public void setBookingCountText(int booked, int capacity){
         tvActivityBookingCount.setText(booked+"/"+capacity);
         if(booked == capacity)  tvActivityBookingCount.setBackgroundColor(Color.rgb(176,7,7));
         else if( (double)(capacity - booked) / (double)booked <= 0.2 ) tvActivityBookingCount.setBackgroundColor(Color.rgb(255,137,33));
         else tvActivityBookingCount.setBackgroundColor(Color.rgb(0,223,94));
     }
+    */
 
     public void setImageUrl(String url){
         /*
