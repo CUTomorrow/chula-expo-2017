@@ -6,7 +6,12 @@
     <color name="white">#ffffff</color>
     <color name="blackTransparent">#30000000</color>
     <color name="blackOverlay">#88000000</color>
+<<<<<<< HEAD
     <!-- Home -->
+=======
+    <color name="light_grey">#e8e8e8</color>
+    <!-- Highlight -->
+>>>>>>> new event detail fragment with stickyheader parallax listview
     <color name="highlight_tab_backgroud">#88000000</color>
     <color name="highlight_tab_text">#FFFFFF</color>
     <color name="button_transparent">#40ffffff</color>
