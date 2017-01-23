@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cuexpo.chulaexpo.fragment.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,6 +12,13 @@
             android:background="@drawable/toolbar_bg"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
+            <ImageView
+                android:id="@+id/home_toolbar_qr"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="3dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/iv_qr_icon" />
             <TextView
                 android:id="@+id/home_toolbar_title"
                 android:text="@string/home_title"
@@ -24,39 +29,84 @@
                 android:textStyle="bold"
                 android:layout_gravity="center" />
          </android.support.v7.widget.Toolbar>
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <!--
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/vpHighlight"
-                    android:layout_width="match_parent"
-                    android:layout_height="210dp">
-                </android.support.v4.view.ViewPager>
                 <RelativeLayout
-                    android:id="@+id/layoutActivityHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#f35199">
-                    <TextView
-                        android:id="@+id/tvHighlightLabel"
-                        android:text="ACTIVITY"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        style="@style/tvHighlightHeader"
-                        android:background="@drawable/iv_trapezoid_pink"/>
+                    android:layout_height="wrap_content">
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vpHighlight"
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp">
+                    </android.support.v4.view.ViewPager>
+                    <me.relex.circleindicator.CircleIndicator
+                        android:id="@+id/indicatorHighlight"
+                        android:layout_width="match_parent"
+                        android:layout_alignBottom="@id/vpHighlight"
+                        android:layout_height="26dp"/>
                 </RelativeLayout>
-                -->
-                <ListView
+        <RelativeLayout
+            android:id="@+id/layoutStageHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tabbar_bg">
+            <TextView
+                android:id="@+id/tvStageHeaderTitle"
+                android:text="ON STAGE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:paddingLeft="10dp"
+                style="@style/tvHighlightHeader" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <cuexpo.chulaexpo.view.ExpandableHeightListView
+                android:id="@+id/lvStage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></cuexpo.chulaexpo.view.ExpandableHeightListView>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/layoutActivityHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tabbar_bg">
+            <TextView
+                android:id="@+id/tvActivityHeaderTitle"
+                android:text="SUGGESTED EVENTS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:paddingLeft="10dp"
+                style="@style/tvHighlightHeader" />
+        </RelativeLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <cuexpo.chulaexpo.view.ExpandableHeightListView
                     android:id="@+id/lvActivity"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></ListView>
+                    android:layout_height="wrap_content"></cuexpo.chulaexpo.view.ExpandableHeightListView>
             </LinearLayout>
-
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/containerQR"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 
 
 </FrameLayout>

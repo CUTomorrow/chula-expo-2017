@@ -36,7 +36,7 @@ public class LocationTask extends TimerTask{
                 Log.e("Wifi: cannot build JSON", e.toString());
             }
         }
-//        Log.d("wifiInfoList", wifiInfoList.toString());
+        Log.d("wifiInfoList", wifiInfoList.toString());
         //TODO send wifiInfoList
     }
 }

@@ -31,4 +31,9 @@
         <item name="android:background">@color/button_transparent</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="tvQR">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 </resources>

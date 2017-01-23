@@ -52,4 +52,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:10.0.1'
     compile 'in.srain.cube:grid-view-with-header-footer:1.0.12'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'me.relex:circleindicator:1.2.2@aar'
+    compile 'net.glxn.qrgen:android:2.0'
 }
