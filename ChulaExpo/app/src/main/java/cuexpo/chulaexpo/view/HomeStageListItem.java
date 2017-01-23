@@ -19,7 +19,6 @@ import cuexpo.chulaexpo.R;
 public class HomeStageListItem extends BaseCustomViewGroup {
 
     TextView tvStageId, tvStageLocation, tvStageTitle, tvStageTime;
-    ImageView ivStageStatus;
 
     public HomeStageListItem(Context context) {
         super(context);
@@ -59,7 +58,6 @@ public class HomeStageListItem extends BaseCustomViewGroup {
         tvStageLocation = (TextView) findViewById(R.id.tvStageLocation);
         tvStageTitle = (TextView)findViewById(R.id.tvStageTitle);
         tvStageTime = (TextView)findViewById(R.id.tvStageTime);
-        ivStageStatus = (ImageView) findViewById(R.id.ivStageStatus);
 
     }
 
@@ -124,11 +122,5 @@ public class HomeStageListItem extends BaseCustomViewGroup {
 
     public void setTvStageTime(String text) {
         tvStageTime.setText(text);
-    }
-
-    public void setIvStageStatus(int status){
-        //TODO : Input Time Logic
-        if(status == 1) ivStageStatus.setImageResource(R.drawable.shape_stage_circle);
-        else  ivStageStatus.setImageResource(R.drawable.shape_stage_circle_off);
     }
 }

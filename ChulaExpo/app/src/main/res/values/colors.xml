@@ -7,11 +7,13 @@
     <color name="blackTransparent">#30000000</color>
     <color name="blackOverlay">#88000000</color>
     <color name="light_grey">#e8e8e8</color>
-    <!-- Highlight -->
+    <!-- Home -->
     <color name="highlight_tab_backgroud">#88000000</color>
     <color name="highlight_tab_text">#FFFFFF</color>
     <color name="button_transparent">#40ffffff</color>
-    <color name="highlightPinkColor">#EEe93273</color>
+    <color name="highlightPinkColor">#DDe93273</color>
+    <color name="header_background">#fe5687</color>
+    <color name="home_secondary_text_light">#646464</color>
     <!--Booking -->
     <color name="booking_available">#00df5e</color>
     <color name="booking_almostFull">#ff9001</color>
