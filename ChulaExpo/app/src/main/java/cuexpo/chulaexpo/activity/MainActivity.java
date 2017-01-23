@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_mock_tab));
                         break;
                     default:
-                        throw new IllegalStateException("Invalid position : " + position);
+                        throw new IllegalStateException("Invalid position: " + position);
                 }
                 return icon;
             }
