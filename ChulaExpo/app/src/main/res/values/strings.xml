@@ -30,4 +30,7 @@
     <string name="home_activity_header_title">EVENT FOR YOU</string>
     <string name="home_activity_header_desc">แนะนำกิจกรรมที่คุณอาจสนใจ</string>
 
+    <!--FONT-->
+    <string name="font_bold">fonts/ThaiSansNeue-Bold.ttf</string>
+
 </resources>

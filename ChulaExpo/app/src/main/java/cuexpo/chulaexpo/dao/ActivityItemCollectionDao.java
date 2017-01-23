@@ -27,6 +27,9 @@ public class ActivityItemCollectionDao implements Parcelable {
         this.data = data;
     }
 
+    public ActivityItemCollectionDao() {
+    }
+
     protected ActivityItemCollectionDao(Parcel in) {
         data = in.createTypedArrayList(ActivityItemDao.CREATOR);
     }

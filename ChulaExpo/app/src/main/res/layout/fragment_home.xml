@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:textStyle="bold"
+                fontPath="@string/font_bold"
                 android:layout_gravity="center" />
          </android.support.v7.widget.Toolbar>
         <ScrollView
@@ -71,6 +71,7 @@
                     android:layout_centerVertical="true"
                     android:textStyle="bold"
                     android:paddingLeft="10dp"
+                    android:lineSpacingExtra="-4sp"
                     style="@style/tvHighlightHeader" />
                 <TextView
                     android:id="@+id/tvStageHeaderDesc"
@@ -80,7 +81,8 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="10dp"
                     android:paddingTop="3dp"
-                    style="@style/tvHighlightHeader" />
+                    style="@style/tvHeaderDesc"
+                    android:textColor="@color/white"/>
             </LinearLayout>
             <ImageView
                 android:layout_width="35dp"
@@ -122,6 +124,7 @@
                             android:layout_centerVertical="true"
                             android:textStyle="bold"
                             android:paddingLeft="10dp"
+                            android:lineSpacingExtra="-4sp"
                             style="@style/tvHighlightHeader" />
                         <TextView
                             android:id="@+id/tvActivityHeaderDesc"
@@ -131,7 +134,7 @@
                             android:layout_centerVertical="true"
                             android:paddingLeft="10dp"
                             android:paddingTop="3dp"
-                            style="@style/tvHighlightHeader" />
+                            style="@style/tvHeaderDesc" />
                     </LinearLayout>
                     <ImageView
                         android:layout_width="30dp"
