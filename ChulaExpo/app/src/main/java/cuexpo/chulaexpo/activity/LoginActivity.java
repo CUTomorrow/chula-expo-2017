@@ -4,9 +4,12 @@ package cuexpo.chulaexpo.activity;
 <<<<<<< HEAD
 import android.app.Activity;
 import android.content.Context;
+<<<<<<< HEAD
 =======
 import android.app.Activity;
 >>>>>>> finish facebook login task
+=======
+>>>>>>> attach font to every activity
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +52,9 @@ import java.util.List;
 >>>>>>> finish facebook login task
 import cuexpo.chulaexpo.R;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> attach font to every activity
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 =======
@@ -244,13 +250,19 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> attach font to every activity
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+<<<<<<< HEAD
 =======
 >>>>>>> edit intent flow
 =======
 >>>>>>> finish facebook login task
+=======
+>>>>>>> attach font to every activity
 }

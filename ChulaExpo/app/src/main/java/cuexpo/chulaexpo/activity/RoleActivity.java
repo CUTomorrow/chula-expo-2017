@@ -1,5 +1,6 @@
 package cuexpo.chulaexpo.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 
 import cuexpo.chulaexpo.R;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RoleActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,5 +52,10 @@ public class RoleActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, RegisAdultActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
