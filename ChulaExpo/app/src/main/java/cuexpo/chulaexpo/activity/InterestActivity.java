@@ -1,6 +1,7 @@
 package cuexpo.chulaexpo.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.InterestListAdapter;
 import cuexpo.chulaexpo.datatype.InterestItem;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class InterestActivity extends AppCompatActivity {
 
@@ -103,5 +105,10 @@ public class InterestActivity extends AppCompatActivity {
             totalItem++;
         }
         selectedText.setText(selectedItem + "/" + totalItem);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

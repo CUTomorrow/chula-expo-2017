@@ -22,10 +22,12 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import java.util.Timer;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.fragment.EventDetailFragment;
 import cuexpo.chulaexpo.fragment.HomeFragment;
 import cuexpo.chulaexpo.fragment.MapFragment;
 import cuexpo.chulaexpo.fragment.MoreFragment;
 import cuexpo.chulaexpo.utility.LocationTask;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add("1", HomeFragment.class)
                 .add("2", MapFragment.class)
-                .add("3", HomeFragment.class)
+                .add("3", EventDetailFragment.class)
                 .add("4", MoreFragment.class)
                 .create());
 
@@ -93,5 +95,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
