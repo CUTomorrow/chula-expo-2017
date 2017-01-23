@@ -61,7 +61,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         else {
             switch (position) {
                 case 0:
-                    convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
+                    convertView = inflater.inflate(R.layout.item_event_detail_schedule, null);
 //                    TextView title = (TextView) convertView.findViewById(R.id.detail);
 //                    title.setText("ปกติทุกคนมีขั้นตอนการทำความสะอาดบ้าน ห้องคอนโดฯ หรือ\n" +
 //                            "ที่อยู่อาศัยกันยังไงบ้าง? เชื่อว่าหลายคนก็ต้องตอบเหมือนๆ กันว่า\n" +
