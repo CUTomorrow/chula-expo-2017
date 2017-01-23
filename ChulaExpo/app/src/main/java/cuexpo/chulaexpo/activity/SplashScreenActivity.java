@@ -1,5 +1,6 @@
 package cuexpo.chulaexpo.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import cuexpo.chulaexpo.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -35,5 +37,10 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }, SPLASH_DISPLAY_LENGTH);
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
