@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.activity.EventDetailActivity;
 import cuexpo.chulaexpo.activity.StageActivity;
 import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.HighlightListAdapter;
@@ -191,7 +192,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     AdapterView.OnItemClickListener lvStageItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = new Intent(getContext(),StageActivity.class);
+            Intent intent = new Intent(getContext(), StageActivity.class);
             startActivity(intent);
         }
     };
@@ -199,6 +200,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            Intent intent = new Intent(getContext(), EventDetailActivity.class);
+//            startActivity(intent);
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.container, new EventDetailFragment());
