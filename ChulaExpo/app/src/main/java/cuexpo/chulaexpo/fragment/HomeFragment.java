@@ -3,6 +3,8 @@ package cuexpo.chulaexpo.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -106,6 +108,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         activityListAdapter.setDao(photoListManager.getDao());
         lvActivity.setAdapter(activityListAdapter);
         lvActivity.setExpanded(true);
+        lvActivity.setOnItemClickListener(lvEventItemClickListener);
 
 //        activityListAdapter.notifyDataSetChanged();
         //lvActivity.addHeaderView(vpHighlight);
@@ -190,6 +193,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(getContext(),StageActivity.class);
             startActivity(intent);
+        }
+    };
+
+    AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new EventDetailFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     };
 
