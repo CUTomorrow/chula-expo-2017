@@ -33,16 +33,16 @@ public class StageManager {
         df = new SimpleDateFormat("mm");
         int minute = Integer.parseInt(df.format(c.getTime()));
 
-        if ((param[0] == hour && hour == param2[0])&&(param[1]<=minute && minute<=param2[1])) {
+        if ((param[0] == hour && hour == param2[0])&&(param[1]<=minute && minute<param2[1])) {
             return 3;
         } else if (((param[0] == hour && hour < param2[0]) && (param[1] <= minute))){
             return 3;
-        }else if((param2[0] == hour && param[0] < hour) && (minute <= param2[1])) {
+        }else if((param2[0] == hour && param[0] < hour) && (minute < param2[1])) {
             return 3;
         }else if((param[0] < hour && hour < param2[0])){
             return 3;
         } else if ((param2[0] < hour)
-                || ((param2[0] == hour) && param2[1] < minute)) {
+                || ((param2[0] == hour) && param2[1] <= minute)) {
             return 2;
         } else
             return 1;

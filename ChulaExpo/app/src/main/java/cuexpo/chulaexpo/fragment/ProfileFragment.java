@@ -1,12 +1,15 @@
 package cuexpo.chulaexpo.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -138,8 +141,20 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }else if( v== btnSetting){
 
         }else if( v== btnFb){
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/1053263171395979"));
+                startActivity(intent);
+            } catch (Exception e) {
+                Intent intent =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/1053263171395979"));
+                startActivity(intent);
+            }
 
         }else if( v== btnAbout){
+            final Dialog dialog = new Dialog(getContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_about);
+            dialog.setCancelable(true);
+            dialog.show();
 
         }else if( v== btnLogout){
 
