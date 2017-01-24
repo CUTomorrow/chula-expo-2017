@@ -2,8 +2,10 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,28 +18,26 @@ import cuexpo.chulaexpo.R;
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class FavouriteListItem extends BaseCustomViewGroup {
+public class DateSelector extends BaseCustomViewGroup {
 
-    TextView tvName;
-    TextView tvTime;
-    TextView tvFac;
-    ImageView ivThumbnail;
+    TextView dateSelectorDate;
+    TextView dateSelectorMonth;
+    ImageView dateSelectorHighlight;
 
-
-    public FavouriteListItem(Context context) {
+    public DateSelector(Context context) {
         super(context);
         initInflate();
         initInstances();
     }
 
-    public FavouriteListItem(Context context, AttributeSet attrs) {
+    public DateSelector(Context context, AttributeSet attrs) {
         super(context, attrs);
         initInflate();
         initInstances();
         initWithAttrs(attrs, 0, 0);
     }
 
-    public FavouriteListItem(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DateSelector(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initInflate();
         initInstances();
@@ -45,7 +45,7 @@ public class FavouriteListItem extends BaseCustomViewGroup {
     }
 
     @TargetApi(21)
-    public FavouriteListItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public DateSelector(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initInflate();
         initInstances();
@@ -53,15 +53,30 @@ public class FavouriteListItem extends BaseCustomViewGroup {
     }
 
     private void initInflate() {
-        inflate(getContext(), R.layout.list_favourite, this);
+        inflate(getContext(), R.layout.date_selector, this);
     }
 
     private void initInstances() {
         // findViewById here
-        tvName = (TextView) findViewById(R.id.favourite_tv_name);
-        tvTime = (TextView) findViewById(R.id.favourite_tv_time);
-        tvFac = (TextView) findViewById(R.id.favourite_tv_fac);
-        ivThumbnail = (ImageView) findViewById(R.id.favourite_iv_thumbnail);
+        dateSelectorMonth = (TextView) findViewById(R.id.date_selector_month);
+        dateSelectorDate = (TextView) findViewById(R.id.date_selector_date);
+        dateSelectorHighlight = (ImageView) findViewById(R.id.date_selector_highlight);
+    }
+
+    public void setDate(String date){
+        dateSelectorDate.setText(date);
+    }
+
+    public void setToggle(int state){
+        if(state==1){
+            dateSelectorDate.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
+            dateSelectorMonth.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
+            dateSelectorHighlight.setBackgroundColor(Color.parseColor("#b05baf"));
+        }else{
+            dateSelectorDate.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+            dateSelectorMonth.setTextColor(ContextCompat.getColor(getContext(),R.color.black));
+            dateSelectorHighlight.setBackgroundColor(Color.parseColor("#00000000"));
+        }
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -98,22 +113,6 @@ public class FavouriteListItem extends BaseCustomViewGroup {
 
         Bundle bundle = ss.getBundle();
         // Restore State from bundle here
-    }
-
-    public void setName(String text) {
-        tvName.setText(text);
-    }
-
-    public void setTime(String text) {
-        tvTime.setText(text);
-    }
-
-    public void setFaculty(String text) {
-        tvFac.setText(text);
-    }
-
-    public void setImage(int resId) {
-        ivThumbnail.setImageResource(resId);
     }
 
 }

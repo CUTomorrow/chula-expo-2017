@@ -1,7 +1,6 @@
 package cuexpo.chulaexpo.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -9,7 +8,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +25,7 @@ import cuexpo.chulaexpo.fragment.EventPageFragment;
 import cuexpo.chulaexpo.fragment.HomeFragment;
 import cuexpo.chulaexpo.fragment.MapFragment;
 import cuexpo.chulaexpo.fragment.MoreFragment;
+import cuexpo.chulaexpo.fragment.ProfileFragment;
 import cuexpo.chulaexpo.utility.LocationTask;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -68,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
                     case 4:
                         icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_mock_tab));
                         break;
+                    case 5:
+                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_mock_tab));
+                        break;
                     default:
                         throw new IllegalStateException("Invalid position: " + position);
                 }
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 .add("2", MapFragment.class)
                 .add("3", EventPageFragment.class)
                 .add("4", MoreFragment.class)
+                .add("5", ProfileFragment.class)
                 .create());
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

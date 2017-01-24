@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
-import org.w3c.dom.Text;
-
 import cuexpo.chulaexpo.R;
 
 /**
