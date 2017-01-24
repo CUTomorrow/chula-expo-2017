@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentPagerAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add("1", EventDetailFragment.class)
+                .add("1", HomeFragment.class)
                 .add("2", MapFragment.class)
-                .add("3", HomeFragment.class)
+                .add("3", MoreFragment.class)
                 .add("4", MoreFragment.class)
                 .create());
 
