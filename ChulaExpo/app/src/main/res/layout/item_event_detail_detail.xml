@@ -46,57 +46,8 @@
                     android:orientation="horizontal"
                     android:divider="@drawable/shape_event_detail_pic_divider"
                     android:showDividers="middle"
-                    android:layout_height="44dp">
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:src="@drawable/cir_mock"
-                        android:background="@color/blackOverlay"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp" />
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:src="@drawable/cir_mock"
-                        android:background="@color/blackOverlay"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp" />
-                    <ImageView
-                        android:id="@+id/imageView6"
-                        android:src="@drawable/cir_mock"
-                        android:background="@color/blackOverlay"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp" />
-                    <ImageView
-                        android:id="@+id/imageView7"
-                        android:src="@drawable/cir_mock"
-                        android:background="@color/blackOverlay"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp" />
-                    <ImageView
-                        android:id="@+id/imageView8"
-                        android:src="@drawable/cir_mock"
-                        android:background="@color/blackOverlay"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp" />
-                    <ImageView
-                        android:id="@+id/imageView9"
-                        android:src="@drawable/cir_mock"
-                        android:background="@color/blackOverlay"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp" />
-                    <ImageView
-                        android:id="@+id/imageView10"
-                        android:src="@drawable/cir_mock"
-                        android:background="@color/blackOverlay"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp" />
-                    <ImageView
-                        android:id="@+id/imageView11"
-                        android:src="@drawable/cir_mock"
-                        android:background="@color/blackOverlay"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp" />
-
+                    android:layout_height="44dp"
+                    android:id="@+id/picture_layout">
                 </LinearLayout>
             </HorizontalScrollView>
 
