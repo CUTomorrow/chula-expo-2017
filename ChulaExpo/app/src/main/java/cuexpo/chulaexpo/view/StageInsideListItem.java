@@ -2,9 +2,9 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,9 +15,8 @@ import android.widget.TextView;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
-import org.w3c.dom.Text;
-
 import cuexpo.chulaexpo.R;
+//import cuexpo.chulaexpo.activity.FavouriteActivity;
 
 /**
  * Created by nuuneoi on 11/16/2014.
@@ -25,12 +24,10 @@ import cuexpo.chulaexpo.R;
 public class StageInsideListItem extends BaseCustomViewGroup implements View.OnTouchListener {
 
     TextView tvDescription;
-    ImageView ivStatus;
+    ImageView ivLine;
     View vBottomDivider;
-    TextView btnView;
-    /*LinearLayout btnReserve;
-    LinearLayout btnShare;
-    LinearLayout btnFavourite;*/
+    LinearLayout btnView;
+    LinearLayout btnFavourite;
 
     public StageInsideListItem(Context context) {
         super(context);
@@ -68,15 +65,11 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
         // findViewById here
         tvDescription = (TextView) findViewById(R.id.stage_inside_tv_description);
         vBottomDivider = findViewById(R.id.stage_inside_bottom_divider);
-        ivStatus = (ImageView) findViewById(R.id.stage_inside_iv_status);
-        btnView = (TextView) findViewById(R.id.stage_inside_view);
+        ivLine = (ImageView) findViewById(R.id.stage_inside_iv_line);
+        btnView = (LinearLayout) findViewById(R.id.stage_inside_btn_info);
+        btnFavourite = (LinearLayout) findViewById(R.id.stage_inside_btn_favourite);
         btnView.setOnTouchListener(this);
-        /*btnReserve = (LinearLayout) findViewById(R.id.stage_inside_reserve);
-        btnShare = (LinearLayout) findViewById(R.id.stage_inside_share);
-        btnFavourite = (LinearLayout) findViewById(R.id.stage_inside_favourite);
-        btnReserve.setOnTouchListener(this);
-        btnShare.setOnTouchListener(this);
-        btnFavourite.setOnTouchListener(this);*/
+        btnFavourite.setOnTouchListener(this);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -127,14 +120,13 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
         }
     }
 
-    public void setLineStatus(int state) {
-        if (state == 1) {
-            ivStatus.setImageResource(R.color.stage_soon);
-        } else if (state == 2) {
-            ivStatus.setImageResource(R.color.stage_pass);
-        } else {
-            ivStatus.setImageResource(R.color.transparent);
+    public void setLineStatus(int state){
+        if(state==1){
+            ivLine.setImageResource(R.color.white);
+        }else{
+            ivLine.setImageResource(R.color.transparent);
         }
+
     }
 
     @Override
@@ -150,41 +142,20 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
                     break;
                 }
             }
-        }
-        /*if (v == btnReserve) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    btnReserve.setBackgroundResource(R.drawable.border_selected);
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    btnReserve.setBackgroundResource(R.drawable.border);
-                    break;
-                }
-            }
-        } else if (v == btnShare) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    btnShare.setBackgroundResource(R.drawable.border2_selected);
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    btnShare.setBackgroundResource(R.drawable.border2);
-                    break;
-                }
-            }
         }else if (v == btnFavourite) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
-                    btnFavourite.setBackgroundResource(R.drawable.border3_selected);
+                    btnFavourite.setBackgroundResource(R.drawable.border_selected);
                     break;
                 }
                 case MotionEvent.ACTION_UP: {
-                    btnFavourite.setBackgroundResource(R.drawable.border3);
+                    btnFavourite.setBackgroundResource(R.drawable.border);
                     break;
                 }
             }
-        }*/
+        }
         return true;
     }
+
+
 }

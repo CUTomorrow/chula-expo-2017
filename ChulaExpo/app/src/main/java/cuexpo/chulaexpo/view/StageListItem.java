@@ -2,19 +2,15 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import cuexpo.chulaexpo.R;
 
@@ -23,11 +19,13 @@ import cuexpo.chulaexpo.R;
  */
 public class StageListItem extends BaseCustomViewGroup {
 
-    TextView tvTime;
+    TextView tvStartTime;
+    TextView tvEndTime;
     TextView tvName;
     ImageView ivStatus;
     ImageView ivDrop;
     ImageView ivUpper;
+    ImageView kuy;
     ImageView ivLower;
 
     public StageListItem(Context context) {
@@ -64,12 +62,14 @@ public class StageListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
-        tvTime = (TextView) findViewById(R.id.stage_tv_time);
+        tvStartTime = (TextView) findViewById(R.id.stage_tv_start_time);
+        tvEndTime = (TextView) findViewById(R.id.stage_tv_end_time);
+        ivStatus = (ImageView) findViewById(R.id.stage_iv_status_circle);
+        ivDrop = (ImageView) findViewById(R.id.stage_iv_dropdown);
+        ivUpper = (ImageView) findViewById(R.id.stage_iv_up_line);
+        ivLower = (ImageView) findViewById(R.id.stage_iv_down_line);
+        //kuy = (ImageView) findViewById(R.id.whatthefuck);
         tvName = (TextView) findViewById(R.id.stage_tv_name);
-        ivStatus = (ImageView) findViewById(R.id.stage_iv_status);
-        ivDrop = (ImageView) findViewById(R.id.stage_iv_drop);
-        ivUpper = (ImageView) findViewById(R.id.stage_iv_upper);
-        ivLower = (ImageView) findViewById(R.id.stage_iv_lower);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -108,24 +108,40 @@ public class StageListItem extends BaseCustomViewGroup {
         // Restore State from bundle here
     }
 
-    public int[] getTime(){
-        String time = tvTime.getText().toString();
+    public int[] getStartTime() {
+        String time = tvStartTime.getText().toString();
         int param[] = new int[2];
-        param[0] = Integer.parseInt(time.substring(0,time.indexOf(".")));
-        param[1] = Integer.parseInt(time.substring(time.indexOf(".")+1));
+        param[0] = Integer.parseInt(time.substring(0, time.indexOf(".")));
+        param[1] = Integer.parseInt(time.substring(time.indexOf(".") + 1));
         return param;
     }
 
-    public void setTime(String time) {
-        tvTime.setText(time);
+    public int[] getEndTime() {
+        String time = tvEndTime.getText().toString();
+        int param[] = new int[2];
+        param[0] = Integer.parseInt(time.substring(0, time.indexOf(".")));
+        param[1] = Integer.parseInt(time.substring(time.indexOf(".") + 1));
+        return param;
+    }
+
+    public void setTime(String startTime, String endTime) {
+        tvStartTime.setText(startTime);
+        tvEndTime.setText(endTime);
     }
 
     public void setStatus(int status) {
-        if(status == 1)
+        if (status == 1) {
             ivStatus.setImageResource(R.drawable.soon_event);
-        else if(status == 2)ivStatus.setImageResource(R.drawable.pass_event);
-        else{
+            tvStartTime.setTypeface(tvStartTime.getTypeface(), Typeface.NORMAL);
+            tvEndTime.setTypeface(tvEndTime.getTypeface(), Typeface.NORMAL);
+        } else if (status == 2) {
+            ivStatus.setImageResource(R.drawable.pass_event);
+            tvStartTime.setTypeface(tvStartTime.getTypeface(), Typeface.NORMAL);
+            tvEndTime.setTypeface(tvEndTime.getTypeface(), Typeface.NORMAL);
+        } else {
             ivStatus.setImageResource(R.drawable.now_event);
+            tvStartTime.setTypeface(tvStartTime.getTypeface(), Typeface.BOLD);
+            tvEndTime.setTypeface(tvEndTime.getTypeface(), Typeface.BOLD);
         }
     }
 
@@ -141,27 +157,14 @@ public class StageListItem extends BaseCustomViewGroup {
     }
 
     public void setLineMode(int state) {
-
-        if (state == 1) {           //Start no pass
+        if (state == 1) {
+            ivUpper.setImageResource(R.color.white);
+            ivLower.setImageResource(R.color.white);
+        } else if (state == 2) {
             ivUpper.setImageResource(R.color.transparent);
-            ivLower.setImageResource(R.color.stage_soon);
-        } else if (state == 2) {     //Start pass
-            ivUpper.setImageResource(R.color.transparent);
-            ivLower.setImageResource(R.color.stage_pass);
-        } else if (state == 3) {     //Other soon
-            ivUpper.setImageResource(R.color.stage_soon);
-            ivLower.setImageResource(R.color.stage_soon);
-        } else if (state == 4) {      //Other half pass
-            ivUpper.setImageResource(R.color.stage_pass);
-            ivLower.setImageResource(R.color.stage_soon);
-        } else if (state == 5) {      //Other pass
-            ivUpper.setImageResource(R.color.stage_pass);
-            ivLower.setImageResource(R.color.stage_pass);
-        } else if (state == 6) {      //Last soon
-            ivUpper.setImageResource(R.color.stage_soon);
-            ivLower.setImageResource(R.color.transparent);
-        } else {                  //Last pass
-            ivUpper.setImageResource(R.color.stage_pass);
+            ivLower.setImageResource(R.color.white);
+        } else {
+            ivUpper.setImageResource(R.color.white);
             ivLower.setImageResource(R.color.transparent);
         }
     }
