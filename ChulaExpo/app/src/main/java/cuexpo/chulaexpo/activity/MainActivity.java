@@ -21,6 +21,7 @@ import java.util.Timer;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.fragment.EventDetailFragment;
+import cuexpo.chulaexpo.fragment.EventPageFragment;
 import cuexpo.chulaexpo.fragment.HomeFragment;
 import cuexpo.chulaexpo.fragment.MapFragment;
 import cuexpo.chulaexpo.fragment.MoreFragment;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add("1", HomeFragment.class)
                 .add("2", MapFragment.class)
-                .add("3", MoreFragment.class)
+                .add("3", EventPageFragment.class)
                 .add("4", MoreFragment.class)
                 .add("5", ProfileFragment.class)
                 .create());
