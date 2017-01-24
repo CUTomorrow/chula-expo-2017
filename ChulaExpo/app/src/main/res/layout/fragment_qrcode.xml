@@ -40,9 +40,9 @@
                 android:text="EXPO CONSULTANT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:maxLines="1"
-                android:textStyle="bold"
+                fontPath="@string/font_bold"
                 android:layout_gravity="center"
                 style="@style/tvQR"/>
             <TextView

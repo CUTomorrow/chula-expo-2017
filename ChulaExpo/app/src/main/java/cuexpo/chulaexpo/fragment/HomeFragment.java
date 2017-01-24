@@ -112,12 +112,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
         /* Fetch Data From Server
-        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadPhotoList();
-        call.enqueue(new Callback<PhotoItemCollectionDao>() {
+        Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService().loadPhotoList();
+        call.enqueue(new Callback<ActivityItemCollectionDao>() {
             @Override
-            public void onResponse(Call<PhotoItemCollectionDao> call, Response<PhotoItemCollectionDao> response) {
+            public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
                 if(response.isSuccessful()){
-                    PhotoItemCollectionDao cuexpo.chulaexpo.dao = response.body();
+                    ActivityItemCollectionDao cuexpo.chulaexpo.dao = response.body();
                     activityListAdapter.setDao(cuexpo.chulaexpo.dao);
                      activityListAdapter.notifyDataSetChanged();
                 } else {
@@ -135,7 +135,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<PhotoItemCollectionDao> call, Throwable t) {
+            public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
                 //Cannot connect to server
                 try {
                     Toast.makeText(Contextor.getInstance().getContext(),

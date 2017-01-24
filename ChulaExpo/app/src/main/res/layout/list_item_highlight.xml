@@ -40,6 +40,7 @@
                 android:text="Vidva Highlight"
                 android:textColor="@color/highlight_tab_text"
                 android:textSize="@dimen/highlight_title"
+                fontPath="@string/font_bold"
                 android:maxLines="1"
                 android:textStyle="bold"
                 android:ellipsize="end"/>

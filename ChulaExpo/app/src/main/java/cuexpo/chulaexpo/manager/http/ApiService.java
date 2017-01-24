@@ -1,6 +1,6 @@
 package cuexpo.chulaexpo.manager.http;
 
-import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import retrofit2.Call;
 import retrofit2.http.POST;
 
@@ -9,6 +9,6 @@ import retrofit2.http.POST;
  */
 
 public interface ApiService {
-    @POST("list")
-    Call<PhotoItemCollectionDao> loadPhotoList();
+    @POST("")
+    Call<ActivityItemCollectionDao> loadPhotoList();
 }

@@ -5,12 +5,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.view.ActivityListItem;
-import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
 
 /**
  * Created by dragonnight on 26/12/2559.
@@ -18,7 +17,7 @@ import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
 
 public class ActivityListAdapter extends BaseAdapter{
 
-    PhotoItemCollectionDao dao;
+    ActivityItemCollectionDao dao;
     MutableInteger lastPositionInteger;
     ViewPager vpHighlight;
     RelativeLayout layoutActivity;
@@ -27,7 +26,7 @@ public class ActivityListAdapter extends BaseAdapter{
         this.lastPositionInteger = lastPositionInteger;
     }
 
-    public void setDao(PhotoItemCollectionDao dao) {
+    public void setDao(ActivityItemCollectionDao dao) {
         this.dao = dao;
     }
 
