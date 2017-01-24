@@ -22,7 +22,11 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import java.util.Timer;
 
 import cuexpo.chulaexpo.R;
+<<<<<<< HEAD
 import cuexpo.chulaexpo.fragment.EventDetailFragment;
+=======
+import cuexpo.chulaexpo.fragment.EventPageFragment;
+>>>>>>> init event page fragment
 import cuexpo.chulaexpo.fragment.HomeFragment;
 import cuexpo.chulaexpo.fragment.MapFragment;
 import cuexpo.chulaexpo.fragment.MoreFragment;
@@ -78,7 +82,11 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add("1", HomeFragment.class)
                 .add("2", MapFragment.class)
+<<<<<<< HEAD
                 .add("3", MoreFragment.class)
+=======
+                .add("3", EventPageFragment.class)
+>>>>>>> init event page fragment
                 .add("4", MoreFragment.class)
                 .create());
 
