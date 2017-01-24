@@ -20,6 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.EventDetailListAdapter;
 
@@ -41,6 +43,11 @@ public class EventDetailFragment extends Fragment {
         fragment = this;
         listView = (ListView) rootView.findViewById(R.id.list_view);
         eventImageView = rootView.findViewById(R.id.event_image);
+        Glide.with(this)
+                .load("http://www.womie.ru/wp-content/uploads/2014/04/%D0%96%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D1%8B-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B5%D1%82%D0%B0%D1%82%D0%B5%D0%BB%D0%B8-1.jpg")
+                .placeholder(R.color.blackOverlay)
+                .centerCrop()
+                .into((ImageView) eventImageView);
         headerView = (FrameLayout) rootView.findViewById(R.id.header);
         TextView title = (TextView) rootView.findViewById(R.id.title);
         title.setText("การแสดงสาธิต หุ่นยนต์ดูดฝุ่น");
