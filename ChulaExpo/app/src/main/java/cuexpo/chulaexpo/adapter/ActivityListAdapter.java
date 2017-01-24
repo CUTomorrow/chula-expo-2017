@@ -32,7 +32,7 @@ public class ActivityListAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 100;
+        return 10;
         /*
         if(cuexpo.chulaexpo.dao == null) return  0;
         if(cuexpo.chulaexpo.dao.getData() == null) return 0;

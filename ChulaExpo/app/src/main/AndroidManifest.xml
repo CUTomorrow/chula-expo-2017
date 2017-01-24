@@ -17,6 +17,7 @@
         <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,8 +43,9 @@
         <activity android:name=".activity.RegisStudentActivity" />
         <activity android:name=".activity.InterestActivity" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.EventDetailActivity" />
         <activity android:name=".activity.FavouriteActivity" />
-        <activity android:name=".activity.ReservedActivity"></activity>
+        <activity android:name=".activity.ReservedActivity" />
 
         <meta-data
             android:name="cuexpo.chulaexpo.configuration.GlideConfiguration"
@@ -58,7 +60,8 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".activity.StageActivity"></activity>
+        <activity android:name=".activity.StageActivity" />
+        <activity android:name=".activity.EventDetailActivity"></activity>
     </application>
 
 </manifest>
