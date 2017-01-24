@@ -1,5 +1,6 @@
 package cuexpo.chulaexpo.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 
 import cuexpo.chulaexpo.R;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RegisStudentActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
@@ -145,4 +147,9 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
 
         }
     };
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }

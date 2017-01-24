@@ -5,12 +5,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.view.ActivityListItem;
-import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
 
 /**
  * Created by dragonnight on 26/12/2559.
@@ -18,7 +17,7 @@ import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
 
 public class ActivityListAdapter extends BaseAdapter{
 
-    PhotoItemCollectionDao dao;
+    ActivityItemCollectionDao dao;
     MutableInteger lastPositionInteger;
     ViewPager vpHighlight;
     RelativeLayout layoutActivity;
@@ -27,7 +26,7 @@ public class ActivityListAdapter extends BaseAdapter{
         this.lastPositionInteger = lastPositionInteger;
     }
 
-    public void setDao(PhotoItemCollectionDao dao) {
+    public void setDao(ActivityItemCollectionDao dao) {
         this.dao = dao;
     }
 
@@ -65,21 +64,18 @@ public class ActivityListAdapter extends BaseAdapter{
         if(position%3==0){
             item.setNameText("Vidva Highlight");
             item.setTimeText("15 Mar 09.40 - 10.40");
-            item.setFacultyText("ENG", Color.rgb(185,0,4));
-            item.setBookingCountText(43,45);
+            item.setFacultyText("ENG",Color.WHITE, Color.rgb(185,0,4));
             item.setImageUrl("0");
         }
         else if(position%3==1){
-            item.setNameText("Stat Highlight");
+            item.setNameText("The Accountant นักบัญชีในตำนาน");
             item.setTimeText("15 Mar 11.40 - 12.40");
-            item.setFacultyText("SHI", Color.rgb(111,152,244));
-            item.setBookingCountText(10,50);
+            item.setFacultyText("ACC",Color.WHITE, Color.rgb(126,166,217));
             item.setImageUrl("1");
         } else {
             item.setNameText("Psyxcho Highlight");
             item.setTimeText("15 Mar 13.00 - 15.00");
-            item.setFacultyText("PSY", Color.rgb(234,220,0));
-            item.setBookingCountText(30,30);
+            item.setFacultyText("PSY",Color.WHITE, Color.rgb(234,220,0));
             item.setImageUrl("2");
         }
 

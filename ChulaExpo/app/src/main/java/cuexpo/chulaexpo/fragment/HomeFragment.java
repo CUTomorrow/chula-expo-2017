@@ -3,6 +3,8 @@ package cuexpo.chulaexpo.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -106,18 +108,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         activityListAdapter.setDao(photoListManager.getDao());
         lvActivity.setAdapter(activityListAdapter);
         lvActivity.setExpanded(true);
+        lvActivity.setOnItemClickListener(lvEventItemClickListener);
 
 //        activityListAdapter.notifyDataSetChanged();
         //lvActivity.addHeaderView(vpHighlight);
 
 
         /* Fetch Data From Server
-        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadPhotoList();
-        call.enqueue(new Callback<PhotoItemCollectionDao>() {
+        Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService().loadPhotoList();
+        call.enqueue(new Callback<ActivityItemCollectionDao>() {
             @Override
-            public void onResponse(Call<PhotoItemCollectionDao> call, Response<PhotoItemCollectionDao> response) {
+            public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
                 if(response.isSuccessful()){
-                    PhotoItemCollectionDao cuexpo.chulaexpo.dao = response.body();
+                    ActivityItemCollectionDao cuexpo.chulaexpo.dao = response.body();
                     activityListAdapter.setDao(cuexpo.chulaexpo.dao);
                      activityListAdapter.notifyDataSetChanged();
                 } else {
@@ -135,7 +138,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<PhotoItemCollectionDao> call, Throwable t) {
+            public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
                 //Cannot connect to server
                 try {
                     Toast.makeText(Contextor.getInstance().getContext(),
@@ -190,6 +193,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(getContext(),StageActivity.class);
             startActivity(intent);
+        }
+    };
+
+    AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new EventDetailFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     };
 
