@@ -14,6 +14,7 @@ import java.util.List;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.StageListAdapter;
+import cuexpo.chulaexpo.view.DateSelector;
 import cuexpo.chulaexpo.view.StageInsideListItem;
 import cuexpo.chulaexpo.view.StageListItem;
 
@@ -22,12 +23,18 @@ import cuexpo.chulaexpo.view.StageListItem;
  * Created by nuuneoi on 11/16/2014.
  */
 @SuppressWarnings("unused")
-public class StageFragment extends Fragment {
+public class StageFragment extends Fragment implements View.OnClickListener {
 
     List<StageListItem> listDataHeader;
     HashMap<StageListItem, StageInsideListItem> listDataChild;
     ExpandableListView expandableListView;
     StageListAdapter listAdapter;
+    DateSelector day15;
+    DateSelector day16;
+    DateSelector day17;
+    DateSelector day18;
+    DateSelector day19;
+
     int previousGroup = -1;
 
     public StageFragment() {
@@ -60,31 +67,62 @@ public class StageFragment extends Fragment {
         StageListItem item = new StageListItem(getContext());
         StageInsideListItem item2 = new StageInsideListItem(getContext());
 
-        item.setTime("08.00");
-        item.setStatus(1);
+        day15.setDate("15");
+        day16.setDate("16");
+        day17.setDate("17");
+        day18.setDate("18");
+        day19.setDate("19");
+
+        day15.setToggle(1);
+        day16.setToggle(0);
+        day17.setToggle(0);
+        day18.setToggle(0);
+        day19.setToggle(0);
+
+        day15.setOnClickListener(this);
+        day16.setOnClickListener(this);
+        day17.setOnClickListener(this);
+        day18.setOnClickListener(this);
+        day19.setOnClickListener(this);
+
+        item.setTime("08.00","08.05");
         item.setName("Opening");
-        item.setLineMode(1);
         listDataHeader.add(item);
 
         item = new StageListItem(getContext());
-        item.setTime("08.20");
-        item.setStatus(1);
+        item.setTime("08.05","08.10");
         item.setName("Chulalongkorn Talk");
-        item.setLineMode(3);
         listDataHeader.add(item);
 
         item = new StageListItem(getContext());
-        item.setTime("08.30");
-        item.setStatus(1);
+        item.setTime("08.10","08.15");
         item.setName("Robotic Vaccum Cleaner");
-        item.setLineMode(6);
         listDataHeader.add(item);
 
-        listDataChild.put(listDataHeader.get(0),item2);
-        listDataChild.put(listDataHeader.get(1),item2);
-        listDataChild.put(listDataHeader.get(2),item2);
+        item = new StageListItem(getContext());
+        item.setTime("08.15","08.20");
+        item.setName("In The Time Of Modern : Overture");
+        listDataHeader.add(item);
 
-        listAdapter = new StageListAdapter(listDataHeader,listDataChild);
+        item = new StageListItem(getContext());
+        item.setTime("08.20","08.30");
+        item.setName("In The Time Of Modern : Epilouge");
+        listDataHeader.add(item);
+
+        item = new StageListItem(getContext());
+        item.setTime("08.30","09.30");
+        item.setName("Final Fantasy : Game Conceptual Design");
+        listDataHeader.add(item);
+
+        listDataChild.put(listDataHeader.get(0), item2);
+        listDataChild.put(listDataHeader.get(1), item2);
+        listDataChild.put(listDataHeader.get(2), item2);
+        listDataChild.put(listDataHeader.get(3), item2);
+        listDataChild.put(listDataHeader.get(4), item2);
+        listDataChild.put(listDataHeader.get(5), item2);
+
+
+        listAdapter = new StageListAdapter(listDataHeader, listDataChild);
 
         // setting list adapter
         expandableListView.setAdapter(listAdapter);
@@ -141,6 +179,48 @@ public class StageFragment extends Fragment {
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.stage_content_container);
         listDataHeader = new ArrayList<>();
         listDataChild = new HashMap<>();
+        day15 = (DateSelector) rootView.findViewById(R.id.stage_date_selector);
+        day16 = (DateSelector) rootView.findViewById(R.id.stage_date_selector2);
+        day17 = (DateSelector) rootView.findViewById(R.id.stage_date_selector3);
+        day18 = (DateSelector) rootView.findViewById(R.id.stage_date_selector4);
+        day19 = (DateSelector) rootView.findViewById(R.id.stage_date_selector5);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == day15) {
+            day15.setToggle(1);
+            day16.setToggle(0);
+            day17.setToggle(0);
+            day18.setToggle(0);
+            day19.setToggle(0);
+        } else if (v == day16) {
+            day15.setToggle(0);
+            day16.setToggle(1);
+            day17.setToggle(0);
+            day18.setToggle(0);
+            day19.setToggle(0);
+        } else if (v == day17) {
+            day15.setToggle(0);
+            day16.setToggle(0);
+            day17.setToggle(1);
+            day18.setToggle(0);
+            day19.setToggle(0);
+        } else if (v == day18) {
+            day15.setToggle(0);
+            day16.setToggle(0);
+            day17.setToggle(0);
+            day18.setToggle(1);
+            day19.setToggle(0);
+        } else if (v == day19) {
+            day15.setToggle(0);
+            day16.setToggle(0);
+            day17.setToggle(0);
+            day18.setToggle(0);
+            day19.setToggle(1);
+        } else {
+
+        }
     }
 
     @Override
@@ -169,5 +249,6 @@ public class StageFragment extends Fragment {
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore Instance State here
     }
+
 
 }

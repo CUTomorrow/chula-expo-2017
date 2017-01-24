@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import cuexpo.chulaexpo.R;
-import cuexpo.chulaexpo.adapter.FavouriteListAdapter;
 import cuexpo.chulaexpo.adapter.ReservedListAdapter;
 
 

@@ -17,7 +17,6 @@
         <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,6 +42,8 @@
         <activity android:name=".activity.RegisStudentActivity" />
         <activity android:name=".activity.InterestActivity" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.FavouriteActivity" />
+        <activity android:name=".activity.ReservedActivity"></activity>
 
         <meta-data
             android:name="cuexpo.chulaexpo.configuration.GlideConfiguration"

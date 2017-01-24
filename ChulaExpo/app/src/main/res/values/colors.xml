@@ -19,12 +19,13 @@
     <color name="booking_available">#00df5e</color>
     <color name="booking_almostFull">#ff9001</color>
     <color name="booking_full">#b90004</color>
-    <!--BY STEPBOOM-->
-    <color name="stage_soon">#E92A85</color>
+	<!--BY STEPBOOM-->
+	<color name="stage_soon">#E92A85</color>
     <color name="stage_pass">#d1d1d1</color>
     <color name="transparent">#00ffffff</color>
     <color name="reserved">#5490B3</color>
     <color name="share">#8845CF</color>
     <color name="favourite">#E4C045</color>
     <color name="highlight_tab_list">#d0d0d0</color>
+    <color name="black">#000000</color>
 </resources>
