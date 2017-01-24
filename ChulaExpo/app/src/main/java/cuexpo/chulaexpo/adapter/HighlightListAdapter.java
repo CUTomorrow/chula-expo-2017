@@ -29,12 +29,12 @@ public class HighlightListAdapter extends PagerAdapter {
 
         //mock highlight
         if(position%3==0){
-            item.setNameText("Vidva Highlight");
-            item.setDescriptionText("นิทรรศการวิชาการทางวิศวกรรมครั้งที่ 17 (Nitad 17)");
+            item.setNameText("ละครนิทรรศ 17");
+            item.setDescriptionText("การกลับมาอีกครั้งในรอบ 4 ปีของละครเวทีคณะวิศวกรรมศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย");
             item.setImageUrl("0");
         }
         else if(position%3==1){
-            item.setNameText("Stat Highlight");
+            item.setNameText("The Accountant นักบัญชี");
             item.setDescriptionText("งาน STAT CHULA EXPO 2017 ของภาควิชาสถิติ คณะพาณิชยศาสตร์และการบัญชี จุฬาฯ วันที่ 15-19 มีนาคม 2017");
             item.setImageUrl("1");
         } else {

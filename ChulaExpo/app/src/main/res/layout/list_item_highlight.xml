@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/ivHighlight"
-        android:src="@drawable/highlight_vidva_1"
+        android:src="@drawable/highlight_vidva_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
@@ -28,10 +28,11 @@
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:padding="@dimen/highlight_title_padding"
-        android:background="@color/highlight_tab_backgroud">
+        android:background="#80000000">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp">
             <TextView
                 android:id="@+id/tvHighlightTitle"
                 android:layout_width="wrap_content"
@@ -39,6 +40,7 @@
                 android:text="Vidva Highlight"
                 android:textColor="@color/highlight_tab_text"
                 android:textSize="@dimen/highlight_title"
+                fontPath="@string/font_bold"
                 android:maxLines="1"
                 android:textStyle="bold"
                 android:ellipsize="end"/>
@@ -52,13 +54,13 @@
                 android:textAlignment="center"
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
-
         <TextView
             android:id="@+id/tvHighlightDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="นิทรรศการวิชาการทางวิศวกรรมครั้งที่ 17 (Nitad 17)"
             android:textColor="@color/highlight_tab_text"
+            android:paddingLeft="12dp"
             android:textSize="@dimen/highlight_desc"
             android:maxLines="1"
             android:ellipsize="end"/>

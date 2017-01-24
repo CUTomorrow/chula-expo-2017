@@ -1,10 +1,12 @@
 package cuexpo.chulaexpo.activity;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.fragment.StageFragment;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class StageActivity extends AppCompatActivity {
 
@@ -17,5 +19,10 @@ public class StageActivity extends AppCompatActivity {
                     .add(R.id.stage_container, StageFragment.newInstance())
                     .commit();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

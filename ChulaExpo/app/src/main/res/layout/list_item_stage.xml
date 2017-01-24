@@ -1,58 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
-    android:paddingTop="17dp"
-    android:paddingBottom="17dp"
-    android:paddingRight="16dp">
-        <ImageView
-            android:id="@+id/ivStageStatus"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/shape_stage_circle"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"/>
+    android:layout_height="70dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="14dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="18dp"
+    android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_toRightOf="@id/ivStageStatus">
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/tvStageId"
                 android:text="STAGE 1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:textSize="16dp"/>
+                fontPath="@string/font_bold"
+                android:textSize="18sp"/>
             <TextView
                 android:id="@+id/tvStageLocation"
-                android:text="Grand Auditorium"
+                android:text="หอประชุมจุฬา"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:textSize="14dp"/>
+                fontPath="@string/font_bold"
+                android:lineSpacingExtra="-3sp"
+                android:textSize="18sp"/>
         </LinearLayout>
         <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="185dp"
+        android:layout_marginLeft="10dp"
             android:orientation="vertical">
         <TextView
             android:id="@+id/tvStageTitle"
-            android:text="Innovation Show"
+            android:text="จุฬาฯ กับ Innovation"
             android:textColor="@android:color/black"
-            android:textSize="16dp"
+            android:textSize="20dp"
             android:maxLines="1"
+            fontPath="@string/font_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tvStageTime"
                 android:text="08.30 - 09.30"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="16dp"
+                android:textColor="@color/home_secondary_text_light"
+                android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

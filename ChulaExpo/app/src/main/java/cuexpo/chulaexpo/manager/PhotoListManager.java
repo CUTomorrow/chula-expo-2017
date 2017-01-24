@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
-import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 
 /**
  * Created by nuuneoi on 11/16/2014.
@@ -15,7 +15,7 @@ import cuexpo.chulaexpo.dao.PhotoItemCollectionDao;
 public class PhotoListManager {
 
     private Context mContext;
-    private PhotoItemCollectionDao dao;
+    private ActivityItemCollectionDao dao;
 
     public PhotoListManager() {
         mContext = Contextor.getInstance().getContext();
@@ -23,11 +23,11 @@ public class PhotoListManager {
         loadCache();
     }
 
-    public PhotoItemCollectionDao getDao() {
+    public ActivityItemCollectionDao getDao() {
         return dao;
     }
 
-    public void setDao(PhotoItemCollectionDao dao) {
+    public void setDao(ActivityItemCollectionDao dao) {
         this.dao = dao;
         //Save to Persistent storage
         saveCache();
@@ -44,7 +44,7 @@ public class PhotoListManager {
     }
 
     private void saveCache(){
-        PhotoItemCollectionDao cacheDao = new PhotoItemCollectionDao();
+        ActivityItemCollectionDao cacheDao = new ActivityItemCollectionDao();
         if(dao != null && dao.getData() != null)
             cacheDao.setData(dao.getData().subList(0,Math.min(20,dao.getData().size())));
         String json = new Gson().toJson(cacheDao);
@@ -59,6 +59,6 @@ public class PhotoListManager {
         SharedPreferences prefs = mContext.getSharedPreferences("photos",Context.MODE_PRIVATE);
         String json = prefs.getString("json",null);
         if(json == null) return;
-        dao = new Gson().fromJson(json,PhotoItemCollectionDao.class);
+        dao = new Gson().fromJson(json,ActivityItemCollectionDao.class);
     }
 }
