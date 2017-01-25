@@ -19,6 +19,10 @@ import java.util.List;
 import cuexpo.chulaexpo.adapter.SearchListAdapter;
 import cuexpo.chulaexpo.fragment.EventDetailFragment;
 import cuexpo.chulaexpo.view.EventListItem;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 
@@ -37,15 +41,16 @@ public class SearchFragment extends Fragment {
         searchListAdapter = new SearchListAdapter(eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
-        recyclerView.setAdapter(searchListAdapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(searchListAdapter);
+//        scaleAdapter.setDuration(3000);
+        recyclerView.setAdapter(scaleAdapter);
         setEventList();
         return rootView;
     }
 
     private void setEventList() {
         eventList.clear();
-        for(int i=0; i<10; i++){
+        for(int i=0; i<20; i++){
             String []tags = {"ENG"};
             eventList.add(new EventListItem(1, "The Accountant", "18 มีนาคม 13.00-14.00", tags));
         }
