@@ -20,7 +20,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import java.util.Timer;
 
 import cuexpo.chulaexpo.R;
-import cuexpo.chulaexpo.fragment.EventDetailFragment;
+import cuexpo.chulaexpo.SearchFragment;
 import cuexpo.chulaexpo.fragment.EventPageFragment;
 import cuexpo.chulaexpo.fragment.HomeFragment;
 import cuexpo.chulaexpo.fragment.MapFragment;
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 .add("1", HomeFragment.class)
                 .add("2", MapFragment.class)
                 .add("3", EventPageFragment.class)
-                .add("4", MoreFragment.class)
+                .add("4", SearchFragment.class)
                 .add("5", ProfileFragment.class)
                 .create());
 
