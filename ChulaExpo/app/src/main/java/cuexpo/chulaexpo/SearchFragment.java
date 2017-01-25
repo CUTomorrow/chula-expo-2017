@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cuexpo.chulaexpo.adapter.SearchListAdapter;
+import cuexpo.chulaexpo.fragment.EventDetailFragment;
 import cuexpo.chulaexpo.view.EventListItem;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -31,7 +34,7 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        searchListAdapter = new SearchListAdapter(eventList, false);
+        searchListAdapter = new SearchListAdapter(eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
@@ -48,4 +51,5 @@ public class SearchFragment extends Fragment {
         }
         searchListAdapter.notifyDataSetChanged();
     }
+
 }

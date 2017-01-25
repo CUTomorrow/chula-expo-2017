@@ -1,6 +1,8 @@
 package cuexpo.chulaexpo.adapter;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.fragment.EventDetailFragment;
 import cuexpo.chulaexpo.view.EventListItem;
 
 /**
@@ -32,17 +35,29 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final short EVENT = 0;
     private final short HEADER = 1;
     private final short MAP = 2;
+    private FragmentManager fragmentManager;
 
-    public class SearchViewHolder extends RecyclerView.ViewHolder{
+    public class EventViewHolder extends RecyclerView.ViewHolder{
         public TextView title, time;
         public LinearLayout tags;
-        public SearchViewHolder(View view) {
+        public EventViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             time = (TextView) view.findViewById(R.id.time);
             tags = (LinearLayout) view.findViewById(R.id.tags);
+            view.setOnClickListener(onEventClick);
         }
     }
+
+    private View.OnClickListener onEventClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new EventDetailFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+    };
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description;
@@ -65,9 +80,10 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public SearchListAdapter(List<EventListItem> eventList, boolean isSearching) {
+    public SearchListAdapter(List<EventListItem> eventList, boolean isSearching, FragmentManager fragmentManager) {
         this.eventList = eventList;
         this.isSearching = isSearching;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -86,7 +102,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 break;
             default:
                 View v = inflater.inflate(R.layout.item_event, parent, false);
-                viewHolder = new SearchViewHolder(v);
+                viewHolder = new EventViewHolder(v);
                 break;
         }
         return viewHolder;
@@ -102,7 +118,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 setMapItem((MapViewHolder) holder);
                 break;
             case EVENT:
-                setEventItem((SearchViewHolder) holder, position-3);
+                setEventItem((EventViewHolder) holder, position-3);
                 break;
         }
     }
@@ -123,7 +139,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return EVENT;
     }
 
-    private void setEventItem(SearchViewHolder holder, int eventPosition) {
+    private void setEventItem(EventViewHolder holder, int eventPosition) {
         EventListItem movie = eventList.get(eventPosition);
         holder.title.setText(movie.getTitle());
         holder.time.setText(movie.getTime());

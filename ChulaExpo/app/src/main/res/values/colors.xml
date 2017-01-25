@@ -4,12 +4,12 @@
     <color name="colorPrimaryDark">#2e2749</color>
     <color name="colorAccent">#ff6d9a</color>
     <color name="white">#ffffff</color>
-    <color name="blackTransparent">#30000000</color>
-    <color name="blackOverlay">#88000000</color>
     <color name="light_grey">#e8e8e8</color>
     <color name="light_grey_form">#ebebeb</color>
     <color name="light_grey_header">#cbcbcb</color>
     <color name="dark_grey">#444444</color>
+    <color name="blackTransparent">#30000000</color>
+    <color name="blackOverlay">#88000000</color>
     <!-- Event item -->
     <color name="time">#313131</color>
     <!-- Home -->
