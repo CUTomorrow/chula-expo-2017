@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:hardwareAccelerated="true"
         android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -61,7 +62,6 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".activity.StageActivity" />
-        <activity android:name=".activity.EventDetailActivity"></activity>
     </application>
 
 </manifest>

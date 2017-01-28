@@ -3,7 +3,6 @@
     android:shape="rectangle" >
 
     <solid android:color="@color/button_transparent" />
-    <corners
-        android:radius="@dimen/buttonRadius"
-         />
+    <corners android:radius="@dimen/buttonRadius" />
+
 </shape>
