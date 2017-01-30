@@ -1,30 +1,19 @@
 package cuexpo.chulaexpo.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import cuexpo.chulaexpo.R;
-import cuexpo.chulaexpo.adapter.ActivityListAdapter;
-import cuexpo.chulaexpo.adapter.HighlightListAdapter;
-import cuexpo.chulaexpo.adapter.HomeStageListAdapter;
-import cuexpo.chulaexpo.datatype.MutableInteger;
-import cuexpo.chulaexpo.manager.PhotoListManager;
-import cuexpo.chulaexpo.view.ExpandableHeightListView;
-import me.relex.circleindicator.CircleIndicator;
 
 public class EventPageFragment extends Fragment implements View.OnClickListener {
     private Toolbar toolbar;
@@ -61,7 +50,7 @@ public class EventPageFragment extends Fragment implements View.OnClickListener 
     private void initTab() {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 this.getChildFragmentManager(), FragmentPagerItems.with(getActivity())
-                .add("city", MoreFragment.class)
+                .add("city", CityListFragment.class)
                 .add("faculty", MoreFragment.class)
                 .add("interest", MoreFragment.class)
                 .create());

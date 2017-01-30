@@ -40,17 +40,17 @@
             android:textSize="@dimen/activity_desc"
             android:maxLines="1"
             android:ellipsize="end"/>
-            <TextView
-                android:id="@+id/tvActivityFaculty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ENG"
-                android:padding="3dp"
-                android:layout_marginTop="4dp"
-                android:textSize="16dp"
-                fontPath="@string/font_bold"
-                android:textColor="@android:color/white"
-                android:background="@android:color/holo_red_dark"/>
+        <TextView
+            android:id="@+id/tvActivityFaculty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ENG"
+            android:padding="3dp"
+            android:layout_marginTop="4dp"
+            android:textSize="16dp"
+            fontPath="@string/font_bold"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_red_dark"/>
 
     </LinearLayout>
 
