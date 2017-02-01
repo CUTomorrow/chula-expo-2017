@@ -35,9 +35,9 @@ public class CityListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         CityListItem city;
-        /*if (convertView != null)
+        if (convertView != null)
             city = (CityListItem) convertView;
-        else*/
+        else
             city = new CityListItem(parent.getContext());
 
         //mock

@@ -2,6 +2,7 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -15,26 +16,26 @@ import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 import cuexpo.chulaexpo.R;
 
 
-public class CityListItem extends BaseCustomViewGroup {
+public class FacultyListItem extends BaseCustomViewGroup {
 
-    TextView cityTitle, numberOfEvents, cityTag;
-    ImageView cityBg;
-    ImageView cityIcon;
+    ImageView facultyBg;
+    ImageView facultyIcon;
+    TextView facultyTag, facultyTitle, facultyTitleEng;
 
-    public CityListItem(Context context) {
+    public FacultyListItem(Context context) {
         super(context);
         initInflate();
         initInstances();
     }
 
-    public CityListItem(Context context, AttributeSet attrs) {
+    public FacultyListItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         initInflate();
         initInstances();
         initWithAttrs(attrs, 0, 0);
     }
 
-    public CityListItem(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FacultyListItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initInflate();
         initInstances();
@@ -42,7 +43,7 @@ public class CityListItem extends BaseCustomViewGroup {
     }
 
     @TargetApi(21)
-    public CityListItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public FacultyListItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initInflate();
         initInstances();
@@ -50,16 +51,16 @@ public class CityListItem extends BaseCustomViewGroup {
     }
 
     private void initInflate() {
-        inflate(getContext(), R.layout.list_item_city, this);
+        inflate(getContext(), R.layout.item_faculty, this);
     }
 
     private void initInstances() {
         // findViewById here
-        cityTitle = (TextView) findViewById(R.id.city_title);
-        numberOfEvents = (TextView) findViewById(R.id.number_of_events);
-        cityTag = (TextView) findViewById(R.id.city_tag);
-        cityBg = (ImageView) findViewById(R.id.city_background);
-        cityIcon = (ImageView) findViewById(R.id.city_icon);
+        facultyBg = (ImageView) findViewById(R.id.faculty_bg);
+        facultyIcon = (ImageView) findViewById(R.id.faculty_icon);
+        facultyTag = (TextView) findViewById(R.id.faculty_tag);
+        facultyTitle = (TextView) findViewById(R.id.faculty_title);
+        facultyTitleEng = (TextView) findViewById(R.id.faculty_title_eng);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -98,29 +99,38 @@ public class CityListItem extends BaseCustomViewGroup {
         // Restore State from bundle here
     }
 
-    public void setCityTitle(String cityTitle) { this.cityTitle.setText(cityTitle);}
-
-    public void setNumberOfEvents(String numberOfEvents) { this.numberOfEvents.setText(numberOfEvents); }
-
-    public void setCityTag(String tag, int textColor, int tagBg) {
-        this.cityTag.setText(tag);
-        this.cityTag.setTextColor(textColor);
-        this.cityTag.setBackgroundColor(tagBg);
-    }
-
-    public void setCityIcon(String iconUrl) {
-        /*Glide.with(getContext())
-                .load(iconUrl)
-                .into(cityIcon);*/
-        cityIcon.setImageResource(R.drawable.cir_mock);
-    }
-
-    public void setImageUrl(String imageUrl) {
+    public void setFacultyBg(String imageUrl) {
         /*Glide.with(getContext())
                 .load(imageUrl)
-                .into(bgImage);*/
-        if (imageUrl == "0") cityBg.setImageResource(R.drawable.city_1);
-        else cityBg.setImageResource(R.drawable.city_2);
+                .into(facultyBg);*/
+        //mock
+        if (imageUrl == "0") facultyBg.setImageResource(R.drawable.faculty_1);
+        else if (imageUrl == "1") facultyBg.setImageResource(R.drawable.faculty_2);
+        else if (imageUrl == "2") facultyBg.setImageResource(R.drawable.faculty_3);
+        else facultyBg.setImageResource(R.drawable.faculty_2);
+
+    }
+
+    public void setFacultyIcon(String iconUrl) {
+        /*Glide.with(getContext())
+                .load(iconUrl)
+                .into(facultyIcon);*/
+        //mock
+        facultyIcon.setImageResource(R.drawable.cir_mock);
+    }
+
+    public void setFacultyTag(String text, int textColor, int tagColor) {
+        facultyTag.setText(text);
+        facultyTag.setTextColor(textColor);
+        facultyTag.setBackgroundColor(tagColor);
+    }
+
+    public void setFacultyTitle(String title) {
+        facultyTitle.setText(title);
+    }
+
+    public void setFacultyTitleEng(String engTitle) {
+        facultyTitleEng.setText(engTitle);
     }
 
 }
