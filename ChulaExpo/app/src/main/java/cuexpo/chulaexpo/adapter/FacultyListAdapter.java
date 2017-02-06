@@ -2,16 +2,95 @@ package cuexpo.chulaexpo.adapter;
 
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.view.FacultyListItem;
 
 /**
  * Created by Administrator on 2/1/2017.
  */
+/*
+public class FacultyListAdapter extends RecyclerView.Adapter<FacultyListAdapter.Holder> {
 
+    ArrayList<FacultyListItem> data;
+
+    public FacultyListAdapter(FacultyListItem item) {
+        data = new ArrayList<FacultyListItem>();
+        data.add(item);
+    }
+
+    public FacultyListAdapter(ArrayList<FacultyListItem> item) {
+        data = new ArrayList<FacultyListItem>();
+        data.addAll(item);
+    }
+
+    public void addFaculty(FacultyListItem item) {
+        data.add(item);
+    }
+
+    public void addFaculty(ArrayList<FacultyListItem> item) {
+        data.addAll(item);
+    }
+
+    @Override
+    public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_faculty, parent, false);
+        Holder faculty = new Holder(item);
+        return faculty;
+    }
+
+    @Override
+    public void onBindViewHolder(Holder holder, int position) {
+        Log.d("bind", "bind data in onBindViewHolder position : " + position);
+        Log.d("bind", "bind data " + data.get(position).getFacultyTitle().getText().toString());
+        FacultyListItem item = data.get(position);
+        holder.facultyItem.setFacultyTitle(item.getFacultyTitle().getText().toString());
+        holder.facultyItem.setFacultyTitleEng(item.getFacultyTitleEng().getText().toString());
+        holder.facultyItem.setFacultyBg(item.getFacultyBg());
+        holder.facultyItem.setFacultyIcon(item.getfacultyIcon());
+        holder.facultyItem.setFacultyTag(item.getFacultyTag().getText().toString(), item.getFacultyTag().getCurrentTextColor(), item.getFacultyTag().getDrawingCacheBackgroundColor());
+        holder.title.setText(item.getFacultyTitle().getText().toString());
+        holder.titleEng.setText(item.getFacultyTitleEng().getText().toString());
+        holder.background.setImageDrawable(item.getFacultyBg());
+        holder.icon.setImageDrawable(item.getfacultyIcon());
+        holder.tag.setText(item.getFacultyTag().getText().toString());
+        holder.tag.setTextColor(item.getFacultyTag().getCurrentTextColor());
+        holder.tag.setBackgroundColor(item.getFacultyTag().getDrawingCacheBackgroundColor());
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
+
+    public static class Holder extends RecyclerView.ViewHolder{
+
+        public TextView title, titleEng, tag;
+        public ImageView background, icon;
+
+        public Holder(View itemView) {
+            super(itemView);
+            background = (ImageView) itemView.findViewById(R.id.faculty_bg);
+            icon = (ImageView) itemView.findViewById(R.id.faculty_icon);
+            tag = (TextView) itemView.findViewById(R.id.faculty_tag);
+            title = (TextView) itemView.findViewById(R.id.faculty_title);
+            titleEng = (TextView) itemView.findViewById(R.id.faculty_title_eng);
+        }
+    }
+
+}
+*/
 public class FacultyListAdapter extends BaseAdapter {
 
     public FacultyListAdapter() {
@@ -20,7 +99,7 @@ public class FacultyListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 18;
+        return 17;
     }
 
     @Override

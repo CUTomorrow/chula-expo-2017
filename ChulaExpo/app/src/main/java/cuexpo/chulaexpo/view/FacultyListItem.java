@@ -2,10 +2,12 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,9 +20,11 @@ import cuexpo.chulaexpo.R;
 
 public class FacultyListItem extends BaseCustomViewGroup {
 
-    ImageView facultyBg;
+    public ImageView facultyBg;
     ImageView facultyIcon;
     TextView facultyTag, facultyTitle, facultyTitleEng;
+    private String imageUrl;
+    private String iconUrl;
 
     public FacultyListItem(Context context) {
         super(context);
@@ -56,6 +60,7 @@ public class FacultyListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
+        Log.d("init", "init FACULTY");
         facultyBg = (ImageView) findViewById(R.id.faculty_bg);
         facultyIcon = (ImageView) findViewById(R.id.faculty_icon);
         facultyTag = (TextView) findViewById(R.id.faculty_tag);
@@ -99,11 +104,18 @@ public class FacultyListItem extends BaseCustomViewGroup {
         // Restore State from bundle here
     }
 
+    public TextView getFacultyTag() { return facultyTag;}
+    public Drawable getFacultyBg() { return facultyBg.getDrawable();}
+    public Drawable getfacultyIcon() { return facultyIcon.getDrawable();}
+    public TextView getFacultyTitle() {return facultyTitle;}
+    public TextView getFacultyTitleEng() {return facultyTitleEng;}
+
     public void setFacultyBg(String imageUrl) {
         /*Glide.with(getContext())
                 .load(imageUrl)
                 .into(facultyBg);*/
         //mock
+        this.imageUrl = imageUrl;
         if (imageUrl == "0") facultyBg.setImageResource(R.drawable.faculty_1);
         else if (imageUrl == "1") facultyBg.setImageResource(R.drawable.faculty_2);
         else if (imageUrl == "2") facultyBg.setImageResource(R.drawable.faculty_3);
@@ -116,6 +128,7 @@ public class FacultyListItem extends BaseCustomViewGroup {
                 .load(iconUrl)
                 .into(facultyIcon);*/
         //mock
+        this.iconUrl = iconUrl;
         facultyIcon.setImageResource(R.drawable.cir_mock);
     }
 

@@ -1,9 +1,14 @@
 package cuexpo.chulaexpo.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import cuexpo.chulaexpo.view.CityListItem;
 
@@ -37,8 +42,9 @@ public class CityListAdapter extends BaseAdapter {
         CityListItem city;
         if (convertView != null)
             city = (CityListItem) convertView;
-        else
+        else {
             city = new CityListItem(parent.getContext());
+        }
 
         //mock
         if(position%3==0){
@@ -61,7 +67,6 @@ public class CityListAdapter extends BaseAdapter {
             city.setCityIcon("0");
             city.setImageUrl("0");
         }
-
         return city;
     }
 }

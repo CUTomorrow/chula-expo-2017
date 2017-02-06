@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +56,7 @@ public class CityListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
+        Log.d("init", "init CITY");
         cityTitle = (TextView) findViewById(R.id.city_title);
         numberOfEvents = (TextView) findViewById(R.id.number_of_events);
         cityTag = (TextView) findViewById(R.id.city_tag);
