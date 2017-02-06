@@ -14,6 +14,7 @@
     <string name="home_title">Home</string>
     <string name="regis_adult_title">Adult Register</string>
     <string name="regis_student_title">Student Register</string>
+    <string name="event_page_title">Events</string>
     <!--Role-->
     <string name="register_title">Register</string>
     <string name="role_title">Select Your Role</string>

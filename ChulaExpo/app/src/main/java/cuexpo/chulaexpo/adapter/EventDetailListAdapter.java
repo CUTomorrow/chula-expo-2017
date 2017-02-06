@@ -121,7 +121,6 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     mapView.onCreate(null);
                     mapView.onResume();
                     mapView.getMapAsync(this);
-
                     break;
             }
             eventDetailView = convertView;

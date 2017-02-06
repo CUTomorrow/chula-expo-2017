@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_height="76dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        card_view:cardElevation="2dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginLeft="6dp"
+        card_view:cardCornerRadius="0dp"
+        android:layout_height="74dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="10dp">
+
+            <ImageView
+                card_view:srcCompat="@drawable/highlight_vidva_2"
+                android:id="@+id/event_image"
+                android:scaleType="centerCrop"
+                android:layout_height="match_parent"
+                android:layout_width="88dp" />
+
+            <TextView
+                android:text="The Accountant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:layout_toRightOf="@+id/event_image"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black"
+                fontPath="fonts/ThaiSansNeue-Bold.ttf"
+                android:textSize="@dimen/font_13"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:text="วันนี้ 12.00-13.00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_alignLeft="@+id/title"
+                android:id="@+id/time"
+                android:textColor="@color/time"
+                fontPath="fonts/ThaiSansNeue-Regular.ttf"
+                android:textSize="@dimen/font_12"
+                android:layout_marginTop="-4dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:id="@+id/tags"
+                android:layout_below="@+id/time"
+                android:layout_alignLeft="@+id/time"></LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
