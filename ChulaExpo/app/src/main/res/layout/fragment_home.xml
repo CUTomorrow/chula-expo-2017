@@ -103,7 +103,8 @@
                 android:id="@+id/lvStage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"></cuexpo.chulaexpo.view.ExpandableHeightListView>
+                android:background="@color/white"
+                android:divider="@color/transparent"></cuexpo.chulaexpo.view.ExpandableHeightListView>
         </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/layoutActivityHeader"
@@ -151,7 +152,8 @@
                 <cuexpo.chulaexpo.view.ExpandableHeightListView
                     android:id="@+id/lvActivity"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cuexpo.chulaexpo.view.ExpandableHeightListView>
+                    android:layout_height="wrap_content"
+                    android:divider="@color/transparent"></cuexpo.chulaexpo.view.ExpandableHeightListView>
             </LinearLayout>
             </LinearLayout>
         </ScrollView>
