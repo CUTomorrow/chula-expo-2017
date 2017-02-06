@@ -12,7 +12,7 @@ public class ActivityItemCollectionDao {
     private Boolean success;
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private List<ActivityItemResultDao> results = null;
 
     public Boolean getSuccess() {
         return success;
@@ -22,11 +22,11 @@ public class ActivityItemCollectionDao {
         this.success = success;
     }
 
-    public List<Result> getResults() {
+    public List<ActivityItemResultDao> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(List<ActivityItemResultDao> results) {
         this.results = results;
     }
 
