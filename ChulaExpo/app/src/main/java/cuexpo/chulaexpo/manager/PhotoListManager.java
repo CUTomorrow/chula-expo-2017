@@ -35,7 +35,7 @@ public class PhotoListManager {
 
     public Bundle onSavedInstanceState(){
         Bundle bundle = new Bundle();
-        bundle.putParcelable("cuexpo/chulaexpo/dao",dao);
+        //bundle.putParcelable("cuexpo/chulaexpo/dao",dao);
         return bundle;
     }
 
@@ -44,6 +44,7 @@ public class PhotoListManager {
     }
 
     private void saveCache(){
+        /*
         ActivityItemCollectionDao cacheDao = new ActivityItemCollectionDao();
         if(dao != null && dao.getData() != null)
             cacheDao.setData(dao.getData().subList(0,Math.min(20,dao.getData().size())));
@@ -53,6 +54,7 @@ public class PhotoListManager {
         //Add/Edit/Delete
         editor.putString("json",json);
         editor.apply();
+        */
     }
 
     private void loadCache(){
