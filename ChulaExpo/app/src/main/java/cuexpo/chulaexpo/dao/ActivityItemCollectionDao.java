@@ -1,58 +1,33 @@
+
 package cuexpo.chulaexpo.dao;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.annotations.Expose;
-
 import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by dragonnight on 26/12/2559.
- */
+public class ActivityItemCollectionDao {
 
-public class ActivityItemCollectionDao implements Parcelable {
-    //TODO : Change method according API
-
-    @SerializedName("data")
+    @SerializedName("success")
     @Expose
-    private List<ActivityItemDao> data = null;
+    private Boolean success;
+    @SerializedName("results")
+    @Expose
+    private List<ActivityItemResultDao> results = null;
 
-    public List<ActivityItemDao> getData() {
-        return data;
+    public Boolean getSuccess() {
+        return success;
     }
 
-    public void setData(List<ActivityItemDao> data) {
-        this.data = data;
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 
-    public ActivityItemCollectionDao() {
+    public List<ActivityItemResultDao> getResults() {
+        return results;
     }
 
-    protected ActivityItemCollectionDao(Parcel in) {
-        data = in.createTypedArrayList(ActivityItemDao.CREATOR);
+    public void setResults(List<ActivityItemResultDao> results) {
+        this.results = results;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(data);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<ActivityItemCollectionDao> CREATOR = new Creator<ActivityItemCollectionDao>() {
-        @Override
-        public ActivityItemCollectionDao createFromParcel(Parcel in) {
-            return new ActivityItemCollectionDao(in);
-        }
-
-        @Override
-        public ActivityItemCollectionDao[] newArray(int size) {
-            return new ActivityItemCollectionDao[size];
-        }
-    };
 }
