@@ -2,21 +2,17 @@
 <resources>
     <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#2e2749</color>
-    <color name="colorAccent">#ff4081</color>
+    <color name="colorAccent">#ff6d9a</color>
     <color name="white">#ffffff</color>
+    <color name="light_grey">#e8e8e8</color>
+    <color name="light_grey_form">#ebebeb</color>
+    <color name="light_grey_header">#cbcbcb</color>
+    <color name="dark_grey">#444444</color>
     <color name="blackTransparent">#30000000</color>
     <color name="blackOverlay">#88000000</color>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    <color name="light_grey">#e8e8e8</color>
-    <color name="dark_grey">#444444</color>
->>>>>>> add schedule part
+    <!-- Event item -->
+    <color name="time">#313131</color>
     <!-- Home -->
-=======
-    <color name="light_grey">#e8e8e8</color>
-    <!-- Highlight -->
->>>>>>> new event detail fragment with stickyheader parallax listview
     <color name="highlight_tab_backgroud">#88000000</color>
     <color name="highlight_tab_text">#FFFFFF</color>
     <color name="button_transparent">#40ffffff</color>
@@ -27,21 +23,17 @@
     <color name="booking_available">#00df5e</color>
     <color name="booking_almostFull">#ff9001</color>
     <color name="booking_full">#b90004</color>
-<<<<<<< HEAD
-	<!--BY STEPBOOM-->
-	<color name="stage_soon">#E92A85</color>
-=======
     <!--BY STEPBOOM-->
     <color name="stage_soon">#E92A85</color>
->>>>>>> Merge code from Boom-sama
     <color name="stage_pass">#d1d1d1</color>
     <color name="transparent">#00ffffff</color>
     <color name="reserved">#5490B3</color>
     <color name="share">#8845CF</color>
     <color name="favourite">#E4C045</color>
     <color name="highlight_tab_list">#d0d0d0</color>
-<<<<<<< HEAD
     <color name="black">#000000</color>
-=======
->>>>>>> Merge code from Boom-sama
+    <color name="profile_bg">#484f61</color>
+    <color name="profile_bg_dark">#323846</color>
+    <color name="blackHigherOverlay">#e6000000</color>
+    <color name="normal_grey">#737373</color>
 </resources>

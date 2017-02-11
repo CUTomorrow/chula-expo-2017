@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-=======
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
->>>>>>> Merge code from Boom-sama
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<<<<<<< HEAD
 
     <RelativeLayout
         android:background="#d9d9d9"
@@ -31,97 +27,46 @@
                 android:layout_gravity="center" />
         </android.support.v7.widget.Toolbar>
 
-        <LinearLayout
+        <com.ogaclejapan.smarttablayout.SmartTabLayout
             android:layout_below="@id/stage_toolbar"
-            android:id="@+id/stage_date_tab"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:id="@+id/stage_pager_tab"
             android:layout_width="match_parent"
-            android:weightSum="1"
-            android:layout_height="wrap_content">
+            android:layout_height="48dp"
+            app:stl_indicatorAlwaysInCenter="false"
+            app:stl_indicatorWithoutPadding="false"
+            app:stl_indicatorInFront="false"
+            app:stl_indicatorInterpolation="smart"
+            app:stl_indicatorGravity="bottom"
+            app:stl_indicatorColor="#40C4FF"
+            app:stl_indicatorThickness="4dp"
+            app:stl_indicatorWidth="auto"
+            app:stl_indicatorCornerRadius="2dp"
+            app:stl_overlineColor="#4D000000"
+            app:stl_overlineThickness="0dp"
+            app:stl_underlineColor="#4D000000"
+            app:stl_underlineThickness="1dp"
+            app:stl_dividerColor="#4D000000"
+            app:stl_dividerThickness="0dp"
+            app:stl_defaultTabBackground="?attr/selectableItemBackground"
+            app:stl_defaultTabTextAllCaps="true"
+            app:stl_defaultTabTextColor="#FC000000"
+            app:stl_defaultTabTextSize="12sp"
+            app:stl_defaultTabTextHorizontalPadding="16dp"
+            app:stl_defaultTabTextMinWidth="0dp"
+            app:stl_distributeEvenly="true"
+            app:stl_clickable="true"
+            app:stl_titleOffset="24dp"
+            app:stl_drawDecorationAfterTab="false"
+            />
 
-            <cuexpo.chulaexpo.view.DateSelector
-                android:id="@+id/stage_date_selector"
-                android:layout_weight="0.2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-            <cuexpo.chulaexpo.view.DateSelector
-                android:id="@+id/stage_date_selector2"
-                android:layout_weight="0.2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-            <cuexpo.chulaexpo.view.DateSelector
-                android:id="@+id/stage_date_selector3"
-                android:layout_weight="0.2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-            <cuexpo.chulaexpo.view.DateSelector
-                android:id="@+id/stage_date_selector4"
-                android:layout_weight="0.2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-            <cuexpo.chulaexpo.view.DateSelector
-                android:id="@+id/stage_date_selector5"
-                android:layout_weight="0.2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:weightSum="1"
-            android:layout_below="@id/stage_date_tab"
+        <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_weight="0.3"
-                android:background="@color/share"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-
-        <ExpandableListView
-            android:layout_below="@id/stage_date_tab"
-            android:listSelector="@color/transparent"
-            android:divider="@null"
-            android:groupIndicator="@null"
-            android:childDivider="@color/white"
-            android:id="@+id/stage_content_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ExpandableListView>
-
-
+            android:layout_height="match_parent"
+            android:id="@+id/stage_pager"
+            android:layout_below="@id/stage_pager_tab">
+        </android.support.v4.view.ViewPager>
 
     </RelativeLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
-=======
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/stage_toolbar"
-        android:background="@drawable/action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-        <TextView
-            android:id="@+id/stage_toolbar_title"
-            android:text="Main Stage"
-            android:textSize="@dimen/title_toolbar_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_gravity="center" />
-    </android.support.v7.widget.Toolbar>
-
-    <ExpandableListView
-        android:listSelector="@color/transparent"
-        android:divider="@null"
-        android:groupIndicator="@null"
-        android:childDivider="@color/white"
-        android:id="@+id/stage_content_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ExpandableListView>
-
-</LinearLayout>
->>>>>>> Merge code from Boom-sama

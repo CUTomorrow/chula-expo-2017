@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import cuexpo.chulaexpo.R;
 
@@ -14,7 +15,9 @@ import cuexpo.chulaexpo.R;
  * Created by nuuneoi on 11/16/2014.
  */
 @SuppressWarnings("unused")
-public class AboutFragment extends Fragment {
+public class AboutFragment extends Fragment implements View.OnClickListener{
+
+    ImageView ivClose;
 
     public AboutFragment() {
         super();
@@ -33,6 +36,7 @@ public class AboutFragment extends Fragment {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
 
+
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
     }
@@ -40,7 +44,8 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.dialog_about, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_about, container, false);
+        rootView.setClickable(true);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -52,6 +57,8 @@ public class AboutFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
+        ivClose = (ImageView) rootView.findViewById(R.id.about_close);
+        ivClose.setOnClickListener(this);
     }
 
     @Override
@@ -81,4 +88,10 @@ public class AboutFragment extends Fragment {
         // Restore Instance State here
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v==ivClose){
+            getFragmentManager().popBackStack();
+        }
+    }
 }

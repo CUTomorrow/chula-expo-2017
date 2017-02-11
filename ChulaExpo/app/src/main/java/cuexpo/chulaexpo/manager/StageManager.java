@@ -1,23 +1,24 @@
 package cuexpo.chulaexpo.manager;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+
+import cuexpo.chulaexpo.view.StageInsideListItem;
+import cuexpo.chulaexpo.view.StageListItem;
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 public class StageManager {
 
-<<<<<<< HEAD
-=======
-    public int count;
-    public int offset[] = new int[10];
-
->>>>>>> Merge code from Boom-sama
     private static StageManager instance;
 
     public static StageManager getInstance() {
@@ -39,7 +40,6 @@ public class StageManager {
         df = new SimpleDateFormat("mm");
         int minute = Integer.parseInt(df.format(c.getTime()));
 
-<<<<<<< HEAD
         if ((param[0] == hour && hour == param2[0])&&(param[1]<=minute && minute<param2[1])) {
             return 3;
         } else if (((param[0] == hour && hour < param2[0]) && (param[1] <= minute))){
@@ -50,67 +50,18 @@ public class StageManager {
             return 3;
         } else if ((param2[0] < hour)
                 || ((param2[0] == hour) && param2[1] <= minute)) {
-=======
-        if ((param2[0] < hour || ((param2[0] == hour) && (param2[1] <= minute)))&&
-        ((param[0] > hour || ((param[0] == hour) && (param[1] > minute))))){
-            return 3;
-        }
-        else if (param2[0] < hour || ((param2[0] == hour) && (param2[1] < minute))){
-                return 2;
-        } else
-        return 1;
-    }
-
-    public int setGroupLine(int groupPosition, int[] param, int groupCount) {
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("HH");
-        int hour = Integer.parseInt(df.format(c.getTime()));
-        df = new SimpleDateFormat("mm");
-        int minute = Integer.parseInt(df.format(c.getTime()));
-
-        if (param[0] < hour || ((param[0] == hour) && (param[1] <= minute))) {
-            if (groupPosition == 0) return 2;
-            else if (groupPosition == groupCount - 1) return 7;
-            return 2;
-        } else {
-            if (groupPosition == 0) return 1;
-            else if (groupPosition == groupCount - 1) return 6;
-            return 1;
-        }
-    }
-
-    public int setGroupLine(int[] param, int[] param2) {
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("HH");
-        int hour = Integer.parseInt(df.format(c.getTime()));
-        df = new SimpleDateFormat("mm");
-        int minute = Integer.parseInt(df.format(c.getTime()));
-
-        if (param2[0] > hour || ((param2[0] == hour) && (param2[1] > minute))) {
-            return 3;
-        } else if (param[0] < hour || ((param[0] == hour) && (param[1] <= minute))) {
-            return 5;
-        } else {
-            return 4;
-        }
-
-
-    }
-
-    public int setLine(int groupPosition, int[] param, int groupCount) {
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("HH");
-        int hour = Integer.parseInt(df.format(c.getTime()));
-        df = new SimpleDateFormat("mm");
-        int minute = Integer.parseInt(df.format(c.getTime()));
-
-        if (groupPosition == groupCount - 1) {
-            return 3;
-        } else if (param[0] < hour || ((param[0] == hour) && (param[1] <= minute))) {
->>>>>>> Merge code from Boom-sama
             return 2;
         } else
             return 1;
     }
+
+    /*public Object getKeyFromValue(Object value) {
+        for (Object o : listDataChild.keySet()) {
+            if (listDataChild.get(o).equals(value)) {
+                return o;
+            }
+        }
+        return null;
+    }*/
 
 }

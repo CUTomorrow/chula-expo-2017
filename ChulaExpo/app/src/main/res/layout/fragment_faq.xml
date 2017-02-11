@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#ececec">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/faq_toolbar"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <ImageView
+                android:id="@+id/faq_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:id="@+id/faq_toolbar_title"
+                android:text="FAQ"
+                android:textSize="@dimen/title_toolbar_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_gravity="center" />
+
+        </android.support.v7.widget.Toolbar>
+        <ScrollView
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <cuexpo.chulaexpo.view.ExpandableHeightListView
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:id="@+id/faq_content_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </cuexpo.chulaexpo.view.ExpandableHeightListView>
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+
+</FrameLayout>

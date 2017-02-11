@@ -3,10 +3,15 @@ package cuexpo.chulaexpo.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,10 +19,7 @@ import java.util.List;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.StageListAdapter;
-<<<<<<< HEAD
 import cuexpo.chulaexpo.view.DateSelector;
-=======
->>>>>>> Merge code from Boom-sama
 import cuexpo.chulaexpo.view.StageInsideListItem;
 import cuexpo.chulaexpo.view.StageListItem;
 
@@ -26,26 +28,11 @@ import cuexpo.chulaexpo.view.StageListItem;
  * Created by nuuneoi on 11/16/2014.
  */
 @SuppressWarnings("unused")
-<<<<<<< HEAD
-public class StageFragment extends Fragment implements View.OnClickListener {
-=======
 public class StageFragment extends Fragment {
->>>>>>> Merge code from Boom-sama
 
-    List<StageListItem> listDataHeader;
-    HashMap<StageListItem, StageInsideListItem> listDataChild;
-    ExpandableListView expandableListView;
-    StageListAdapter listAdapter;
-<<<<<<< HEAD
-    DateSelector day15;
-    DateSelector day16;
-    DateSelector day17;
-    DateSelector day18;
-    DateSelector day19;
-
-=======
->>>>>>> Merge code from Boom-sama
-    int previousGroup = -1;
+    FragmentPagerItemAdapter pagerItemAdapter;
+    ViewPager viewPager;
+    SmartTabLayout viewPagerTab;
 
     public StageFragment() {
         super();
@@ -73,137 +60,6 @@ public class StageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_stage, container, false);
         initInstances(rootView, savedInstanceState);
-
-        StageListItem item = new StageListItem(getContext());
-        StageInsideListItem item2 = new StageInsideListItem(getContext());
-
-<<<<<<< HEAD
-        day15.setDate("15");
-        day16.setDate("16");
-        day17.setDate("17");
-        day18.setDate("18");
-        day19.setDate("19");
-
-        day15.setToggle(1);
-        day16.setToggle(0);
-        day17.setToggle(0);
-        day18.setToggle(0);
-        day19.setToggle(0);
-
-        day15.setOnClickListener(this);
-        day16.setOnClickListener(this);
-        day17.setOnClickListener(this);
-        day18.setOnClickListener(this);
-        day19.setOnClickListener(this);
-
-        item.setTime("08.00","08.05");
-        item.setName("Opening");
-        listDataHeader.add(item);
-
-        item = new StageListItem(getContext());
-        item.setTime("08.05","08.10");
-        item.setName("Chulalongkorn Talk");
-        listDataHeader.add(item);
-
-        item = new StageListItem(getContext());
-        item.setTime("08.10","08.15");
-        item.setName("Robotic Vaccum Cleaner");
-        listDataHeader.add(item);
-
-        item = new StageListItem(getContext());
-        item.setTime("08.15","08.20");
-        item.setName("In The Time Of Modern : Overture");
-        listDataHeader.add(item);
-
-        item = new StageListItem(getContext());
-        item.setTime("08.20","08.30");
-        item.setName("In The Time Of Modern : Epilouge");
-        listDataHeader.add(item);
-
-        item = new StageListItem(getContext());
-        item.setTime("08.30","09.30");
-        item.setName("Final Fantasy : Game Conceptual Design");
-        listDataHeader.add(item);
-
-        listDataChild.put(listDataHeader.get(0), item2);
-        listDataChild.put(listDataHeader.get(1), item2);
-        listDataChild.put(listDataHeader.get(2), item2);
-        listDataChild.put(listDataHeader.get(3), item2);
-        listDataChild.put(listDataHeader.get(4), item2);
-        listDataChild.put(listDataHeader.get(5), item2);
-
-
-        listAdapter = new StageListAdapter(listDataHeader, listDataChild);
-=======
-        item.setTime("08.00");
-        item.setStatus(1);
-        item.setName("Opening");
-        item.setLineMode(1);
-        listDataHeader.add(item);
-
-        item = new StageListItem(getContext());
-        item.setTime("08.20");
-        item.setStatus(1);
-        item.setName("Chulalongkorn Talk");
-        item.setLineMode(3);
-        listDataHeader.add(item);
-
-        item = new StageListItem(getContext());
-        item.setTime("08.30");
-        item.setStatus(1);
-        item.setName("Robotic Vaccum Cleaner");
-        item.setLineMode(6);
-        listDataHeader.add(item);
-
-        listDataChild.put(listDataHeader.get(0),item2);
-        listDataChild.put(listDataHeader.get(1),item2);
-        listDataChild.put(listDataHeader.get(2),item2);
-
-        listAdapter = new StageListAdapter(listDataHeader,listDataChild);
->>>>>>> Merge code from Boom-sama
-
-        // setting list adapter
-        expandableListView.setAdapter(listAdapter);
-
-        // Listview Group click listener
-        /*expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                return false;
-            }
-        });*/
-
-        // Only One Item Will be Expanded
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                if (groupPosition != previousGroup)
-                    expandableListView.collapseGroup(previousGroup);
-                previousGroup = groupPosition;
-            }
-        });
-
-        // Listview Group collasped listener
-        /*expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-
-            }
-        });*/
-
-        // Listview on child click listener
-        /*expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                return false;
-            }
-        });*/
         return rootView;
     }
 
@@ -214,54 +70,31 @@ public class StageFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
-        expandableListView = (ExpandableListView) rootView.findViewById(R.id.stage_content_container);
-        listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<>();
-<<<<<<< HEAD
-        day15 = (DateSelector) rootView.findViewById(R.id.stage_date_selector);
-        day16 = (DateSelector) rootView.findViewById(R.id.stage_date_selector2);
-        day17 = (DateSelector) rootView.findViewById(R.id.stage_date_selector3);
-        day18 = (DateSelector) rootView.findViewById(R.id.stage_date_selector4);
-        day19 = (DateSelector) rootView.findViewById(R.id.stage_date_selector5);
-    }
+        Bundle date15 = new Bundle();
+        date15.putInt("day",15);
+        Bundle date16 = new Bundle();
+        date16.putInt("day",16);
+        Bundle date17 = new Bundle();
+        date17.putInt("day",17);
+        Bundle date18 = new Bundle();
+        date18.putInt("day",18);
+        Bundle date19 = new Bundle();
+        date19.putInt("day",19);
+        pagerItemAdapter = new FragmentPagerItemAdapter(
+                this.getChildFragmentManager(), FragmentPagerItems.with(getActivity())
+                .add("15\nMAR", StageFragmentDetail.class,date15)
+                .add("16\nMAR", StageFragmentDetail.class,date16)
+                .add("17\nMAR", StageFragmentDetail.class,date17)
+                .add("18\nMAR", StageFragmentDetail.class,date18)
+                .add("19\nMAR", StageFragmentDetail.class,date19)
+                .create());
 
-    @Override
-    public void onClick(View v) {
-        if (v == day15) {
-            day15.setToggle(1);
-            day16.setToggle(0);
-            day17.setToggle(0);
-            day18.setToggle(0);
-            day19.setToggle(0);
-        } else if (v == day16) {
-            day15.setToggle(0);
-            day16.setToggle(1);
-            day17.setToggle(0);
-            day18.setToggle(0);
-            day19.setToggle(0);
-        } else if (v == day17) {
-            day15.setToggle(0);
-            day16.setToggle(0);
-            day17.setToggle(1);
-            day18.setToggle(0);
-            day19.setToggle(0);
-        } else if (v == day18) {
-            day15.setToggle(0);
-            day16.setToggle(0);
-            day17.setToggle(0);
-            day18.setToggle(1);
-            day19.setToggle(0);
-        } else if (v == day19) {
-            day15.setToggle(0);
-            day16.setToggle(0);
-            day17.setToggle(0);
-            day18.setToggle(0);
-            day19.setToggle(1);
-        } else {
+        viewPager = (ViewPager) rootView.findViewById(R.id.stage_pager);
+        viewPager.setAdapter(pagerItemAdapter);
 
-        }
-=======
->>>>>>> Merge code from Boom-sama
+        viewPagerTab = (SmartTabLayout) rootView.findViewById(R.id.stage_pager_tab);
+        viewPagerTab.setViewPager(viewPager);
+
     }
 
     @Override
@@ -291,8 +124,5 @@ public class StageFragment extends Fragment {
         // Restore Instance State here
     }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> Merge code from Boom-sama
 }

@@ -11,11 +11,6 @@ import android.widget.TextView;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
-<<<<<<< HEAD
-=======
-import org.w3c.dom.Text;
-
->>>>>>> Merge code from Boom-sama
 import cuexpo.chulaexpo.R;
 
 /**
