@@ -10,5 +10,5 @@ import retrofit2.http.POST;
 
 public interface ApiService {
     @POST("")
-    Call<ActivityItemCollectionDao> loadPhotoList();
+    Call<ActivityItemCollectionDao> loadActivityList();
 }
