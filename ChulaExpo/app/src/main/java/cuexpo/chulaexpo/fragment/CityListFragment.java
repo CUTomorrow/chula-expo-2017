@@ -1,25 +1,30 @@
 package cuexpo.chulaexpo.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.adapter.CityListAdapter;
+import cuexpo.chulaexpo.view.ExpandableHeightListView;
 
 
-public class CitiesListFragment extends Fragment {
+public class CityListFragment extends Fragment {
 
-    public CitiesListFragment() {
+    ExpandableHeightListView city;
+    CityListAdapter cityListAdapter;
+
+    public CityListFragment() {
         super();
     }
 
     @SuppressWarnings("unused")
-    public static CitiesListFragment newInstance() {
-        CitiesListFragment fragment = new CitiesListFragment();
+    public static CityListFragment newInstance() {
+        CityListFragment fragment = new CityListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -37,7 +42,7 @@ public class CitiesListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_cities_list, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -49,6 +54,11 @@ public class CitiesListFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
+        city = (ExpandableHeightListView) rootView.findViewById(R.id.cities);
+        cityListAdapter = new CityListAdapter();
+        city.setExpanded(true);
+        city.setAdapter(cityListAdapter);
+        city.setOnItemClickListener(cityItemClickListener);
     }
 
     @Override
@@ -77,4 +87,16 @@ public class CitiesListFragment extends Fragment {
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore Instance State here
     }
+
+    /**
+     * Listener
+     */
+
+    AdapterView.OnItemClickListener cityItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(getActivity(), "*click*", Toast.LENGTH_SHORT).show();
+        }
+    };
+
 }
