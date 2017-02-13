@@ -2,12 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuexpo.chulaexpo.fragment.CitiesListFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context="cuexpo.chulaexpo.fragment.CityListFragment">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <cuexpo.chulaexpo.view.ExpandableHeightListView
+                android:id="@+id/cities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></cuexpo.chulaexpo.view.ExpandableHeightListView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
