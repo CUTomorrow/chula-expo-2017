@@ -6,33 +6,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import cuexpo.chulaexpo.R;
-import cuexpo.chulaexpo.adapter.ReservedListAdapter;
-import cuexpo.chulaexpo.view.ExpandableHeightListView;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 @SuppressWarnings("unused")
-public class ReservedFragment extends Fragment implements View.OnClickListener {
+public class AboutFragment extends Fragment implements View.OnClickListener{
 
-    ImageView back;
-    ExpandableHeightListView upComingEventListView;
-    ExpandableHeightListView previousEventListView;
-    ReservedListAdapter adapter;
+    ImageView ivClose;
 
-    public ReservedFragment() {
+    public AboutFragment() {
         super();
     }
 
     @SuppressWarnings("unused")
-    public static ReservedFragment newInstance() {
-        ReservedFragment fragment = new ReservedFragment();
+    public static AboutFragment newInstance() {
+        AboutFragment fragment = new AboutFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -43,6 +36,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
 
+
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
     }
@@ -50,7 +44,8 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_reserved, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_about, container, false);
+        rootView.setClickable(true);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -62,20 +57,8 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
-        upComingEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.reserved_content_container);
-        previousEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.reserved_content_container2);
-        back = (ImageView) rootView.findViewById(R.id.reserved_back);
-        adapter = new ReservedListAdapter();
-
-        upComingEventListView.setAdapter(adapter);
-        upComingEventListView.setExpanded(true);
-        upComingEventListView.setFocusable(false);
-
-        previousEventListView.setAdapter(adapter);
-        previousEventListView.setExpanded(true);
-        previousEventListView.setFocusable(false);
-
-        back.setOnClickListener(this);
+        ivClose = (ImageView) rootView.findViewById(R.id.about_close);
+        ivClose.setOnClickListener(this);
     }
 
     @Override
@@ -107,8 +90,8 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v==back){
-            getActivity().finish();
+        if(v==ivClose){
+            getFragmentManager().popBackStack();
         }
     }
 }

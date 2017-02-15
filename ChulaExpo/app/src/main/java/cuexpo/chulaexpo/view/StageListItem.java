@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,8 +26,8 @@ public class StageListItem extends BaseCustomViewGroup {
     ImageView ivStatus;
     ImageView ivDrop;
     ImageView ivUpper;
-    ImageView kuy;
     ImageView ivLower;
+    boolean selected;
 
     public StageListItem(Context context) {
         super(context);
@@ -68,7 +69,6 @@ public class StageListItem extends BaseCustomViewGroup {
         ivDrop = (ImageView) findViewById(R.id.stage_iv_dropdown);
         ivUpper = (ImageView) findViewById(R.id.stage_iv_up_line);
         ivLower = (ImageView) findViewById(R.id.stage_iv_down_line);
-        //kuy = (ImageView) findViewById(R.id.whatthefuck);
         tvName = (TextView) findViewById(R.id.stage_tv_name);
     }
 
@@ -147,6 +147,24 @@ public class StageListItem extends BaseCustomViewGroup {
 
     public void setName(String name) {
         tvName.setText(name);
+    }
+
+    public void setNameHighlight(int state){
+        if (state==1){
+            tvName.setTextColor(ContextCompat.getColor(getContext(),R.color.highlightPinkColor));
+            String text = tvName.getText().toString();
+            if(text.indexOf("★")==-1) {
+                text += " ★";
+                tvName.setText(text);
+            }
+        }else{
+            tvName.setTextColor(ContextCompat.getColor(getContext(),R.color.black));
+            String text = tvName.getText().toString();
+            if(text.indexOf("★")!=-1) {
+                text = text.substring(0, text.indexOf("★") - 1);
+                tvName.setText(text);
+            }
+        }
     }
 
     public void setDrop(int state) {

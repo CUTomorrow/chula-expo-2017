@@ -17,14 +17,21 @@ import cuexpo.chulaexpo.view.StageListItem;
 
 public class StageListAdapter extends BaseExpandableListAdapter {
 
-    List<StageListItem> listDataHeader;
-    HashMap<StageListItem, StageInsideListItem> listDataChild;
+    private List<StageListItem> listDataHeader;
+    private HashMap<StageListItem, StageInsideListItem> listDataChild;
+
+    public List<StageListItem> getListDataHeader() {
+        return listDataHeader;
+    }
+
+    public HashMap<StageListItem, StageInsideListItem> getListDataChild() {
+        return listDataChild;
+    }
 
     public StageListAdapter(List<StageListItem> listDataHeader,
-                                 HashMap<StageListItem, StageInsideListItem> listChildData) {
+                            HashMap<StageListItem, StageInsideListItem> listChildData) {
         this.listDataHeader = listDataHeader;
         this.listDataChild = listChildData;
-
     }
 
     @Override
@@ -40,18 +47,21 @@ public class StageListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        StageInsideListItem item;
 
-        if(convertView!=null){
-            item = (StageInsideListItem) convertView;
-        }else{
-            item = new StageInsideListItem(parent.getContext());
+        StageInsideListItem item = (StageInsideListItem) getChild(groupPosition, childPosition);
+
+        if (groupPosition != getGroupCount() - 1) {
+            item.setLineStatus(1);
+        } else {
+            item.setLineStatus(0);
         }
 
-        if(groupPosition!=getGroupCount()-1){
-            item.setLineStatus(1);
-        }else{
-            item.setLineStatus(0);
+        StageListItem item2 = (StageListItem) getGroup(groupPosition);
+
+        if (item.getSelected()) {
+            item2.setNameHighlight(1);
+        } else {
+            item2.setNameHighlight(0);
         }
 
         /*if(groupPosition!=getGroupCount()-1){
@@ -92,13 +102,13 @@ public class StageListAdapter extends BaseExpandableListAdapter {
         //StageListItem itemDown;
         StageManager manager = StageManager.getInstance();
 
-        item.setStatus(manager.setCircle(item.getStartTime(),item.getEndTime()));
+        item.setStatus(manager.setCircle(item.getStartTime(), item.getEndTime()));
 
-        if(groupPosition==0) {
+        if (groupPosition == 0) {
             item.setLineMode(2);
-        } else if(groupPosition==getGroupCount()-1){
+        } else if (groupPosition == getGroupCount() - 1) {
             item.setLineMode(3);
-        }else{
+        } else {
             item.setLineMode(1);
         }
 

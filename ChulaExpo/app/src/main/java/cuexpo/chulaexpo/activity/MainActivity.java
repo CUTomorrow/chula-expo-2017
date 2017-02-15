@@ -1,14 +1,12 @@
 package cuexpo.chulaexpo.activity;
 
 import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,30 +16,24 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
-import java.util.Timer;
-
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.SearchFragment;
 import cuexpo.chulaexpo.fragment.EventPageFragment;
 import cuexpo.chulaexpo.fragment.HomeFragment;
 import cuexpo.chulaexpo.fragment.MapFragment;
-import cuexpo.chulaexpo.fragment.MoreFragment;
 import cuexpo.chulaexpo.fragment.ProfileFragment;
-import cuexpo.chulaexpo.utility.LocationTask;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
+
+    public View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        rootView = this.findViewById(android.R.id.content);
         initTab();
-
-        WifiManager wifiManager;
-        wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new LocationTask(wifiManager), 3000, 3000);
     }
 
     private void initTab(){
