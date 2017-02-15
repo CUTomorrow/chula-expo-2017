@@ -24,7 +24,7 @@
     <color name="booking_almostFull">#ff9001</color>
     <color name="booking_full">#b90004</color>
 	<!--BY STEPBOOM-->
-	<color name="stage_soon">#E92A85</color>
+    <color name="stage_soon">#E92A85</color>
     <color name="stage_pass">#d1d1d1</color>
     <color name="transparent">#00ffffff</color>
     <color name="reserved">#5490B3</color>
@@ -32,4 +32,8 @@
     <color name="favourite">#E4C045</color>
     <color name="highlight_tab_list">#d0d0d0</color>
     <color name="black">#000000</color>
+    <color name="profile_bg">#484f61</color>
+    <color name="profile_bg_dark">#323846</color>
+    <color name="blackHigherOverlay">#e6000000</color>
+    <color name="normal_grey">#737373</color>
 </resources>
