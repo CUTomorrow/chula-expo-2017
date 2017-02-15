@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.activity.EventDetailActivity;
@@ -27,11 +28,16 @@ import cuexpo.chulaexpo.activity.StageActivity;
 import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.HighlightListAdapter;
 import cuexpo.chulaexpo.adapter.HomeStageListAdapter;
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.datatype.MutableInteger;
+import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.manager.PhotoListManager;
 import cuexpo.chulaexpo.view.ExpandableHeightListView;
 import cuexpo.chulaexpo.view.HeaderView;
 import me.relex.circleindicator.CircleIndicator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -115,45 +121,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //        activityListAdapter.notifyDataSetChanged();
         //lvActivity.addHeaderView(vpHighlight);
 
-
-        /* Fetch Data From Server
-        Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService().loadPhotoList();
+        /*
+        //Fetch Data From Server
+        Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService().loadActivityList();
         call.enqueue(new Callback<ActivityItemCollectionDao>() {
             @Override
             public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
-                if(response.isSuccessful()){
-                    ActivityItemCollectionDao cuexpo.chulaexpo.dao = response.body();
-                    activityListAdapter.setDao(cuexpo.chulaexpo.dao);
-                     activityListAdapter.notifyDataSetChanged();
+                if (response.isSuccessful()) {
+                    ActivityItemCollectionDao dao = response.body();
+                    Toast.makeText(getActivity(),dao.getResults()
                 } else {
-                    //response but not success
-                    try {
-                        Toast.makeText(Contextor.getInstance().getContext(),
-                                response.errorBody().string(),
-                                Toast.LENGTH_SHORT)
-                                .show();
-                    } catch (IOException e){
-                        e.printStackTrace();
-                    }
 
                 }
             }
-
             @Override
             public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
-                //Cannot connect to server
-                try {
-                    Toast.makeText(Contextor.getInstance().getContext(),
-                            t.toString(),
-                            Toast.LENGTH_SHORT)
-                            .show();
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
+
             }
-        });
-        */
+        })
+           */
     }
+
 
     @Override
     public void onStart() {
