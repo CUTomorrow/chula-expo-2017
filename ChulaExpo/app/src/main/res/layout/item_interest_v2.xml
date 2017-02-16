@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="95dp"
         android:id="@+id/interest_item"
         android:layout_margin="5dp">
         <ImageView
@@ -45,6 +45,10 @@
             android:textColor="@android:color/white"
             android:layout_centerHorizontal="true"
             android:id="@+id/interest_title_eng"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/interest_check"/>
 
 
     </RelativeLayout>
