@@ -6,19 +6,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.FavouriteListAdapter;
+import cuexpo.chulaexpo.view.ExpandableHeightListView;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 @SuppressWarnings("unused")
-public class FavouriteFragment extends Fragment {
+public class FavouriteFragment extends Fragment implements View.OnClickListener {
 
-    ListView listView;
+    ImageView back;
+    ExpandableHeightListView upComingEventListView;
+    ExpandableHeightListView previousEventListView;
     FavouriteListAdapter adapter;
 
     public FavouriteFragment() {
@@ -57,10 +61,19 @@ public class FavouriteFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
-        listView = (ListView) rootView.findViewById(R.id.favourite_content_container);
+        upComingEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.favourite_content_container);
+        previousEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.favourite_content_container2);
+        back = (ImageView) rootView.findViewById(R.id.favourite_back);
         adapter = new FavouriteListAdapter();
-        listView.setAdapter(adapter);
 
+        upComingEventListView.setAdapter(adapter);
+        upComingEventListView.setExpanded(true);
+        upComingEventListView.setFocusable(false);
+
+        previousEventListView.setAdapter(adapter);
+        previousEventListView.setExpanded(true);
+        previousEventListView.setFocusable(false);
+        back.setOnClickListener(this);
     }
 
     @Override
@@ -88,6 +101,13 @@ public class FavouriteFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore Instance State here
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v==back){
+            getActivity().finish();
+        }
     }
 
 }

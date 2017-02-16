@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,7 +16,12 @@ import android.widget.TextView;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
+import java.util.Map;
+import java.util.Objects;
+
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.adapter.StageListAdapter;
+import cuexpo.chulaexpo.manager.StageManager;
 //import cuexpo.chulaexpo.activity.FavouriteActivity;
 
 /**
@@ -24,10 +30,13 @@ import cuexpo.chulaexpo.R;
 public class StageInsideListItem extends BaseCustomViewGroup implements View.OnTouchListener {
 
     TextView tvDescription;
+    TextView tvFavourite;
+    TextView tvStar;
     ImageView ivLine;
     View vBottomDivider;
     LinearLayout btnView;
     LinearLayout btnFavourite;
+    boolean selected = false;
 
     public StageInsideListItem(Context context) {
         super(context);
@@ -64,6 +73,8 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
     private void initInstances() {
         // findViewById here
         tvDescription = (TextView) findViewById(R.id.stage_inside_tv_description);
+        tvFavourite = (TextView) findViewById(R.id.stage_inside_tv_favourite);
+        tvStar = (TextView) findViewById(R.id.stage_inside_tv_star);
         vBottomDivider = findViewById(R.id.stage_inside_bottom_divider);
         ivLine = (ImageView) findViewById(R.id.stage_inside_iv_line);
         btnView = (LinearLayout) findViewById(R.id.stage_inside_btn_info);
@@ -120,13 +131,17 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
         }
     }
 
-    public void setLineStatus(int state){
-        if(state==1){
+    public void setLineStatus(int state) {
+        if (state == 1) {
             ivLine.setImageResource(R.color.white);
-        }else{
+        } else {
             ivLine.setImageResource(R.color.transparent);
         }
 
+    }
+
+    public boolean getSelected() {
+        return selected;
     }
 
     @Override
@@ -134,22 +149,28 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
         if (v == btnView) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
-                    btnView.setBackgroundResource(R.drawable.border_selected);
+                    btnView.setBackgroundResource(R.drawable.shape_card_stroke_selected);
                     break;
                 }
                 case MotionEvent.ACTION_UP: {
-                    btnView.setBackgroundResource(R.drawable.border);
+                    btnView.setBackgroundResource(R.drawable.shape_card_stroke);
                     break;
                 }
             }
-        }else if (v == btnFavourite) {
+        } else if (v == btnFavourite) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
-                    btnFavourite.setBackgroundResource(R.drawable.border_selected);
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    btnFavourite.setBackgroundResource(R.drawable.border);
+                    if (!selected) {
+                        btnFavourite.setBackgroundResource(R.drawable.shape_card_stroke_selected);
+                        tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
+                        tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
+
+                    } else {
+                        btnFavourite.setBackgroundResource(R.drawable.shape_card_stroke);
+                        tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+                        tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+                    }
+                    selected = !selected;
                     break;
                 }
             }

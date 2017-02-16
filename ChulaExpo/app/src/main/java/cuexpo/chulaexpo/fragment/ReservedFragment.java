@@ -6,19 +6,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.ReservedListAdapter;
+import cuexpo.chulaexpo.view.ExpandableHeightListView;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 @SuppressWarnings("unused")
-public class ReservedFragment extends Fragment {
+public class ReservedFragment extends Fragment implements View.OnClickListener {
 
-    ListView listView;
+    ImageView back;
+    ExpandableHeightListView upComingEventListView;
+    ExpandableHeightListView previousEventListView;
     ReservedListAdapter adapter;
 
     public ReservedFragment() {
@@ -57,9 +62,20 @@ public class ReservedFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
-        listView = (ListView) rootView.findViewById(R.id.reserved_content_container);
+        upComingEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.reserved_content_container);
+        previousEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.reserved_content_container2);
+        back = (ImageView) rootView.findViewById(R.id.reserved_back);
         adapter = new ReservedListAdapter();
-        listView.setAdapter(adapter);
+
+        upComingEventListView.setAdapter(adapter);
+        upComingEventListView.setExpanded(true);
+        upComingEventListView.setFocusable(false);
+
+        previousEventListView.setAdapter(adapter);
+        previousEventListView.setExpanded(true);
+        previousEventListView.setFocusable(false);
+
+        back.setOnClickListener(this);
     }
 
     @Override
@@ -89,4 +105,10 @@ public class ReservedFragment extends Fragment {
         // Restore Instance State here
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v==back){
+            getActivity().finish();
+        }
+    }
 }

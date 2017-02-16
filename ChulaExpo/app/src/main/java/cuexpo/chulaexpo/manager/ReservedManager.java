@@ -10,7 +10,6 @@ import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 public class ReservedManager {
 
     public int count;
-    public int offset[] = new int[10];
 
     private static ReservedManager instance;
 
@@ -24,21 +23,16 @@ public class ReservedManager {
 
     private ReservedManager() {
         mContext = Contextor.getInstance().getContext();
-        offset[0] = 0;
-        offset[1]= offset[0] + (getReservedDate(0)==0 ? 1 : getReservedDate(0)) + 1;
-        offset[2]= offset[1] + (getReservedDate(1)==0 ? 1 : getReservedDate(1)) + 1;
-        offset[3]= offset[2] + (getReservedDate(2)==0 ? 1 : getReservedDate(2)) + 1;
-        offset[4]= offset[3] + (getReservedDate(3)==0 ? 1 : getReservedDate(3)) + 1;
-        count = offset[4] + (getReservedDate(4)==0 ? 1 : getReservedDate(4)) + 1;
+        count = 1;
     }
 
     public int getReservedDate(int date){
         switch(date){
-            case 0 : {return 3;}
+            case 0 : {return 0;}
             case 1 : {return 0;}
-            case 2 : {return 1;}
+            case 2 : {return 0;}
             case 3 : {return 0;}
-            case 4 : {return 2;}
+            case 4 : {return 0;}
             default : {return 0;}
         }
     }

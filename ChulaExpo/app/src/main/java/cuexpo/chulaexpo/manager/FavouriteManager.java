@@ -10,7 +10,6 @@ import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 public class FavouriteManager {
 
     public int count;
-    public int offset[] = new int[10];
 
     private static FavouriteManager instance;
 
@@ -24,21 +23,16 @@ public class FavouriteManager {
 
     private FavouriteManager() {
         mContext = Contextor.getInstance().getContext();
-        offset[0] = 0;
-        offset[1]= offset[0] + (getFavouriteDate(0)==0 ? 1 : getFavouriteDate(0)) + 1;
-        offset[2]= offset[1] + (getFavouriteDate(1)==0 ? 1 : getFavouriteDate(1)) + 1;
-        offset[3]= offset[2] + (getFavouriteDate(2)==0 ? 1 : getFavouriteDate(2)) + 1;
-        offset[4]= offset[3] + (getFavouriteDate(3)==0 ? 1 : getFavouriteDate(3)) + 1;
-        count = offset[4] + (getFavouriteDate(4)==0 ? 1 : getFavouriteDate(4)) + 1;
+        count = 1;
     }
 
     public int getFavouriteDate(int date){
         switch(date){
-            case 0 : {return 5;}
+            case 0 : {return 0;}
             case 1 : {return 0;}
             case 2 : {return 0;}
             case 3 : {return 0;}
-            case 4 : {return 1;}
+            case 4 : {return 0;}
             default : {return 0;}
         }
     }
