@@ -22,6 +22,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
+
+import java.io.IOException;
+
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.activity.EventDetailActivity;
 import cuexpo.chulaexpo.activity.StageActivity;
@@ -121,7 +125,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //        activityListAdapter.notifyDataSetChanged();
         //lvActivity.addHeaderView(vpHighlight);
 
-        /*
+
         //Fetch Data From Server
         Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService().loadActivityList();
         call.enqueue(new Callback<ActivityItemCollectionDao>() {
@@ -129,17 +133,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
                 if (response.isSuccessful()) {
                     ActivityItemCollectionDao dao = response.body();
-                    Toast.makeText(getActivity(),dao.getResults()
+                    Toast.makeText(Contextor.getInstance().getContext(),dao.getResults().get(0).getName().getEn(),Toast.LENGTH_SHORT).show();
                 } else {
-
+                    //Handle
+                    try {
+                        Toast.makeText(Contextor.getInstance().getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             @Override
             public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
-
+                Toast.makeText(Contextor.getInstance().getContext(),t.toString(),Toast.LENGTH_SHORT).show();
             }
-        })
-           */
+        });
+
     }
 
 

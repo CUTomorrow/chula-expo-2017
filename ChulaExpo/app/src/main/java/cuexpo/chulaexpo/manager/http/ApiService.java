@@ -2,6 +2,7 @@ package cuexpo.chulaexpo.manager.http;
 
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import retrofit2.Call;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -9,6 +10,6 @@ import retrofit2.http.POST;
  */
 
 public interface ApiService {
-    @POST("")
+    @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadActivityList();
 }
