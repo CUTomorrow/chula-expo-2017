@@ -1,6 +1,7 @@
 package cuexpo.chulaexpo.manager.http;
 
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
+import cuexpo.chulaexpo.dao.ZoneResult;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -12,4 +13,6 @@ import retrofit2.http.POST;
 public interface ApiService {
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadActivityList();
+    @GET("/api/zones")
+    Call<ZoneResult> loadZoneList();
 }

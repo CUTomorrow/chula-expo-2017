@@ -7,18 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +21,6 @@ import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import java.io.IOException;
 
 import cuexpo.chulaexpo.R;
-import cuexpo.chulaexpo.activity.EventDetailActivity;
 import cuexpo.chulaexpo.activity.StageActivity;
 import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.HighlightListAdapter;
@@ -35,9 +28,8 @@ import cuexpo.chulaexpo.adapter.HomeStageListAdapter;
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.HttpManager;
-import cuexpo.chulaexpo.manager.PhotoListManager;
+import cuexpo.chulaexpo.manager.ActivityListManager;
 import cuexpo.chulaexpo.view.ExpandableHeightListView;
-import cuexpo.chulaexpo.view.HeaderView;
 import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +42,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ActivityListAdapter activityListAdapter;
     HighlightListAdapter highlightListAdapter;
     HomeStageListAdapter homeStageListAdapter;
-    PhotoListManager photoListManager;
+    ActivityListManager photoListManager;
     MutableInteger lastPositionInteger;
     ViewPager vpHighlight;
     TextView tvHighlightLabel,tvHighlightTime;
@@ -86,7 +78,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void init(Bundle savedInstanceState) {
         //can save state
-        photoListManager = new PhotoListManager();
+        photoListManager = new ActivityListManager();
         lastPositionInteger = new MutableInteger(-1);
     }
 
@@ -133,6 +125,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
                 if (response.isSuccessful()) {
                     ActivityItemCollectionDao dao = response.body();
+                    ActivityListManager.getInstance().setDao(dao);
+                    activityListAdapter.notifyDataSetChanged();
                     Toast.makeText(Contextor.getInstance().getContext(),dao.getResults().get(0).getName().getEn(),Toast.LENGTH_SHORT).show();
                 } else {
                     //Handle

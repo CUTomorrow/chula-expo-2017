@@ -6,9 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
+import cuexpo.chulaexpo.dao.ActivityItemResultDao;
 import cuexpo.chulaexpo.datatype.MutableInteger;
+import cuexpo.chulaexpo.manager.ActivityListManager;
 import cuexpo.chulaexpo.view.ActivityListItem;
 
 /**
@@ -32,19 +39,15 @@ public class ActivityListAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 10;
-        /*
-        if(cuexpo.chulaexpo.dao == null) return  0;
-        if(cuexpo.chulaexpo.dao.getData() == null) return 0;
-        return cuexpo.chulaexpo.dao.getData().size();
-        */
+        if(ActivityListManager.getInstance().getDao() == null) return  0;
+        if(ActivityListManager.getInstance().getDao().getResults() == null) return 0;
+        return ActivityListManager.getInstance().getDao().getResults().size();
     }
 
     @Override
     public Object getItem(int position)
     {
-        return null;
-        // return cuexpo.chulaexpo.dao.getData().get(position);
+        return ActivityListManager.getInstance().getDao().getResults().get(position);
     }
 
     @Override
@@ -59,6 +62,12 @@ public class ActivityListAdapter extends BaseAdapter{
             item = (ActivityListItem) convertView;
         else
             item = new ActivityListItem(parent.getContext());
+
+        ActivityItemResultDao dao = (ActivityItemResultDao) getItem(position);
+        item.setNameText(dao.getName().getTh());
+        item.setTimeText(dateThai(dao.getStart())+"\u2022"+dao.getStart().substring(11,16) + "-"+dao.getEnd().substring(11,16));
+        item.setFacultyText(dao.getZone(),Color.WHITE,Color.rgb(185,0,4));
+
 
         //Mock
         if(position%3==0){
@@ -80,5 +89,32 @@ public class ActivityListAdapter extends BaseAdapter{
         }
 
         return item;
+    }
+
+    public static String dateThai(String strDate)
+    {
+        String Months[] = {
+                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",
+                "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม",
+                "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"};
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        int year=0,month=0,day=0;
+        try {
+            Date date = df.parse(strDate);
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+
+            year = c.get(Calendar.YEAR);
+            month = c.get(Calendar.MONTH);
+            day = c.get(Calendar.DATE);
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return String.format("%s %s", day,Months[month]);
     }
 }
