@@ -38,4 +38,24 @@
     <color name="profile_bg_dark">#323846</color>
     <color name="blackHigherOverlay">#e6000000</color>
     <color name="normal_grey">#737373</color>
+    <!-- Faculty Color -->
+    <color name="f21">#8b0000</color>
+    <color name="f22">#808080</color>
+    <color name="f23">#ffff00</color>
+    <color name="f24">#000000</color>
+    <color name="f25">#a52a2a</color>
+    <color name="f26">#00bfff</color>
+    <color name="f27">#ff4500</color>
+    <color name="f28">#00008b</color>
+    <color name="f29">#ffd700</color>
+    <color name="f30">#006400</color>
+    <color name="f31">#87cefa</color>
+    <color name="f32">#d8bfd8</color>
+    <color name="f33">#6b8e23</color>
+    <color name="f34">#dcdcdc</color> <!-- white -->
+    <color name="f35">#ff0000</color>
+    <color name="f36">#c20808</color>
+    <color name="f37">#4b0082</color>
+    <color name="f38">#0000cd</color>
+    <color name="f39">#ffa500</color>
 </resources>
