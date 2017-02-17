@@ -108,6 +108,7 @@ public class FacultyListFragment extends Fragment {
                 faculty.setFacultyTitleEng("Faculty of Political Science");
             }
             data.add(faculty);
+            // TODO: remove log
             Log.d("data", "init data " + position);
         }
         //**** END OF MOCK ******//
