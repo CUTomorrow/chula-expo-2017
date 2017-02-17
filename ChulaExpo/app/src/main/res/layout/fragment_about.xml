@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:background="@drawable/stage_left"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/ic_launcher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView" />
+
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:text="จุฬาฯ เอ็กซ์โป\nจุฬาฯ 100 ปี นวัตกรรมคิดทำเพื่อสังคม"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:text="Chula Expo\nCU@100 toward greater\ninnovation for the society"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                fontPath="@string/font_bold"
+                android:text="แนวคิดหลักในการจัดงาน"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:text="Innovation   Social responsibility   Sustainability"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                fontPath="@string/font_bold"
+                android:text="กลุ่มเป้าหมาย"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:text="CU Family : ครอบครัวจุฬาฯหมายถึง นิสิตปัจจุบัน นิสิตเก่า\nคณาจารย์และเจ้าหน้าที่ ที่มีความเกี่ยวข้องกับจุฬาฯ โดยตรง\nรวมทั้งนักเรียนที่มีความมุ่งหมายจะเข้ามาเป็นส่วนหนึ่งของ\nจุฬาลงกรณ์มหาวิทยาลัย"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/about_close"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/close_button"
+            android:layout_alignParentRight="true"
+            android:padding="15dp"
+            android:alpha="0.5"/>
+    </RelativeLayout>
+
+</FrameLayout>

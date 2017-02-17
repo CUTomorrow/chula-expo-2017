@@ -40,28 +40,17 @@ public class FavouriteListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         FavouriteListItem item;
-        DateSection date = new DateSection(parent.getContext());
         FavouriteManager manager = FavouriteManager.getInstance();
 
-        for(int i = 15;i < 20;i++) {
-            if (position == manager.offset[i-15]) {
-                date.setDate(i + "");
-                return date;
-            } else if (position == manager.offset[i-15] + 1) {
-                if (manager.getFavouriteDate(i-15) == 0) {
-                    TextView tv = new TextView(parent.getContext());
-                    tv.setText("No Favourite Event On This Day");
-                    tv.setGravity(Gravity.CENTER);
-                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-                    final float scale = parent.getResources().getDisplayMetrics().density;
-                    int pixels = (int) (15 * scale + 0.5f);
-                    tv.setPadding(0,pixels,0,pixels);
-                    return tv;
-                } else {
-                    item = new FavouriteListItem(parent.getContext());
-                    return item;
-                }
-            }
+        if (manager.getFavouriteDate(0) == 0) {
+            TextView tv = new TextView(parent.getContext());
+            tv.setText("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+            tv.setGravity(Gravity.CENTER);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            final float scale = parent.getResources().getDisplayMetrics().density;
+            int pixels = (int) (15 * scale + 0.5f);
+            tv.setPadding(0, pixels, 0, pixels);
+            return tv;
         }
 
         item = new FavouriteListItem(parent.getContext());
@@ -71,10 +60,8 @@ public class FavouriteListAdapter extends BaseAdapter {
     @Override
     public boolean isEnabled(int position) {
         FavouriteManager manager = FavouriteManager.getInstance();
-        for(int i = 0 ;i < 5 ;i++){
-            if(position==manager.offset[i]+1 && manager.getFavouriteDate(i) == 0){
-                return false;
-            }
+        if (manager.getFavouriteDate(0) == 0) {
+            return false;
         }
         return true;
     }
