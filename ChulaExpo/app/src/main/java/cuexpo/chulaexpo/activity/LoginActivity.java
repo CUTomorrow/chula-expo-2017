@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         activity = this;
 
-        ImageView facebookLogin = (ImageView) findViewById(R.id.login_facebook);
+        RelativeLayout facebookLogin = (RelativeLayout) findViewById(R.id.login_fb);
         TextView guestLogin = (TextView) findViewById(R.id.login_guest);
 
         callbackManager = CallbackManager.Factory.create();

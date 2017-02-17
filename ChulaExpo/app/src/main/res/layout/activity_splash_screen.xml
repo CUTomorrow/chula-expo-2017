@@ -10,16 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cuexpo.chulaexpo.activity.SplashScreenActivity"
-    android:background="@drawable/splash_bg">
-
-    <ImageView
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/engineer_logo"
-        android:id="@+id/imageView3"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_width="250dp"
-        android:layout_marginBottom="20dp" />
+    android:background="@drawable/splash_screen_bg">
 
     <RelativeLayout
         android:layout_width="200dp"
@@ -29,7 +20,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            app:srcCompat="@drawable/logo_color"
+            app:srcCompat="@drawable/logo"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/imageView2"
