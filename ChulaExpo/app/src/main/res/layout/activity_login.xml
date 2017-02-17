@@ -5,10 +5,6 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cuexpo.chulaexpo.activity.LoginActivity"
     android:background="@drawable/login_bg">
 
@@ -20,34 +16,61 @@
 
         <ImageView
             android:layout_width="match_parent"
-            app:srcCompat="@drawable/logo_white"
+            app:srcCompat="@drawable/logo"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/imageView2"
             android:layout_height="300dp" />
     </RelativeLayout>
 
-    <ImageView
-        app:srcCompat="@drawable/login_facebook"
-        android:id="@+id/login_facebook"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="55dp"
+        android:layout_marginLeft="30dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="46dp"
-        android:layout_width="310dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_height="60dp" />
+        android:layout_marginRight="30dp"
+        android:layout_height="56dp"
+        android:background="@color/blue_fb"
+        android:id="@+id/login_fb">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:text="@string/login_fb"
+                fontPath="fonts/ThaiSansNeue-Bold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:id="@+id/textView3"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/imageView3"
+                android:layout_marginLeft="12dp"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/font_14" />
+
+            <ImageView
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_fb_logo"
+                android:id="@+id/imageView3"
+                android:elevation="0dp"
+                android:layout_width="24dp" />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <TextView
-        android:text="I don't have facebook"
+        android:text="@string/login_wo_fb"
+        fontPath="fonts/ThaiSansNeue-Bold.ttf"
         android:layout_width="310dp"
         android:id="@+id/login_guest"
         android:layout_height="40dp"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="@dimen/font_13"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="5dp" />
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>
