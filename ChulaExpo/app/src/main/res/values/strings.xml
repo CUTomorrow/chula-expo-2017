@@ -38,6 +38,7 @@
 
     <!-- Map -->
     <string name="show_hide_pin">แสดง/ซ่อน ตำแหน่ง</string>
+    <string name="current_location">ตำแหน่งปัจจุบัน</string>
     <string name="faculty_city">คณะ/เมือง</string>
     <string name="landmark">จุดสังเกต</string>
     <string name="information">จุดประชาสัมพันธ์</string>

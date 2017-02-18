@@ -42,7 +42,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
         pinList = (CardView) rootView.findViewById(R.id.pin_list);
-        // Pin List
         showFaculty = (ImageView) rootView.findViewById(R.id.show_faculty_city);
         showLandmark = (ImageView) rootView.findViewById(R.id.show_landmark);
         showInfo = (ImageView) rootView.findViewById(R.id.show_info);
@@ -55,6 +54,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         showBusLine3 = (ImageView) rootView.findViewById(R.id.show_bus_line_3);
         // Set OnClickListener
         rootView.findViewById(R.id.show_hide_pin).setOnClickListener(showPinListOnClick);
+        rootView.findViewById(R.id.show_current_location).setOnClickListener(showCurrentLocation);
         showFaculty.setOnClickListener(showFacultyOCL);
         showLandmark.setOnClickListener(showLandmarkOCL);
         showInfo.setOnClickListener(showInfoOCL);
@@ -81,6 +81,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 isShowingPinList = true;
                 pinList.animate().translationX(dpToPx(212));
             }
+        }
+    };
+
+    private View.OnClickListener showCurrentLocation = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            hidePinList();
+//            if (isShowingPinList) {
+//                isShowingPinList = false;
+//                pinList.animate().translationY(dpToPx(0));
+//            } else {
+//                isShowingPinList = true;
+//                pinList.animate().translationY(dpToPx(212));
+//            }
         }
     };
 
@@ -193,6 +207,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         }
     };
+
+    private void hidePinList() {
+        if (isShowingPinList) {
+            isShowingPinList = false;
+            pinList.animate().translationX(dpToPx(0));
+        }
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
