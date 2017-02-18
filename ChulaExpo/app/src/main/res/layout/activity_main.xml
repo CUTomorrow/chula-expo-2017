@@ -50,9 +50,7 @@
                 app:stl_distributeEvenly="true"
                 app:stl_clickable="true"
 
-                android:layout_alignParentBottom="true"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp" />
+                android:layout_alignParentBottom="true" />
 
         </RelativeLayout>
 
