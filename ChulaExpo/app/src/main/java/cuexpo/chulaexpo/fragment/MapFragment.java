@@ -1,14 +1,25 @@
 package cuexpo.chulaexpo.fragment;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +32,57 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.utility.FacultyMapEntity;
+import cuexpo.chulaexpo.utility.IMapEntity;
+import cuexpo.chulaexpo.utility.NormalPinMapEntity;
+import cuexpo.chulaexpo.utility.PopbusRouteMapEntity;
 
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
 
+    private View rootView;
     private GoogleMap googleMap;
     private CardView pinList;
     private boolean isShowingPinList = false;
     private ImageView showFaculty, showLandmark, showInfo, showInterest, showCanteen, showToilet,
             showBusStop, showBusLine1, showBusLine2, showBusLine3;
+
+//    private Application mainApp = getActivity().getApplication();
+    HashMap<String, PopbusRouteMapEntity> popbusRoutes = new HashMap<>();
+    HashMap<Integer, FacultyMapEntity> faculties = new HashMap<>();
+    ArrayList<NormalPinMapEntity> infoPointsPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> landmarksPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> cuTourStationPins = new ArrayList<>();
+
+    private void initializeFaculties() {
+        try {
+            JSONArray facultiesJSON = new JSONArray(
+                    getContext().getResources().getString(R.string.jsonFacultyMap)
+            );
+            for (int i = 0; i < facultiesJSON.length(); i++) {
+                JSONObject facultyData = facultiesJSON.getJSONObject(i);
+                faculties.put(facultyData.getInt("id"), new FacultyMapEntity(facultyData));
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void initializeMapData() {
+        initializeFaculties();
+//        initializePopbusRoutes();
+//        initializeInfoPoints();
+//        initializeLandmarks();
+//        initializeCUTourStation();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +92,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        try {
+            rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        } catch (InflateException e) {
+        /* map is already there, just return view as it is */
+        }
+
         pinList = (CardView) rootView.findViewById(R.id.pin_list);
         showFaculty = (ImageView) rootView.findViewById(R.id.show_faculty_city);
         showLandmark = (ImageView) rootView.findViewById(R.id.show_landmark);
@@ -55,6 +112,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Set OnClickListener
         rootView.findViewById(R.id.show_hide_pin).setOnClickListener(showPinListOnClick);
         rootView.findViewById(R.id.show_current_location).setOnClickListener(showCurrentLocation);
+        pinList.setOnClickListener(pinListOCL);
         showFaculty.setOnClickListener(showFacultyOCL);
         showLandmark.setOnClickListener(showLandmarkOCL);
         showInfo.setOnClickListener(showInfoOCL);
@@ -65,9 +123,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         showBusLine1.setOnClickListener(showBusLine1OCL);
         showBusLine2.setOnClickListener(showBusLine2OCL);
         showBusLine3.setOnClickListener(showBusLine3OCL);
+//        close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                hideBottomBox();
+//            }
+//        });
 
-//        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map);
-//        mapFragment.getMapAsync(this);
+        // Set visibility
+//        pinList.setVisibility(View.VISIBLE);
+        showFaculty.setSelected(true);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map);
+        mapFragment.getMapAsync(this);
+        initializeMapData();
         return rootView;
     }
 
@@ -76,10 +145,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         public void onClick(View v) {
             if (isShowingPinList) {
                 isShowingPinList = false;
-                pinList.animate().translationX(dpToPx(0));
+                ObjectAnimator.ofFloat(pinList, "x", dpToPx(12), dpToPx(-200)).start();
+                Log.d("hide pin", ""+pinList.getX());
             } else {
                 isShowingPinList = true;
-                pinList.animate().translationX(dpToPx(212));
+                ObjectAnimator.ofFloat(pinList, "x", dpToPx(-200), dpToPx(12)).start();
+                Log.d("show pin", ""+pinList.getX());
             }
         }
     };
@@ -103,11 +174,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         public void onClick(View v) {
             if (showFaculty.isSelected()){
                 showFaculty.setSelected(false);
+                setAllFacultiesVisibility(false);
             } else {
                 showFaculty.setSelected(true);
+                setAllFacultiesVisibility(true);
             }
         }
     };
+
+    private void setAllFacultiesVisibility(boolean isVisible) {
+        for (IMapEntity faculty : faculties.values()) {
+            faculty.setVisible(isVisible);
+        }
+    }
 
     private View.OnClickListener showLandmarkOCL = new View.OnClickListener() {
         @Override
@@ -208,6 +287,62 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     };
 
+//    private void enableMyLocation() {
+//        if (ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            // Permission to access the location is missing.
+//            PermissionUtils.requestPermission((AppCompatActivity) this.getActivity(), LOCATION_PERMISSION_REQUEST_CODE,
+//                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+//        } else if (googleMap != null) {
+//            try {
+//                googleMap.setMyLocationEnabled(true);
+//
+//                if (locationSource == null) {
+//                    locationSource = new MyLocationSource(this.getContext());
+//                    googleMap.setLocationSource(locationSource);
+//                }
+//
+//                Location location = locationSource.getLastKnownLocation();
+//                if (location != null) {
+//                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+//                            new LatLng(location.getLatitude(), location.getLongitude()),
+//                            17
+//                    ), 1000, null);
+//                    Snackbar.make(rootView, "Showing your current location...", Snackbar.LENGTH_SHORT).show();
+//                }
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//    }
+
+    private View.OnClickListener myLocationListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                enableMyLocation();
+            }
+        };
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+//        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+//            return;
+//        }
+//
+//        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+//                Manifest.permission.ACCESS_FINE_LOCATION)) {
+//            // Enable the my location layer if the permission has been granted.
+//            enableMyLocation();
+//        } else {
+//            // Display the missing permission error dialog when the fragments resume.
+//            PermissionUtils.PermissionDeniedDialog
+//                    .newInstance(true).show(this.getChildFragmentManager(), "dialog");
+//        }
+    }
+
     private void hidePinList() {
         if (isShowingPinList) {
             isShowingPinList = false;
@@ -215,9 +350,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    private View.OnClickListener pinListOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        // Add faculties
+        for (IMapEntity facultyEntry : faculties.values()) {
+            facultyEntry.setMap(googleMap);
+        }
     }
 
     public int dpToPx(int dp) {

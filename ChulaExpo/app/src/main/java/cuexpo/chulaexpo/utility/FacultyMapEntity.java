@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import th.in.thinc.cuopenhouse2015.R;
+import cuexpo.chulaexpo.R;
 
 /**
  * Created by Kasidit on 05-Nov-15.
