@@ -45,21 +45,17 @@ public class ActivityListAdapter extends BaseAdapter{
         this.dao = dao;
     }
 
-    public void setZoneDao(ZoneResult zoneDao) {
-        this.zoneDao = zoneDao;
-    }
-
     @Override
     public int getCount() {
-        if(ActivityListManager.getInstance().getDao() == null) return  0;
-        if(ActivityListManager.getInstance().getDao().getResults() == null) return 0;
-        return ActivityListManager.getInstance().getDao().getResults().size();
+        if(dao == null) return  0;
+        if(dao.getResults() == null) return 0;
+        return dao.getResults().size();
     }
 
     @Override
     public Object getItem(int position)
     {
-        return ActivityListManager.getInstance().getDao().getResults().get(position);
+        return dao.getResults().get(position);
     }
 
     @Override

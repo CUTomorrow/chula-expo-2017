@@ -138,7 +138,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 ActivityItemCollectionDao dao = response.body();
-                ActivityListManager.getInstance().setDao(dao);
+                activityListAdapter.setDao(dao);
                 activityListAdapter.notifyDataSetChanged();
                 //Toast.makeText(Contextor.getInstance().getContext(), dao.getResults().get(0).getName().getEn(), Toast.LENGTH_SHORT).show();
             } else {
