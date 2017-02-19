@@ -1,5 +1,6 @@
 package cuexpo.chulaexpo.adapter;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -14,8 +15,11 @@ import java.util.Date;
 
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.dao.ActivityItemResultDao;
+import cuexpo.chulaexpo.dao.ZoneResult;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.ActivityListManager;
+import cuexpo.chulaexpo.manager.HttpManager;
+import cuexpo.chulaexpo.utility.Resource;
 import cuexpo.chulaexpo.view.ActivityListItem;
 
 /**
@@ -25,9 +29,13 @@ import cuexpo.chulaexpo.view.ActivityListItem;
 public class ActivityListAdapter extends BaseAdapter{
 
     ActivityItemCollectionDao dao;
+    ZoneResult zoneDao;
     MutableInteger lastPositionInteger;
     ViewPager vpHighlight;
     RelativeLayout layoutActivity;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+    String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
 
     public ActivityListAdapter(MutableInteger lastPositionInteger) {
         this.lastPositionInteger = lastPositionInteger;
@@ -35,6 +43,10 @@ public class ActivityListAdapter extends BaseAdapter{
 
     public void setDao(ActivityItemCollectionDao dao) {
         this.dao = dao;
+    }
+
+    public void setZoneDao(ZoneResult zoneDao) {
+        this.zoneDao = zoneDao;
     }
 
     @Override
@@ -62,14 +74,22 @@ public class ActivityListAdapter extends BaseAdapter{
             item = (ActivityListItem) convertView;
         else
             item = new ActivityListItem(parent.getContext());
-
+        //prepare data
         ActivityItemResultDao dao = (ActivityItemResultDao) getItem(position);
+        sharedPref = parent.getContext().getSharedPreferences("ZoneKey",parent.getContext().MODE_PRIVATE);
+        String zoneShortName = sharedPref.getString(dao.getZone(),"");
+
         item.setNameText(dao.getName().getTh());
         item.setTimeText(dateThai(dao.getStart())+"\u2022"+dao.getStart().substring(11,16) + "-"+dao.getEnd().substring(11,16));
-        item.setFacultyText(dao.getZone(),Color.WHITE,Color.rgb(185,0,4));
+        boolean isLight = false;
+        for(int i=0;i<lightZone.length-1;i++){
+            if(zoneShortName.equals(lightZone[i])) isLight =true;
+        }
+        if(isLight) item.setFacultyText(zoneShortName,Color.BLACK, Resource.getColor(zoneShortName));
+        else item.setFacultyText(zoneShortName,Color.WHITE, Resource.getColor(zoneShortName));
+        item.setImageUrl("http://staff.chulaexpo.com" + dao.getThumbnail());
 
-
-        //Mock
+        /*Mock
         if(position%3==0){
             item.setNameText("Vidva Highlight");
             item.setTimeText("15 Mar 09.40 - 10.40");
@@ -87,7 +107,7 @@ public class ActivityListAdapter extends BaseAdapter{
             item.setFacultyText("PSY",Color.WHITE, Color.rgb(234,220,0));
             item.setImageUrl("2");
         }
-
+        */
         return item;
     }
 

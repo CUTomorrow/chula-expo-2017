@@ -1,6 +1,8 @@
 package cuexpo.chulaexpo.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +28,8 @@ import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.HighlightListAdapter;
 import cuexpo.chulaexpo.adapter.HomeStageListAdapter;
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
+import cuexpo.chulaexpo.dao.ZoneDao;
+import cuexpo.chulaexpo.dao.ZoneResult;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.manager.ActivityListManager;
@@ -49,6 +53,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     CircleIndicator indicatorHighlight;
     ImageView ivToolbarQR;
     View rootView;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -120,30 +126,66 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         //Fetch Data From Server
         Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService().loadActivityList();
-        call.enqueue(new Callback<ActivityItemCollectionDao>() {
-            @Override
-            public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
-                if (response.isSuccessful()) {
-                    ActivityItemCollectionDao dao = response.body();
-                    ActivityListManager.getInstance().setDao(dao);
-                    activityListAdapter.notifyDataSetChanged();
-                    Toast.makeText(Contextor.getInstance().getContext(),dao.getResults().get(0).getName().getEn(),Toast.LENGTH_SHORT).show();
-                } else {
-                    //Handle
-                    try {
-                        Toast.makeText(Contextor.getInstance().getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        call.enqueue(callbackActivity);
+        Call<ZoneDao> callZone = HttpManager.getInstance().getService().loadZoneList();
+        callZone.enqueue(callbackZone);
+    }
+    /**************
+     * Callback API
+     *************/
+    Callback<ActivityItemCollectionDao> callbackActivity = new Callback<ActivityItemCollectionDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
+            if (response.isSuccessful()) {
+                ActivityItemCollectionDao dao = response.body();
+                ActivityListManager.getInstance().setDao(dao);
+                activityListAdapter.notifyDataSetChanged();
+                //Toast.makeText(Contextor.getInstance().getContext(), dao.getResults().get(0).getName().getEn(), Toast.LENGTH_SHORT).show();
+            } else {
+                //Handle
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-            @Override
-            public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
-                Toast.makeText(Contextor.getInstance().getContext(),t.toString(),Toast.LENGTH_SHORT).show();
-            }
-        });
+        }
 
-    }
+        @Override
+        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    Callback<ZoneDao> callbackZone = new Callback<ZoneDao>() {
+        @Override
+        public void onResponse(Call<ZoneDao> call, Response<ZoneDao> response) {
+            if(response.isSuccessful()){
+                ZoneDao dao = response.body();
+                //get SharedPref
+                sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
+                editor = sharedPref.edit();
+                for(int i=0;i<dao.getResults().size();i++){
+                    ZoneResult zone = dao.getResults().get(i);
+                    editor.putString(zone.getId(),zone.getShortName().getEn());
+                }
+                editor.commit();
+            } else {
+                //Handle
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ZoneDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
 
 
     @Override

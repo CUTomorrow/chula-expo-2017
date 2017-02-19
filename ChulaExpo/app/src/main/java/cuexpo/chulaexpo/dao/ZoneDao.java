@@ -22,7 +22,7 @@ public class ZoneDao {
         this.success = success;
     }
 
-    public List<ZoneDaoResult> getResults() {
+    public List<ZoneResult> getResults() {
         return results;
     }
 

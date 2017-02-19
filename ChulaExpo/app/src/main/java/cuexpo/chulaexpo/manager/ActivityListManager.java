@@ -25,6 +25,7 @@ public class ActivityListManager {
     }
 
     public static ActivityListManager getInstance() {
+        if(instance == null) instance = new ActivityListManager();
         return instance;
     }
 
