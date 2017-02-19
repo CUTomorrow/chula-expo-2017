@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="jsonFacultyMap">
+
+[
+  {
+    \"id\": 21,
+    \"nameEn\": \"Faculty of Engineering\",
+    \"nameTh\": \"คณะวิศวกรรมศาสตร์\",
+    \"color\": \"#9b0000\",
+    \"centerPoint\": { \"lat\": 13.73658, \"lng\": 100.53384 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73695, \"lng\": 100.53351 },
+      { \"lat\": 13.73689, \"lng\": 100.53383 },
+      { \"lat\": 13.73682, \"lng\": 100.53382 },
+      { \"lat\": 13.73679, \"lng\": 100.53397 },
+      { \"lat\": 13.73646, \"lng\": 100.53392 },
+      { \"lat\": 13.73642, \"lng\": 100.53420 },
+      { \"lat\": 13.73619, \"lng\": 100.53416 },
+      { \"lat\": 13.73626, \"lng\": 100.53371 },
+      { \"lat\": 13.73655, \"lng\": 100.53375 },
+      { \"lat\": 13.73660, \"lng\": 100.53345 }
+    ]
+  },
+  {
+    \"id\": 22,
+    \"nameEn\": \"Faculty of Arts\",
+    \"nameTh\": \"คณะอักษรศาสตร์\",
+    \"color\": \"#848285\",
+    \"centerPoint\": { \"lat\": 13.73928, \"lng\": 100.53405 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73939, \"lng\": 100.53429 },
+      { \"lat\": 13.73913, \"lng\": 100.53426 },
+      { \"lat\": 13.73918, \"lng\": 100.53383 },
+      { \"lat\": 13.73945, \"lng\": 100.53386 }
+    ]
+  },
+  {
+    \"id\": 23,
+    \"nameEn\": \"Faculty of Science\",
+    \"nameTh\": \"คณะวิทยาศาสตร์\",
+    \"color\": \"#ffc715\",
+    \"centerPoint\": { \"lat\": 13.73592, \"lng\": 100.53033 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73618, \"lng\": 100.53009 },
+      { \"lat\": 13.73609, \"lng\": 100.53069 },
+      { \"lat\": 13.73568, \"lng\": 100.53063 },
+      { \"lat\": 13.73578, \"lng\": 100.53002 }
+    ]
+  },
+  {
+    \"id\": 24,
+    \"nameEn\": \"Faculty of Political Science\",
+    \"nameTh\": \"คณะรัฐศาสตร์\",
+    \"color\": \"#000000\",
+    \"centerPoint\": { \"lat\": 13.73442, \"lng\": 100.53331 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73499, \"lng\": 100.53209 },
+      { \"lat\": 13.73472, \"lng\": 100.53405 },
+      { \"lat\": 13.73384, \"lng\": 100.53393 },
+      { \"lat\": 13.73402, \"lng\": 100.53275 },
+      { \"lat\": 13.73447, \"lng\": 100.53282 },
+      { \"lat\": 13.73459, \"lng\": 100.53202 }
+    ]
+  },
+  {
+    \"id\": 25,
+    \"nameEn\": \"Faculty of Architecture\",
+    \"nameTh\": \"คณะสถาปัตยกรรมศาสตร์\",
+    \"color\": \"#6c451e\",
+    \"centerPoint\": { \"lat\": 13.73986, \"lng\": 100.53064 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.74029, \"lng\": 100.52999 },
+      { \"lat\": 13.74004, \"lng\": 100.53148 },
+      { \"lat\": 13.73947, \"lng\": 100.53140 },
+      { \"lat\": 13.73971, \"lng\": 100.52991 }
+    ]
+  },
+  {
+    \"id\": 26,
+    \"nameEn\": \"Faculty of Commerce and Accountancy\",
+    \"nameTh\": \"คณะพาณิชยศาสตร์และการบัญชี\",
+    \"color\": \"#7090c8\",
+    \"centerPoint\": { \"lat\": 13.73403, \"lng\": 100.53044 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73480, \"lng\": 100.53004 },
+      { \"lat\": 13.73466, \"lng\": 100.53107 },
+      { \"lat\": 13.73330, \"lng\": 100.53086 },
+      { \"lat\": 13.73348, \"lng\": 100.52982 }
+    ]
+  },
+  {
+    \"id\": 27,
+    \"nameEn\": \"Faculty of Education\",
+    \"nameTh\": \"คณะครุศาสตร์\",
+    \"color\": \"#f26522\",
+    \"centerPoint\": { \"lat\": 13.73738, \"lng\": 100.52858 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73770, \"lng\": 100.52812 },
+      { \"lat\": 13.73716, \"lng\": 100.52803 },
+      { \"lat\": 13.73699, \"lng\": 100.52908 },
+      { \"lat\": 13.73754, \"lng\": 100.52918 }
+    ]
+  },
+  {
+    \"id\": 28,
+    \"nameEn\": \"Faculty of Communication Arts\",
+    \"nameTh\": \"คณะนิเทศศาสตร์\",
+    \"color\": \"#22236f\",
+    \"centerPoint\": { \"lat\": 13.73614, \"lng\": 100.52855 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73589, \"lng\": 100.52809 },
+      { \"lat\": 13.73576, \"lng\": 100.52892 },
+      { \"lat\": 13.73638, \"lng\": 100.52902 },
+      { \"lat\": 13.73652, \"lng\": 100.52820 }
+    ]
+  },
+  {
+    \"id\": 29,
+    \"nameEn\": \"Faculty of Economics\",
+    \"nameTh\": \"คณะเศรษฐศาสตร์\",
+    \"color\": \"#ccae5d\",
+    \"centerPoint\": { \"lat\": 13.73434, \"lng\": 100.53154 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73465, \"lng\": 100.53114 },
+      { \"lat\": 13.73420, \"lng\": 100.53107 },
+      { \"lat\": 13.73408, \"lng\": 100.53194 },
+      { \"lat\": 13.73452, \"lng\": 100.53201 }
+    ]
+  },
+  {
+    \"id\": 30,
+    \"nameEn\": \"Faculty of Medicine\",
+    \"nameTh\": \"คณะแพทย์ศาสตร์\",
+    \"color\": \"#006600\",
+    \"centerPoint\": { \"lat\": 13.73354, \"lng\": 100.53624 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73380, \"lng\": 100.53591 },
+      { \"lat\": 13.73370, \"lng\": 100.53664 },
+      { \"lat\": 13.73328, \"lng\": 100.53659 },
+      { \"lat\": 13.73336, \"lng\": 100.53585 }
+    ]
+  },
+  {
+    \"id\": 31,
+    \"nameEn\": \"Faculty of Veterinary Science\",
+    \"nameTh\": \"คณะสัตวแพทยศาสตร์\",
+    \"color\": \"#3399cc\",
+    \"centerPoint\": { \"lat\": 13.74373, \"lng\": 100.53238 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.74405, \"lng\": 100.53216 },
+      { \"lat\": 13.74397, \"lng\": 100.53270 },
+      { \"lat\": 13.74347, \"lng\": 100.53262 },
+      { \"lat\": 13.74347, \"lng\": 100.53206 }
+    ]
+  },
+  {
+    \"id\": 32,
+    \"nameEn\": \"Faculty of Dentistry\",
+    \"nameTh\": \"คณะทันตแพทยศาสตร์\",
+    \"color\": \"#7c4e96\",
+    \"centerPoint\": { \"lat\": 13.74314, \"lng\": 100.53413 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.74350, \"lng\": 100.53519 },
+      { \"lat\": 13.74257, \"lng\": 100.53506 },
+      { \"lat\": 13.74285, \"lng\": 100.53307 },
+      { \"lat\": 13.74379, \"lng\": 100.53323 },
+      { \"lat\": 13.74359, \"lng\": 100.53470 }
+    ]
+  },
+  {
+    \"id\": 33,
+    \"nameEn\": \"Faculty of Phamaceutical Science\",
+    \"nameTh\": \"คณะเภสัชศาสตร์\",
+    \"color\": \"#606427\",
+    \"centerPoint\": { \"lat\": 13.74357, \"lng\": 100.53116 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.74323, \"lng\": 100.53042 },
+      { \"lat\": 13.74304, \"lng\": 100.53186 },
+      { \"lat\": 13.74395, \"lng\": 100.53200 },
+      { \"lat\": 13.74413, \"lng\": 100.53056 }
+    ]
+  },
+  {
+    \"id\": 34,
+    \"nameEn\": \"Faculty of Law\",
+    \"nameTh\": \"คณะนิติศาสตร์\",
+    \"color\": \"#ffffff\",
+    \"centerPoint\": { \"lat\": 13.73553, \"lng\": 100.52847 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73531, \"lng\": 100.52800 },
+      { \"lat\": 13.73519, \"lng\": 100.52884 },
+      { \"lat\": 13.73574, \"lng\": 100.52893 },
+      { \"lat\": 13.73587, \"lng\": 100.52808 }
+    ]
+  },
+  {
+    \"id\": 35,
+    \"nameEn\": \"Faculty of Fine and Applied Art\",
+    \"nameTh\": \"คณะศิลปกรรมศาสตร์\",
+    \"color\": \"#8e0401\",
+    \"centerPoint\": { \"lat\": 13.73946, \"lng\": 100.53292 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.73975, \"lng\": 100.53261 },
+      { \"lat\": 13.73965, \"lng\": 100.53326 },
+      { \"lat\": 13.73923, \"lng\": 100.53320 },
+      { \"lat\": 13.73933, \"lng\": 100.53255 }
+    ]
+  },
+  {
+    \"id\": 37,
+    \"nameEn\": \"Faculty of Allied Health Scienes\",
+    \"nameTh\": \"คณะสหเวชศาสตร์\",
+    \"color\": \"#483188\",
+    \"centerPoint\": { \"lat\": 13.74335, \"lng\": 100.52861 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.74294, \"lng\": 100.52914 },
+      { \"lat\": 13.74360, \"lng\": 100.52924 },
+      { \"lat\": 13.74379, \"lng\": 100.52807 },
+      { \"lat\": 13.74316, \"lng\": 100.52796 }
+    ]
+  },
+  {
+    \"id\": 38,
+    \"nameEn\": \"Faculty of Psychology\",
+    \"nameTh\": \"คณะจิตวิทยา\",
+    \"color\": \"#483188\",
+    \"centerPoint\": { \"lat\": 13.74403, \"lng\": 100.52854 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.74435, \"lng\": 100.52834 },
+      { \"lat\": 13.74385, \"lng\": 100.52825 },
+      { \"lat\": 13.74377, \"lng\": 100.52874 },
+      { \"lat\": 13.74427, \"lng\": 100.52882 }
+    ]
+  },
+  {
+    \"id\": 39,
+    \"nameEn\": \"Faculty of Sports Science\",
+    \"nameTh\": \"คณะวิทยาศาสตร์การกีฬา\",
+    \"color\": \"#ffa500\",
+    \"centerPoint\": { \"lat\": 13.74366, \"lng\": 100.52702 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.74385, \"lng\": 100.52800 },
+      { \"lat\": 13.74317, \"lng\": 100.52788 },
+      { \"lat\": 13.74333, \"lng\": 100.52701 },
+      { \"lat\": 13.74346, \"lng\": 100.52612 },
+      { \"lat\": 13.74412, \"lng\": 100.52624 }
+    ]
+  },
+  {
+    \"id\": 40,
+    \"nameEn\": \"School of Agricultural Resources\",
+    \"nameTh\": \"สำนักวิชาทรัพยากรการเกษตร\",
+    \"color\": \"#991c1a\",
+    \"centerPoint\": { \"lat\": 13.74345, \"lng\": 100.53290 },
+    \"facultyAreaBorder\": [
+      { \"lat\": 13.74396, \"lng\": 100.53273 },
+      { \"lat\": 13.74388, \"lng\": 100.53321 },
+      { \"lat\": 13.74296, \"lng\": 100.53305 },
+      { \"lat\": 13.74303, \"lng\": 100.53258 }
+    ]
+  }
+]
+
+    </string>
+    <string name="jsonPopbusRoutes">
+
+[
+	{
+		\"name\": \"A\",
+		\"color\": \"E04B41\",
+		\"pathway\": [
+			{ \"latitude\": 13.73460, \"longitude\": 100.53173 },
+			{ \"latitude\": 13.73475, \"longitude\": 100.53066 },
+			{ \"latitude\": 13.73619, \"longitude\": 100.53087 },
+			{ \"latitude\": 13.73604, \"longitude\": 100.53188 },
+			{ \"latitude\": 13.73716, \"longitude\": 100.53202 },
+			{ \"latitude\": 13.73719, \"longitude\": 100.53181 },
+			{ \"latitude\": 13.73726, \"longitude\": 100.53176 },
+			{ \"latitude\": 13.73751, \"longitude\": 100.53179 },
+			{ \"latitude\": 13.73788, \"longitude\": 100.52982 },
+			{ \"latitude\": 13.73867, \"longitude\": 100.52993 },
+			{ \"latitude\": 13.73869, \"longitude\": 100.52971 },
+			{ \"latitude\": 13.73643, \"longitude\": 100.52937 },
+			{ \"latitude\": 13.73691, \"longitude\": 100.52643 },
+			{ \"latitude\": 13.73645, \"longitude\": 100.52635 },
+			{ \"latitude\": 13.73645, \"longitude\": 100.52624 },
+			{ \"latitude\": 13.73642, \"longitude\": 100.52615 },
+			{ \"latitude\": 13.73640, \"longitude\": 100.52606 },
+			{ \"latitude\": 13.73638, \"longitude\": 100.52597 },
+			{ \"latitude\": 13.73636, \"longitude\": 100.52589 },
+			{ \"latitude\": 13.73635, \"longitude\": 100.52581 },
+			{ \"latitude\": 13.73635, \"longitude\": 100.52574 },
+			{ \"latitude\": 13.73635, \"longitude\": 100.52567 },
+			{ \"latitude\": 13.73636, \"longitude\": 100.52560 },
+			{ \"latitude\": 13.73637, \"longitude\": 100.52553 },
+			{ \"latitude\": 13.73638, \"longitude\": 100.52547 },
+			{ \"latitude\": 13.73640, \"longitude\": 100.52542 },
+			{ \"latitude\": 13.73642, \"longitude\": 100.52537 },
+			{ \"latitude\": 13.73645, \"longitude\": 100.52531 },
+			{ \"latitude\": 13.73648, \"longitude\": 100.52525 },
+			{ \"latitude\": 13.73651, \"longitude\": 100.52520 },
+			{ \"latitude\": 13.73654, \"longitude\": 100.52516 },
+			{ \"latitude\": 13.73658, \"longitude\": 100.52512 },
+			{ \"latitude\": 13.73661, \"longitude\": 100.52508 },
+			{ \"latitude\": 13.73665, \"longitude\": 100.52505 },
+			{ \"latitude\": 13.73670, \"longitude\": 100.52503 },
+			{ \"latitude\": 13.73674, \"longitude\": 100.52501 },
+			{ \"latitude\": 13.73679, \"longitude\": 100.52499 },
+			{ \"latitude\": 13.73682, \"longitude\": 100.52498 },
+			{ \"latitude\": 13.73686, \"longitude\": 100.52498 },
+			{ \"latitude\": 13.73692, \"longitude\": 100.52498 },
+			{ \"latitude\": 13.73698, \"longitude\": 100.52499 },
+			{ \"latitude\": 13.73706, \"longitude\": 100.52501 },
+			{ \"latitude\": 13.73857, \"longitude\": 100.52533 },
+			{ \"latitude\": 13.73932, \"longitude\": 100.52549 },
+			{ \"latitude\": 13.73928, \"longitude\": 100.52581 },
+			{ \"latitude\": 13.73966, \"longitude\": 100.52585 },
+			{ \"latitude\": 13.73946, \"longitude\": 100.52719 },
+			{ \"latitude\": 13.73991, \"longitude\": 100.52728 },
+			{ \"latitude\": 13.73959, \"longitude\": 100.52953 },
+			{ \"latitude\": 13.73941, \"longitude\": 100.52951 },
+			{ \"latitude\": 13.73907, \"longitude\": 100.52945 },
+			{ \"latitude\": 13.73792, \"longitude\": 100.52925 },
+			{ \"latitude\": 13.73835, \"longitude\": 100.52668 },
+			{ \"latitude\": 13.73645, \"longitude\": 100.52638 },
+			{ \"latitude\": 13.73544, \"longitude\": 100.52626 },
+			{ \"latitude\": 13.73503, \"longitude\": 100.52901 },
+			{ \"latitude\": 13.73873, \"longitude\": 100.52957 },
+			{ \"latitude\": 13.73869, \"longitude\": 100.52994 },
+			{ \"latitude\": 13.73964, \"longitude\": 100.53010 },
+			{ \"latitude\": 13.73930, \"longitude\": 100.53220 },
+			{ \"latitude\": 13.73921, \"longitude\": 100.53282 },
+			{ \"latitude\": 13.73921, \"longitude\": 100.53288 },
+			{ \"latitude\": 13.73919, \"longitude\": 100.53292 },
+			{ \"latitude\": 13.73918, \"longitude\": 100.53297 },
+			{ \"latitude\": 13.73916, \"longitude\": 100.53301 },
+			{ \"latitude\": 13.73914, \"longitude\": 100.53304 },
+			{ \"latitude\": 13.73912, \"longitude\": 100.53308 },
+			{ \"latitude\": 13.73910, \"longitude\": 100.53310 },
+			{ \"latitude\": 13.73907, \"longitude\": 100.53313 },
+			{ \"latitude\": 13.73904, \"longitude\": 100.53315 },
+			{ \"latitude\": 13.73900, \"longitude\": 100.53317 },
+			{ \"latitude\": 13.73890, \"longitude\": 100.53321 },
+			{ \"latitude\": 13.73880, \"longitude\": 100.53404 },
+			{ \"latitude\": 13.73879, \"longitude\": 100.53408 },
+			{ \"latitude\": 13.73878, \"longitude\": 100.53411 },
+			{ \"latitude\": 13.73877, \"longitude\": 100.53413 },
+			{ \"latitude\": 13.73876, \"longitude\": 100.53415 },
+			{ \"latitude\": 13.73874, \"longitude\": 100.53417 },
+			{ \"latitude\": 13.73872, \"longitude\": 100.53418 },
+			{ \"latitude\": 13.73870, \"longitude\": 100.53419 },
+			{ \"latitude\": 13.73867, \"longitude\": 100.53420 },
+			{ \"latitude\": 13.73865, \"longitude\": 100.53420 },
+			{ \"latitude\": 13.73861, \"longitude\": 100.53419 },
+			{ \"latitude\": 13.73806, \"longitude\": 100.53409 },
+			{ \"latitude\": 13.73737, \"longitude\": 100.53399 },
+			{ \"latitude\": 13.73734, \"longitude\": 100.53399 },
+			{ \"latitude\": 13.73732, \"longitude\": 100.53398 },
+			{ \"latitude\": 13.73729, \"longitude\": 100.53397 },
+			{ \"latitude\": 13.73728, \"longitude\": 100.53395 },
+			{ \"latitude\": 13.73726, \"longitude\": 100.53393 },
+			{ \"latitude\": 13.73725, \"longitude\": 100.53391 },
+			{ \"latitude\": 13.73724, \"longitude\": 100.53389 },
+			{ \"latitude\": 13.73724, \"longitude\": 100.53387 },
+			{ \"latitude\": 13.73724, \"longitude\": 100.53384 },
+			{ \"latitude\": 13.73724, \"longitude\": 100.53381 },
+			{ \"latitude\": 13.73747, \"longitude\": 100.53210 },
+			{ \"latitude\": 13.73592, \"longitude\": 100.53190 },
+			{ \"latitude\": 13.73460, \"longitude\": 100.53173 }
+		]
+	},
+
+	{
+		\"name\": \"B\",
+		\"color\": \"EEC926\",
+		\"pathway\": [
+			{ \"latitude\": 13.73465, \"longitude\": 100.53170 },
+			{ \"latitude\": 13.73480, \"longitude\": 100.53062 },
+			{ \"latitude\": 13.73623, \"longitude\": 100.53084 },
+			{ \"latitude\": 13.73609, \"longitude\": 100.53185 },
+			{ \"latitude\": 13.73721, \"longitude\": 100.53198 },
+			{ \"latitude\": 13.73724, \"longitude\": 100.53178 },
+			{ \"latitude\": 13.73724, \"longitude\": 100.53177 },
+			{ \"latitude\": 13.73725, \"longitude\": 100.53176 },
+			{ \"latitude\": 13.73725, \"longitude\": 100.53175 },
+			{ \"latitude\": 13.73726, \"longitude\": 100.53174 },
+			{ \"latitude\": 13.73727, \"longitude\": 100.53173 },
+			{ \"latitude\": 13.73727, \"longitude\": 100.53173 },
+			{ \"latitude\": 13.73728, \"longitude\": 100.53172 },
+			{ \"latitude\": 13.73730, \"longitude\": 100.53172 },
+			{ \"latitude\": 13.73731, \"longitude\": 100.53172 },
+			{ \"latitude\": 13.73732, \"longitude\": 100.53172 },
+			{ \"latitude\": 13.73756, \"longitude\": 100.53176 },
+			{ \"latitude\": 13.73793, \"longitude\": 100.52977 },
+			{ \"latitude\": 13.73872, \"longitude\": 100.52989 },
+			{ \"latitude\": 13.73878, \"longitude\": 100.52936 },
+			{ \"latitude\": 13.73797, \"longitude\": 100.52922 },
+			{ \"latitude\": 13.73840, \"longitude\": 100.52664 },
+			{ \"latitude\": 13.73650, \"longitude\": 100.52632 },
+			{ \"latitude\": 13.73650, \"longitude\": 100.52620 },
+			{ \"latitude\": 13.73648, \"longitude\": 100.52613 },
+			{ \"latitude\": 13.73645, \"longitude\": 100.52604 },
+			{ \"latitude\": 13.73643, \"longitude\": 100.52596 },
+			{ \"latitude\": 13.73641, \"longitude\": 100.52588 },
+			{ \"latitude\": 13.73640, \"longitude\": 100.52580 },
+			{ \"latitude\": 13.73639, \"longitude\": 100.52574 },
+			{ \"latitude\": 13.73639, \"longitude\": 100.52566 },
+			{ \"latitude\": 13.73639, \"longitude\": 100.52559 },
+			{ \"latitude\": 13.73640, \"longitude\": 100.52552 },
+			{ \"latitude\": 13.73642, \"longitude\": 100.52545 },
+			{ \"latitude\": 13.73644, \"longitude\": 100.52539 },
+			{ \"latitude\": 13.73646, \"longitude\": 100.52532 },
+			{ \"latitude\": 13.73649, \"longitude\": 100.52526 },
+			{ \"latitude\": 13.73653, \"longitude\": 100.52521 },
+			{ \"latitude\": 13.73658, \"longitude\": 100.52515 },
+			{ \"latitude\": 13.73662, \"longitude\": 100.52510 },
+			{ \"latitude\": 13.73666, \"longitude\": 100.52506 },
+			{ \"latitude\": 13.73669, \"longitude\": 100.52503 },
+			{ \"latitude\": 13.73673, \"longitude\": 100.52500 },
+			{ \"latitude\": 13.73678, \"longitude\": 100.52497 },
+			{ \"latitude\": 13.73682, \"longitude\": 100.52496 },
+			{ \"latitude\": 13.73686, \"longitude\": 100.52495 },
+			{ \"latitude\": 13.73690, \"longitude\": 100.52494 },
+			{ \"latitude\": 13.73694, \"longitude\": 100.52494 },
+			{ \"latitude\": 13.73701, \"longitude\": 100.52495 },
+			{ \"latitude\": 13.73862, \"longitude\": 100.52529 },
+			{ \"latitude\": 13.73865, \"longitude\": 100.52528 },
+			{ \"latitude\": 13.73938, \"longitude\": 100.52543 },
+			{ \"latitude\": 13.73933, \"longitude\": 100.52576 },
+			{ \"latitude\": 13.73933, \"longitude\": 100.52576 },
+			{ \"latitude\": 13.73933, \"longitude\": 100.52577 },
+			{ \"latitude\": 13.73934, \"longitude\": 100.52578 },
+			{ \"latitude\": 13.73935, \"longitude\": 100.52578 },
+			{ \"latitude\": 13.73936, \"longitude\": 100.52578 },
+			{ \"latitude\": 13.73971, \"longitude\": 100.52581 },
+			{ \"latitude\": 13.73951, \"longitude\": 100.52716 },
+			{ \"latitude\": 13.74316, \"longitude\": 100.52790 },
+			{ \"latitude\": 13.74389, \"longitude\": 100.52805 },
+			{ \"latitude\": 13.74417, \"longitude\": 100.52620 },
+			{ \"latitude\": 13.74343, \"longitude\": 100.52607 },
+			{ \"latitude\": 13.74330, \"longitude\": 100.52700 },
+			{ \"latitude\": 13.74313, \"longitude\": 100.52792 },
+			{ \"latitude\": 13.73994, \"longitude\": 100.52729 },
+			{ \"latitude\": 13.73964, \"longitude\": 100.52950 },
+			{ \"latitude\": 13.73879, \"longitude\": 100.52936 },
+			{ \"latitude\": 13.73874, \"longitude\": 100.52990 },
+			{ \"latitude\": 13.73970, \"longitude\": 100.53006 },
+			{ \"latitude\": 13.73935, \"longitude\": 100.53215 },
+			{ \"latitude\": 13.73926, \"longitude\": 100.53278 },
+			{ \"latitude\": 13.73925, \"longitude\": 100.53283 },
+			{ \"latitude\": 13.73924, \"longitude\": 100.53288 },
+			{ \"latitude\": 13.73923, \"longitude\": 100.53292 },
+			{ \"latitude\": 13.73921, \"longitude\": 100.53296 },
+			{ \"latitude\": 13.73919, \"longitude\": 100.53300 },
+			{ \"latitude\": 13.73916, \"longitude\": 100.53303 },
+			{ \"latitude\": 13.73914, \"longitude\": 100.53306 },
+			{ \"latitude\": 13.73911, \"longitude\": 100.53308 },
+			{ \"latitude\": 13.73908, \"longitude\": 100.53311 },
+			{ \"latitude\": 13.73904, \"longitude\": 100.53312 },
+			{ \"latitude\": 13.73895, \"longitude\": 100.53317 },
+			{ \"latitude\": 13.73789, \"longitude\": 100.53301 },
+			{ \"latitude\": 13.73784, \"longitude\": 100.53299 },
+			{ \"latitude\": 13.73780, \"longitude\": 100.53298 },
+			{ \"latitude\": 13.73776, \"longitude\": 100.53295 },
+			{ \"latitude\": 13.73771, \"longitude\": 100.53291 },
+			{ \"latitude\": 13.73768, \"longitude\": 100.53287 },
+			{ \"latitude\": 13.73764, \"longitude\": 100.53282 },
+			{ \"latitude\": 13.73760, \"longitude\": 100.53276 },
+			{ \"latitude\": 13.73756, \"longitude\": 100.53269 },
+			{ \"latitude\": 13.73753, \"longitude\": 100.53262 },
+			{ \"latitude\": 13.73750, \"longitude\": 100.53253 },
+			{ \"latitude\": 13.73746, \"longitude\": 100.53245 },
+			{ \"latitude\": 13.73753, \"longitude\": 100.53205 },
+			{ \"latitude\": 13.73465, \"longitude\": 100.53170 }
+		]
+	},
+
+	{
+		\"name\": \"C\",
+		\"color\": \"5CB13A\",
+		\"pathway\": [
+			{ \"latitude\": 13.73458, \"longitude\": 100.53177 },
+			{ \"latitude\": 13.73423, \"longitude\": 100.53418 },
+			{ \"latitude\": 13.73312, \"longitude\": 100.53402 },
+			{ \"latitude\": 13.73303, \"longitude\": 100.53463 },
+			{ \"latitude\": 13.73291, \"longitude\": 100.53565 },
+			{ \"latitude\": 13.73286, \"longitude\": 100.53616 },
+			{ \"latitude\": 13.73327, \"longitude\": 100.53620 },
+			{ \"latitude\": 13.73336, \"longitude\": 100.53545 },
+			{ \"latitude\": 13.73292, \"longitude\": 100.53540 },
+			{ \"latitude\": 13.73301, \"longitude\": 100.53462 },
+			{ \"latitude\": 13.73312, \"longitude\": 100.53390 },
+			{ \"latitude\": 13.73425, \"longitude\": 100.53402 },
+			{ \"latitude\": 13.73541, \"longitude\": 100.53420 },
+			{ \"latitude\": 13.73618, \"longitude\": 100.53431 },
+			{ \"latitude\": 13.73908, \"longitude\": 100.53474 },
+			{ \"latitude\": 13.74198, \"longitude\": 100.53517 },
+			{ \"latitude\": 13.74223, \"longitude\": 100.53347 },
+			{ \"latitude\": 13.74251, \"longitude\": 100.53176 },
+			{ \"latitude\": 13.74274, \"longitude\": 100.53029 },
+			{ \"latitude\": 13.74179, \"longitude\": 100.53016 },
+			{ \"latitude\": 13.73868, \"longitude\": 100.52971 },
+			{ \"latitude\": 13.73866, \"longitude\": 100.52996 },
+			{ \"latitude\": 13.73963, \"longitude\": 100.53013 },
+			{ \"latitude\": 13.73928, \"longitude\": 100.53222 },
+			{ \"latitude\": 13.73919, \"longitude\": 100.53286 },
+			{ \"latitude\": 13.73918, \"longitude\": 100.53291 },
+			{ \"latitude\": 13.73917, \"longitude\": 100.53296 },
+			{ \"latitude\": 13.73915, \"longitude\": 100.53301 },
+			{ \"latitude\": 13.73913, \"longitude\": 100.53305 },
+			{ \"latitude\": 13.73911, \"longitude\": 100.53308 },
+			{ \"latitude\": 13.73908, \"longitude\": 100.53312 },
+			{ \"latitude\": 13.73905, \"longitude\": 100.53315 },
+			{ \"latitude\": 13.73901, \"longitude\": 100.53317 },
+			{ \"latitude\": 13.73897, \"longitude\": 100.53320 },
+			{ \"latitude\": 13.73892, \"longitude\": 100.53321 },
+			{ \"latitude\": 13.73887, \"longitude\": 100.53323 },
+			{ \"latitude\": 13.73774, \"longitude\": 100.53306 },
+			{ \"latitude\": 13.73769, \"longitude\": 100.53301 },
+			{ \"latitude\": 13.73765, \"longitude\": 100.53297 },
+			{ \"latitude\": 13.73762, \"longitude\": 100.53293 },
+			{ \"latitude\": 13.73759, \"longitude\": 100.53289 },
+			{ \"latitude\": 13.73756, \"longitude\": 100.53285 },
+			{ \"latitude\": 13.73753, \"longitude\": 100.53281 },
+			{ \"latitude\": 13.73750, \"longitude\": 100.53278 },
+			{ \"latitude\": 13.73748, \"longitude\": 100.53274 },
+			{ \"latitude\": 13.73746, \"longitude\": 100.53271 },
+			{ \"latitude\": 13.73745, \"longitude\": 100.53267 },
+			{ \"latitude\": 13.73744, \"longitude\": 100.53264 },
+			{ \"latitude\": 13.73739, \"longitude\": 100.53252 },
+			{ \"latitude\": 13.73745, \"longitude\": 100.53212 },
+			{ \"latitude\": 13.73458, \"longitude\": 100.53177 }
+		]
+	}
+
+]
+
+    </string>
+    <string name="jsonInformationPoint">
+
+[
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.7396, \"lng\": 100.5308 },
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73796, \"lng\": 100.52993 },
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73739, \"lng\": 100.53195 },
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73892, \"lng\": 100.53415 },
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73636, \"lng\": 100.52979 },
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73483, \"lng\": 100.53079 },
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73813, \"lng\": 100.52908 },
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.74384, \"lng\": 100.53246 },
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.74329, \"lng\": 100.52817 },
+	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73336, \"lng\": 100.53588 }
+]
+
+    </string>
+    <string name="jsonLandmarks">
+
+[
+	{ \"nameTh\": \"ศาลาพระเกี้ยว\", \"nameEn\": \"Sala Phra Kieo\", \"lat\": 13.73548, \"lng\": 100.53147 },
+	{ \"nameTh\": \"พระบรมรูป 2 รัชกาล\", \"nameEn\": \"The Statues of King Rama V and King Rama VI\", \"lat\": 13.73841, \"lng\": 100.53169 },
+	{ \"nameTh\": \"ป้ายรถ ปอ.พ.\", \"nameEn\": \"Pop Bus Station\", \"lat\": 13.73504, \"lng\": 100.53185 },
+	{ \"nameTh\": \"หอสมุดกลาง\", \"nameEn\": \"CU Library\", \"lat\": 13.739, \"lng\": 100.52763 },
+	{ \"nameTh\": \"เฉลิมราชสุดากีฬาสถาน\", \"nameEn\": \"CU Sport Complex\", \"lat\": 13.73881, \"lng\": 100.52655 },
+	{ \"nameTh\": \"เทวาลัย\", \"nameEn\": \"Maha Chulalongkorn Building\", \"lat\": 13.73814, \"lng\": 100.53359 },
+	{ \"nameTh\": \"หอประชุมจุฬาฯ\", \"nameEn\": \"CU Auditorium\", \"lat\": 13.73826, \"lng\": 100.53271 },
+	{ \"nameTh\": \"เวทีกลาง\", \"nameEn\": \"Main Stage\", \"lat\": 13.73648, \"lng\": 100.53176 }
+]
+
+    </string>
+    <string name="jsonCUTourStation">
+
+[
+    { \"nameTh\": \"ป้ายรถ CU Tour\", \"nameEn\": \"CU Tour Bus Stop\", \"lat\": 13.73591, \"lng\": 100.53173 }
+]
+
+    </string>
+</resources>
