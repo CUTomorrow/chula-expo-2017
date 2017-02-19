@@ -5,20 +5,20 @@
     xmlns:map="http://schemas.android.com/apk/res-auto"
     tools:context="cuexpo.chulaexpo.fragment.MapFragment">
 
-    <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/main_map"-->
-        <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--map:cameraTargetLat="13.74010"-->
-        <!--map:cameraTargetLng="100.53045"-->
-        <!--map:cameraZoom="15.8"-->
-        <!--map:uiCompass="false"-->
-        <!--map:uiRotateGestures="true"-->
-        <!--map:uiScrollGestures="true"-->
-        <!--map:uiTiltGestures="false"-->
-        <!--map:uiZoomControls="false"-->
-        <!--map:uiZoomGestures="true" />-->
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        map:cameraTargetLat="13.74010"
+        map:cameraTargetLng="100.53045"
+        map:cameraZoom="15.8"
+        map:uiCompass="false"
+        map:uiRotateGestures="true"
+        map:uiScrollGestures="true"
+        map:uiTiltGestures="false"
+        map:uiZoomControls="false"
+        map:uiZoomGestures="true" />
 
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
@@ -447,6 +447,66 @@
 
         </LinearLayout>
 
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        map:cardCornerRadius="8dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pin_icon_wraper"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    map:srcCompat="@drawable/pin_21"
+                    android:id="@+id/pin_icon"
+                    android:paddingRight="12dp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/pin_icon_wraper"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:text="Faculty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/facility"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:text="ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/description"
+                    android:layout_below="@+id/facility"
+                    android:textSize="@dimen/font_13"
+                    android:layout_marginTop="-2dp"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>
