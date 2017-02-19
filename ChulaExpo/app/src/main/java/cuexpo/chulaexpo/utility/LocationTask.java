@@ -1,6 +1,7 @@
 package cuexpo.chulaexpo.utility;
 
 import android.app.Application;
+import android.location.Location;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
@@ -43,9 +44,9 @@ public class LocationTask extends TimerTask{
                     jsonArray.add(accesspoint);
                 }
                 fp.put("user_id", "xxxxxxxx");
-                HashMap<String, String> location = MainApplication.getCurrentLocation();
-                fp.put("latitude", location.get("lat"));
-                fp.put("longitude", location.get("long"));
+                Location location = MainApplication.getCurrentLocation();
+                fp.put("latitude", location.getLatitude());
+                fp.put("longitude", location.getLongitude());
                 fp.put("ap", jsonArray);
             }
         }
