@@ -95,7 +95,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         try {
             rootView = inflater.inflate(R.layout.fragment_map, container, false);
         } catch (InflateException e) {
-        /* map is already there, just return view as it is */
+            /* map is already there, just return view as it is */
         }
 
         pinList = (CardView) rootView.findViewById(R.id.pin_list);
@@ -113,13 +113,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         rootView.findViewById(R.id.show_hide_pin).setOnClickListener(showPinListOnClick);
         rootView.findViewById(R.id.show_current_location).setOnClickListener(showCurrentLocation);
         pinList.setOnClickListener(pinListOCL);
-        showFaculty.setOnClickListener(showFacultyOCL);
-        showLandmark.setOnClickListener(showLandmarkOCL);
-        showInfo.setOnClickListener(showInfoOCL);
-        showInterest.setOnClickListener(showInterestOCL);
-        showCanteen.setOnClickListener(showCanteenOCL);
-        showToilet.setOnClickListener(showToiletOCL);
-        showBusStop.setOnClickListener(showBusStopOCL);
+        rootView.findViewById(R.id.faculty_city).setOnClickListener(showFacultyOCL);
+        rootView.findViewById(R.id.landmark).setOnClickListener(showLandmarkOCL);
+        rootView.findViewById(R.id.info).setOnClickListener(showInfoOCL);
+        rootView.findViewById(R.id.interest).setOnClickListener(showInterestOCL);
+        rootView.findViewById(R.id.canteen).setOnClickListener(showCanteenOCL);
+        rootView.findViewById(R.id.toilet).setOnClickListener(showToiletOCL);
+        rootView.findViewById(R.id.bus_stop).setOnClickListener(showBusStopOCL);
         showBusLine1.setOnClickListener(showBusLine1OCL);
         showBusLine2.setOnClickListener(showBusLine2OCL);
         showBusLine3.setOnClickListener(showBusLine3OCL);
@@ -131,7 +131,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
 //        });
 
         // Set visibility
-//        pinList.setVisibility(View.VISIBLE);
         showFaculty.setSelected(true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map);
@@ -349,6 +348,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
             pinList.animate().translationX(dpToPx(0));
         }
     }
+
+    private View.OnClickListener closeOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+//            hideBottomBox();
+        }
+    };
 
     private View.OnClickListener pinListOCL = new View.OnClickListener() {
         @Override
