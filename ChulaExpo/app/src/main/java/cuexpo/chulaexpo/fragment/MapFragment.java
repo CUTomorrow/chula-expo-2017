@@ -45,7 +45,6 @@ import java.util.HashMap;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.utility.FacultyMapEntity;
-import cuexpo.chulaexpo.utility.IGoToMapable;
 import cuexpo.chulaexpo.utility.IMapEntity;
 import cuexpo.chulaexpo.utility.NormalPinMapEntity;
 import cuexpo.chulaexpo.utility.PopbusRouteMapEntity;
@@ -54,8 +53,7 @@ import cuexpo.chulaexpo.utility.Resource;
 
 public class MapFragment extends Fragment implements
         OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback,
-        IGoToMapable {
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     private View rootView;
     protected static GoogleMap googleMap;
@@ -87,12 +85,40 @@ public class MapFragment extends Fragment implements
         }
     }
 
+    private void initializeCUTourStation() {
+        try {
+            JSONArray cuTourStationJSON = new JSONArray(
+                    getContext().getResources().getString(R.string.jsonCUTourStation)
+            );
+            for (int i = 0; i < cuTourStationJSON.length(); i++) {
+                JSONObject cuTourStationData = cuTourStationJSON.getJSONObject(i);
+                cuTourStationPins.add(new NormalPinMapEntity(cuTourStationData, NormalPinMapEntity.POPBUS_STATION_PIN));
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void initializePopbusRoutes() {
+        try {
+            JSONArray routesJSON = new JSONArray(
+                    getContext().getResources().getString(R.string.jsonPopbusRoutes)
+            );
+            for (int i = 0; i < routesJSON.length(); i++) {
+                JSONObject routeData = routesJSON.getJSONObject(i);
+                popbusRoutes.put(routeData.getString("name"), new PopbusRouteMapEntity(routeData));
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private void initializeMapData() {
         initializeFaculties();
-//        initializePopbusRoutes();
+        initializePopbusRoutes();
 //        initializeInfoPoints();
 //        initializeLandmarks();
-//        initializeCUTourStation();
+        initializeCUTourStation();
     }
 
     @Override
@@ -148,6 +174,9 @@ public class MapFragment extends Fragment implements
 
         // Set visibility
         showFaculty.setSelected(true);
+        showBusLine1.setSelected(true);
+        showBusLine2.setSelected(true);
+        showBusLine3.setSelected(true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map);
         mapFragment.getMapAsync(this);
@@ -268,8 +297,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showBusLine1.isSelected()){
                 showBusLine1.setSelected(false);
+                popbusRoutes.get("1").setVisible(false);
             } else {
                 showBusLine1.setSelected(true);
+                popbusRoutes.get("1").setVisible(true);
             }
         }
     };
@@ -279,8 +310,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showBusLine2.isSelected()){
                 showBusLine2.setSelected(false);
+                popbusRoutes.get("2").setVisible(false);
             } else {
                 showBusLine2.setSelected(true);
+                popbusRoutes.get("2").setVisible(true);
             }
         }
     };
@@ -290,8 +323,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showBusLine3.isSelected()){
                 showBusLine3.setSelected(false);
+                popbusRoutes.get("3").setVisible(false);
             } else {
                 showBusLine3.setSelected(true);
+                popbusRoutes.get("3").setVisible(true);
             }
         }
     };
@@ -428,9 +463,13 @@ public class MapFragment extends Fragment implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        // Add facilities
+        // Add Faculty
         for (IMapEntity facultyEntry : faculties.values()) {
             facultyEntry.setMap(googleMap);
+        }
+        // Add Popbus routes
+        for (PopbusRouteMapEntity routeEntry : popbusRoutes.values()) {
+            routeEntry.setMap(googleMap);
         }
 
         googleMap.setOnMarkerClickListener(markerOCL);
@@ -463,13 +502,4 @@ public class MapFragment extends Fragment implements
         return Math.round(dp * ((float)displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
-    @Override
-    public void goToMap(int facultyId) {
-
-    }
-
-    @Override
-    public void goToMap(String entityName) {
-
-    }
 }
