@@ -24,19 +24,21 @@ public class Resource {
         }
     }
 
-
-    public static int  getColor( String color ) {
-        int colorId = 0;
-
+    public static int getColor(String color) {
         try {
-            Class res = R.color.class;
-            Field field = res.getField( color );
-            colorId = field.getInt(null);
-        } catch ( Exception e ) {
+            return R.color.class.getField(color).getInt(null);
+        } catch (Exception e) {
             e.printStackTrace();
             return R.color.DEFAULT;
         }
+    }
 
-        return colorId;
+    public static int getDrawable(String drawable) {
+        try {
+            return R.drawable.class.getField(drawable).getInt(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.color.DEFAULT;
+        }
     }
 }
