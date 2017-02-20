@@ -5,6 +5,15 @@
     android:clickable="true">
 
 
+    <ImageView
+        android:id="@+id/reserved_check_close"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:alpha="0.5"
+        android:padding="15dp"
+        android:src="@drawable/close_button" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,32 +62,17 @@
             android:textColor="@color/white"
             android:textSize="22dp" />
 
-        <RelativeLayout
+
+        <Spinner
+            android:id="@+id/reserved_check_spinner"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp">
-
-            <Spinner
-                android:id="@+id/reserved_check_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/shape_rounded_rectangle_stroke"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:spinnerMode="dropdown" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignEnd="@id/reserved_check_spinner"
-                android:layout_alignRight="@id/reserved_check_spinner"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginRight="15dp"
-                android:src="@drawable/back" />
-
-        </RelativeLayout>
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/shape_rounded_rectangle_stroke"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:spinnerMode="dropdown" />
 
 
         <LinearLayout
@@ -166,14 +160,5 @@
                 android:textSize="16dp" />
         </LinearLayout>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/reserved_check_close"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:alpha="0.5"
-        android:padding="15dp"
-        android:src="@drawable/close_button" />
 
 </RelativeLayout>
