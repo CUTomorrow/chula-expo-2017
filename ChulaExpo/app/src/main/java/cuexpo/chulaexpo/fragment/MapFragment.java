@@ -353,6 +353,8 @@ public class MapFragment extends Fragment implements
     }
 
     private void showInfoCard(int icon, String facilityString, String descriptionString, int color) {
+        hidePinList();
+
         // Set Content
         if (icon != -1) {
             pinIcon.setImageResource(icon);
@@ -361,7 +363,7 @@ public class MapFragment extends Fragment implements
             pinIcon.setVisibility(View.GONE);
         }
         facility.setText(facilityString);
-        facility.setTextColor(color);
+        facility.setTextColor(getResources().getColor(color));
         description.setText(descriptionString);
 
         // Animate
@@ -446,9 +448,10 @@ public class MapFragment extends Fragment implements
 
             for (FacultyMapEntity facultyEntry : faculties.values()) {
                 if (facultyEntry.getMarker().equals(marker)) {
-                    int icon = Resource.getDrawable("pin_"+facultyEntry.getFacultyId());
+                    int id = facultyEntry.getFacultyId();
+                    int icon = Resource.getDrawable("pin_" + id);
                     String description = facultyEntry.getNameTh();
-                    showInfoCard(icon, "Faculty", description, R.color.facility_faculty);
+                    showInfoCard(icon, "Faculty", description, Resource.getColor("f"+id));
                     return true;
                 }
             }

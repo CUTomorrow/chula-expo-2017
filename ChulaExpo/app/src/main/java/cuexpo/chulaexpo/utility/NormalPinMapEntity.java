@@ -97,7 +97,6 @@ public class NormalPinMapEntity implements IMapEntity {
 
             markerOption = new MarkerOptions()
                     .position(new LatLng(dataJSON.getDouble("lat"), dataJSON.getDouble("lng")))
-//                    .title(nameTh)
                     .visible(isVisible());
 
         } catch (JSONException ex) {
