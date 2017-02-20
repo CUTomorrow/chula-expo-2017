@@ -20,10 +20,11 @@
                 android:layout_height="30dp"
                 android:padding="5dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/back_black" />
 
             <TextView
                 android:id="@+id/faq_toolbar_title"
+                fontPath="@string/font_bold"
                 android:text="FAQ"
                 android:textSize="@dimen/title_toolbar_size"
                 android:layout_width="wrap_content"
@@ -42,6 +43,10 @@
                 android:layout_height="match_parent">
 
                 <cuexpo.chulaexpo.view.ExpandableHeightListView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
                     android:divider="@null"
                     android:dividerHeight="0dp"
                     android:id="@+id/faq_content_container"

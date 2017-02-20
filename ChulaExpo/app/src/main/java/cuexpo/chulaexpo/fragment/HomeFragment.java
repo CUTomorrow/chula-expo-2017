@@ -227,6 +227,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(getContext(), StageActivity.class);
+            Bundle mBundle = new Bundle();
+            mBundle.putInt("stageNo", position + 1);
+            intent.putExtras(mBundle);
             startActivity(intent);
         }
     };
