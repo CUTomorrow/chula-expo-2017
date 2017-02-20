@@ -1,145 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ececec"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/reserved_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/reserved_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/back_black" />
+
+        <TextView
+            android:id="@+id/favourite_toolbar_title"
+            fontPath="@string/font_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Reserved Events"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title_toolbar_size" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#ececec">
+        android:fillViewport="true">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/reserved_toolbar"
-            android:background="@color/white"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-            <ImageView
-                android:id="@+id/reserved_back"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_launcher" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/favourite_toolbar_title"
-                android:text="Reserved Events"
-                android:textSize="@dimen/title_toolbar_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center" />
-
-        </android.support.v7.widget.Toolbar>
-        <ScrollView
-            android:fillViewport="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:background="@color/header_background"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:weightSum="1">
 
                 <LinearLayout
-                    android:weightSum="1"
-                    android:padding="8dp"
-                    android:background="@color/header_background"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_weight="0.98"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/reserved_ue_header"
-                            android:text="UPCOMING EVENT"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:textStyle="bold"
-                            android:paddingLeft="10dp"
-                            android:lineSpacingExtra="-4sp"
-                            style="@style/tvHighlightHeader" />
-                        <TextView
-                            android:id="@+id/reserved_ue_desc"
-                            android:text="Events ที่กำลังจะเกิดขึ้น"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="3dp"
-                            style="@style/tvHeaderDesc"
-                            android:textColor="@color/white"/>
-                    </LinearLayout>
+                    android:layout_weight="0.98"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/reserved_ue_header"
+                        style="@style/tvHighlightHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:lineSpacingExtra="-4sp"
+                        android:paddingLeft="10dp"
+                        android:text="UPCOMING EVENT"
+                        android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="end"
-                        android:src="@drawable/ic_play_arrow_white_24dp"/>
+                    <TextView
+                        android:id="@+id/reserved_ue_desc"
+                        style="@style/tvHeaderDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="3dp"
+                        android:text="Events ที่กำลังจะเกิดขึ้น"
+                        android:textColor="@color/white" />
                 </LinearLayout>
 
-                <cuexpo.chulaexpo.view.ExpandableHeightListView
-                    android:id="@+id/reserved_content_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </cuexpo.chulaexpo.view.ExpandableHeightListView>
 
-                <LinearLayout
-                    android:weightSum="1"
-                    android:padding="8dp"
-                    android:background="@color/header_background"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_weight="0.98"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/reserved_pe_header"
-                            android:text="PREVIOUS EVENT"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:textStyle="bold"
-                            android:paddingLeft="10dp"
-                            android:lineSpacingExtra="-4sp"
-                            style="@style/tvHighlightHeader" />
-                        <TextView
-                            android:id="@+id/reserved_pe_desc"
-                            android:text="Events ที่เริ่มไปแล้ว"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="3dp"
-                            style="@style/tvHeaderDesc"
-                            android:textColor="@color/white"/>
-                    </LinearLayout>
-
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="end"
-                        android:src="@drawable/ic_play_arrow_white_24dp"/>
-                </LinearLayout>
-
-                <cuexpo.chulaexpo.view.ExpandableHeightListView
-                    android:id="@+id/reserved_content_container2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </cuexpo.chulaexpo.view.ExpandableHeightListView>
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_event" />
             </LinearLayout>
 
-        </ScrollView>
-    </LinearLayout>
+            <cuexpo.chulaexpo.view.ExpandableHeightListView
+                android:id="@+id/reserved_content_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </cuexpo.chulaexpo.view.ExpandableHeightListView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/header_background"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.98"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/reserved_pe_header"
+                        style="@style/tvHighlightHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:lineSpacingExtra="-4sp"
+                        android:paddingLeft="10dp"
+                        android:text="PREVIOUS EVENT"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/reserved_pe_desc"
+                        style="@style/tvHeaderDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="3dp"
+                        android:text="Events ที่เริ่มไปแล้ว"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
 
-</FrameLayout>
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_event" />
+            </LinearLayout>
+
+            <cuexpo.chulaexpo.view.ExpandableHeightListView
+                android:id="@+id/reserved_content_container2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </cuexpo.chulaexpo.view.ExpandableHeightListView>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

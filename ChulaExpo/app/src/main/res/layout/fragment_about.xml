@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:background="@drawable/stage_left"
+            android:background="@drawable/login_bg"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
@@ -18,11 +18,12 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_launcher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:src="@drawable/ic_about_big"
+                android:layout_width="75dp"
+                android:layout_height="100dp"
                 android:id="@+id/imageView" />
 
             <TextView
