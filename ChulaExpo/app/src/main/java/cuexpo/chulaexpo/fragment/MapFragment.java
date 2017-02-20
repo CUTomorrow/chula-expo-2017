@@ -352,10 +352,7 @@ public class MapFragment extends Fragment implements
     }
 
     private void showInfoCard(int icon, String facilityString, String descriptionString, int color) {
-        Log.d("is showing info card", ""+isShowingInfoCard);
-        if (isShowingInfoCard) return;
-        isShowingInfoCard = true;
-
+        // Set Content
         if (icon != -1) {
             pinIcon.setImageResource(icon);
             pinIcon.setVisibility(View.VISIBLE);
@@ -366,6 +363,9 @@ public class MapFragment extends Fragment implements
         facility.setTextColor(color);
         description.setText(descriptionString);
 
+        // Animate
+        if (isShowingInfoCard) return;
+        isShowingInfoCard = true;
         infoCard.setVisibility(View.VISIBLE);
         closeInfoCard.setVisibility(View.VISIBLE);
         ObjectAnimator.ofFloat(infoCard, "alpha", 0, 1).setDuration(300).start();
