@@ -268,8 +268,8 @@
 
 [
 	{
-		\"name\": \"A\",
-		\"color\": \"E04B41\",
+		\"name\": \"1\",
+		\"color\": \"F2423E\",
 		\"pathway\": [
 			{ \"latitude\": 13.73460, \"longitude\": 100.53173 },
 			{ \"latitude\": 13.73475, \"longitude\": 100.53066 },
@@ -373,8 +373,8 @@
 	},
 
 	{
-		\"name\": \"B\",
-		\"color\": \"EEC926\",
+		\"name\": \"2\",
+		\"color\": \"448BCA\",
 		\"pathway\": [
 			{ \"latitude\": 13.73465, \"longitude\": 100.53170 },
 			{ \"latitude\": 13.73480, \"longitude\": 100.53062 },
@@ -478,8 +478,8 @@
 	},
 
 	{
-		\"name\": \"C\",
-		\"color\": \"5CB13A\",
+		\"name\": \"3\",
+		\"color\": \"FDCB01\",
 		\"pathway\": [
 			{ \"latitude\": 13.73458, \"longitude\": 100.53177 },
 			{ \"latitude\": 13.73423, \"longitude\": 100.53418 },
