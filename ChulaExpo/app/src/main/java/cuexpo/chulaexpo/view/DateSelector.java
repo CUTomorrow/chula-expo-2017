@@ -22,7 +22,6 @@ public class DateSelector extends BaseCustomViewGroup {
 
     TextView dateSelectorDate;
     TextView dateSelectorMonth;
-    ImageView dateSelectorHighlight;
 
     public DateSelector(Context context) {
         super(context);
@@ -60,7 +59,6 @@ public class DateSelector extends BaseCustomViewGroup {
         // findViewById here
         dateSelectorMonth = (TextView) findViewById(R.id.date_selector_month);
         dateSelectorDate = (TextView) findViewById(R.id.date_selector_date);
-        dateSelectorHighlight = (ImageView) findViewById(R.id.date_selector_highlight);
     }
 
     public void setDate(String date){
@@ -71,11 +69,9 @@ public class DateSelector extends BaseCustomViewGroup {
         if(state==1){
             dateSelectorDate.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
             dateSelectorMonth.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
-            dateSelectorHighlight.setBackgroundColor(Color.parseColor("#b05baf"));
         }else{
             dateSelectorDate.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
             dateSelectorMonth.setTextColor(ContextCompat.getColor(getContext(),R.color.black));
-            dateSelectorHighlight.setBackgroundColor(Color.parseColor("#00000000"));
         }
     }
 
