@@ -69,8 +69,8 @@ public class MainApplication extends Application implements
         googleApiClient.connect();
 
         // start background task
-//        Timer timer = new Timer();
-//        timer.scheduleAtFixedRate(new LocationTask(), 30000, 30000); // 30s
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new LocationTask(), 30000, 30000); // 30s
     }
 
     @Override

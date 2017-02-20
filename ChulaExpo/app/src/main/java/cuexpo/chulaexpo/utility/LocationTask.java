@@ -48,8 +48,10 @@ public class LocationTask extends TimerTask{
                 fp.put("latitude", location.getLatitude());
                 fp.put("longitude", location.getLongitude());
                 fp.put("ap", jsonArray);
+
             }
         }
+        Log.d("jsonAP", ""+fp.get("ap"));
         Localization localization = new Localization(completeListener);
         localization.execute(fp);
     }
@@ -57,7 +59,11 @@ public class LocationTask extends TimerTask{
     private OnTaskCompleteListener completeListener = new OnTaskCompleteListener() {
         @Override
         public void onCompleteListerner(JSONObject result) {
-            Log.d("location", result.get("faculty_id") + "\n" + result.get("building_id") + "\n" + result.get("floor") + "\n" + result.get("room_number"));
+//            try {
+                Log.d("location", result.get("faculty_id") + "\n" + result.get("building_id") + "\n" + result.get("floor") + "\n" + result.get("room_number"));
+//            } catch (RuntimeException e) {
+//                Log.d("Location", "RuntimeException "+ e);
+//            }
         }
     };
 }
