@@ -135,7 +135,7 @@ public class FacultyMapEntity implements IMapEntity {
 
             markerOption = new MarkerOptions()
                     .position(centerPoint)
-                    .title(nameTh)
+//                    .title(nameTh)
                     .visible(isVisible());
 
             areaOption = new PolygonOptions()

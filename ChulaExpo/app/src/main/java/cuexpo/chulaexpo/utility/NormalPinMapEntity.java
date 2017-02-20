@@ -83,13 +83,13 @@ public class NormalPinMapEntity implements IMapEntity {
 
             switch (pinType) {
                 case INFO_POINT_PIN:
-                    markerIconDrawableResource = R.drawable.pin_information;
+//                    markerIconDrawableResource = R.drawable.pin_information;
                     break;
                 case LANDMARK_PIN:
-                    markerIconDrawableResource = R.drawable.pin_landmark;
+//                    markerIconDrawableResource = R.drawable.pin_landmark;
                     break;
                 case POPBUS_STATION_PIN:
-                    markerIconDrawableResource = R.drawable.pin_cutour;
+//                    markerIconDrawableResource = R.drawable.pin_cutour;
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid pinType value.");
@@ -97,7 +97,7 @@ public class NormalPinMapEntity implements IMapEntity {
 
             markerOption = new MarkerOptions()
                     .position(new LatLng(dataJSON.getDouble("lat"), dataJSON.getDouble("lng")))
-                    .title(nameTh)
+//                    .title(nameTh)
                     .visible(isVisible());
 
         } catch (JSONException ex) {
