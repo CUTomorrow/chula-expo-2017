@@ -12,15 +12,21 @@ import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class PhotoListManager {
+public class ActivityListManager {
 
     private Context mContext;
     private ActivityItemCollectionDao dao;
+    private static ActivityListManager instance;
 
-    public PhotoListManager() {
+    public ActivityListManager() {
         mContext = Contextor.getInstance().getContext();
         //Load data from persistent storage
         loadCache();
+    }
+
+    public static ActivityListManager getInstance() {
+        if(instance == null) instance = new ActivityListManager();
+        return instance;
     }
 
     public ActivityItemCollectionDao getDao() {
