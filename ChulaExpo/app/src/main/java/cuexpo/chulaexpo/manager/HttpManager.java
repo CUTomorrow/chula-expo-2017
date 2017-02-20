@@ -2,6 +2,8 @@ package cuexpo.chulaexpo.manager;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import cuexpo.chulaexpo.manager.http.ApiService;
@@ -28,9 +30,13 @@ public class HttpManager {
     {
         mContext = Contextor.getInstance().getContext();
 
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://staff.chulaexpo.com/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://staff.chulaexpo.com")
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         service = retrofit.create(ApiService.class);
     }

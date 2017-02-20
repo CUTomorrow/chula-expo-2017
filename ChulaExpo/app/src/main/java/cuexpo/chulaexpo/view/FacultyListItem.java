@@ -60,6 +60,7 @@ public class FacultyListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
+        // TODO: remove log
         Log.d("init", "init FACULTY");
         facultyBg = (ImageView) findViewById(R.id.faculty_bg);
         facultyIcon = (ImageView) findViewById(R.id.faculty_icon);

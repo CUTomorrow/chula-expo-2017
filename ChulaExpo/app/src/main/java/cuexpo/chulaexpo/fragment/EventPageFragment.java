@@ -52,7 +52,7 @@ public class EventPageFragment extends Fragment implements View.OnClickListener 
                 this.getChildFragmentManager(), FragmentPagerItems.with(getActivity())
                 .add("city", CityListFragment.class)
                 .add("faculty", FacultyListFragment.class)
-                .add("interest", MoreFragment.class)
+                .add("interest", InterestListFragment.class)
                 .create());
 
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.pager);

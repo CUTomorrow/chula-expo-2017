@@ -56,6 +56,7 @@ public class CityListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
+        // TODO: remove log
         Log.d("init", "init CITY");
         cityTitle = (TextView) findViewById(R.id.city_title);
         numberOfEvents = (TextView) findViewById(R.id.number_of_events);
