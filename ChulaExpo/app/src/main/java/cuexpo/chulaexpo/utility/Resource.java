@@ -12,17 +12,6 @@ import cuexpo.chulaexpo.R;
  */
 
 public class Resource {
-    private static Field idField;
-
-    private static int getResourceId(String resourceName, Class<?> c) {
-        try {
-            idField = c.getDeclaredField(resourceName);
-            return idField.getInt(idField);
-        } catch (Exception e) {
-            throw new RuntimeException("No resource ID found for: "
-                    + resourceName + " / " + c, e);
-        }
-    }
 
     public static int getColor(String color) {
         try {
