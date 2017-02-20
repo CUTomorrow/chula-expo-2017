@@ -129,12 +129,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         showBusLine1.setOnClickListener(showBusLine1OCL);
         showBusLine2.setOnClickListener(showBusLine2OCL);
         showBusLine3.setOnClickListener(showBusLine3OCL);
-//        close.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                hideBottomBox();
-//            }
-//        });
 
         // Set visibility
         showFaculty.setSelected(true);
@@ -148,14 +142,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
     private View.OnClickListener showPinListOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            hideInfoCard();
             if (isShowingPinList) {
                 isShowingPinList = false;
                 ObjectAnimator.ofFloat(pinList, "x", dpToPx(12), dpToPx(-200)).start();
-                Log.d("hide pin", ""+pinList.getX());
             } else {
                 isShowingPinList = true;
                 ObjectAnimator.ofFloat(pinList, "x", dpToPx(-200), dpToPx(12)).start();
-                Log.d("show pin", ""+pinList.getX());
             }
         }
     };
@@ -164,6 +157,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         @Override
         public void onClick(View v) {
             hidePinList();
+            showInfoCard();
 //            if (isShowingPinList) {
 //                isShowingPinList = false;
 //                pinList.animate().translationY(dpToPx(0));
@@ -348,6 +342,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
 //        }
     }
 
+    private void showInfoCard() {
+        if (isShowingInfoCard) return;
+        isShowingInfoCard = true;
+
+        infoCard.setVisibility(View.VISIBLE);
+        closeInfoCard.setVisibility(View.VISIBLE);
+        ObjectAnimator.ofFloat(infoCard, "alpha", 0, 1).setDuration(300).start();
+        ObjectAnimator.ofFloat(closeInfoCard, "alpha", 0, 1).setDuration(300).start();
+    }
+
     private void hidePinList() {
         if (isShowingPinList) {
             isShowingPinList = false;
@@ -358,33 +362,38 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
     private View.OnClickListener closeOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (!isShowingInfoCard) return;
-            isShowingInfoCard = false;
-
-
-            ObjectAnimator alpha = ObjectAnimator.ofFloat(infoCard, "alpha", 1, 0);
-            alpha.setDuration(300);
-            alpha.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    infoCard.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-                }
-            });
-            alpha.start();
+            hideInfoCard();
         }
     };
+
+    private void hideInfoCard() {
+        if (!isShowingInfoCard) return;
+        isShowingInfoCard = false;
+
+        ObjectAnimator.ofFloat(closeInfoCard, "alpha", 1, 0).setDuration(300).start();
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(infoCard, "alpha", 1, 0);
+        alpha.setDuration(300);
+        alpha.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                infoCard.setVisibility(View.GONE);
+                closeInfoCard.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+        alpha.start();
+    }
 
     private View.OnClickListener focusOCL = new View.OnClickListener() {
         @Override
