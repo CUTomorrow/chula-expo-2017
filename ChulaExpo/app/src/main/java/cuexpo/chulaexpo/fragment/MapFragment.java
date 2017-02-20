@@ -49,6 +49,7 @@ import cuexpo.chulaexpo.utility.IGoToMapable;
 import cuexpo.chulaexpo.utility.IMapEntity;
 import cuexpo.chulaexpo.utility.NormalPinMapEntity;
 import cuexpo.chulaexpo.utility.PopbusRouteMapEntity;
+import cuexpo.chulaexpo.utility.Resource;
 
 
 public class MapFragment extends Fragment implements
@@ -445,7 +446,9 @@ public class MapFragment extends Fragment implements
 
             for (FacultyMapEntity facultyEntry : faculties.values()) {
                 if (facultyEntry.getMarker().equals(marker)) {
-                    showInfoCard(R.drawable.pin_21, "Faculty", "Faculty of Engineer", R.color.dark_grey);
+                    int icon = Resource.getDrawable("pin_"+facultyEntry.getFacultyId());
+                    String description = facultyEntry.getNameTh();
+                    showInfoCard(icon, "Faculty", description, R.color.facility_faculty);
                     return true;
                 }
             }
