@@ -456,7 +456,8 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        map:cardCornerRadius="8dp">
+        map:cardCornerRadius="8dp"
+        android:id="@+id/info_card">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -496,17 +497,30 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:text="ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์"
+                    android:text="ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์ ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/description"
                     android:layout_below="@+id/facility"
                     android:textSize="@dimen/font_13"
                     android:layout_marginTop="-2dp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:lineSpacingExtra="-6sp"
+                    android:paddingBottom="4dp" />
             </RelativeLayout>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
+    <ImageView
+        map:srcCompat="@drawable/map_close_btn"
+        android:id="@+id/close_info"
+        android:layout_alignTop="@+id/info_card"
+        android:layout_alignRight="@+id/info_card"
+        android:layout_marginRight="-15dp"
+        android:layout_marginTop="-15dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:padding="7dp" />
 
 </RelativeLayout>

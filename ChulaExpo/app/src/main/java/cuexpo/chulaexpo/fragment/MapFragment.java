@@ -50,10 +50,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
 
     private View rootView;
     private GoogleMap googleMap;
-    private CardView pinList;
+    private CardView pinList, infoCard;
     private boolean isShowingPinList = false;
+    private boolean isShowingInfoCard = false;
     private ImageView showFaculty, showLandmark, showInfo, showInterest, showCanteen, showToilet,
-            showBusStop, showBusLine1, showBusLine2, showBusLine3;
+            showBusStop, showBusLine1, showBusLine2, showBusLine3, closeInfoCard;
 
 //    private Application mainApp = getActivity().getApplication();
     HashMap<String, PopbusRouteMapEntity> popbusRoutes = new HashMap<>();
@@ -99,6 +100,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         }
 
         pinList = (CardView) rootView.findViewById(R.id.pin_list);
+        infoCard = (CardView) rootView.findViewById(R.id.info_card);
+        closeInfoCard = (ImageView) rootView.findViewById(R.id.close_info);
         showFaculty = (ImageView) rootView.findViewById(R.id.show_faculty_city);
         showLandmark = (ImageView) rootView.findViewById(R.id.show_landmark);
         showInfo = (ImageView) rootView.findViewById(R.id.show_info);
@@ -112,7 +115,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         // Set OnClickListener
         rootView.findViewById(R.id.show_hide_pin).setOnClickListener(showPinListOnClick);
         rootView.findViewById(R.id.show_current_location).setOnClickListener(showCurrentLocation);
-        pinList.setOnClickListener(pinListOCL);
+        pinList.setOnClickListener(focusOCL);
+        rootView.findViewById(R.id.info_card).setOnClickListener(focusOCL);
+        closeInfoCard.setOnClickListener(closeOCL);
+
         rootView.findViewById(R.id.faculty_city).setOnClickListener(showFacultyOCL);
         rootView.findViewById(R.id.landmark).setOnClickListener(showLandmarkOCL);
         rootView.findViewById(R.id.info).setOnClickListener(showInfoOCL);
@@ -352,11 +358,35 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
     private View.OnClickListener closeOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            hideBottomBox();
+            if (!isShowingInfoCard) return;
+            isShowingInfoCard = false;
+
+
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(infoCard, "alpha", 1, 0);
+            alpha.setDuration(300);
+            alpha.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    infoCard.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                }
+            });
+            alpha.start();
         }
     };
 
-    private View.OnClickListener pinListOCL = new View.OnClickListener() {
+    private View.OnClickListener focusOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
