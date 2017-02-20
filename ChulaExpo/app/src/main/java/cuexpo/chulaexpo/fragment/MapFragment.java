@@ -7,10 +7,12 @@ import android.animation.ObjectAnimator;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -24,12 +26,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -41,20 +45,25 @@ import java.util.HashMap;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.utility.FacultyMapEntity;
+import cuexpo.chulaexpo.utility.IGoToMapable;
 import cuexpo.chulaexpo.utility.IMapEntity;
 import cuexpo.chulaexpo.utility.NormalPinMapEntity;
 import cuexpo.chulaexpo.utility.PopbusRouteMapEntity;
 
 
-public class MapFragment extends Fragment implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
+public class MapFragment extends Fragment implements
+        OnMapReadyCallback,
+        ActivityCompat.OnRequestPermissionsResultCallback,
+        IGoToMapable {
 
     private View rootView;
-    private GoogleMap googleMap;
+    protected static GoogleMap googleMap;
     private CardView pinList, infoCard;
     private boolean isShowingPinList = false;
     private boolean isShowingInfoCard = false;
     private ImageView showFaculty, showLandmark, showInfo, showInterest, showCanteen, showToilet,
-            showBusStop, showBusLine1, showBusLine2, showBusLine3, closeInfoCard;
+            showBusStop, showBusLine1, showBusLine2, showBusLine3, closeInfoCard, pinIcon;
+    private TextView facility, description;
 
 //    private Application mainApp = getActivity().getApplication();
     HashMap<String, PopbusRouteMapEntity> popbusRoutes = new HashMap<>();
@@ -99,6 +108,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
             /* map is already there, just return view as it is */
         }
 
+        // Get View
         pinList = (CardView) rootView.findViewById(R.id.pin_list);
         infoCard = (CardView) rootView.findViewById(R.id.info_card);
         closeInfoCard = (ImageView) rootView.findViewById(R.id.close_info);
@@ -112,6 +122,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         showBusLine1 = (ImageView) rootView.findViewById(R.id.show_bus_line_1);
         showBusLine2 = (ImageView) rootView.findViewById(R.id.show_bus_line_2);
         showBusLine3 = (ImageView) rootView.findViewById(R.id.show_bus_line_3);
+        // Get Card Content
+        pinIcon = (ImageView) rootView.findViewById(R.id.pin_icon);
+        facility = (TextView) rootView.findViewById(R.id.facility);
+        description = (TextView) rootView.findViewById(R.id.description);
+
         // Set OnClickListener
         rootView.findViewById(R.id.show_hide_pin).setOnClickListener(showPinListOnClick);
         rootView.findViewById(R.id.show_current_location).setOnClickListener(showCurrentLocation);
@@ -157,14 +172,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         @Override
         public void onClick(View v) {
             hidePinList();
-            showInfoCard();
-//            if (isShowingPinList) {
-//                isShowingPinList = false;
-//                pinList.animate().translationY(dpToPx(0));
-//            } else {
-//                isShowingPinList = true;
-//                pinList.animate().translationY(dpToPx(212));
-//            }
+            Log.d("current location", "true");
+            showInfoCard(-1, "Current Location", "iScale 404 ชั้น 4 ตึก 100 ปี คณะวิศวกรรมศาสาตร์", R.color.black);
         }
     };
 
@@ -342,21 +351,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
 //        }
     }
 
-    private void showInfoCard() {
+    private void showInfoCard(int icon, String facilityString, String descriptionString, int color) {
+        Log.d("is showing info card", ""+isShowingInfoCard);
         if (isShowingInfoCard) return;
         isShowingInfoCard = true;
+
+        if (icon != -1) {
+            pinIcon.setImageResource(icon);
+            pinIcon.setVisibility(View.VISIBLE);
+        } else {
+            pinIcon.setVisibility(View.GONE);
+        }
+        facility.setText(facilityString);
+        facility.setTextColor(color);
+        description.setText(descriptionString);
 
         infoCard.setVisibility(View.VISIBLE);
         closeInfoCard.setVisibility(View.VISIBLE);
         ObjectAnimator.ofFloat(infoCard, "alpha", 0, 1).setDuration(300).start();
         ObjectAnimator.ofFloat(closeInfoCard, "alpha", 0, 1).setDuration(300).start();
-    }
-
-    private void hidePinList() {
-        if (isShowingPinList) {
-            isShowingPinList = false;
-            pinList.animate().translationX(dpToPx(0));
-        }
     }
 
     private View.OnClickListener closeOCL = new View.OnClickListener() {
@@ -365,6 +378,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
             hideInfoCard();
         }
     };
+
+    private void hidePinList() {
+        if (isShowingPinList) {
+            isShowingPinList = false;
+            pinList.animate().translationX(dpToPx(0));
+        }
+    }
 
     private void hideInfoCard() {
         if (!isShowingInfoCard) return;
@@ -405,14 +425,45 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        // Add faculties
+        // Add facilities
         for (IMapEntity facultyEntry : faculties.values()) {
             facultyEntry.setMap(googleMap);
         }
+
+        googleMap.setOnMarkerClickListener(markerOCL);
     }
 
+    GoogleMap.OnMarkerClickListener markerOCL = new GoogleMap.OnMarkerClickListener() {
+        public boolean onMarkerClick(Marker marker) {
+            if (MapFragment.googleMap != null) {
+                MapFragment.googleMap.animateCamera(
+                        CameraUpdateFactory.newLatLng(marker.getPosition()),
+                        500,
+                        null
+                );
+            }
+
+            for (FacultyMapEntity facultyEntry : faculties.values()) {
+                if (facultyEntry.getMarker().equals(marker)) {
+                    showInfoCard(R.drawable.pin_21, "Faculty", "Faculty of Engineer", R.color.dark_grey);
+                    return true;
+                }
+            }
+            return true;
+        }
+    };
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         return Math.round(dp * ((float)displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    @Override
+    public void goToMap(int facultyId) {
+
+    }
+
+    @Override
+    public void goToMap(String entityName) {
+
     }
 }
