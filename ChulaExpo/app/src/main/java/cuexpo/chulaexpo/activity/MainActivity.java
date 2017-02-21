@@ -46,22 +46,19 @@ public class MainActivity extends AppCompatActivity {
                 ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon, container, false);
                 switch (position) {
                     case 0:
-                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_mock_tab));
+                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_home));
                         break;
                     case 1:
-                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_mock_tab));
+                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_map));
                         break;
                     case 2:
-                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_mock_tab));
+                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_event));
                         break;
                     case 3:
-                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_mock_tab));
+                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_news));
                         break;
                     case 4:
-                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_mock_tab));
-                        break;
-                    case 5:
-                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_mock_tab));
+                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_profile));
                         break;
                     default:
                         throw new IllegalStateException("Invalid position: " + position);

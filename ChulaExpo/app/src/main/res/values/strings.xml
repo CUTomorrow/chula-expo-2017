@@ -36,4 +36,16 @@
     <!--FONT-->
     <string name="font_bold">fonts/ThaiSansNeue-Bold.ttf</string>
 
+    <!-- Map -->
+    <string name="show_hide_pin">แสดง/ซ่อน ตำแหน่ง</string>
+    <string name="current_location">ตำแหน่งปัจจุบัน</string>
+    <string name="faculty_city">คณะ/เมือง</string>
+    <string name="landmark">จุดสังเกต</string>
+    <string name="information">จุดประชาสัมพันธ์</string>
+    <string name="interested_reserved">Event ที่สนใจ/จอง</string>
+    <string name="canteen">โรงอาหาร</string>
+    <string name="toilet">ห้องน้ำ</string>
+    <string name="bus_stop">ป้ายรถประจำทาง</string>
+    <string name="bus_line">สายรถ CU Tour</string>
+
 </resources>
