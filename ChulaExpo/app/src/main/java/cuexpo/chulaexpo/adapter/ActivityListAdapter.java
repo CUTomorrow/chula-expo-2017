@@ -53,7 +53,7 @@ public class ActivityListAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position)
+    public ActivityItemResultDao getItem(int position)
     {
         return dao.getResults().get(position);
     }
