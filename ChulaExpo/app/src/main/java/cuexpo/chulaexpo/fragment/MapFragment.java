@@ -204,7 +204,7 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             hidePinList();
             Log.d("current location", "true");
-            showInfoCard(-1, "Current Location", MainApplication.getCurrentLocationDetail(), R.color.header_background);
+            showInfoCard(-1, "Current Location", MainApplication.getCurrentLocationDetail(), R.color.header_background, -1);
         }
     };
 
@@ -388,7 +388,7 @@ public class MapFragment extends Fragment implements
 //        }
     }
 
-    private void showInfoCard(int icon, String facilityString, String descriptionString, int color) {
+    private void showInfoCard(int icon, String facilityString, String descriptionString, int colorId, int color) {
         hidePinList();
 
         // Set Content
@@ -399,7 +399,8 @@ public class MapFragment extends Fragment implements
             pinIcon.setVisibility(View.GONE);
         }
         facility.setText(facilityString);
-        facility.setTextColor(getResources().getColor(color));
+        if (color == -1) facility.setTextColor(getResources().getColor(colorId));
+        else facility.setTextColor(color);
         description.setText(descriptionString);
 
         // Animate
@@ -488,10 +489,12 @@ public class MapFragment extends Fragment implements
 
             for (FacultyMapEntity facultyEntry : faculties.values()) {
                 if (facultyEntry.getMarker().equals(marker)) {
-                    int id = facultyEntry.getFacultyId();
-                    int icon = Resource.getDrawable("pin_" + id);
-                    String description = facultyEntry.getNameTh();
-                    showInfoCard(icon, "Faculty", description, Resource.getColor("f"+id));
+                    Log.d("faculty", facultyEntry.getNameEn());
+                    showInfoCard(Resource.getDrawable("pin_" + facultyEntry.getFacultyId()),
+                            "Faculty",
+                            facultyEntry.getNameTh(),
+                            -1,
+                            facultyEntry.getColor());
                     return true;
                 }
             }
