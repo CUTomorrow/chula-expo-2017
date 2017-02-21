@@ -1,6 +1,7 @@
 package cuexpo.chulaexpo.utility;
 
 import android.app.Application;
+import android.location.Location;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
@@ -43,12 +44,13 @@ public class LocationTask extends TimerTask{
                     jsonArray.add(accesspoint);
                 }
                 fp.put("user_id", "xxxxxxxx");
-                HashMap<String, String> location = MainApplication.getCurrentLocation();
-                fp.put("latitude", location.get("lat"));
-                fp.put("longitude", location.get("long"));
+                Location location = MainApplication.getCurrentLocation();
+                fp.put("latitude", location.getLatitude());
+                fp.put("longitude", location.getLongitude());
                 fp.put("ap", jsonArray);
             }
         }
+        Log.d("jsonAP", ""+fp.get("ap"));
         Localization localization = new Localization(completeListener);
         localization.execute(fp);
     }
@@ -56,7 +58,15 @@ public class LocationTask extends TimerTask{
     private OnTaskCompleteListener completeListener = new OnTaskCompleteListener() {
         @Override
         public void onCompleteListerner(JSONObject result) {
-            Log.d("location", result.get("faculty_id") + "\n" + result.get("building_id") + "\n" + result.get("floor") + "\n" + result.get("room_number"));
+            // TODO clean data
+            String location;
+            if (result.get("faculty_id") == null) {
+                location = "Please enable your Wi-Fi and GPS";
+            } else {
+                location = result.get("faculty_id") + " " + result.get("building_id") + " " +
+                        result.get("floor") + " " + result.get("room_number");
+            }
+            MainApplication.setCurrentLocationDetail(location);
         }
     };
 }

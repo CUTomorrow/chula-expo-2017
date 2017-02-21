@@ -80,4 +80,13 @@
     <color name="SPSC">#ffa500</color>
     <color name="DEFAULT">#606060</color>
 
+    <!-- Map -->
+    <color name="facility_faculty">#BE0001</color>
+    <color name="facility_landmark">#0060B8</color>
+    <color name="facility_info">#01C9B8</color>
+    <color name="facility_interest">#FDCB01</color>
+    <color name="facility_canteen">#94D102</color>
+    <color name="facility_toilet">#3891DF</color>
+    <color name="facility_bus_stop">#FD679F</color>
+
 </resources>
