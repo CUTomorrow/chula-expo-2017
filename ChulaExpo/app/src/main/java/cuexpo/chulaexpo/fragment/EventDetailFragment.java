@@ -45,8 +45,9 @@ public class EventDetailFragment extends Fragment {
     private FrameLayout headerView;
     private View stickyViewSpacer;
     private View listHeader;
-    private TextView title;
+    private TextView title, place, contact, time, description;
     private Fragment fragment;
+//    public EventDetailListAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,9 +67,10 @@ public class EventDetailFragment extends Fragment {
 
         SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
         String id = activitySharedPref.getString("EventID", "");
-        Log.d("id", id);
         Call<ActivityItemDao> call = HttpManager.getInstance().getService().loadActivityItem(id);
         call.enqueue(callbackActivity);
+
+//        adapter = new EventDetailListAdapter(getActivity(), 0);
 
         ViewTreeObserver vto = headerView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
@@ -89,6 +91,15 @@ public class EventDetailFragment extends Fragment {
                         .into((ImageView) eventImageView);
                 title.setText(dao.getName().getTh());
 
+//                adapter.setParam(
+//                        dao.getLocation().getRoom(),
+//                        dao.getContact(),
+//                        dao.getStart(),
+//                        dao.getDescription().getTh(),
+//                        dao.getLocation().getLatitude(),
+//                        dao.getLocation().getLongitude(),
+//                        dao.getPictures());
+//                adapter.notifyDataSetChanged();
             } else {
                 try {
                     Log.e("fetch error", response.errorBody().string());
@@ -104,10 +115,6 @@ public class EventDetailFragment extends Fragment {
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
-
-    private void setContent() {
-
-    }
 
     private AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
         @Override
