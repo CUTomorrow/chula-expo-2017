@@ -43,6 +43,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cuexpo.chulaexpo.MainApplication;
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.utility.FacultyMapEntity;
 import cuexpo.chulaexpo.utility.IMapEntity;
@@ -203,7 +204,7 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             hidePinList();
             Log.d("current location", "true");
-            showInfoCard(-1, "Current Location", "iScale 404 ชั้น 4 ตึก 100 ปี คณะวิศวกรรมศาสาตร์", R.color.black);
+            showInfoCard(-1, "Current Location", MainApplication.getCurrentLocationDetail(), R.color.header_background);
         }
     };
 

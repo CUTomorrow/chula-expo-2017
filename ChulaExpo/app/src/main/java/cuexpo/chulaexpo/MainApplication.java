@@ -37,6 +37,17 @@ public class MainApplication extends Application implements
     public static Location lastKnownLocation;
     private OnLocationChangedListener mListener;
 
+    public static String getCurrentLocationDetail() {
+        return currentLocationDetail;
+    }
+
+    public static void setCurrentLocationDetail(String currentLocationDetail) {
+        MainApplication.currentLocationDetail = currentLocationDetail;
+    }
+
+    private static String currentLocationDetail;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -89,7 +100,6 @@ public class MainApplication extends Application implements
 
         if (lastKnownLocation != null) {
             Log.d("geoLocation", String.valueOf(lastKnownLocation.getLatitude()) + " " + String.valueOf(lastKnownLocation.getLongitude()));
-
         }
     }
 
@@ -106,6 +116,7 @@ public class MainApplication extends Application implements
     public static Location getCurrentLocation() {
         return lastKnownLocation;
     }
+
 
     @Override
     public void onLocationChanged(Location location) {

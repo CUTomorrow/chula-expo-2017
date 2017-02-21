@@ -75,6 +75,8 @@ public class FacultyMapEntity implements IMapEntity {
     private int getMarkerIconDrawableResource(int facultyId) {
         switch (facultyId) {
             // Thanks Sublime Text
+            case 20:
+                return R.drawable.pin_31;
             case 21:
                 return R.drawable.pin_21;
             case 22:

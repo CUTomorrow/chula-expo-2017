@@ -59,11 +59,9 @@ public class LocationTask extends TimerTask{
     private OnTaskCompleteListener completeListener = new OnTaskCompleteListener() {
         @Override
         public void onCompleteListerner(JSONObject result) {
-//            try {
-                Log.d("location", result.get("faculty_id") + "\n" + result.get("building_id") + "\n" + result.get("floor") + "\n" + result.get("room_number"));
-//            } catch (RuntimeException e) {
-//                Log.d("Location", "RuntimeException "+ e);
-//            }
+            String location = result.get("faculty_id") + " " + result.get("building_id") + " " +
+                    result.get("floor") + " " + result.get("room_number");
+            MainApplication.setCurrentLocationDetail(location);
         }
     };
 }
