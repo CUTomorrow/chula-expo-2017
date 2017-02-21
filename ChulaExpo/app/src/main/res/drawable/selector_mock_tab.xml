@@ -5,5 +5,4 @@
         android:drawable="@mipmap/house_active"/>
     <item
         android:drawable="@mipmap/house_inactive"/>
-
 </selector>

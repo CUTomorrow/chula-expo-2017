@@ -12,31 +12,22 @@ import cuexpo.chulaexpo.R;
  */
 
 public class Resource {
-    private static Field idField;
 
-    private static int getResourceId(String resourceName, Class<?> c) {
+    public static int getColor(String color) {
         try {
-            idField = c.getDeclaredField(resourceName);
-            return idField.getInt(idField);
+            return R.color.class.getField(color).getInt(null);
         } catch (Exception e) {
-            throw new RuntimeException("No resource ID found for: "
-                    + resourceName + " / " + c, e);
-        }
-    }
-
-
-    public static int  getColor( String color ) {
-        int colorId = 0;
-
-        try {
-            Class res = R.color.class;
-            Field field = res.getField( color );
-            colorId = field.getInt(null);
-        } catch ( Exception e ) {
             e.printStackTrace();
             return R.color.DEFAULT;
         }
+    }
 
-        return colorId;
+    public static int getDrawable(String drawable) {
+        try {
+            return R.drawable.class.getField(drawable).getInt(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.color.DEFAULT;
+        }
     }
 }
