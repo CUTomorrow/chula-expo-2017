@@ -43,20 +43,22 @@ public class EventDetailFragment extends Fragment {
         fragment = this;
         listView = (ListView) rootView.findViewById(R.id.list_view);
         eventImageView = rootView.findViewById(R.id.event_image);
+        headerView = (FrameLayout) rootView.findViewById(R.id.header);
+        TextView title = (TextView) rootView.findViewById(R.id.title);
+        ImageView closeButton = (ImageView) rootView.findViewById(R.id.close_button);
+        closeButton.setOnClickListener(closeButtonOnClickListener);
+        listHeader = inflater.inflate(R.layout.item_event_detail_header, null);
+        stickyViewSpacer = listHeader.findViewById(R.id.sticky_view_placeholder);
+
         Glide.with(this)
                 .load("http://www.womie.ru/wp-content/uploads/2014/04/%D0%96%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D1%8B-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B5%D1%82%D0%B0%D1%82%D0%B5%D0%BB%D0%B8-1.jpg")
                 .placeholder(R.color.blackOverlay)
                 .centerCrop()
                 .into((ImageView) eventImageView);
-        headerView = (FrameLayout) rootView.findViewById(R.id.header);
-        TextView title = (TextView) rootView.findViewById(R.id.title);
+
+
         title.setText("การแสดงสาธิต หุ่นยนต์ดูดฝุ่น");
 
-        ImageView closeButton = (ImageView) rootView.findViewById(R.id.close_button);
-        closeButton.setOnClickListener(closeButtonOnClickListener);
-
-        listHeader = inflater.inflate(R.layout.item_event_detail_header, null);
-        stickyViewSpacer = listHeader.findViewById(R.id.sticky_view_placeholder);
 
         ViewTreeObserver vto = headerView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
