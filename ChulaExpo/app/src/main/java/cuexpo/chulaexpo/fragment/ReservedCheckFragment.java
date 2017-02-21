@@ -21,6 +21,7 @@ import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import java.io.IOException;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.dao.ReserveDao;
 import cuexpo.chulaexpo.dao.RoundDao;
 import cuexpo.chulaexpo.manager.DateConversionManager;
 import cuexpo.chulaexpo.manager.HttpManager;
@@ -40,6 +41,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
     Spinner spnSelectTime;
     TextView tvName;
     RoundDao dao;
+    ReserveDao dao2;
     int selectedPos;
 
     public ReservedCheckFragment() {
@@ -92,8 +94,9 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         spnSelectTime.setAdapter(adapter);
         spnSelectTime.setSelection(0);*/
         String aid = "589b1d9c0028bd37f48906ad";
-        Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, 2);
+        Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, "start");
         callRound.enqueue(callbackRound);
+
     }
 
     Callback<RoundDao> callbackRound = new Callback<RoundDao>() {
@@ -110,10 +113,10 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
                 for (int i = 0; i < dao.getResults().size(); i++) {
                     items[i] = DateConversionManager.getInstance()
                             .ConvertDate(dao.getResults().get(i).getStart()
-                            ,dao.getResults().get(i).getEnd());
+                                    , dao.getResults().get(i).getEnd());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>
-                        (getContext(), R.layout.spinner_reserved_check_item,R.id.reserved_check_spinner_text,items);
+                        (getContext(), R.layout.spinner_reserved_check_item, R.id.reserved_check_spinner_text, items);
                 adapter.setDropDownViewResource(R.layout.spinner_reserved_check_drop_item);
                 spnSelectTime.setAdapter(adapter);
                 selectedPos = 0;
@@ -162,13 +165,40 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == btnSave) {
+            String aid = dao.getResults().get(selectedPos).getActivityId();
             String rid = dao.getResults().get(selectedPos).getId();
+            Toast.makeText(Contextor.getInstance().getContext(), aid + " " + rid, Toast.LENGTH_SHORT).show();
+
             //TODO API with Server to check availability
+            Call<ReserveDao> callReserve = HttpManager.getInstance().getService().reserveSelectedRound(aid, rid);
+            callReserve.enqueue(callbackReserve);
             getFragmentManager().popBackStack();
         } else if (v == ivClose) {
             getFragmentManager().popBackStack();
         }
     }
+
+    Callback<ReserveDao> callbackReserve = new Callback<ReserveDao>() {
+        @Override
+        public void onResponse(Call<ReserveDao> call, Response<ReserveDao> response) {
+            if (response.isSuccessful()) {
+                dao2 = response.body();
+                Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() + dao2.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ReserveDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

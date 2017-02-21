@@ -2,9 +2,11 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -16,13 +18,8 @@ import android.widget.TextView;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
-import java.util.Map;
-import java.util.Objects;
-
 import cuexpo.chulaexpo.R;
-import cuexpo.chulaexpo.adapter.StageListAdapter;
-import cuexpo.chulaexpo.manager.StageManager;
-//import cuexpo.chulaexpo.activity.FavouriteActivity;
+import cuexpo.chulaexpo.fragment.EventDetailFragment;
 
 /**
  * Created by nuuneoi on 11/16/2014.
@@ -150,6 +147,12 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
                     btnView.setBackgroundResource(R.drawable.shape_card_stroke_selected);
+                    FragmentActivity fragmentActivity = (FragmentActivity) getContext();
+                    FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.stage_overlay, new EventDetailFragment());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                     break;
                 }
                 case MotionEvent.ACTION_UP: {
