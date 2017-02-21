@@ -66,6 +66,11 @@ public class FacultyMapEntity implements IMapEntity {
         return facultyId;
     }
 
+    public int getColor() {
+        if (facultyId == 34) return Color.parseColor("#ABABAB");
+        return color;
+    }
+
     private int facultyId;
 
     public int getMarkerIconDrawableResource() {
