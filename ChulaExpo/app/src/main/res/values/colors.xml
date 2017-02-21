@@ -58,4 +58,35 @@
     <color name="f37">#4b0082</color>
     <color name="f38">#0000cd</color>
     <color name="f39">#ffa500</color>
+
+    <color name="ENG">#8b0000</color>
+    <color name="ARTS">#808080</color>
+    <color name="SCI">#ffff00</color>
+    <color name="POLSCI">#000000</color>
+    <color name="ARCH">#a52a2a</color>
+    <color name="ACC">#00bfff</color>
+    <color name="EDU">#ff4500</color>
+    <color name="COMMARTS">#00008b</color>
+    <color name="ECON">#ffd700</color>
+    <color name="MED">#006400</color>
+    <color name="VET">#87cefa</color>
+    <color name="DENT">#d8bfd8</color>
+    <color name="PHARM">#6b8e23</color>
+    <color name="LAW">#dcdcdc</color> <!-- white -->
+    <color name="FAA">#ff0000</color>
+    <color name="NUR">#c20808</color>
+    <color name="AHS">#4b0082</color>
+    <color name="PSY">#0000cd</color>
+    <color name="SPSC">#ffa500</color>
+    <color name="DEFAULT">#606060</color>
+
+    <!-- Map -->
+    <color name="facility_faculty">#BE0001</color>
+    <color name="facility_landmark">#0060B8</color>
+    <color name="facility_info">#01C9B8</color>
+    <color name="facility_interest">#FDCB01</color>
+    <color name="facility_canteen">#94D102</color>
+    <color name="facility_toilet">#3891DF</color>
+    <color name="facility_bus_stop">#FD679F</color>
+
 </resources>

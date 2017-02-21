@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="#ececec"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,10 +16,11 @@
             android:layout_height="30dp"
             android:padding="5dp"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/back_black" />
         <TextView
             android:id="@+id/favourite_toolbar_title"
             android:text="Favourite Events"
+            fontPath="@string/font_bold"
             android:textSize="@dimen/title_toolbar_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +75,7 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="end"
-                    android:src="@drawable/ic_play_arrow_white_24dp"/>
+                    android:src="@drawable/ic_event"/>
             </LinearLayout>
 
             <cuexpo.chulaexpo.view.ExpandableHeightListView
@@ -116,17 +118,20 @@
                         style="@style/tvHeaderDesc"
                         android:textColor="@color/white"/>
                 </LinearLayout>
+
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="end"
-                    android:src="@drawable/ic_play_arrow_white_24dp"/>
+                    android:src="@drawable/ic_event"/>
             </LinearLayout>
+
             <cuexpo.chulaexpo.view.ExpandableHeightListView
                 android:id="@+id/favourite_content_container2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </cuexpo.chulaexpo.view.ExpandableHeightListView>
+
         </LinearLayout>
     </ScrollView>
 

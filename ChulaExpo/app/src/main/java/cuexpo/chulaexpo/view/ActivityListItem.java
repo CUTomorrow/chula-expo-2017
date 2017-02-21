@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
@@ -124,7 +125,7 @@ public class ActivityListItem extends BaseCustomViewGroup {
     public void setFacultyText(String text,int textColor, int bgColor){
         tvActivityFaculty.setText(text);
         tvActivityFaculty.setTextColor(textColor);
-        tvActivityFaculty.setBackgroundColor(bgColor);
+        tvActivityFaculty.setBackgroundResource(bgColor);
     }
     /*
     public void setBookingCountText(int booked, int capacity){
@@ -136,13 +137,13 @@ public class ActivityListItem extends BaseCustomViewGroup {
     */
 
     public void setImageUrl(String url){
-        /*
         Glide.with(getContext())
                 .load(url)
-                .into(ivActivity);*/
-        //mock
+                .into(ivActivity);
+        /*mock
         if(url.equals("0")) ivActivity.setImageResource(R.drawable.highlight_vidva_1);
         else if(url.equals("1")) ivActivity.setImageResource(R.drawable.highlight_stat_1);
         else ivActivity.setImageResource(R.drawable.highlight_psy_1);
+        */
     }
 }

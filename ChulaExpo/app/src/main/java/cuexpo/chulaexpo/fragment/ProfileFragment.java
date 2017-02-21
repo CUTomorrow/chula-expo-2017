@@ -2,6 +2,7 @@ package cuexpo.chulaexpo.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,12 +41,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     //Button btnFb;
     Button btnLogout;
     TextView tvName;
-    TextView tvSurname;
     TextView tvEmail;
     TextView tvYear;
     TextView tvSchool;
     TextView tvAge;
     TextView tvGender;
+    ImageView ivQR;
+
+    SharedPreferences sharedPref;
 
     public ProfileFragment() {
         super();
@@ -72,6 +76,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         initInstances(rootView, savedInstanceState);
+        ivQR.setOnClickListener(this);
         btnFavourite.setOnClickListener(this);
         btnReserved.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
@@ -81,6 +86,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         //btnFb.setOnClickListener(this);
         btnAbout.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
+
+        /*sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
+        setName(sharedPref.getString("name",""));
+        setEmail(sharedPref.getString("email",""));
+        setYear(sharedPref.getString("year",""));
+        setSchool(sharedPref.getString("school",""));
+        //tvAge.setText(sharedPref.getString("birthday",""));
+        setGender(sharedPref.getString("gender",""));*/
         return rootView;
     }
 
@@ -91,6 +104,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
+        ivQR = (ImageView) rootView.findViewById(R.id.profile_toolbar_qr);
         btnEdit = (Button) rootView.findViewById(R.id.profile_edit_profile_btn);
 
         btnFavourite = (LinearLayout) rootView.findViewById(R.id.profile_favourite_btn);
@@ -103,7 +117,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         //btnFb = (Button) rootView.findViewById(R.id.profile_fb_btn);
         btnLogout = (Button) rootView.findViewById(R.id.profile_logout_btn);
         tvName = (TextView) rootView.findViewById(R.id.profile_name);
-        tvSurname= (TextView) rootView.findViewById(R.id.profile_surname);
         tvEmail = (TextView) rootView.findViewById(R.id.profile_email);
         tvYear = (TextView) rootView.findViewById(R.id.profile_year);
         tvSchool = (TextView) rootView.findViewById(R.id.profile_school);
@@ -140,7 +153,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == btnFavourite) {
+        if (v == ivQR) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.main_overlay, QRFragment.newInstance());
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else if (v == btnFavourite) {
             Intent intent = new Intent(getActivity(), FavouriteActivity.class);
             getContext().startActivity(intent);
         } else if (v == btnReserved) {
@@ -149,6 +169,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         } else if (v == btnEdit) {
 
         } else if (v == btnSetting) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.main_overlay, ReservedCheckFragment.newInstance());
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
 
         } else if (v == btnSetting2) {
 
@@ -161,7 +187,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
             }
 
-        }*/else if( v== btnFaq){
+        }*/ else if (v == btnFaq) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.main_overlay, FaqFragment.newInstance());
@@ -169,7 +195,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
-        }else if( v== btnAbout){
+        } else if (v == btnAbout) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.main_overlay, AboutFragment.newInstance());
@@ -182,36 +208,32 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             dialog.setCancelable(true);
             dialog.show();*/
 
-        }else if( v== btnLogout){
+        } else if (v == btnLogout) {
 
         }
     }
 
-    public void setName(String text){
+    public void setName(String text) {
         tvName.setText(text);
     }
 
-    public void setSurname(String text){
-        tvSurname.setText(text);
-    }
-
-    public void setEmail(String text){
+    public void setEmail(String text) {
         tvEmail.setText(text);
     }
 
-    public void setAge(String text){
-        tvAge.setText(text);
+    public void setAge(String text) {
+        tvAge.setText("Age " + text);
     }
 
-    public void setGender(String text){
-        tvGender.setText(text);
+    public void setGender(String text) {
+        tvGender.setText("Gender " + text);
     }
 
-    public void setYear(String text){
-        tvYear.setText(text);
+    public void setYear(String text) {
+        tvYear.setText("Year " + text);
     }
 
-    public void setSchool(String text){
+    public void setSchool(String text) {
         tvSchool.setText(text);
     }
 

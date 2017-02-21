@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,4 +20,509 @@
         map:uiZoomControls="false"
         map:uiZoomGestures="true" />
 
-</FrameLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        map:cardCornerRadius="16dp"
+        android:layout_height="30dp"
+        android:id="@+id/show_hide_pin"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="10dp">
+
+            <ImageView
+                map:srcCompat="@drawable/ic_list"
+                android:id="@+id/imageView6"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_height="16dp"
+                android:layout_width="16dp" />
+
+            <TextView
+                android:text="@string/show_hide_pin"
+                fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imageView6"
+                android:id="@+id/textView5"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/font_13"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        map:cardCornerRadius="16dp"
+        android:layout_height="30dp"
+        android:id="@+id/show_current_location"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="10dp">
+
+            <ImageView
+                map:srcCompat="@drawable/ic_current_location"
+                android:id="@+id/current_location"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_height="16dp"
+                android:layout_width="16dp" />
+
+            <TextView
+                android:text="@string/current_location"
+                fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/current_location"
+                android:id="@+id/current_location_txt"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/font_13"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        map:cardCornerRadius="16dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/pin_list"
+        android:layout_below="@+id/show_hide_pin"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="-200dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:dividerPadding="10dp"
+            android:layout_margin="5dp">
+
+            <!--Faculty-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/faculty_city"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    map:srcCompat="@drawable/selector_map_faculty"
+                    android:id="@+id/show_faculty_city"
+                    android:layout_centerVertical="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
+
+                <TextView
+                    android:text="@string/faculty_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView6"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="@dimen/font_13"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="false"
+                    android:layout_toRightOf="@+id/show_faculty_city"
+                    android:layout_toEndOf="@+id/show_faculty_city"
+                    android:layout_marginTop="-2dp" />
+
+                <TextView
+                    android:text="Faculty/City"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView6"
+                    android:layout_alignLeft="@+id/textView6"
+                    android:layout_alignStart="@+id/textView6"
+                    android:id="@+id/textView7"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginTop="-7dp" />
+            </RelativeLayout>
+            <!--Landmark-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/landmark"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    map:srcCompat="@drawable/selector_map_landmark"
+                    android:id="@+id/show_landmark"
+                    android:layout_centerVertical="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
+
+                <TextView
+                    android:text="@string/landmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/landmark_th"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="@dimen/font_13"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="false"
+                    android:layout_toRightOf="@+id/show_landmark"
+                    android:layout_toEndOf="@+id/show_landmark"
+                    android:layout_marginTop="-2dp" />
+
+                <TextView
+                    android:text="Landmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/landmark_th"
+                    android:layout_alignLeft="@+id/landmark_th"
+                    android:layout_alignStart="@+id/landmark_th"
+                    android:id="@+id/landmark_en"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginTop="-7dp"
+                    map:srcCompat="@drawable/selector_map_landmark" />
+            </RelativeLayout>
+
+            <!--Information-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/info"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    map:srcCompat="@drawable/selector_map_info"
+                    android:id="@+id/show_info"
+                    android:layout_centerVertical="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
+
+                <TextView
+                    android:text="@string/information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/info_th"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="@dimen/font_13"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="false"
+                    android:layout_toRightOf="@+id/show_info"
+                    android:layout_toEndOf="@+id/show_info"
+                    android:layout_marginTop="-2dp" />
+
+                <TextView
+                    android:text="Information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/info_th"
+                    android:layout_alignLeft="@+id/info_th"
+                    android:layout_alignStart="@+id/info_th"
+                    android:id="@+id/info_en"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginTop="-7dp"/>
+            </RelativeLayout>
+
+            <!--Interested-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/interest"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    map:srcCompat="@drawable/selector_map_interest"
+                    android:id="@+id/show_interest"
+                    android:layout_centerVertical="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
+
+                <TextView
+                    android:text="@string/interested_reserved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/interest_th"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="@dimen/font_13"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="false"
+                    android:layout_toRightOf="@+id/show_interest"
+                    android:layout_toEndOf="@+id/show_interest"
+                    android:layout_marginTop="-2dp" />
+
+                <TextView
+                    android:text="Interested/Reserved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/interest_th"
+                    android:layout_alignLeft="@+id/interest_th"
+                    android:layout_alignStart="@+id/interest_th"
+                    android:id="@+id/interest_en"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginTop="-7dp"/>
+            </RelativeLayout>
+
+            <!--Canteen-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/canteen"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    map:srcCompat="@drawable/selector_map_canteen"
+                    android:id="@+id/show_canteen"
+                    android:layout_centerVertical="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
+
+                <TextView
+                    android:text="@string/canteen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_th"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="@dimen/font_13"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="false"
+                    android:layout_toRightOf="@+id/show_canteen"
+                    android:layout_toEndOf="@+id/show_canteen"
+                    android:layout_marginTop="-2dp" />
+
+                <TextView
+                    android:text="Canteen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/canteen_th"
+                    android:layout_alignLeft="@+id/canteen_th"
+                    android:layout_alignStart="@+id/canteen_th"
+                    android:id="@+id/canteen_en"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginTop="-7dp"/>
+            </RelativeLayout>
+
+            <!--Toilet-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/toilet"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    map:srcCompat="@drawable/selector_map_toilet"
+                    android:id="@+id/show_toilet"
+                    android:layout_centerVertical="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
+
+                <TextView
+                    android:text="@string/toilet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toilet_th"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="@dimen/font_13"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="false"
+                    android:layout_toRightOf="@+id/show_toilet"
+                    android:layout_toEndOf="@+id/show_toilet"
+                    android:layout_marginTop="-2dp" />
+
+                <TextView
+                    android:text="Toilet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/toilet_th"
+                    android:layout_alignLeft="@+id/toilet_th"
+                    android:layout_alignStart="@+id/toilet_th"
+                    android:id="@+id/toilet_en"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginTop="-7dp"/>
+            </RelativeLayout>
+
+            <!--Bus Stop-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bus_stop"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    map:srcCompat="@drawable/selector_map_bus_stop"
+                    android:id="@+id/show_bus_stop"
+                    android:layout_centerVertical="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
+
+                <TextView
+                    android:text="@string/bus_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bus_stop_th"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="@dimen/font_13"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="false"
+                    android:layout_toRightOf="@+id/show_bus_stop"
+                    android:layout_toEndOf="@+id/show_bus_stop"
+                    android:layout_marginTop="-2dp" />
+
+                <TextView
+                    android:text="Bus Stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bus_stop_th"
+                    android:layout_alignLeft="@+id/bus_stop_th"
+                    android:layout_alignStart="@+id/bus_stop_th"
+                    android:id="@+id/bus_stop_en"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginTop="-7dp"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardElevation="0dp"
+                map:cardElevation="0dp"
+                android:elevation="0dp"
+                map:cardBackgroundColor="#f6f6f6"
+                map:cardCornerRadius="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:text="@string/bus_line"
+                        fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView8"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_13"
+                        android:layout_marginTop="-5dp" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        map:srcCompat="@drawable/selector_map_bus_line_1"
+                        android:id="@+id/show_bus_line_1"
+                        android:layout_below="@+id/textView8"
+                        android:layout_marginTop="3dp" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        map:srcCompat="@drawable/selector_map_bus_line_2"
+                        android:id="@+id/show_bus_line_2"
+                        android:layout_toRightOf="@+id/show_bus_line_1"
+                        android:layout_alignTop="@+id/show_bus_line_1"
+                        android:layout_marginLeft="8dp" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        map:srcCompat="@drawable/selector_map_bus_line_3"
+                        android:id="@+id/show_bus_line_3"
+                        android:layout_toRightOf="@+id/show_bus_line_2"
+                        android:layout_alignTop="@+id/show_bus_line_1"
+                        android:layout_marginLeft="8dp" />
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        map:cardCornerRadius="8dp"
+        android:id="@+id/info_card"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pin_icon_wraper"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    map:srcCompat="@drawable/pin_21"
+                    android:id="@+id/pin_icon"
+                    android:paddingRight="12dp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/pin_icon_wraper"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:text="Faculty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/facility"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:text="ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์ ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/description"
+                    android:layout_below="@+id/facility"
+                    android:textSize="@dimen/font_13"
+                    android:layout_marginTop="-2dp"
+                    android:textColor="@color/black"
+                    android:lineSpacingExtra="-6sp"
+                    android:paddingBottom="4dp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <ImageView
+        map:srcCompat="@drawable/map_close_btn"
+        android:id="@+id/close_info"
+        android:layout_alignTop="@+id/info_card"
+        android:layout_alignRight="@+id/info_card"
+        android:layout_marginRight="-15dp"
+        android:layout_marginTop="-15dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:padding="7dp"
+        android:visibility="gone" />
+
+</RelativeLayout>

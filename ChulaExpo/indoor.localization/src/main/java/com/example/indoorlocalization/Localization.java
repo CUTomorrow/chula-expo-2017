@@ -87,13 +87,15 @@ public class Localization extends AsyncTask<JSONObject, Void, JSONObject> {
 
     private ArrayList<AccessPoint> getOrderedAP(JSONArray jsonAP) {
         ArrayList<AccessPoint> listAP = new ArrayList<AccessPoint>();
-        for (int i = 0; i < jsonAP.size(); i++) {
-            String bssid = (String) ((JSONObject) jsonAP.get(i)).get("BSSID");
-            String ssid = (String) ((JSONObject) jsonAP.get(i)).get("SSID");
-            int rssi = Integer.parseInt((String) ((JSONObject) jsonAP.get(i)).get("RSSI"));
-            listAP.add(new AccessPoint(bssid, ssid, rssi));
+        if (jsonAP != null) {
+            for (int i = 0; i < jsonAP.size(); i++) {
+                String bssid = (String) ((JSONObject) jsonAP.get(i)).get("BSSID");
+                String ssid = (String) ((JSONObject) jsonAP.get(i)).get("SSID");
+                int rssi = Integer.parseInt((String) ((JSONObject) jsonAP.get(i)).get("RSSI"));
+                listAP.add(new AccessPoint(bssid, ssid, rssi));
+            }
+            Collections.sort(listAP, new RSSIComparator());
         }
-        Collections.sort(listAP, new RSSIComparator());
         return listAP;
     }
 
