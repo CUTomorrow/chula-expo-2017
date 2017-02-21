@@ -2,6 +2,7 @@ package cuexpo.chulaexpo.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,9 +22,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
+
+import java.io.IOException;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.EventDetailListAdapter;
+import cuexpo.chulaexpo.dao.ActivityItemDao;
+import cuexpo.chulaexpo.dao.ActivityItemResultDao;
+import cuexpo.chulaexpo.dao.ActivityItemResultDao;
+import cuexpo.chulaexpo.manager.HttpManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class EventDetailFragment extends Fragment {
@@ -34,6 +45,7 @@ public class EventDetailFragment extends Fragment {
     private FrameLayout headerView;
     private View stickyViewSpacer;
     private View listHeader;
+    private TextView title;
     private Fragment fragment;
 
     @Override
@@ -42,28 +54,59 @@ public class EventDetailFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_event_detail, container, false);
         fragment = this;
         listView = (ListView) rootView.findViewById(R.id.list_view);
+
         eventImageView = rootView.findViewById(R.id.event_image);
         headerView = (FrameLayout) rootView.findViewById(R.id.header);
-        TextView title = (TextView) rootView.findViewById(R.id.title);
+        title = (TextView) rootView.findViewById(R.id.title);
+
         ImageView closeButton = (ImageView) rootView.findViewById(R.id.close_button);
         closeButton.setOnClickListener(closeButtonOnClickListener);
         listHeader = inflater.inflate(R.layout.item_event_detail_header, null);
         stickyViewSpacer = listHeader.findViewById(R.id.sticky_view_placeholder);
 
-        Glide.with(this)
-                .load("http://www.womie.ru/wp-content/uploads/2014/04/%D0%96%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D1%8B-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B5%D1%82%D0%B0%D1%82%D0%B5%D0%BB%D0%B8-1.jpg")
-                .placeholder(R.color.blackOverlay)
-                .centerCrop()
-                .into((ImageView) eventImageView);
-
-
-        title.setText("การแสดงสาธิต หุ่นยนต์ดูดฝุ่น");
-
+        SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+        String id = activitySharedPref.getString("EventID", "");
+        Log.d("id", id);
+        Call<ActivityItemDao> call = HttpManager.getInstance().getService().loadActivityItem(id);
+        call.enqueue(callbackActivity);
 
         ViewTreeObserver vto = headerView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
 
         return rootView;
+    }
+
+    Callback<ActivityItemDao> callbackActivity = new Callback<ActivityItemDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
+            Log.d("response", response.toString());
+            if (response.isSuccessful()) {
+                ActivityItemResultDao dao = response.body().getResults();
+                Glide.with(fragment)
+                        .load("http://staff.chulaexpo.com"+dao.getBanner())
+                        .placeholder(R.color.blackOverlay)
+                        .centerCrop()
+                        .into((ImageView) eventImageView);
+                title.setText(dao.getName().getTh());
+
+            } else {
+                try {
+                    Log.e("fetch error", response.errorBody().string());
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ActivityItemDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private void setContent() {
+
     }
 
     private AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {

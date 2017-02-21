@@ -239,6 +239,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //            Intent intent = new Intent(getContext(), EventDetailActivity.class);
 //            startActivity(intent);
+            String activityId = activityListAdapter.getItem(position).getId();
+            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+            activitySharedPref.edit().putString("EventID", activityId).apply();
+
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.container, new EventDetailFragment());
