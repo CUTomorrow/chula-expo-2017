@@ -45,7 +45,7 @@ public class MainApplication extends Application implements
         MainApplication.currentLocationDetail = currentLocationDetail;
     }
 
-    private static String currentLocationDetail;
+    private static String currentLocationDetail = "Loading...";
 
 
     @Override
