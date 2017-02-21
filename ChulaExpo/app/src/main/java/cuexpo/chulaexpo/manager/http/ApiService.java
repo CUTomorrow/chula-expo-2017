@@ -26,7 +26,7 @@ public interface ApiService {
                                                                 @Query("limit") int limit);
     @GET("/api/zones")
     Call<ZoneDao> loadZoneList();
-    Call<ZoneDao> loadZoneByType(@Query("type") String type);
-    @GET("/api/zones/:zid")
+
+    @GET("/api/zones/{zid}")
     Call<ZoneResult>  loadZoneById(@Path("zid") String zid);
 }

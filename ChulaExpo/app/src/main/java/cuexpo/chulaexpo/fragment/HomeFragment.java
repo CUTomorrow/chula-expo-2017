@@ -160,17 +160,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 //Toast.makeText(Contextor.getInstance().getContext(), dao.getResults().get(0).getName().getEn(), Toast.LENGTH_SHORT).show();
             } else {
                 //Handle
-                try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Log.e("HomeActivity","Load Activities Not Success");
+                activityListAdapter.notifyDataSetChanged();
             }
         }
 
         @Override
         public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("HomeActivity","Load Activities Fail");
+            activityListAdapter.notifyDataSetChanged();
         }
     };
 
