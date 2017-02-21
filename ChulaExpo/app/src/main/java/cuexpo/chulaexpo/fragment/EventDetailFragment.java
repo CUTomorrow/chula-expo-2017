@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
+import android.widget.Adapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,7 +46,7 @@ public class EventDetailFragment extends Fragment {
     private FrameLayout headerView;
     private View stickyViewSpacer;
     private View listHeader;
-    private TextView title, place, contact, time, description;
+    private TextView title;
     private Fragment fragment;
 //    public EventDetailListAdapter adapter;
 
@@ -70,8 +71,6 @@ public class EventDetailFragment extends Fragment {
         Call<ActivityItemDao> call = HttpManager.getInstance().getService().loadActivityItem(id);
         call.enqueue(callbackActivity);
 
-//        adapter = new EventDetailListAdapter(getActivity(), 0);
-
         ViewTreeObserver vto = headerView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
 
@@ -91,15 +90,16 @@ public class EventDetailFragment extends Fragment {
                         .into((ImageView) eventImageView);
                 title.setText(dao.getName().getTh());
 
-//                adapter.setParam(
-//                        dao.getLocation().getRoom(),
-//                        dao.getContact(),
-//                        dao.getStart(),
-//                        dao.getDescription().getTh(),
-//                        dao.getLocation().getLatitude(),
-//                        dao.getLocation().getLongitude(),
-//                        dao.getPictures());
-//                adapter.notifyDataSetChanged();
+                EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), 0,
+                        dao.getLocation().getRoom(),
+                        dao.getContact(),
+                        dao.getStart(),
+                        dao.getDescription().getTh(),
+                        dao.getLocation().getLatitude(),
+                        dao.getLocation().getLongitude(),
+                        dao.getPictures()
+                );
+                listView.setAdapter(adapter);
             } else {
                 try {
                     Log.e("fetch error", response.errorBody().string());
@@ -148,9 +148,6 @@ public class EventDetailFragment extends Fragment {
 
             listView.addHeaderView(listHeader);
             listView.setOnScrollListener(onScrollListener);
-
-            EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), 0);
-            listView.setAdapter(adapter);
 
             headerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
         }

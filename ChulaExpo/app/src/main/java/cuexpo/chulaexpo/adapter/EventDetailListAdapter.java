@@ -40,16 +40,24 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private int id;
     private String place, contact, time, description;
     public double lat, lng;
-    private List<String> imageUrls;
+    private String[] imageUrls;
 
-    // mock up
-
-    public EventDetailListAdapter(Context context, int id){
+    public EventDetailListAdapter(Context context, int id, String place, String contact,
+                                  String time, String description, double lat, double lng,
+                                  String[] imageUrls) {
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.id = id;
+        this.place = place;
+        this.contact = contact;
+        this.time = time;
+        this.description = description;
+        this.lat = lat;
+        this.lng = lng;
+        this.imageUrls = imageUrls;
     }
 
-    public void setParam(String place, String contact, String time, String description, double lat, double lng, List<String> imageUrls) {
+    public void setParam(String place, String contact, String time, String description, double lat, double lng, String[] imageUrls) {
         this.place = place;
         this.contact = contact;
         this.time = time;
@@ -90,7 +98,9 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     TextView title = (TextView) convertView.findViewById(R.id.detail);
                     title.setText(description);
                     LinearLayout pictureLayout = (LinearLayout) convertView.findViewById(R.id.picture_layout);
+//                    if(imageUrls.length != 0)
                     for(String imageUrl: imageUrls){
+                        Log.d("url", imageUrl);
                         ImageView image = new ImageView(context);
                         RelativeLayout.LayoutParams imageParam = new RelativeLayout.LayoutParams(
                                 dpToPx(44), dpToPx(44));
