@@ -48,7 +48,6 @@ public class LocationTask extends TimerTask{
                 fp.put("latitude", location.getLatitude());
                 fp.put("longitude", location.getLongitude());
                 fp.put("ap", jsonArray);
-
             }
         }
         Log.d("jsonAP", ""+fp.get("ap"));
@@ -59,8 +58,14 @@ public class LocationTask extends TimerTask{
     private OnTaskCompleteListener completeListener = new OnTaskCompleteListener() {
         @Override
         public void onCompleteListerner(JSONObject result) {
-            String location = result.get("faculty_id") + " " + result.get("building_id") + " " +
-                    result.get("floor") + " " + result.get("room_number");
+            // TODO clean data
+            String location;
+            if (result.get("faculty_id") == null) {
+                location = "Please enable your Wi-Fi and GPS";
+            } else {
+                location = result.get("faculty_id") + " " + result.get("building_id") + " " +
+                        result.get("floor") + " " + result.get("room_number");
+            }
             MainApplication.setCurrentLocationDetail(location);
         }
     };
