@@ -30,4 +30,8 @@ public class ActivityItemCollectionDao {
         this.results = results;
     }
 
+    public void addResults(ActivityItemResultDao resultDao){
+        this.results.add(resultDao);
+    }
+
 }
