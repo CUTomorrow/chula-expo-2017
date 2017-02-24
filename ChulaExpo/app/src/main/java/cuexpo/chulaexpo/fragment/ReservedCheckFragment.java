@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
+
+import java.io.IOException;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.dao.ReserveDao;
+import cuexpo.chulaexpo.dao.RoundDao;
+import cuexpo.chulaexpo.manager.DateConversionManager;
+import cuexpo.chulaexpo.manager.HttpManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -31,6 +40,9 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
     LinearLayout btnSave;
     Spinner spnSelectTime;
     TextView tvName;
+    RoundDao dao;
+    ReserveDao dao2;
+    int selectedPos;
 
     public ReservedCheckFragment() {
         super();
@@ -76,12 +88,52 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         btnSave.setOnClickListener(this);
         spnSelectTime.setOnItemSelectedListener(this);
 
-        String[] items = new String[]{"16 มีนาคม 2017 : 10.00 - 11.00", "17 มีนาคม 2017 : 10.00 - 11.00", "18 มีนาคม 2017 : 10.00 - 11.00"};
+        /*String[] items = new String[]{"16 มีนาคม 2017 : 10.00 - 11.00", "17 มีนาคม 2017 : 10.00 - 11.00", "18 มีนาคม 2017 : 10.00 - 11.00"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>
                 (getContext(), android.R.layout.simple_dropdown_item_1line, items);
         spnSelectTime.setAdapter(adapter);
-        spnSelectTime.setSelection(0);
+        spnSelectTime.setSelection(0);*/
+        String aid = "589b1d9c0028bd37f48906ad";
+        Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, "start");
+        callRound.enqueue(callbackRound);
+
     }
+
+    Callback<RoundDao> callbackRound = new Callback<RoundDao>() {
+        @Override
+        public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
+            if (response.isSuccessful()) {
+                dao = response.body();
+                Toast.makeText(Contextor.getInstance().getContext(),
+                        "RESULT = " + dao.getResults().size(), Toast.LENGTH_LONG).show();
+
+                String[] items = new String[dao.getResults().size()];
+
+
+                for (int i = 0; i < dao.getResults().size(); i++) {
+                    items[i] = DateConversionManager.getInstance()
+                            .ConvertDate(dao.getResults().get(i).getStart()
+                                    , dao.getResults().get(i).getEnd());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>
+                        (getContext(), R.layout.spinner_reserved_check_item, R.id.reserved_check_spinner_text, items);
+                adapter.setDropDownViewResource(R.layout.spinner_reserved_check_drop_item);
+                spnSelectTime.setAdapter(adapter);
+                selectedPos = 0;
+            } else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<RoundDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public void onStart() {
@@ -113,22 +165,44 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == btnSave) {
-            System.out.println(spnSelectTime.getSelectedItem().toString());
+            String aid = dao.getResults().get(selectedPos).getActivityId();
+            String rid = dao.getResults().get(selectedPos).getId();
+            Toast.makeText(Contextor.getInstance().getContext(), aid + " " + rid, Toast.LENGTH_SHORT).show();
+
             //TODO API with Server to check availability
+            Call<ReserveDao> callReserve = HttpManager.getInstance().getService().reserveSelectedRound(aid, rid);
+            callReserve.enqueue(callbackReserve);
             getFragmentManager().popBackStack();
         } else if (v == ivClose) {
             getFragmentManager().popBackStack();
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        View spinnerSelectedView = spnSelectTime.getSelectedView();
-        if (spinnerSelectedView != null) {
-            ((TextView) spinnerSelectedView).setTextColor(Color.WHITE);
-            ((TextView) spinnerSelectedView).setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+    Callback<ReserveDao> callbackReserve = new Callback<ReserveDao>() {
+        @Override
+        public void onResponse(Call<ReserveDao> call, Response<ReserveDao> response) {
+            if (response.isSuccessful()) {
+                dao2 = response.body();
+                Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() + dao2.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
+        @Override
+        public void onFailure(Call<ReserveDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedPos = position;
     }
 
     @Override
