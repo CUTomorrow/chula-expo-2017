@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.dao.ActivityItemDao;
+import cuexpo.chulaexpo.dao.ActivityItemResultDao;
 import cuexpo.chulaexpo.dao.ReserveDao;
 import cuexpo.chulaexpo.dao.RoundDao;
 
@@ -22,10 +23,16 @@ import retrofit2.http.Query;
 public interface ApiService {
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadActivityList();
+    @GET("/api/activities")
+    Call<ActivityItemCollectionDao> loadIncomingActivityOnStage(@Query("zone") String zone,
+                                                            @Query("end") JSONObject end,
+                                                                @Query("sort") String sort,
+                                                                @Query("limit") int limit);
     @GET("/api/activities/{aid}")
     Call<ActivityItemDao> loadActivityItem(@Path("aid") String aid);
     @GET("/api/zones")
     Call<ZoneDao> loadZoneList();
+    Call<ZoneDao> loadZoneByType(@Query("type") String type);
     @GET("/api/zones/:zid")
     Call<ZoneResult>  loadZoneById(@Path("zid") String zid);
     @GET("/api/activities/{aid}/rounds")
