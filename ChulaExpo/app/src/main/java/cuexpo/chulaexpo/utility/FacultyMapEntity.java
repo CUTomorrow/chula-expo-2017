@@ -165,7 +165,7 @@ public class FacultyMapEntity implements IMapEntity {
                             0x80, Color.red(color), Color.green(color), Color.blue(color)
                     ))
                     .strokeWidth(3);
-            JSONArray areaBorderVertices = facultyJSON.getJSONArray("facultyAreaBorder");
+            JSONArray areaBorderVertices = facultyJSON.getJSONArray("areaBorder");
             for (int i = 0; i < areaBorderVertices.length(); i++) {
                 JSONObject vertexPosition = areaBorderVertices.getJSONObject(i);
                 areaOption.add(new LatLng(
