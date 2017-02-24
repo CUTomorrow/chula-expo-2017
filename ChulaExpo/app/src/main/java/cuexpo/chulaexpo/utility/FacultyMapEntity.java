@@ -50,6 +50,7 @@ public class FacultyMapEntity implements IMapEntity {
 
     private String nameTh;
     private String nameEn;
+    private String type;
 
     public String getNameTh() {
         return nameTh;
@@ -77,9 +78,12 @@ public class FacultyMapEntity implements IMapEntity {
         return getMarkerIconDrawableResource(facultyId);
     }
 
+    public String getType() {
+        return type;
+    }
+
     private int getMarkerIconDrawableResource(int facultyId) {
         switch (facultyId) {
-            // Thanks Sublime Text
             case 20:
                 return R.drawable.pin_31;
             case 21:
@@ -146,6 +150,7 @@ public class FacultyMapEntity implements IMapEntity {
 
             nameTh = facultyJSON.getString("nameTh");
             nameEn = facultyJSON.getString("nameEn");
+            type = facultyJSON.getString("tpye");
             facultyId = facultyJSON.getInt("id");
 
             markerOption = new MarkerOptions()
