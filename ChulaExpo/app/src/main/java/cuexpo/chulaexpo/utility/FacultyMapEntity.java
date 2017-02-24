@@ -84,6 +84,7 @@ public class FacultyMapEntity implements IMapEntity {
 
     private int getMarkerIconDrawableResource(int facultyId) {
         switch (facultyId) {
+            // Area
             case 1:
                 return R.drawable.pin_21;
             case 2:
@@ -98,14 +99,14 @@ public class FacultyMapEntity implements IMapEntity {
                 return R.drawable.pin_21;
             case 7:
                 return R.drawable.pin_21;
+            // City
             case 10:
                 return R.drawable.pin_21;
             case 11:
                 return R.drawable.pin_21;
             case 12:
                 return R.drawable.pin_21;
-            case 20:
-                return R.drawable.pin_31;
+            // Faculty
             case 21:
                 return R.drawable.pin_21;
             case 22:
@@ -127,6 +128,8 @@ public class FacultyMapEntity implements IMapEntity {
             case 30:
                 return R.drawable.pin_30;
             case 31:
+                return R.drawable.pin_31;
+            case 20:
                 return R.drawable.pin_31;
             case 32:
                 return R.drawable.pin_32;
