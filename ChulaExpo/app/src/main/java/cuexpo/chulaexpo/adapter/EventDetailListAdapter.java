@@ -86,43 +86,38 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     public View getView(int position, View convertView, ViewGroup parent) {
         View eventDetailView;
 
-        if (convertView != null)
-            eventDetailView = convertView;
-        else {
-            switch (position) {
-                case 0:
-                    convertView = inflater.inflate(R.layout.item_event_detail_schedule, null);
-                    break;
-                case 1:
-                    convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
-                    TextView title = (TextView) convertView.findViewById(R.id.detail);
-                    title.setText(description);
-                    LinearLayout pictureLayout = (LinearLayout) convertView.findViewById(R.id.picture_layout);
-//                    if(imageUrls.length != 0)
-                    for(String imageUrl: imageUrls){
-                        Log.d("url", imageUrl);
-                        ImageView image = new ImageView(context);
-                        RelativeLayout.LayoutParams imageParam = new RelativeLayout.LayoutParams(
-                                dpToPx(44), dpToPx(44));
-                        image.setLayoutParams(imageParam);
-                        Glide.with(context)
-                                .load(imageUrl)
-                                .placeholder(R.color.blackOverlay)
-                                .centerCrop()
-                                .into(image);
-                        pictureLayout.addView(image);
-                    }
-                    break;
-                case 2:
-                    convertView = inflater.inflate(R.layout.item_event_detail_map, null);
-                    MapView mapView = (MapView) convertView.findViewById(R.id.mapView);
-                    mapView.onCreate(null);
-                    mapView.onResume();
-                    mapView.getMapAsync(this);
-                    break;
-            }
-            eventDetailView = convertView;
+        switch (position) {
+            case 0:
+                convertView = inflater.inflate(R.layout.item_event_detail_schedule, null);
+                break;
+            case 1:
+                convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
+                TextView title = (TextView) convertView.findViewById(R.id.detail);
+                title.setText(description);
+                LinearLayout pictureLayout = (LinearLayout) convertView.findViewById(R.id.picture_layout);
+                for(String imageUrl: imageUrls){
+                    ImageView image = new ImageView(context);
+                    RelativeLayout.LayoutParams imageParam = new RelativeLayout.LayoutParams(
+                            dpToPx(44), dpToPx(44));
+                    image.setLayoutParams(imageParam);
+                    Glide.with(context)
+                            .load("http://staff.chulaexpo.com" + imageUrl)
+                            .placeholder(R.color.blackOverlay)
+                            .centerCrop()
+                            .into(image);
+                    pictureLayout.addView(image);
+                }
+                break;
+            case 2:
+                convertView = inflater.inflate(R.layout.item_event_detail_map, null);
+                MapView mapView = (MapView) convertView.findViewById(R.id.mapView);
+                mapView.onCreate(null);
+                mapView.onResume();
+                mapView.getMapAsync(this);
+                break;
         }
+        eventDetailView = convertView;
+
         return eventDetailView;
     }
 
@@ -147,6 +142,6 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return Math.round(dp * ((float)displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }
