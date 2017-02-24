@@ -56,16 +56,16 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         this.lng = lng;
         this.imageUrls = imageUrls;
     }
-
-    public void setParam(String place, String contact, String time, String description, double lat, double lng, String[] imageUrls) {
-        this.place = place;
-        this.contact = contact;
-        this.time = time;
-        this.description = description;
-        this.lat = lat;
-        this.lng = lng;
-        this.imageUrls = imageUrls;
-    }
+//
+//    public void setParam(String place, String contact, String time, String description, double lat, double lng, String[] imageUrls) {
+//        this.place = place;
+//        this.contact = contact;
+//        this.time = time;
+//        this.description = description;
+//        this.lat = lat;
+//        this.lng = lng;
+//        this.imageUrls = imageUrls;
+//    }
 
     @Override
     public int getCount() {
@@ -89,11 +89,14 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         switch (position) {
             case 0:
                 convertView = inflater.inflate(R.layout.item_event_detail_schedule, null);
+                ((TextView) convertView.findViewById(R.id.schedule)).setText(time);
+                ((TextView) convertView.findViewById(R.id.responsible_person)).setText(contact);
+                ((TextView) convertView.findViewById(R.id.location)).setText(place);
                 break;
             case 1:
                 convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
-                TextView title = (TextView) convertView.findViewById(R.id.detail);
-                title.setText(description);
+                TextView detail = (TextView) convertView.findViewById(R.id.detail);
+                detail.setText(description);
                 LinearLayout pictureLayout = (LinearLayout) convertView.findViewById(R.id.picture_layout);
                 for(String imageUrl: imageUrls){
                     ImageView image = new ImageView(context);
