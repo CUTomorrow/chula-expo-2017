@@ -9,7 +9,7 @@
         \"nameEn\": \"Faculty of Engineering\",
         \"nameTh\": \"คณะวิศวกรรมศาสตร์\",
         \"color\": \"#9b0000\",
-        \"centerPoint\": { \"lat\": 13.73658, \"lng\": 100.53384 },
+        \"centerPoint\": { \"lat\": 13.73680, \"lng\": 100.53313 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73705, \"lng\": 100.53431 },
             { \"lat\": 13.73737, \"lng\": 100.53217 },
@@ -23,7 +23,7 @@
         \"nameEn\": \"Faculty of Arts\",
         \"nameTh\": \"คณะอักษรศาสตร์\",
         \"color\": \"#848285\",
-        \"centerPoint\": { \"lat\": 13.73928, \"lng\": 100.53405 },
+        \"centerPoint\": { \"lat\": 13.73934, \"lng\": 100.53353 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73959, \"lng\": 100.53329 },
             { \"lat\": 13.73951, \"lng\": 100.53380 },
@@ -37,7 +37,7 @@
         \"nameEn\": \"Faculty of Science\",
         \"nameTh\": \"คณะวิทยาศาสตร์\",
         \"color\": \"#ffc715\",
-        \"centerPoint\": { \"lat\": 13.73592, \"lng\": 100.53033 },
+        \"centerPoint\": { \"lat\": 13.73601, \"lng\": 100.53063 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73769, \"lng\": 100.52976 },
             { \"lat\": 13.73744, \"lng\": 100.53135 },
@@ -53,7 +53,7 @@
         \"nameEn\": \"Faculty of Political Science\",
         \"nameTh\": \"คณะรัฐศาสตร์\",
         \"color\": \"#000000\",
-        \"centerPoint\": { \"lat\": 13.73442, \"lng\": 100.53331 },
+        \"centerPoint\": { \"lat\": 13.73473, \"lng\": 100.53328 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73502, \"lng\": 100.53404 },
             { \"lat\": 13.73520, \"lng\": 100.53293 },
@@ -68,7 +68,7 @@
         \"nameEn\": \"Faculty of Architecture\",
         \"nameTh\": \"คณะสถาปัตยกรรมศาสตร์\",
         \"color\": \"#6c451e\",
-        \"centerPoint\": { \"lat\": 13.73986, \"lng\": 100.53064 },
+        \"centerPoint\": { \"lat\": 13.73983, \"lng\": 100.53082 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.74003, \"lng\": 100.53139 },
             { \"lat\": 13.74025, \"lng\": 100.53010 },
@@ -82,7 +82,7 @@
         \"nameEn\": \"Faculty of Commerce and Accountancy\",
         \"nameTh\": \"คณะพาณิชยศาสตร์และการบัญชี\",
         \"color\": \"#7090c8\",
-        \"centerPoint\": { \"lat\": 13.73403, \"lng\": 100.53044 },
+        \"centerPoint\": { \"lat\": 13.73411, \"lng\": 100.53004 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.74003, \"lng\": 100.53139 },
             { \"lat\": 13.74025, \"lng\": 100.53010 },
@@ -96,7 +96,7 @@
         \"nameEn\": \"Faculty of Education\",
         \"nameTh\": \"คณะครุศาสตร์\",
         \"color\": \"#f26522\",
-        \"centerPoint\": { \"lat\": 13.73738, \"lng\": 100.52858 },
+        \"centerPoint\": { \"lat\": 13.73724, \"lng\": 100.52851 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73667, \"lng\": 100.52898 },
             { \"lat\": 13.73683, \"lng\": 100.52801 },
@@ -112,7 +112,7 @@
         \"nameEn\": \"Faculty of Communication Arts\",
         \"nameTh\": \"คณะนิเทศศาสตร์\",
         \"color\": \"#22236f\",
-        \"centerPoint\": { \"lat\": 13.73614, \"lng\": 100.52855 },
+        \"centerPoint\": { \"lat\": 13.73616, \"lng\": 100.52877 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73638, \"lng\": 100.52896 },
             { \"lat\": 13.73620, \"lng\": 100.52893 },
@@ -130,7 +130,7 @@
         \"nameEn\": \"Faculty of Economics\",
         \"nameTh\": \"คณะเศรษฐศาสตร์\",
         \"color\": \"#ccae5d\",
-        \"centerPoint\": { \"lat\": 13.73434, \"lng\": 100.53154 },
+        \"centerPoint\": { \"lat\": 13.73433, \"lng\": 100.53150 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73450, \"lng\": 100.53115 },
             { \"lat\": 13.73438, \"lng\": 100.53198 },
@@ -144,7 +144,7 @@
         \"nameEn\": \"Faculty of Medicine\",
         \"nameTh\": \"คณะแพทย์ศาสตร์\",
         \"color\": \"#006600\",
-        \"centerPoint\": { \"lat\": 13.73354, \"lng\": 100.53624 },
+        \"centerPoint\": { \"lat\": 13.73346, \"lng\": 100.53624 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73374, \"lng\": 100.53605 },
             { \"lat\": 13.73366, \"lng\": 100.53660 },
@@ -158,7 +158,7 @@
         \"nameEn\": \"Faculty of Veterinary Science\",
         \"nameTh\": \"คณะสัตวแพทยศาสตร์\",
         \"color\": \"#3399cc\",
-        \"centerPoint\": { \"lat\": 13.74373, \"lng\": 100.53238 },
+        \"centerPoint\": { \"lat\": 13.74239, \"lng\": 100.53418 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.74262, \"lng\": 100.53447 },
             { \"lat\": 13.74220, \"lng\": 100.53441 },
@@ -174,7 +174,7 @@
         \"nameEn\": \"Faculty of Veterinary Science\",
         \"nameTh\": \"คณะสัตวแพทยศาสตร์\",
         \"color\": \"#3399cc\",
-        \"centerPoint\": { \"lat\": 13.74373, \"lng\": 100.53238 },
+        \"centerPoint\": { \"lat\": 13.74239, \"lng\": 100.53418 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.74402, \"lng\": 100.53210 },
             { \"lat\": 13.74392, \"lng\": 100.53266 },
@@ -188,7 +188,7 @@
         \"nameEn\": \"Faculty of Dentistry\",
         \"nameTh\": \"คณะทันตแพทยศาสตร์\",
         \"color\": \"#7c4e96\",
-        \"centerPoint\": { \"lat\": 13.74314, \"lng\": 100.53413 },
+        \"centerPoint\": { \"lat\": 13.74346, \"lng\": 100.53451 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.74344, \"lng\": 100.53530 },
             { \"lat\": 13.74294, \"lng\": 100.53522 },
@@ -210,7 +210,7 @@
         \"nameEn\": \"Faculty of Phamaceutical Science\",
         \"nameTh\": \"คณะเภสัชศาสตร์\",
         \"color\": \"#606427\",
-        \"centerPoint\": { \"lat\": 13.74357, \"lng\": 100.53116 },
+        \"centerPoint\": { \"lat\": 13.74335, \"lng\": 100.53124 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.74407, \"lng\": 100.53200 },
             { \"lat\": 13.74410, \"lng\": 100.53178 },
@@ -238,7 +238,7 @@
         \"nameEn\": \"Faculty of Law\",
         \"nameTh\": \"คณะนิติศาสตร์\",
         \"color\": \"#ffffff\",
-        \"centerPoint\": { \"lat\": 13.73553, \"lng\": 100.52847 },
+        \"centerPoint\": { \"lat\": 13.73534, \"lng\": 100.52858 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73551, \"lng\": 100.52881 },
             { \"lat\": 13.73555, \"lng\": 100.52854 },
@@ -256,7 +256,7 @@
         \"nameEn\": \"Faculty of Fine and Applied Arts\",
         \"nameTh\": \"คณะศิลปกรรมศาสตร์\",
         \"color\": \"#8e0401\",
-        \"centerPoint\": { \"lat\": 13.73946, \"lng\": 100.53292 },
+        \"centerPoint\": { \"lat\": 13.73953, \"lng\": 100.53291 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73974, \"lng\": 100.53264 },
             { \"lat\": 13.73971, \"lng\": 100.53288 },
@@ -274,7 +274,7 @@
         \"nameEn\": \"Faculty of Nursing\",
         \"nameTh\": \"คณะพยาบาลศาสตร์\",
         \"color\": \"#8e0401\",
-        \"centerPoint\": { \"lat\": 13.73946, \"lng\": 100.53292 },
+        \"centerPoint\": { \"lat\": 13.73874, \"lng\": 100.53265 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73889, \"lng\": 100.53222 },
             { \"lat\": 13.73876, \"lng\": 100.53311 },
@@ -288,7 +288,7 @@
         \"nameEn\": \"Faculty of Allied Health Sciences\",
         \"nameTh\": \"คณะสหเวชศาสตร์\",
         \"color\": \"#483188\",
-        \"centerPoint\": { \"lat\": 13.74335, \"lng\": 100.52861 },
+        \"centerPoint\": { \"lat\": 13.73670, \"lng\": 100.53173 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73691, \"lng\": 100.53158 },
             { \"lat\": 13.73687, \"lng\": 100.53195 },
@@ -302,7 +302,7 @@
         \"nameEn\": \"Faculty of Psychology\",
         \"nameTh\": \"คณะจิตวิทยา\",
         \"color\": \"#483188\",
-        \"centerPoint\": { \"lat\": 13.74403, \"lng\": 100.52854 },
+        \"centerPoint\": { \"lat\": 13.73782, \"lng\": 100.53266 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73807, \"lng\": 100.53241 },
             { \"lat\": 13.73799, \"lng\": 100.53306 },
@@ -319,7 +319,7 @@
         \"nameEn\": \"Faculty of Sports Science\",
         \"nameTh\": \"คณะวิทยาศาสตร์การกีฬา\",
         \"color\": \"#ffa500\",
-        \"centerPoint\": { \"lat\": 13.74366, \"lng\": 100.52702 },
+        \"centerPoint\": { \"lat\": 13.73378, \"lng\": 100.53126 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73391, \"lng\": 100.53103 },
             { \"lat\": 13.73386, \"lng\": 100.53136 },
@@ -333,7 +333,7 @@
         \"nameEn\": \"The School of Agricultural Resource\",
         \"nameTh\": \"สำนักวิชาทรัพยากรการเกษตร\",
         \"color\": \"#991c1a\",
-        \"centerPoint\": { \"lat\": 13.74345, \"lng\": 100.53290 },
+        \"centerPoint\": { \"lat\": 13.73481, \"lng\": 100.53139 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73486, \"lng\": 100.53147 },
             { \"lat\": 13.73488, \"lng\": 100.53132 },
@@ -347,7 +347,7 @@
         \"nameEn\": \"Residence of Chulalongkorn University\",
         \"nameTh\": \"หอพักนิสิตจุฬาลงกรณ์มหาวิทยาลัย\",
         \"color\": \"#991c1a\",
-        \"centerPoint\": { \"lat\": 13.74345, \"lng\": 100.53290 },
+        \"centerPoint\": { \"lat\": 13.73488, \"lng\": 100.53155 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73502, \"lng\": 100.53161 },
             { \"lat\": 13.73503, \"lng\": 100.53153 },
@@ -361,7 +361,7 @@
         \"nameEn\": \"Residence of Chulalongkorn University\",
         \"nameTh\": \"สหสาขาวิชา บัณฑิตวิทยาลัย\",
         \"color\": \"#991c1a\",
-        \"centerPoint\": { \"lat\": 13.74345, \"lng\": 100.53290 },
+        \"centerPoint\": { \"lat\": 13.73484, \"lng\": 100.53119 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73488, \"lng\": 100.53131 },
             { \"lat\": 13.73492, \"lng\": 100.53106 },
@@ -375,7 +375,7 @@
         \"nameEn\": \"Center of Learning Network of the Region\",
         \"nameTh\": \"ศูนย์เครือข่ายการเรียนรู้เพื่อภูมิภาค\",
         \"color\": \"#991c1a\",
-        \"centerPoint\": { \"lat\": 13.74345, \"lng\": 100.53290 },
+        \"centerPoint\": { \"lat\": 13.73487, \"lng\": 100.53094 },
         \"facultyAreaBorder\": [
             { \"lat\": 13.73492, \"lng\": 100.53105 },
             { \"lat\": 13.73494, \"lng\": 100.53089 },
