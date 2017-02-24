@@ -491,7 +491,7 @@ public class MapFragment extends Fragment implements
                 if (facultyEntry.getMarker().equals(marker)) {
                     Log.d("faculty", facultyEntry.getNameEn());
                     showInfoCard(Resource.getDrawable("pin_" + facultyEntry.getFacultyId()),
-                            "Faculty",
+                            facultyEntry.getType(),
                             facultyEntry.getNameTh(),
                             -1,
                             facultyEntry.getColor());
