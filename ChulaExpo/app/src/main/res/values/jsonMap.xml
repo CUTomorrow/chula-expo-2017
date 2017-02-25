@@ -9,7 +9,7 @@
         \"nameEn\": \"CU TALK\",
         \"nameTh\": \"CU TALK\",
         \"type\": \"area\",
-        \"color\": \"#fefefe\",
+        \"color\": \"#424242\",
         \"centerPoint\": { \"lat\": 13.73826, \"lng\": 100.53272 },
         \"areaBorder\": [
             { \"lat\": 13.73851, \"lng\": 100.53258 },
@@ -39,13 +39,12 @@
             { \"lat\": 13.73851, \"lng\": 100.53258 }
         ]
     },
-
     {
         \"id\": 2,
         \"nameEn\": \"\",
         \"nameTh\": \"นิทรรศการกลาง\",
         \"type\": \"area\",
-        \"color\": \"#fefefe\",
+        \"color\": \"#424242\",
         \"centerPoint\": { \"lat\": 13.73548, \"lng\": 100.53148 },
         \"areaBorder\": [
             { \"lat\": 13.73569, \"lng\": 100.53173 },
@@ -84,8 +83,8 @@
         \"nameEn\": \"International Forum\",
         \"nameTh\": \"International Forum\",
         \"type\": \"area\",
-        \"color\": \"#fefefe\",
-        \"centerPoint\": { \"lat\": 13.73398, \"lng\": 100.53168},
+        \"color\": \"#424242\",
+        \"centerPoint\": { \"lat\": 13.73398, \"lng\": 100.53168 },
         \"areaBorder\": [
             { \"lat\": 13.73395, \"lng\": 100.53137 },
             { \"lat\": 13.73395, \"lng\": 100.53141 },
@@ -109,7 +108,7 @@
         \"nameEn\": \"Art Gallery\",
         \"nameTh\": \"Art Gallery\",
         \"type\": \"area\",
-        \"color\": \"#fefefe\",
+        \"color\": \"#424242\",
         \"centerPoint\": { \"lat\": 13.73946, \"lng\": 100.53193 },
         \"areaBorder\": [
             { \"lat\": 13.73951, \"lng\": 100.53181 },
@@ -125,7 +124,7 @@
         \"nameEn\": \"Market\",
         \"nameTh\": \"ตลาด\",
         \"type\": \"market\",
-        \"color\": \"#fefefe\",
+        \"color\": \"#424242\",
         \"centerPoint\": { \"lat\": 13.73796, \"lng\": 100.53421 },
         \"areaBorder\": [
             { \"lat\": 13.73875, \"lng\": 100.53426 },
@@ -140,7 +139,7 @@
         \"nameEn\": \"Sponsor\",
         \"nameTh\": \"ผู้สนับสนุน\",
         \"type\": \"area\",
-        \"color\": \"#fefefe\",
+        \"color\": \"#424242\",
         \"centerPoint\": { \"lat\": 13.73782, \"lng\": 100.53208 },
         \"areaBorder\": [
             { \"lat\": 13.73812, \"lng\": 100.53206 },
@@ -155,7 +154,7 @@
         \"nameEn\": \"Sponsor\",
         \"nameTh\": \"ผู้สนับสนุน\",
         \"type\": \"area\",
-        \"color\": \"#fefefe\",
+        \"color\": \"#424242\",
         \"centerPoint\": { \"lat\": 13.73782, \"lng\": 100.53208 },
         \"areaBorder\": [
             { \"lat\": 13.73410, \"lng\": 100.53131 },
@@ -171,7 +170,7 @@
         \"nameEn\": \"Human City\",
         \"nameTh\": \"Human City\",
         \"type\": \"city\",
-        \"color\": \"#fefefe\",
+        \"color\": \"#424242\",
         \"centerPoint\": { \"lat\": 13.73901, \"lng\": 100.53089 },
         \"areaBorder\": [
             { \"lat\": 13.73942, \"lng\": 100.53065 },
@@ -186,7 +185,7 @@
         \"nameEn\": \"Health City\",
         \"nameTh\": \"Health City\",
         \"type\": \"city\",
-        \"color\": \"#fefefe\",
+        \"color\": \"#424242\",
         \"centerPoint\": { \"lat\": 13.73888, \"lng\": 100.53153 },
         \"areaBorder\": [
             { \"lat\": 13.73931, \"lng\": 100.53132 },
@@ -201,7 +200,7 @@
         \"nameEn\": \"Smart City\",
         \"nameTh\": \"Smart City\",
         \"type\": \"city\",
-        \"color\": \"#fefefe\",
+        \"color\": \"#424242\",
         \"centerPoint\": { \"lat\": 13.73819, \"lng\": 100.53109 },
         \"areaBorder\": [
             { \"lat\": 13.73864, \"lng\": 100.53054 },
