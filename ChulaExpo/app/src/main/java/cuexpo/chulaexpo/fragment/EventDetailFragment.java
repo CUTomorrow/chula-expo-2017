@@ -48,6 +48,7 @@ public class EventDetailFragment extends Fragment {
     private View listHeader;
     private TextView title;
     private Fragment fragment;
+    private ActivityItemResultDao dao;
 //    public EventDetailListAdapter adapter;
 
     @Override
@@ -71,8 +72,8 @@ public class EventDetailFragment extends Fragment {
         Call<ActivityItemDao> call = HttpManager.getInstance().getService().loadActivityItem(id);
         call.enqueue(callbackActivity);
 
-        ViewTreeObserver vto = headerView.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
+//        ViewTreeObserver vto = headerView.getViewTreeObserver();
+//        vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
 
         return rootView;
     }
@@ -82,24 +83,33 @@ public class EventDetailFragment extends Fragment {
         public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
             Log.d("response", response.toString());
             if (response.isSuccessful()) {
-                ActivityItemResultDao dao = response.body().getResults();
+                dao = response.body().getResults();
                 Glide.with(fragment)
                         .load("http://staff.chulaexpo.com"+dao.getBanner())
                         .placeholder(R.color.blackOverlay)
                         .centerCrop()
                         .into((ImageView) eventImageView);
                 title.setText(dao.getName().getTh());
-
-                EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), 0,
-                        dao.getLocation().getRoom(),
-                        dao.getContact(),
-                        dao.getStart(),
-                        dao.getDescription().getTh(),
-                        dao.getLocation().getLatitude(),
-                        dao.getLocation().getLongitude(),
-                        dao.getPictures()
-                );
-                listView.setAdapter(adapter);
+                ViewTreeObserver vto = headerView.getViewTreeObserver();
+                vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
+//                LinearLayout.LayoutParams stickyViewSpacerLayoutParams = new LinearLayout.LayoutParams(
+//                        ViewGroup.LayoutParams.MATCH_PARENT,
+//                        headerView.getHeight() - dpToPx(7));
+//                stickyViewSpacer.setLayoutParams(stickyViewSpacerLayoutParams);
+//
+//                listView.addHeaderView(listHeader);
+//                listView.setOnScrollListener(onScrollListener);
+//
+//                EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), 0,
+//                        dao.getLocation().getRoom(),
+//                        dao.getContact(),
+//                        dao.getStart(),
+//                        dao.getDescription().getTh(),
+//                        dao.getLocation().getLatitude(),
+//                        dao.getLocation().getLongitude(),
+//                        dao.getPictures()
+//                );
+//                listView.setAdapter(adapter);
             } else {
                 try {
                     Log.e("fetch error", response.errorBody().string());
@@ -108,6 +118,7 @@ public class EventDetailFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
+
         }
 
         @Override
@@ -148,6 +159,17 @@ public class EventDetailFragment extends Fragment {
 
             listView.addHeaderView(listHeader);
             listView.setOnScrollListener(onScrollListener);
+
+            EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), 0,
+                    dao.getLocation().getRoom(),
+                    dao.getContact(),
+                    dao.getStart(),
+                    dao.getDescription().getTh(),
+                    dao.getLocation().getLatitude(),
+                    dao.getLocation().getLongitude(),
+                    dao.getPictures()
+            );
+            listView.setAdapter(adapter);
 
             headerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
         }
