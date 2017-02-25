@@ -1,6 +1,7 @@
 package cuexpo.chulaexpo.utility;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -83,8 +84,11 @@ public class FacultyMapEntity implements IMapEntity {
     }
 
     private int getMarkerIconDrawableResource(int facultyId) {
+        Log.d("faculty id", ""+facultyId);
         switch (facultyId) {
             // Area
+            case 0:
+                return R.drawable.pin_23;
             case 1:
                 return R.drawable.pin_21;
             case 2:
@@ -173,7 +177,7 @@ public class FacultyMapEntity implements IMapEntity {
 
             nameTh = facultyJSON.getString("nameTh");
             nameEn = facultyJSON.getString("nameEn");
-            type = facultyJSON.getString("tpye");
+            type = facultyJSON.getString("type");
             facultyId = facultyJSON.getInt("id");
 
             markerOption = new MarkerOptions()
