@@ -38,7 +38,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     LinearLayout btnSetting2;
     LinearLayout btnFaq;
     LinearLayout btnAbout;
-    //Button btnFb;
     Button btnLogout;
     TextView tvName;
     TextView tvEmail;
@@ -83,7 +82,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnSetting.setOnClickListener(this);
         btnSetting2.setOnClickListener(this);
         btnFaq.setOnClickListener(this);
-        //btnFb.setOnClickListener(this);
         btnAbout.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
 
@@ -113,8 +111,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnSetting2 = (LinearLayout) rootView.findViewById(R.id.profile_setting2_btn);
         btnFaq = (LinearLayout) rootView.findViewById(R.id.profile_faq_btn);
         btnAbout = (LinearLayout) rootView.findViewById(R.id.profile_about_btn);
-
-        //btnFb = (Button) rootView.findViewById(R.id.profile_fb_btn);
         btnLogout = (Button) rootView.findViewById(R.id.profile_logout_btn);
         tvName = (TextView) rootView.findViewById(R.id.profile_name);
         tvEmail = (TextView) rootView.findViewById(R.id.profile_email);
@@ -178,16 +174,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         } else if (v == btnSetting2) {
 
-        }/*else if( v== btnFb){
-            try {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/1053263171395979"));
-                startActivity(intent);
-            } catch (Exception e) {
-                Intent intent =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/1053263171395979"));
-                startActivity(intent);
-            }
-
-        }*/ else if (v == btnFaq) {
+        } else if (v == btnFaq) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.main_overlay, FaqFragment.newInstance());
@@ -202,12 +189,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-            /*final Dialog dialog = new Dialog(getContext());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.fragment_about);
-            dialog.setCancelable(true);
-            dialog.show();*/
-
         } else if (v == btnLogout) {
 
         }
