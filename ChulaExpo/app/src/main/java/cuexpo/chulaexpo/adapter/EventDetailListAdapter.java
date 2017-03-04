@@ -89,15 +89,19 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         switch (position) {
             case 0:
                 convertView = inflater.inflate(R.layout.item_event_detail_schedule, null);
-                ((TextView) convertView.findViewById(R.id.schedule)).setText(time);
-                ((TextView) convertView.findViewById(R.id.responsible_person)).setText(contact);
-                ((TextView) convertView.findViewById(R.id.location)).setText(place);
+                if (time == null) ((TextView) convertView.findViewById(R.id.schedule)).setText("-");
+                else ((TextView) convertView.findViewById(R.id.schedule)).setText(time);
+                if (contact == null) ((TextView) convertView.findViewById(R.id.responsible_person)).setText("-");
+                else ((TextView) convertView.findViewById(R.id.responsible_person)).setText(contact);
+                if (place == null) ((TextView) convertView.findViewById(R.id.location)).setText("-");
+                else ((TextView) convertView.findViewById(R.id.location)).setText(place);
                 break;
             case 1:
                 convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
                 TextView detail = (TextView) convertView.findViewById(R.id.detail);
                 detail.setText(description);
                 LinearLayout pictureLayout = (LinearLayout) convertView.findViewById(R.id.picture_layout);
+                if (imageUrls.length == 0) pictureLayout.setVisibility(View.GONE);
                 for(String imageUrl: imageUrls){
                     ImageView image = new ImageView(context);
                     RelativeLayout.LayoutParams imageParam = new RelativeLayout.LayoutParams(
