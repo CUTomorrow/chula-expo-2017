@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         highlightListAdapter = new HighlightListAdapter();
         vpHighlight.setAdapter(highlightListAdapter);
         indicatorHighlight.setViewPager(vpHighlight);
-
+        highlightListAdapter.registerDataSetObserver(indicatorHighlight.getDataSetObserver());
 
         lvStage = (ExpandableHeightListView) rootView.findViewById(R.id.lvStage);
         lvStage.setExpanded(true);
@@ -148,7 +148,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Call<ActivityItemCollectionDao> callHighlight = HttpManager.getInstance().getService().loadHighlightActivity(true,
                 "banner,name,shortDescription",getCurrentTime("gte"),6);
         callHighlight.enqueue(callbackHighlight);
-
     }
     /**************
      * Callback API
