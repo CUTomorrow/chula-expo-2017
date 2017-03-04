@@ -19,10 +19,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="12dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="9dp"
-            android:paddingBottom="7dp">
+            android:paddingTop="9dp">
 
             <RelativeLayout
                 android:id="@+id/info"
@@ -93,31 +93,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/info"
+                android:layout_marginTop="7dp"
                 android:background="@drawable/shape_round_rec_black_stoke"
-                android:padding="10dp">
+                android:padding="7dp">
 
                 <TextView
                     android:id="@+id/button_title"
+                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/button_icon"
-                    android:text="สนใจ Event"
-                    android:textColor="@color/black" />
+                    android:text="สนใจ EVENT"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/button_detail"
+                    fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/button_title"
+                    android:layout_marginTop="-6dp"
                     android:layout_toRightOf="@+id/button_icon"
                     android:text="Event นี้สามารถเข้าร่วมได้โดยไม่ต้องจอง"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
 
                 <ImageView
                     android:id="@+id/button_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_current_location" />
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    app:srcCompat="@drawable/ic_clock" />
             </RelativeLayout>
 
         </RelativeLayout>
