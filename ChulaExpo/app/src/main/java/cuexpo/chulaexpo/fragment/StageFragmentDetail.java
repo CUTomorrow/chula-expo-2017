@@ -1,28 +1,39 @@
 package cuexpo.chulaexpo.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.StageListAdapter;
-import cuexpo.chulaexpo.manager.StageManager;
-import cuexpo.chulaexpo.view.DateSelector;
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
+import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.view.StageInsideListItem;
 import cuexpo.chulaexpo.view.StageListItem;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -33,11 +44,10 @@ public class StageFragmentDetail extends Fragment {
 
     ExpandableListView expandableListView;
     StageListAdapter listAdapter;
-    private List<StageListItem> listDataHeader;
-    private  HashMap<StageListItem, StageInsideListItem> listDataChild;
 
     int previousGroup = -1;
-    int myInt;
+    int day;
+    int stageNo;
 
     public StageFragmentDetail() {
         super();
@@ -56,9 +66,10 @@ public class StageFragmentDetail extends Fragment {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
 
-        Bundle date = this.getArguments();
-        if (date != null) {
-            myInt = date.getInt("day", 15);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            day = bundle.getInt("day", 15);
+            stageNo = bundle.getInt("stageNo", 1);
         }
 
         if (savedInstanceState != null)
@@ -71,66 +82,86 @@ public class StageFragmentDetail extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_stage_detail, container, false);
         initInstances(rootView, savedInstanceState);
 
-        StageListItem item = new StageListItem(getContext());
-        StageInsideListItem item2 = new StageInsideListItem(getContext());
+        JSONObject range = new JSONObject();
+        try {
+            String startString = "2017-03-" + day + "T00:00:00.000Z";
+            String endString = "2017-03-" + day + "T22:00:00.000Z";
+            Date start = new SimpleDateFormat(
+                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(startString);
+            Date end = new SimpleDateFormat(
+                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(endString);
+            range.put("gte", start);
+            range.put("lte", end);
 
-        item.setTime("08.00", "08.05");
-        if (myInt == 15) item.setName("Opening15");
-        else if (myInt == 16) item.setName("Opening16");
-        else if (myInt == 17) item.setName("Opening17");
-        else if (myInt == 18) item.setName("Opening18");
-        else if (myInt == 19) item.setName("Opening19");
+        } catch (JSONException | ParseException e) {
+            e.printStackTrace();
+        }
 
-        listDataHeader.add(item);
+        Call<ActivityItemCollectionDao> callStageActivity;
 
-        item = new StageListItem(getContext());
-        item.setTime("08.05", "08.10");
-        item.setName("Chulalongkorn Talk");
-        listDataHeader.add(item);
+        if(stageNo==1){
+            callStageActivity = HttpManager
+                    .getInstance().getService().loadActivityByZone("589c52dfa8bbbb1c7165d3f1", "start", range);
+        }else if(stageNo==2){
+            callStageActivity = HttpManager
+                    .getInstance().getService().loadActivityByZone("589c5330a8bbbb1c7165d3f2", "start", range);
+        }else{
+            callStageActivity = HttpManager
+                    .getInstance().getService().loadActivityByZone("589c536ca8bbbb1c7165d3f3", "start", range);
+        }
 
-        item = new StageListItem(getContext());
-        item.setTime("08.10", "08.15");
-        item.setName("Robotic Vaccum Cleaner");
-        listDataHeader.add(item);
+        callStageActivity.enqueue(callBackStageActivity);
+        return rootView;
+    }
 
-        item = new StageListItem(getContext());
-        item.setTime("08.15", "08.20");
-        item.setName("In The Time Of Modern : Overture");
-        listDataHeader.add(item);
+    Callback<ActivityItemCollectionDao> callBackStageActivity = new Callback<ActivityItemCollectionDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
+            if (response.isSuccessful()) {
+                ActivityItemCollectionDao dao = response.body();
 
-        item = new StageListItem(getContext());
-        item.setTime("08.20", "08.30");
-        item.setName("In The Time Of Modern : Epilouge");
-        listDataHeader.add(item);
+                List<StageListItem> head = new ArrayList<>();
+                HashMap<StageListItem, StageInsideListItem> tail = new HashMap<>();
 
-        item = new StageListItem(getContext());
-        item.setTime("08.30", "09.30");
-        item.setName("Final Fantasy : Game Conceptual Design");
-        listDataHeader.add(item);
+                for (int i = 0; i < dao.getResults().size(); i++) {
+                    StageListItem item = new StageListItem(getContext());
+                    item.setTime(dao.getResults().get(i).getStart().substring(11, 16)
+                            , dao.getResults().get(i).getEnd().substring(11, 16));
+                    item.setName(dao.getResults().get(i).getName().getEn());
 
-        listDataChild.put(listDataHeader.get(0), item2);
-        item2 = new StageInsideListItem(getContext());
-        item2.setDescription("a");
-        listDataChild.put(listDataHeader.get(1), item2);
-        item2 = new StageInsideListItem(getContext());
-        item2.setDescription("b");
-        listDataChild.put(listDataHeader.get(2), item2);
-        item2 = new StageInsideListItem(getContext());
-        item2.setDescription("c");
-        listDataChild.put(listDataHeader.get(3), item2);
-        item2 = new StageInsideListItem(getContext());
-        item2.setDescription("d");
-        listDataChild.put(listDataHeader.get(4), item2);
-        item2 = new StageInsideListItem(getContext());
-        item2.setDescription("e");
-        listDataChild.put(listDataHeader.get(5), item2);
+                    head.add(item);
 
+                    StageInsideListItem item2 = new StageInsideListItem(getContext());
+                    item2.setDescription(dao.getResults().get(i).getDescription().getEn());
+                    tail.put(head.get(i), item2);
+                }
 
-        listAdapter = new StageListAdapter(listDataHeader,listDataChild);
+                listAdapter = new StageListAdapter(head, tail);
+                expandableListView.setAdapter(listAdapter);
 
-        // setting list adapter
-        expandableListView.setAdapter(listAdapter);
+            } else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
+        @Override
+        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private void init(Bundle savedInstanceState) {
+        // Init Fragment level's variable(s) here
+    }
+
+    @SuppressWarnings("UnusedParameters")
+    private void initInstances(View rootView, Bundle savedInstanceState) {
+        // Init 'View' instance(s) with rootView.findViewById here
+        expandableListView = (ExpandableListView) rootView.findViewById(R.id.stage_content_container);
         // Listview Group click listener
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
@@ -170,20 +201,6 @@ public class StageFragmentDetail extends Fragment {
                 return false;
             }
         });*/
-
-        return rootView;
-    }
-
-    private void init(Bundle savedInstanceState) {
-        // Init Fragment level's variable(s) here
-    }
-
-    @SuppressWarnings("UnusedParameters")
-    private void initInstances(View rootView, Bundle savedInstanceState) {
-        // Init 'View' instance(s) with rootView.findViewById here
-        expandableListView = (ExpandableListView) rootView.findViewById(R.id.stage_content_container);
-        listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<>();
     }
 
     @Override

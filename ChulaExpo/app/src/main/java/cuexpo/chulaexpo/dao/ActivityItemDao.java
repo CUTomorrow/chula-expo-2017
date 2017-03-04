@@ -1,18 +1,19 @@
 
 package cuexpo.chulaexpo.dao;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ActivityItemCollectionDao {
+import java.util.List;
+
+public class ActivityItemDao {
 
     @SerializedName("success")
     @Expose
     private Boolean success;
     @SerializedName("results")
     @Expose
-    private List<ActivityItemResultDao> results = null;
+    private ActivityItemResultDao results = null;
 
     public Boolean getSuccess() {
         return success;
@@ -22,16 +23,12 @@ public class ActivityItemCollectionDao {
         this.success = success;
     }
 
-    public List<ActivityItemResultDao> getResults() {
+    public ActivityItemResultDao getResults() {
         return results;
     }
 
-    public void setResults(List<ActivityItemResultDao> results) {
+    public void setResults(ActivityItemResultDao results) {
         this.results = results;
-    }
-
-    public void addResults(ActivityItemResultDao resultDao){
-        this.results.add(resultDao);
     }
 
 }

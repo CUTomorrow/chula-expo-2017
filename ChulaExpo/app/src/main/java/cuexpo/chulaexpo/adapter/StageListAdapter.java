@@ -7,6 +7,7 @@ import android.widget.BaseExpandableListAdapter;
 import java.util.HashMap;
 import java.util.List;
 
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.manager.StageManager;
 import cuexpo.chulaexpo.view.StageInsideListItem;
 import cuexpo.chulaexpo.view.StageListItem;
@@ -64,13 +65,6 @@ public class StageListAdapter extends BaseExpandableListAdapter {
             item2.setNameHighlight(0);
         }
 
-        /*if(groupPosition!=getGroupCount()-1){
-            StageListItem item2= (StageListItem) getGroup(groupPosition+1);
-            item.setLineStatus(manager.setLine(groupPosition,item2.getTime(),getGroupCount()));
-        }else{
-            item.setLineStatus(manager.setLine(groupPosition,new int[2],getGroupCount()));
-        }*/
-
         return item;
     }
 
@@ -99,30 +93,20 @@ public class StageListAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
 
         StageListItem item = (StageListItem) getGroup(groupPosition);
-        //StageListItem itemDown;
         StageManager manager = StageManager.getInstance();
 
         item.setStatus(manager.setCircle(item.getStartTime(), item.getEndTime()));
 
         if (groupPosition == 0) {
-            item.setLineMode(2);
-        } else if (groupPosition == getGroupCount() - 1) {
+            if(getGroupCount()>1)
+                item.setLineMode(2);
+            else
+                item.setLineMode(4);
+        } else if (groupPosition  == getGroupCount() - 1) {
             item.setLineMode(3);
         } else {
             item.setLineMode(1);
         }
-
-        /*if(groupPosition==getGroupCount()-1) {
-            //item.setLineMode(manager.setGroupLine(groupPosition, item.getTime(),getGroupCount()));
-        }else if(groupPosition==0){
-            itemDown = (StageListItem) getGroup(groupPosition +1);
-            //item.setLineMode(manager.setGroupLine(groupPosition, itemDown.getTime(), getGroupCount()));
-            item.setStatus(manager.setCircle(itemDown.getTime(),item.getTime()));
-        }else{
-            itemDown = (StageListItem) getGroup(groupPosition +1);
-            //item.setLineMode(manager.setGroupLine(itemDown.getTime(),item.getTime()));
-            item.setStatus(manager.setCircle(itemDown.getTime(),item.getTime()));
-        }*/
 
         if (isExpanded) {
             item.setDrop(2);
