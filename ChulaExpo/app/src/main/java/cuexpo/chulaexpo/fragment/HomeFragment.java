@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ActivityListManager photoListManager;
     MutableInteger lastPositionInteger;
     ViewPager vpHighlight;
-    TextView tvHighlightLabel,tvHighlightTime;
+    TextView tvHighlightLabel;
     CircleIndicator indicatorHighlight;
     ImageView ivToolbarQR;
     View rootView;
@@ -117,7 +117,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         vpHighlight = (ViewPager)rootView.findViewById(R.id.vpHighlight);
         indicatorHighlight = (CircleIndicator)rootView.findViewById(R.id.indicatorHighlight);
         tvHighlightLabel = (TextView)rootView.findViewById(R.id.tvHighlightLabel);
-        tvHighlightTime = (TextView)rootView.findViewById(R.id.tvHighlightTime);
         highlightListAdapter = new HighlightListAdapter();
         vpHighlight.setAdapter(highlightListAdapter);
         indicatorHighlight.setViewPager(vpHighlight);
@@ -141,10 +140,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
         //Fetch Data From Server
-        Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService().loadActivityList();
+        Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService()
+                .loadActivityList("name,thumbnail,start,end,zone",20,"start");
         call.enqueue(callbackActivity);
         Call<ZoneDao> callZone = HttpManager.getInstance().getService().loadZoneList();
         callZone.enqueue(callbackZone);
+        Call<ActivityItemCollectionDao> callHighlight = HttpManager.getInstance().getService().loadHighlightActivity(true,
+                "banner,name,shortDescription",getCurrentTime("gte"),6);
+        callHighlight.enqueue(callbackHighlight);
 
     }
     /**************
@@ -194,13 +197,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 for(int k=0;k<stageObjId.size();k++){
                     if(k==0) firstStage = true;
                     Call<ActivityItemCollectionDao> callActivityOfStage = HttpManager.getInstance().getService()
-                            .loadIncomingActivityOnStage(stageObjId.get(k),getCurrentTime(),"start",1);
+                            .loadIncomingActivityOnStage(stageObjId.get(k),"name,start,end,zone",getCurrentTime("gte"),"start",1);
                     callActivityOfStage.enqueue(callbackStageObjId);
                 }
             } else {
                 //Handle
+
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("StageHome",response.errorBody().string());
+                    //Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -209,7 +214,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onFailure(Call<ZoneDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("HomeZone",t.toString());
+            //Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -234,6 +240,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
             Log.e("StageHome","HomeStage Failure");
+        }
+    };
+
+    Callback<ActivityItemCollectionDao> callbackHighlight = new Callback<ActivityItemCollectionDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
+            if (response.isSuccessful()) {
+                ActivityItemCollectionDao dao = response.body();
+                highlightListAdapter.setDao(dao);
+                highlightListAdapter.notifyDataSetChanged();
+            } else {
+                try {
+                    Log.e("HomeHighlight","Load Highlight Not Success\n" + response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
+            Log.e("HomeHighlight",t.toString());
         }
     };
 
@@ -307,14 +335,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public JSONObject getCurrentTime(){
+    public JSONObject getCurrentTime(String operator){
         TimeZone tz = TimeZone.getTimeZone("ICT");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
         String currentTime = df.format(new Date());
         JSONObject range = new JSONObject();
         try {
-            range.put("gte",currentTime);
+            range.put(operator,currentTime);
         } catch (JSONException e) {
             e.printStackTrace();
         }

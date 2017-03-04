@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
@@ -19,7 +20,7 @@ import me.relex.circleindicator.CircleIndicator;
  */
 public class HighlightListItem extends BaseCustomViewGroup {
 
-    TextView tvHighlightLabel,tvHighlightTime,tvHighlightTitle,tvHighlightDesc;
+    TextView tvHighlightLabel,tvHighlightTitle,tvHighlightDesc;
     ImageView ivHighlight;
 
     public HighlightListItem(Context context) {
@@ -57,7 +58,6 @@ public class HighlightListItem extends BaseCustomViewGroup {
     private void initInstances() {
         // findViewById here
         tvHighlightLabel = (TextView)findViewById(R.id.tvHighlightLabel);
-        tvHighlightTime = (TextView) findViewById(R.id.tvHighlightTime);
         tvHighlightTitle = (TextView)findViewById(R.id.tvHighlightTitle);
         tvHighlightDesc = (TextView)findViewById(R.id.tvHighlightDesc);
         ivHighlight = (ImageView)findViewById(R.id.ivHighlight);
@@ -122,13 +122,13 @@ public class HighlightListItem extends BaseCustomViewGroup {
     }
 
     public void setImageUrl(String url){
-        /*
         Glide.with(getContext())
                 .load(url)
-                .into(ivActivity);*/
-        //mock
+                .into(ivHighlight);
+        /*mock
         if(url.equals("0")) ivHighlight.setImageResource(R.drawable.highlight_vidva_2);
         else if(url.equals("1")) ivHighlight.setImageResource(R.drawable.highlight_stat_1);
         else ivHighlight.setImageResource(R.drawable.highlight_psy_1);
+        */
     }
 }

@@ -18,15 +18,26 @@ import retrofit2.http.Query;
 
 public interface ApiService {
     @GET("/api/activities")
-    Call<ActivityItemCollectionDao> loadActivityList();
+    Call<ActivityItemCollectionDao> loadActivityList(@Query("fields") String fields,
+                                                     @Query("limit") int limit,
+                                                     @Query("sort") String sort);
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadIncomingActivityOnStage(@Query("zone") String zone,
-                                                            @Query("end") JSONObject end,
+                                                                @Query("fields") String fields,
+                                                                @Query("end") JSONObject end,
                                                                 @Query("sort") String sort,
                                                                 @Query("limit") int limit);
+    @GET("/api/activities")
+    Call<ActivityItemCollectionDao> loadHighlightActivity(@Query("highlight") boolean highlight,
+                                                          @Query("fields") String fields,
+                                                          @Query("end") JSONObject end,
+                                                          @Query("limit") int limit);
+
     @GET("/api/zones")
     Call<ZoneDao> loadZoneList();
 
     @GET("/api/zones/{zid}")
     Call<ZoneResult>  loadZoneById(@Path("zid") String zid);
+
+
 }
