@@ -34,21 +34,22 @@
                 android:textSize="16sp" />
 
             <HorizontalScrollView
+                android:id="@+id/image_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:scrollbars="none"
-                android:fadingEdge="horizontal"
                 android:layout_below="@+id/detail"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:fadingEdge="horizontal"
+                android:scrollbars="none"
+                android:visibility="gone">
 
                 <LinearLayout
+                    android:id="@+id/picture_layout"
                     android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:divider="@drawable/shape_event_detail_pic_divider"
-                    android:showDividers="middle"
                     android:layout_height="44dp"
-                    android:id="@+id/picture_layout">
-                </LinearLayout>
+                    android:divider="@drawable/shape_event_detail_pic_divider"
+                    android:orientation="horizontal"
+                    android:showDividers="middle"></LinearLayout>
             </HorizontalScrollView>
 
         </RelativeLayout>

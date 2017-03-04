@@ -101,7 +101,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 TextView detail = (TextView) convertView.findViewById(R.id.detail);
                 detail.setText(description);
                 LinearLayout pictureLayout = (LinearLayout) convertView.findViewById(R.id.picture_layout);
-                if (imageUrls.length == 0) pictureLayout.setVisibility(View.GONE);
+                if (imageUrls.length == 0) convertView.findViewById(R.id.image_scroll_view).setVisibility(View.GONE);
                 for(String imageUrl: imageUrls){
                     ImageView image = new ImageView(context);
                     RelativeLayout.LayoutParams imageParam = new RelativeLayout.LayoutParams(
