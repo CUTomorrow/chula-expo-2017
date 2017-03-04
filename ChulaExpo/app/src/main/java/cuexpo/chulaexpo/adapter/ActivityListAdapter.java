@@ -29,10 +29,7 @@ import cuexpo.chulaexpo.view.ActivityListItem;
 public class ActivityListAdapter extends BaseAdapter{
 
     ActivityItemCollectionDao dao;
-    ZoneResult zoneDao;
     MutableInteger lastPositionInteger;
-    ViewPager vpHighlight;
-    RelativeLayout layoutActivity;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
     String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
@@ -77,6 +74,7 @@ public class ActivityListAdapter extends BaseAdapter{
 
         item.setNameText(dao.getName().getTh());
         item.setTimeText(dateThai(dao.getStart())+" \u2022 "+dao.getStart().substring(11,16) + "-"+dao.getEnd().substring(11,16));
+        //Handle with Faculty with Light Background Color
         boolean isLight = false;
         for(int i=0;i<lightZone.length-1;i++){
             if(zoneShortName.equals(lightZone[i])) isLight =true;
