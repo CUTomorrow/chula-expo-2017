@@ -54,7 +54,7 @@ public class ActivityItemResultDao {
     private List<String> link = null;
     @SerializedName("pictures")
     @Expose
-    private List<String> pictures = null;
+    private String[] pictures = null;
     @SerializedName("description")
     @Expose
     private ActivityItemDescriptionDao description;
@@ -185,11 +185,11 @@ public class ActivityItemResultDao {
         this.link = link;
     }
 
-    public List<String> getPictures() {
+    public String[] getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<String> pictures) {
+    public void setPictures(String[] pictures) {
         this.pictures = pictures;
     }
 

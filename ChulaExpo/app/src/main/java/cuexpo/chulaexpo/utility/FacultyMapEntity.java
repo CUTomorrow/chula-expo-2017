@@ -1,6 +1,7 @@
 package cuexpo.chulaexpo.utility;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -50,6 +51,7 @@ public class FacultyMapEntity implements IMapEntity {
 
     private String nameTh;
     private String nameEn;
+    private String type;
 
     public String getNameTh() {
         return nameTh;
@@ -77,11 +79,38 @@ public class FacultyMapEntity implements IMapEntity {
         return getMarkerIconDrawableResource(facultyId);
     }
 
+    public String getType() {
+        return type;
+    }
+
     private int getMarkerIconDrawableResource(int facultyId) {
+        Log.d("faculty id", ""+facultyId);
         switch (facultyId) {
-            // Thanks Sublime Text
-            case 20:
-                return R.drawable.pin_31;
+            // Area
+            case 0:
+                return R.drawable.pin_23;
+            case 1:
+                return R.drawable.pin_21;
+            case 2:
+                return R.drawable.pin_21;
+            case 3:
+                return R.drawable.pin_21;
+            case 4:
+                return R.drawable.pin_21;
+            case 5:
+                return R.drawable.pin_21;
+            case 6:
+                return R.drawable.pin_21;
+            case 7:
+                return R.drawable.pin_21;
+            // City
+            case 10:
+                return R.drawable.pin_21;
+            case 11:
+                return R.drawable.pin_21;
+            case 12:
+                return R.drawable.pin_21;
+            // Faculty
             case 21:
                 return R.drawable.pin_21;
             case 22:
@@ -103,6 +132,8 @@ public class FacultyMapEntity implements IMapEntity {
             case 30:
                 return R.drawable.pin_30;
             case 31:
+                return R.drawable.pin_31;
+            case 20:
                 return R.drawable.pin_31;
             case 32:
                 return R.drawable.pin_32;
@@ -146,6 +177,7 @@ public class FacultyMapEntity implements IMapEntity {
 
             nameTh = facultyJSON.getString("nameTh");
             nameEn = facultyJSON.getString("nameEn");
+            type = facultyJSON.getString("type");
             facultyId = facultyJSON.getInt("id");
 
             markerOption = new MarkerOptions()
@@ -160,7 +192,7 @@ public class FacultyMapEntity implements IMapEntity {
                             0x80, Color.red(color), Color.green(color), Color.blue(color)
                     ))
                     .strokeWidth(3);
-            JSONArray areaBorderVertices = facultyJSON.getJSONArray("facultyAreaBorder");
+            JSONArray areaBorderVertices = facultyJSON.getJSONArray("areaBorder");
             for (int i = 0; i < areaBorderVertices.length(); i++) {
                 JSONObject vertexPosition = areaBorderVertices.getJSONObject(i);
                 areaOption.add(new LatLng(
