@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
+import cuexpo.chulaexpo.dao.ActivityItemResultDao;
 import cuexpo.chulaexpo.view.HighlightListItem;
 
 /**
@@ -12,10 +14,20 @@ import cuexpo.chulaexpo.view.HighlightListItem;
  */
 
 public class HighlightListAdapter extends PagerAdapter {
+
+    ActivityItemCollectionDao dao;
+
+    public void setDao(ActivityItemCollectionDao dao) {
+        this.dao = dao;
+    }
+
     @Override
     public int getCount() {
-        return 6;
+        if(dao == null) return  0;
+        if(dao.getResults() == null) return 0;
+        return dao.getResults().size();
     }
+
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
@@ -26,8 +38,11 @@ public class HighlightListAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         HighlightListItem item;
         item = new HighlightListItem(container.getContext());
-
-        //mock highlight
+        ActivityItemResultDao result = dao.getResults().get(position);
+        item.setNameText(result.getName().getTh());
+        item.setDescriptionText(result.getShortDescription().getTh());
+        item.setImageUrl("http://staff.chulaexpo.com" + result.getBanner());
+        /*mock highlight
         if(position%3==0){
             item.setNameText("ละครนิทรรศ 17");
             item.setDescriptionText("การกลับมาอีกครั้งในรอบ 4 ปีของละครเวทีคณะวิศวกรรมศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย");
@@ -43,7 +58,7 @@ public class HighlightListAdapter extends PagerAdapter {
                     "Psyche Chula Expo 2017");
             item.setImageUrl("2");
         }
-
+        */
         container.addView(item);
         return item;
     }
