@@ -22,7 +22,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RoleActivity extends AppCompatActivity implements View.OnClickListener {
 
-    View btnStudent,btnAdult;
+    View btnStudent, btnAdult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
