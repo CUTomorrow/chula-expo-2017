@@ -2,6 +2,7 @@ package cuexpo.chulaexpo.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,6 +31,7 @@ import cuexpo.chulaexpo.dao.ActivityItemDao;
 import cuexpo.chulaexpo.dao.ActivityItemResultDao;
 import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.utility.DateUtil;
+import cuexpo.chulaexpo.utility.Resource;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +48,7 @@ public class EventDetailFragment extends Fragment {
     private TextView title;
     private Fragment fragment;
     private ActivityItemResultDao dao;
+    private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +68,20 @@ public class EventDetailFragment extends Fragment {
 
         SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
         String id = activitySharedPref.getString("EventID", "");
+
+        String zone = activitySharedPref.getString("Zone", "");
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
+        String zoneShortName = sharedPref.getString(zone, "");
+        TextView eventTag = (TextView) rootView.findViewById(R.id.event_tag);
+        eventTag.setText(zoneShortName);
+        eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
+        for(int i=0;i<lightZone.length-1;i++){
+            if(zoneShortName.equals(lightZone[i])) {
+                eventTag.setTextColor(Color.BLACK);
+                break;
+            }
+        }
+
         Call<ActivityItemDao> call = HttpManager.getInstance().getService().loadActivityItem(id);
         call.enqueue(callbackActivity);
 
@@ -92,9 +109,7 @@ public class EventDetailFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-
         }
-
         @Override
         public void onFailure(Call<ActivityItemDao> call, Throwable t) {
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
