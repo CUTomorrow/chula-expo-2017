@@ -18,7 +18,7 @@
     <string name="regis_student_title">Student Register</string>
     <string name="event_page_title">Events</string>
     <!--Role-->
-    <string name="register_title">Register</string>
+    <string name="register_title">เลือกประเภทผู้ใช้ของคุณ</string>
     <string name="role_title">Select Your Role</string>
     <string name="role_student">STUDENT</string>
     <string name="role_adult">ADULT</string>
