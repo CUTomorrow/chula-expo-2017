@@ -20,14 +20,15 @@ import cuexpo.chulaexpo.R;
  */
 public class StageListItem extends BaseCustomViewGroup {
 
-    TextView tvStartTime;
-    TextView tvEndTime;
-    TextView tvName;
-    ImageView ivStatus;
-    ImageView ivDrop;
-    ImageView ivUpper;
-    ImageView ivLower;
-    boolean selected;
+    private TextView tvStartTime;
+    private TextView tvEndTime;
+    private TextView tvName;
+    private ImageView ivStatus;
+    private ImageView ivDrop;
+    private ImageView ivUpper;
+    private ImageView ivLower;
+    private boolean selected;
+    private int day;
 
     public StageListItem(Context context) {
         super(context);
@@ -200,4 +201,11 @@ public class StageListItem extends BaseCustomViewGroup {
         }
     }
 
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
 }

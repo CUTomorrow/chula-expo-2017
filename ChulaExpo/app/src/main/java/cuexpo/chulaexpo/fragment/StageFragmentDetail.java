@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.StageListAdapter;
@@ -47,7 +48,7 @@ public class StageFragmentDetail extends Fragment {
 
     int previousGroup = -1;
     int day;
-    int stageNo;
+    String stageId;
 
     public StageFragmentDetail() {
         super();
@@ -69,7 +70,7 @@ public class StageFragmentDetail extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             day = bundle.getInt("day", 15);
-            stageNo = bundle.getInt("stageNo", 1);
+            stageId = bundle.getString("stageId", "");
         }
 
         if (savedInstanceState != null)
@@ -84,32 +85,23 @@ public class StageFragmentDetail extends Fragment {
 
         JSONObject range = new JSONObject();
         try {
-            String startString = "2017-03-" + day + "T00:00:00.000Z";
-            String endString = "2017-03-" + day + "T22:00:00.000Z";
-            Date start = new SimpleDateFormat(
+            String startString = "2017-03-" + day + "T00:00:00.000-0700";
+            String endString = "2017-03-" + day + "T23:59:00.000-0700";
+            /*Date start = new SimpleDateFormat(
                     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(startString);
             Date end = new SimpleDateFormat(
                     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(endString);
-            range.put("gte", start);
-            range.put("lte", end);
-
-        } catch (JSONException | ParseException e) {
+            System.out.println("DEBUGGGGGGG " + start.toString());*/
+            range.put("gte", startString);
+            range.put("lte", endString);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Call<ActivityItemCollectionDao> callStageActivity;
+        System.out.println("DEBUGGGGGGG " + range.toString());
 
-        if(stageNo==1){
-            callStageActivity = HttpManager
-                    .getInstance().getService().loadActivityByZone("589c52dfa8bbbb1c7165d3f1", "start", range);
-        }else if(stageNo==2){
-            callStageActivity = HttpManager
-                    .getInstance().getService().loadActivityByZone("589c5330a8bbbb1c7165d3f2", "start", range);
-        }else{
-            callStageActivity = HttpManager
-                    .getInstance().getService().loadActivityByZone("589c536ca8bbbb1c7165d3f3", "start", range);
-        }
-
+        Call<ActivityItemCollectionDao> callStageActivity = HttpManager
+                .getInstance().getService().loadActivityByZone(stageId, range.toString(),"start");
         callStageActivity.enqueue(callBackStageActivity);
         return rootView;
     }
@@ -128,15 +120,18 @@ public class StageFragmentDetail extends Fragment {
                     item.setTime(dao.getResults().get(i).getStart().substring(11, 16)
                             , dao.getResults().get(i).getEnd().substring(11, 16));
                     item.setName(dao.getResults().get(i).getName().getEn());
+                    item.setDay(day);
 
                     head.add(item);
 
                     StageInsideListItem item2 = new StageInsideListItem(getContext());
                     item2.setDescription(dao.getResults().get(i).getDescription().getEn());
+                    item2.setId(dao.getResults().get(i).getId());
                     tail.put(head.get(i), item2);
                 }
 
                 listAdapter = new StageListAdapter(head, tail);
+                listAdapter.setDao(dao);
                 expandableListView.setAdapter(listAdapter);
 
             } else {

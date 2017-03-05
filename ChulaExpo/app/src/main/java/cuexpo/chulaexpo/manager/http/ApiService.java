@@ -38,24 +38,31 @@ public interface ApiService {
                                                           @Query("end") JSONObject end,
                                                           @Query("limit") int limit);
 
+    @GET("/api/activities")
+    Call<ActivityItemCollectionDao> loadActivityByZone(@Query("zone") String zone,
+                                                       @Query("start") String range,
+                                                       @Query("sort") String sort);
+
     @GET("/api/activities/{aid}")
     Call<ActivityItemDao> loadActivityItem(@Path("aid") String aid);
+
+    @GET("/api/activities/{aid}/rounds")
+    Call<RoundDao>  loadRoundsById(@Path("aid") String aid,
+                                   @Query("sort") String sort,
+                                   @Query("start") JSONObject range);
+
+    @POST("/api/activities/{aid}/rounds/{rid}/reserve")
+    Call<ReserveDao> reserveSelectedRound(@Path("aid") String aid,
+                                          @Path("rid") String rid);
+
     @GET("/api/zones")
     Call<ZoneDao> loadZoneList();
 
     @GET("/api/zones/{zid}")
     Call<ZoneResult>  loadZoneById(@Path("zid") String zid);
-    @GET("/api/activities/{aid}/rounds")
-    Call<RoundDao>  loadRoundsById(@Path("aid") String aid, @Query("sort") String sort);
-    @GET("api/activities")
-    Call<ActivityItemCollectionDao> loadActivityByZone
-            (@Query("zone") String zone, @Query("sort") String sort, @Query("start") JSONObject range);
-    /*
-    @GET("api/me/reserved")
-    Call<ActivityItemCollectionDao> getReservedActivity();*/
 
-    @POST("/api/activities/{aid}/rounds/{rid}/reserve")
-    Call<ReserveDao> reserveSelectedRound(@Path("aid") String aid, @Path("rid") String rid);
+    @GET("api/me/reserved")
+    Call<ActivityItemCollectionDao> getReservedActivity();
 
     @GET("/api/places/{pid}")
     Call<PlaceItemDao> loadPlaceItem(@Path("pid") String pid);

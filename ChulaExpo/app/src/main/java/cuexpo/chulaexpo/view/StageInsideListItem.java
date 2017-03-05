@@ -2,6 +2,7 @@ package cuexpo.chulaexpo.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
@@ -24,16 +26,18 @@ import cuexpo.chulaexpo.fragment.EventDetailFragment;
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class StageInsideListItem extends BaseCustomViewGroup implements View.OnTouchListener {
+public class StageInsideListItem extends BaseCustomViewGroup implements View.OnClickListener {
 
-    TextView tvDescription;
-    TextView tvFavourite;
-    TextView tvStar;
-    ImageView ivLine;
-    View vBottomDivider;
-    LinearLayout btnView;
-    LinearLayout btnFavourite;
-    boolean selected = false;
+    private TextView tvDescription;
+    private TextView tvFavourite;
+    private TextView tvStar;
+    private ImageView ivLine;
+    private View vBottomDivider;
+    private LinearLayout btnView;
+    private LinearLayout btnFavourite;
+    private boolean selected = false;
+    private String id;
+
 
     public StageInsideListItem(Context context) {
         super(context);
@@ -76,8 +80,10 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
         ivLine = (ImageView) findViewById(R.id.stage_inside_iv_line);
         btnView = (LinearLayout) findViewById(R.id.stage_inside_btn_info);
         btnFavourite = (LinearLayout) findViewById(R.id.stage_inside_btn_favourite);
-        btnView.setOnTouchListener(this);
-        btnFavourite.setOnTouchListener(this);
+        btnView.setOnClickListener(this);
+        btnFavourite.setOnClickListener(this);
+        /*btnView.setOnTouchListener(this);
+        btnFavourite.setOnTouchListener(this);*/
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -134,7 +140,10 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
         } else {
             ivLine.setImageResource(R.color.transparent);
         }
+    }
 
+    public void setId(String id){
+        this.id = id;
     }
 
     public boolean getSelected() {
@@ -142,44 +151,30 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnT
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public void onClick(View v) {
         if (v == btnView) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    btnView.setBackgroundResource(R.drawable.shape_card_stroke_selected);
-                    FragmentActivity fragmentActivity = (FragmentActivity) getContext();
-                    FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.stage_overlay, new EventDetailFragment());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    btnView.setBackgroundResource(R.drawable.shape_card_stroke);
-                    break;
-                }
-            }
-        } else if (v == btnFavourite) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    if (!selected) {
-                        btnFavourite.setBackgroundResource(R.drawable.shape_card_stroke_selected);
-                        tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
-                        tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
+            SharedPreferences activitySharedPref =
+                    Contextor.getInstance().getContext().getSharedPreferences("Event", Context.MODE_PRIVATE);
+            activitySharedPref.edit().putString("EventID", id).apply();
 
-                    } else {
-                        btnFavourite.setBackgroundResource(R.drawable.shape_card_stroke);
-                        tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-                        tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-                    }
-                    selected = !selected;
-                    break;
-                }
+            FragmentActivity fragmentActivity = (FragmentActivity) getContext();
+            FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.stage_container, new EventDetailFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else if (v == btnFavourite){
+            if (!selected) {
+                btnFavourite.setBackgroundResource(R.drawable.shape_card_stroke_selected);
+                tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
+                tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
+
+            } else {
+                btnFavourite.setBackgroundResource(R.drawable.shape_card_stroke);
+                tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+                tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
             }
+            selected = !selected;
         }
-        return true;
     }
-
-
 }
