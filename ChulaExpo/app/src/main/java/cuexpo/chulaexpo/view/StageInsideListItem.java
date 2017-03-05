@@ -165,12 +165,10 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnC
             fragmentTransaction.commit();
         } else if (v == btnFavourite){
             if (!selected) {
-                btnFavourite.setBackgroundResource(R.drawable.shape_card_stroke_selected);
                 tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
                 tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
 
             } else {
-                btnFavourite.setBackgroundResource(R.drawable.shape_card_stroke);
                 tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
                 tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
             }
