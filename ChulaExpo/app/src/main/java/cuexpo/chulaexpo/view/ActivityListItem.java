@@ -139,6 +139,8 @@ public class ActivityListItem extends BaseCustomViewGroup {
     public void setImageUrl(String url){
         Glide.with(getContext())
                 .load(url)
+                .placeholder(R.drawable.splash_screen_bg)
+                .error(R.drawable.splash_screen_bg)
                 .into(ivActivity);
         /*mock
         if(url.equals("0")) ivActivity.setImageResource(R.drawable.highlight_vidva_1);

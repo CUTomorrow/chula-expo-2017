@@ -12,6 +12,7 @@
     <color name="blackOverlay">#88000000</color>
     <!-- Login -->
     <color name="blue_fb">#3b5998</color>
+    <color name="bgPrimary">#f3f3f3</color>
     <!-- Event item -->
     <color name="time">#313131</color>
     <!-- Home -->
