@@ -306,6 +306,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             Intent intent = new Intent(getContext(), StageActivity.class);
             Bundle mBundle = new Bundle();
             mBundle.putInt("stageNo", position + 1);
+            mBundle.putString("stageId",homeStageListAdapter.getDao().getResults().get(position).getZone());
             intent.putExtras(mBundle);
             startActivity(intent);
         }

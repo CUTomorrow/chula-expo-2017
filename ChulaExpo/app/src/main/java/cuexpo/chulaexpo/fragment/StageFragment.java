@@ -40,16 +40,18 @@ public class StageFragment extends Fragment implements View.OnClickListener {
     TextView tvStageName;
     ImageView ivBack;
     int stageNo;
+    String stageId;
 
     public StageFragment() {
         super();
     }
 
     @SuppressWarnings("unused")
-    public static StageFragment newInstance(int stageNo) {
+    public static StageFragment newInstance(int stageNo, String stageId) {
         StageFragment fragment = new StageFragment();
         Bundle args = new Bundle();
         args.putInt("stageNo",stageNo);
+        args.putString("stageId",stageId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,6 +62,7 @@ public class StageFragment extends Fragment implements View.OnClickListener {
         init(savedInstanceState);
 
         stageNo = getArguments().getInt("stageNo");
+        stageId = getArguments().getString("stageId");
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
@@ -90,19 +93,19 @@ public class StageFragment extends Fragment implements View.OnClickListener {
 
         Bundle date15 = new Bundle();
         date15.putInt("day", 15);
-        date15.putInt("stageNo",stageNo);
+        date15.putString("stageId",stageId);
         Bundle date16 = new Bundle();
         date16.putInt("day", 16);
-        date16.putInt("stageNo",stageNo);
+        date16.putString("stageId",stageId);
         Bundle date17 = new Bundle();
         date17.putInt("day", 17);
-        date17.putInt("stageNo",stageNo);
+        date17.putString("stageId",stageId);
         Bundle date18 = new Bundle();
         date18.putInt("day", 18);
-        date18.putInt("stageNo",stageNo);
+        date18.putString("stageId",stageId);
         Bundle date19 = new Bundle();
         date19.putInt("day", 19);
-        date19.putInt("stageNo",stageNo);
+        date19.putString("stageId",stageId);
 
         pagerItemAdapter = new FragmentPagerItemAdapter(
                 this.getChildFragmentManager(), FragmentPagerItems.with(getActivity())
