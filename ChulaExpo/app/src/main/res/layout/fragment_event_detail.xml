@@ -54,25 +54,27 @@
                 android:paddingBottom="9dp">
 
                 <TextView
-                    android:text="Robotic Vacuum Cleaner"
+                    android:id="@+id/title"
+                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/title"
+                    android:lineSpacingExtra="-7sp"
+                    android:text="Robotic Vacuum Cleaner"
                     android:textColor="@android:color/black"
-                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
-                    android:textSize="22sp"/>
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:text="ENG"
+                    android:id="@+id/event_tag"
+                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/event_tag"
-                    android:background="@color/booking_full"
                     android:layout_below="@+id/title"
-                    android:textColor="@color/white"
+                    android:layout_marginTop="7dp"
+                    android:background="@color/booking_full"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
-                    fontPath="fonts/ThaiSansNeue-Bold.ttf" />
+                    android:text="ENG"
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
 

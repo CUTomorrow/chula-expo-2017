@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.dao.ActivityItemDao;
 import cuexpo.chulaexpo.dao.ActivityItemResultDao;
+import cuexpo.chulaexpo.dao.PlaceItemDao;
 import cuexpo.chulaexpo.dao.ReserveDao;
 import cuexpo.chulaexpo.dao.RoundDao;
 
@@ -37,7 +38,7 @@ public interface ApiService {
                                                           @Query("end") JSONObject end,
                                                           @Query("limit") int limit);
 
-    @GET("api/activities")
+    @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadActivityByZone(@Query("zone") String zone,
                                                        @Query("start") String range,
                                                        @Query("sort") String sort);
@@ -46,7 +47,7 @@ public interface ApiService {
     Call<ActivityItemDao> loadActivityItem(@Path("aid") String aid);
 
     @GET("/api/activities/{aid}/rounds")
-    Call<RoundDao>  loadRoundsById(@Path("aid") String aid,
+    Call<RoundDao> loadRoundsById(@Path("aid") String aid,
                                    @Query("sort") String sort,
                                    @Query("start") JSONObject range);
 
@@ -62,4 +63,11 @@ public interface ApiService {
 
     @GET("api/me/reserved")
     Call<ActivityItemCollectionDao> getReservedActivity();
+
+    @GET("/api/places/{pid}")
+    Call<PlaceItemDao> loadPlaceItem(@Path("pid") String pid);
+
+//    @GET("/api/rooms/{rid}")
+//    Call<RoomItemDao> loadRoomItem(@Path("rid") String rid);
+
 }
