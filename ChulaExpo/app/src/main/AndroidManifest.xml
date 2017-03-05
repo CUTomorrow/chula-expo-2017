@@ -40,12 +40,14 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.RoleActivity" />
         <activity android:name=".activity.RegisAdultActivity" />
         <activity android:name=".activity.RegisStudentActivity" />
         <activity android:name=".activity.InterestActivity" />
+        <activity android:name=".activity.DoneRegisterActivity" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.EventDetailActivity" />
+        <activity android:name=".activity.StageActivity" />
         <activity android:name=".activity.FavouriteActivity" />
         <activity android:name=".activity.ReservedActivity" />
 
@@ -62,8 +64,6 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".activity.StageActivity" />
-        <activity android:name=".activity.DoneRegisterActivity"></activity>
     </application>
 
 </manifest>
