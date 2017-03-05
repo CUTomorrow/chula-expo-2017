@@ -55,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
                         icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_event));
                         break;
                     case 3:
-                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_news));
-                        break;
-                    case 4:
                         icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_profile));
                         break;
                     default:
@@ -72,13 +69,12 @@ public class MainActivity extends AppCompatActivity {
                 .add("1", HomeFragment.class)
                 .add("2", MapFragment.class)
                 .add("3", EventPageFragment.class)
-                .add("4", SearchFragment.class)
-                .add("5", ProfileFragment.class)
+                .add("4", ProfileFragment.class)
                 .create());
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(3);
         viewPagerTab.setViewPager(viewPager);
     }
 
