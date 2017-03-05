@@ -126,7 +126,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="15dp"
-                    app:srcCompat="@drawable/ic_clock" />
+                    app:srcCompat="@drawable/ic_ticket_black" />
             </RelativeLayout>
 
         </RelativeLayout>
