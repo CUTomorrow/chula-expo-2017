@@ -9,10 +9,23 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
+
+import java.io.IOException;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.ReservedListAdapter;
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
+import cuexpo.chulaexpo.datatype.MutableInteger;
+import cuexpo.chulaexpo.manager.ActivityListManager;
+import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.view.ExpandableHeightListView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -24,7 +37,11 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
     ImageView back;
     ExpandableHeightListView upComingEventListView;
     ExpandableHeightListView previousEventListView;
+    ActivityListManager photoListManager;
+    ActivityListAdapter upComingAdapter;
+    ActivityListAdapter previousAdapter;
     ReservedListAdapter adapter;
+    MutableInteger lastPositionInteger;
 
     public ReservedFragment() {
         super();
@@ -57,6 +74,8 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
     private void init(Bundle savedInstanceState) {
         // Init Fragment level's variable(s) here
+        photoListManager = new ActivityListManager();
+        lastPositionInteger = new MutableInteger(-1);
     }
 
     @SuppressWarnings("UnusedParameters")
@@ -65,9 +84,10 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         upComingEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.reserved_content_container);
         previousEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.reserved_content_container2);
         back = (ImageView) rootView.findViewById(R.id.reserved_back);
-        adapter = new ReservedListAdapter();
 
-        upComingEventListView.setAdapter(adapter);
+        upComingAdapter = new ActivityListAdapter(lastPositionInteger);
+        upComingAdapter.setDao(photoListManager.getDao());
+        upComingEventListView.setAdapter(upComingAdapter);
         upComingEventListView.setExpanded(true);
         upComingEventListView.setFocusable(false);
 
@@ -76,7 +96,33 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         previousEventListView.setFocusable(false);
 
         back.setOnClickListener(this);
+
+        Call<ActivityItemCollectionDao> callReservedList = HttpManager.getInstance().getService().getReservedActivity();
+        callReservedList.enqueue(callbackReservedList);
     }
+
+    Callback<ActivityItemCollectionDao> callbackReservedList = new Callback<ActivityItemCollectionDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
+            if (response.isSuccessful()) {
+                ActivityItemCollectionDao dao = response.body();
+                Toast.makeText(Contextor.getInstance().getContext(),dao.getResults().size() + "",Toast.LENGTH_LONG).show();
+                upComingAdapter.setDao(dao);
+                upComingAdapter.notifyDataSetChanged();
+            } else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+        }
+    };
 
     @Override
     public void onStart() {

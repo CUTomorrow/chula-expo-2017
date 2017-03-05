@@ -60,7 +60,7 @@
                     android:id="@+id/stage_inside_btn_favourite"
                     android:orientation="horizontal"
                     android:padding="5dp"
-                    android:background="@drawable/shape_card_stroke"
+                    android:background="@drawable/selector_stage_button"
                     android:layout_width="0dp"
                     android:layout_height="30dp">
                     <TextView
@@ -95,7 +95,7 @@
                     android:id="@+id/stage_inside_btn_info"
                     android:orientation="horizontal"
                     android:padding="5dp"
-                    android:background="@drawable/shape_card_stroke"
+                    android:background="@drawable/selector_stage_button"
                     android:layout_width="0dp"
                     android:layout_height="30dp">
                     <ImageView
