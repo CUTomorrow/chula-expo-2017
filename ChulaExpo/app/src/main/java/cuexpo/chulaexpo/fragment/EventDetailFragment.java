@@ -160,7 +160,8 @@ public class EventDetailFragment extends Fragment {
                     dao.getDescription().getTh(),
                     dao.getLocation().getLatitude(),
                     dao.getLocation().getLongitude(),
-                    dao.getPictures()
+                    dao.getPictures(),
+                    dao.getName().getTh()
             );
             listView.setAdapter(adapter);
 
