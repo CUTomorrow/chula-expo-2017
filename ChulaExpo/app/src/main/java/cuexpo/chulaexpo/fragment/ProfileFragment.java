@@ -85,13 +85,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnAbout.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
 
-        /*sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
+        sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
         setName(sharedPref.getString("name",""));
         setEmail(sharedPref.getString("email",""));
         setYear(sharedPref.getString("year",""));
         setSchool(sharedPref.getString("school",""));
         //tvAge.setText(sharedPref.getString("birthday",""));
-        setGender(sharedPref.getString("gender",""));*/
+        setGender(sharedPref.getString("gender",""));
         return rootView;
     }
 
@@ -165,12 +165,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         } else if (v == btnEdit) {
 
         } else if (v == btnSetting) {
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.main_overlay, ReservedCheckFragment.newInstance());
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
 
         } else if (v == btnSetting2) {
 

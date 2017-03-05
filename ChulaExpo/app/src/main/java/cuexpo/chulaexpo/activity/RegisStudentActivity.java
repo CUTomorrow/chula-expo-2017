@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,7 +25,7 @@ import cuexpo.chulaexpo.R;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class RegisStudentActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
+public class RegisStudentActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText  etRegisName,etEmail, etBirth,etSchool,etYear;
     Spinner   spGender;
@@ -66,11 +67,11 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         etEmail.setText(email);
         etBirth.setText(birthday);
 
-        etRegisName.addTextChangedListener(this);
-        etEmail.addTextChangedListener(this);
-        etBirth.addTextChangedListener(this);
-        etSchool.addTextChangedListener(this);
-        etYear.addTextChangedListener(this);
+        etRegisName.addTextChangedListener(textWatcher);
+        etEmail.addTextChangedListener(textWatcher);
+        etBirth.addTextChangedListener(textWatcher);
+        etSchool.addTextChangedListener(textWatcher);
+        etYear.addTextChangedListener(textWatcher);
 
         //Load Image
         Glide.with(this)
@@ -110,25 +111,27 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    }
+        }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-    }
+        }
 
-    @Override
-    public void afterTextChanged(Editable s) {
-        if(s == etRegisName) editor.putString("name",etRegisName.toString());
-        if(s == etEmail) editor.putString("email",etEmail.toString());
-        if(s == etBirth) editor.putString("birthday",etBirth.toString());
-        if(s == etSchool) editor.putString("school",etSchool.toString());
-        if(s == etYear) editor.putString("year",etYear.toString());
-        editor.commit();
-    }
+        @Override
+        public void afterTextChanged(Editable s) {
+            editor.putString("name", etRegisName.getText().toString());
+            editor.putString("email", etEmail.getText().toString());
+            editor.putString("birthday", etBirth.getText().toString());
+            editor.putString("school", etSchool.getText().toString());
+            editor.putString("year", etYear.getText().toString());
+            editor.commit();
+        }
+    };
 
     AdapterView.OnItemSelectedListener spGenderlistener = new AdapterView.OnItemSelectedListener() {
         @Override

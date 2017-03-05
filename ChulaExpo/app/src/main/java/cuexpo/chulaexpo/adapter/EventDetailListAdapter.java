@@ -1,6 +1,10 @@
 package cuexpo.chulaexpo.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +42,7 @@ import cuexpo.chulaexpo.dao.PlaceItemResultDao;
 import cuexpo.chulaexpo.dao.RoundDao;
 import cuexpo.chulaexpo.dao.RoundResult;
 import cuexpo.chulaexpo.fragment.EventDetailFragment;
+import cuexpo.chulaexpo.fragment.ReservedCheckFragment;
 import cuexpo.chulaexpo.manager.HttpManager;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import retrofit2.Call;
@@ -51,14 +56,14 @@ import retrofit2.Response;
 public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCallback {
     private static LayoutInflater inflater;
     private Context context;
-    private String id, room, place, contact, time, description;
+    private String id, room, place, contact, time, description, title;
     public double lat, lng;
     private String[] imageUrls;
     private boolean canReserve = true;
 
     public EventDetailListAdapter(Context context, String id, String place, String contact,
                                   String time, String description, double lat, double lng,
-                                  String[] imageUrls) {
+                                  String[] imageUrls, String title) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.id = id;
@@ -69,6 +74,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         this.lat = lat;
         this.lng = lng;
         this.imageUrls = imageUrls;
+        this.title = title;
 
         Call<PlaceItemDao> call = HttpManager.getInstance().getService().loadPlaceItem(place);
         call.enqueue(callbackPlace);
@@ -194,7 +200,12 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         public void onClick(View v) {
             // TODO for Boom-sama
             if(canReserve){
-                
+                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id,title));
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             } else {
 
             }
