@@ -47,7 +47,7 @@ public interface ApiService {
     Call<ActivityItemDao> loadActivityItem(@Path("aid") String aid);
 
     @GET("/api/activities/{aid}/rounds")
-    Call<RoundDao>  loadRoundsById(@Path("aid") String aid,
+    Call<RoundDao> loadRoundsById(@Path("aid") String aid,
                                    @Query("sort") String sort,
                                    @Query("start") JSONObject range);
 

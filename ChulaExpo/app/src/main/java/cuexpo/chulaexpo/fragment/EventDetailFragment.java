@@ -84,6 +84,8 @@ public class EventDetailFragment extends Fragment {
 
         Call<ActivityItemDao> call = HttpManager.getInstance().getService().loadActivityItem(id);
         call.enqueue(callbackActivity);
+//        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id);
+//        call.enqueue(callbackActivity);
 
         return rootView;
     }
@@ -151,7 +153,7 @@ public class EventDetailFragment extends Fragment {
 
             String strDate = dao.getStart();
             String endDaye = dao.getEnd();
-            EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), 0,
+            EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), dao.getId(),
                     dao.getLocation().getPlace(),
                     dao.getContact(),
                     DateUtil.getDateRangeThai(strDate, endDaye) + " \u2022 " + strDate.substring(11,16) + "-" + endDaye.substring(11,16),
@@ -178,4 +180,5 @@ public class EventDetailFragment extends Fragment {
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };
+
 }

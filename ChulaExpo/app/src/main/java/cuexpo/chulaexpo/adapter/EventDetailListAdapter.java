@@ -35,6 +35,8 @@ import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.dao.ActivityItemDao;
 import cuexpo.chulaexpo.dao.PlaceItemDao;
 import cuexpo.chulaexpo.dao.PlaceItemResultDao;
+import cuexpo.chulaexpo.dao.RoundDao;
+import cuexpo.chulaexpo.dao.RoundResult;
 import cuexpo.chulaexpo.fragment.EventDetailFragment;
 import cuexpo.chulaexpo.manager.HttpManager;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -49,12 +51,12 @@ import retrofit2.Response;
 public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCallback {
     private static LayoutInflater inflater;
     private Context context;
-    private int id;
-    private String room, place, contact, time, description;
+    private String id, room, place, contact, time, description;
     public double lat, lng;
     private String[] imageUrls;
+    private boolean canReserve = true;
 
-    public EventDetailListAdapter(Context context, int id, String place, String contact,
+    public EventDetailListAdapter(Context context, String id, String place, String contact,
                                   String time, String description, double lat, double lng,
                                   String[] imageUrls) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -70,6 +72,9 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         Call<PlaceItemDao> call = HttpManager.getInstance().getService().loadPlaceItem(place);
         call.enqueue(callbackPlace);
+
+//        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id);
+//        roundCall.enqueue(callbackPlace);
     }
 
     Callback<PlaceItemDao> callbackPlace = new Callback<PlaceItemDao>() {
@@ -95,6 +100,8 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
+
+
 
     @Override
     public int getCount() {
@@ -124,6 +131,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 else ((TextView) convertView.findViewById(R.id.responsible_person)).setText(contact);
                 if (place == null) ((TextView) convertView.findViewById(R.id.location)).setText("-");
                 else ((TextView) convertView.findViewById(R.id.location)).setText(place);
+                convertView.findViewById(R.id.reserve_button).setOnClickListener(reserveOCL);
                 break;
             case 1:
                 convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
@@ -180,4 +188,16 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(dp * ((float)displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
+
+    private View.OnClickListener reserveOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // TODO for Boom-sama
+            if(canReserve){
+                
+            } else {
+
+            }
+        }
+    };
 }
