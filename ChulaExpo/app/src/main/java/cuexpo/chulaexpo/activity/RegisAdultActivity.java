@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -124,10 +125,11 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void afterTextChanged(Editable s) {
-        if(s == etRegisName) editor.putString("name",etRegisName.toString());
-        if(s == etEmail) editor.putString("email",etEmail.toString());
-        if(s == etBirth) editor.putString("birthday",etBirth.toString());
-        if(s == etWorkingPlace) editor.putString("company",etWorkingPlace.toString());
+        editor.putString("name",etRegisName.getText().toString());
+        Log.d("regis","Name: "+etRegisName.getText().toString());
+        editor.putString("email",etEmail.getText().toString());
+        editor.putString("birthday",etBirth.getText().toString());
+        editor.putString("company",etWorkingPlace.getText().toString());
         editor.commit();
     }
 
