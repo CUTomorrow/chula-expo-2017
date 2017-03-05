@@ -14,10 +14,11 @@ public class StageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage);
-        int stage  = getIntent().getExtras().getInt("stageNo");
+        int stageNo  = getIntent().getExtras().getInt("stageNo");
+        String stageId  = getIntent().getExtras().getString("stageId");
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.stage_container, StageFragment.newInstance(stage))
+                    .add(R.id.stage_container, StageFragment.newInstance(stageNo, stageId))
                     .commit();
         }
     }
