@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.dao.ActivityItemDao;
 import cuexpo.chulaexpo.dao.ActivityItemResultDao;
+import cuexpo.chulaexpo.dao.PlaceItemDao;
 import cuexpo.chulaexpo.dao.ReserveDao;
 import cuexpo.chulaexpo.dao.RoundDao;
 
@@ -55,5 +56,11 @@ public interface ApiService {
 
     @POST("/api/activities/{aid}/rounds/{rid}/reserve")
     Call<ReserveDao> reserveSelectedRound(@Path("aid") String aid, @Path("rid") String rid);
+
+    @GET("/api/places/{pid}")
+    Call<PlaceItemDao> loadPlaceItem(@Path("pid") String pid);
+
+//    @GET("/api/rooms/{rid}")
+//    Call<RoomItemDao> loadRoomItem(@Path("rid") String rid);
 
 }

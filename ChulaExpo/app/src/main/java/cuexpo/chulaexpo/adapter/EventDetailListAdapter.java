@@ -6,12 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,13 +24,23 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.dao.ActivityItemDao;
+import cuexpo.chulaexpo.dao.PlaceItemDao;
+import cuexpo.chulaexpo.dao.PlaceItemResultDao;
 import cuexpo.chulaexpo.fragment.EventDetailFragment;
+import cuexpo.chulaexpo.manager.HttpManager;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by APTX-4869 (LOCAL) on 1/23/2017.
@@ -38,7 +50,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private static LayoutInflater inflater;
     private Context context;
     private int id;
-    private String place, contact, time, description;
+    private String room, place, contact, time, description;
     public double lat, lng;
     private String[] imageUrls;
 
@@ -55,17 +67,34 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         this.lat = lat;
         this.lng = lng;
         this.imageUrls = imageUrls;
+
+        Call<PlaceItemDao> call = HttpManager.getInstance().getService().loadPlaceItem(place);
+        call.enqueue(callbackPlace);
     }
-//
-//    public void setParam(String place, String contact, String time, String description, double lat, double lng, String[] imageUrls) {
-//        this.place = place;
-//        this.contact = contact;
-//        this.time = time;
-//        this.description = description;
-//        this.lat = lat;
-//        this.lng = lng;
-//        this.imageUrls = imageUrls;
-//    }
+
+    Callback<PlaceItemDao> callbackPlace = new Callback<PlaceItemDao>() {
+        @Override
+        public void onResponse(Call<PlaceItemDao> call, Response<PlaceItemDao> response) {
+            if (response.isSuccessful()) {
+                PlaceItemResultDao dao = response.body().getResults();
+                place = dao.getName().getTh();
+                notifyDataSetChanged();
+            } else {
+                try {
+                    Log.e("fetch error", response.errorBody().string());
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<PlaceItemDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public int getCount() {

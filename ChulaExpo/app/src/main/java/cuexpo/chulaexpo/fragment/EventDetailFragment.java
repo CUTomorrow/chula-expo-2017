@@ -29,6 +29,7 @@ import cuexpo.chulaexpo.adapter.EventDetailListAdapter;
 import cuexpo.chulaexpo.dao.ActivityItemDao;
 import cuexpo.chulaexpo.dao.ActivityItemResultDao;
 import cuexpo.chulaexpo.manager.HttpManager;
+import cuexpo.chulaexpo.utility.DateUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -133,10 +134,12 @@ public class EventDetailFragment extends Fragment {
             listView.addHeaderView(listHeader);
             listView.setOnScrollListener(onScrollListener);
 
+            String strDate = dao.getStart();
+            String endDaye = dao.getEnd();
             EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), 0,
-                    dao.getLocation().getRoom(),
+                    dao.getLocation().getPlace(),
                     dao.getContact(),
-                    dao.getStart(),
+                    DateUtil.getDateRangeThai(strDate, endDaye) + " \u2022 " + strDate.substring(11,16) + "-" + endDaye.substring(11,16),
                     dao.getDescription().getTh(),
                     dao.getLocation().getLatitude(),
                     dao.getLocation().getLongitude(),
