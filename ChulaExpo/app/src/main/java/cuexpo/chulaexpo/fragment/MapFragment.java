@@ -61,8 +61,9 @@ public class MapFragment extends Fragment implements
     private CardView pinList, infoCard;
     private boolean isShowingPinList = false;
     private boolean isShowingInfoCard = false;
-    private ImageView showFaculty, showLandmark, showInfo, showInterest, showCanteen, showToilet,
-            showBusStop, showBusLine1, showBusLine2, showBusLine3, closeInfoCard, pinIcon;
+    private ImageView showFaculty, showInterest, showCanteen, showRegis, showToilet, showInfo,
+            showRally, showCarPark, showEmer, showPrayer, showBusStop,
+            showBusLine1, showBusLine2, showBusLine3, showBusLine4, closeInfoCard, pinIcon;
     private TextView facility, description;
 
 //    private Application mainApp = getActivity().getApplication();
@@ -140,15 +141,24 @@ public class MapFragment extends Fragment implements
         pinList = (CardView) rootView.findViewById(R.id.pin_list);
         infoCard = (CardView) rootView.findViewById(R.id.info_card);
         closeInfoCard = (ImageView) rootView.findViewById(R.id.close_info);
+
         showFaculty = (ImageView) rootView.findViewById(R.id.show_faculty_city);
-        showInfo = (ImageView) rootView.findViewById(R.id.show_info);
         showInterest = (ImageView) rootView.findViewById(R.id.show_interest);
         showCanteen = (ImageView) rootView.findViewById(R.id.show_canteen);
+        showRegis = (ImageView) rootView.findViewById(R.id.show_regis);
+        showInfo = (ImageView) rootView.findViewById(R.id.show_info);
         showToilet = (ImageView) rootView.findViewById(R.id.show_toilet);
+        showRally = (ImageView) rootView.findViewById(R.id.show_rally);
+        showCarPark = (ImageView) rootView.findViewById(R.id.show_car_park);
+        showEmer = (ImageView) rootView.findViewById(R.id.show_emer);
+        showPrayer = (ImageView) rootView.findViewById(R.id.show_prayer);
         showBusStop = (ImageView) rootView.findViewById(R.id.show_bus_stop);
+
         showBusLine1 = (ImageView) rootView.findViewById(R.id.show_bus_line_1);
         showBusLine2 = (ImageView) rootView.findViewById(R.id.show_bus_line_2);
         showBusLine3 = (ImageView) rootView.findViewById(R.id.show_bus_line_3);
+        showBusLine4 = (ImageView) rootView.findViewById(R.id.show_bus_line_4);
+
         // Get Card Content
         pinIcon = (ImageView) rootView.findViewById(R.id.pin_icon);
         facility = (TextView) rootView.findViewById(R.id.facility);
@@ -162,20 +172,28 @@ public class MapFragment extends Fragment implements
         closeInfoCard.setOnClickListener(closeOCL);
 
         rootView.findViewById(R.id.faculty_city).setOnClickListener(showFacultyOCL);
-        rootView.findViewById(R.id.info).setOnClickListener(showInfoOCL);
         rootView.findViewById(R.id.interest).setOnClickListener(showInterestOCL);
         rootView.findViewById(R.id.canteen).setOnClickListener(showCanteenOCL);
+        rootView.findViewById(R.id.regis).setOnClickListener(showRegisOCL);
+        rootView.findViewById(R.id.info).setOnClickListener(showInfoOCL);
         rootView.findViewById(R.id.toilet).setOnClickListener(showToiletOCL);
+        rootView.findViewById(R.id.rally).setOnClickListener(showRallyOCL);
+        rootView.findViewById(R.id.car_park).setOnClickListener(showCarParkOCL);
+        rootView.findViewById(R.id.emer).setOnClickListener(showEmerOCL);
+        rootView.findViewById(R.id.prayer).setOnClickListener(showPrayerOCL);
         rootView.findViewById(R.id.bus_stop).setOnClickListener(showBusStopOCL);
+
         showBusLine1.setOnClickListener(showBusLine1OCL);
         showBusLine2.setOnClickListener(showBusLine2OCL);
         showBusLine3.setOnClickListener(showBusLine3OCL);
+        showBusLine4.setOnClickListener(showBusLine4OCL);
 
         // Set visibility
         showFaculty.setSelected(true);
         showBusLine1.setSelected(true);
         showBusLine2.setSelected(true);
         showBusLine3.setSelected(true);
+        showBusLine4.setSelected(true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map);
         mapFragment.getMapAsync(this);
@@ -206,6 +224,13 @@ public class MapFragment extends Fragment implements
         }
     };
 
+    private void setAllFacultiesVisibility(boolean isVisible) {
+        for (IMapEntity faculty : faculties.values()) {
+            faculty.setVisible(isVisible);
+        }
+    }
+
+    // TODO OnClickListener
     private View.OnClickListener showFacultyOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -218,24 +243,6 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
-    private void setAllFacultiesVisibility(boolean isVisible) {
-        for (IMapEntity faculty : faculties.values()) {
-            faculty.setVisible(isVisible);
-        }
-    }
-
-    private View.OnClickListener showInfoOCL = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (showInfo.isSelected()){
-                showInfo.setSelected(false);
-            } else {
-                showInfo.setSelected(true);
-            }
-        }
-    };
-
     private View.OnClickListener showInterestOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -246,7 +253,6 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
     private View.OnClickListener showCanteenOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -257,7 +263,26 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
+    private View.OnClickListener showRegisOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showRegis.isSelected()){
+                showRegis.setSelected(false);
+            } else {
+                showRegis.setSelected(true);
+            }
+        }
+    };
+    private View.OnClickListener showInfoOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showInfo.isSelected()){
+                showInfo.setSelected(false);
+            } else {
+                showInfo.setSelected(true);
+            }
+        }
+    };
     private View.OnClickListener showToiletOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -268,7 +293,46 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
+    private View.OnClickListener showRallyOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showRally.isSelected()){
+                showRally.setSelected(false);
+            } else {
+                showRally.setSelected(true);
+            }
+        }
+    };
+    private View.OnClickListener showCarParkOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showCarPark.isSelected()){
+                showCarPark.setSelected(false);
+            } else {
+                showCarPark.setSelected(true);
+            }
+        }
+    };
+    private View.OnClickListener showEmerOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showEmer.isSelected()){
+                showEmer.setSelected(false);
+            } else {
+                showEmer.setSelected(true);
+            }
+        }
+    };
+    private View.OnClickListener showPrayerOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showPrayer.isSelected()){
+                showPrayer.setSelected(false);
+            } else {
+                showPrayer.setSelected(true);
+            }
+        }
+    };
     private View.OnClickListener showBusStopOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -292,7 +356,6 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
     private View.OnClickListener showBusLine2OCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -305,7 +368,6 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
     private View.OnClickListener showBusLine3OCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -315,6 +377,18 @@ public class MapFragment extends Fragment implements
             } else {
                 showBusLine3.setSelected(true);
                 popbusRoutes.get("3").setVisible(true);
+            }
+        }
+    };
+    private View.OnClickListener showBusLine4OCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showBusLine4.isSelected()){
+                showBusLine4.setSelected(false);
+                popbusRoutes.get("4").setVisible(false);
+            } else {
+                showBusLine4.setSelected(true);
+                popbusRoutes.get("4").setVisible(true);
             }
         }
     };

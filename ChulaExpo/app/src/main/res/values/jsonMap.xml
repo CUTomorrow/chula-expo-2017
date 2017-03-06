@@ -725,7 +725,6 @@
 			{ \"latitude\": 13.73460, \"longitude\": 100.53173 }
 		]
 	},
-
 	{
 		\"name\": \"2\",
 		\"color\": \"448BCA\",
@@ -830,9 +829,65 @@
 			{ \"latitude\": 13.73465, \"longitude\": 100.53170 }
 		]
 	},
-
 	{
 		\"name\": \"3\",
+		\"color\": \"FDCB01\",
+		\"pathway\": [
+			{ \"latitude\": 13.73458, \"longitude\": 100.53177 },
+			{ \"latitude\": 13.73423, \"longitude\": 100.53418 },
+			{ \"latitude\": 13.73312, \"longitude\": 100.53402 },
+			{ \"latitude\": 13.73303, \"longitude\": 100.53463 },
+			{ \"latitude\": 13.73291, \"longitude\": 100.53565 },
+			{ \"latitude\": 13.73286, \"longitude\": 100.53616 },
+			{ \"latitude\": 13.73327, \"longitude\": 100.53620 },
+			{ \"latitude\": 13.73336, \"longitude\": 100.53545 },
+			{ \"latitude\": 13.73292, \"longitude\": 100.53540 },
+			{ \"latitude\": 13.73301, \"longitude\": 100.53462 },
+			{ \"latitude\": 13.73312, \"longitude\": 100.53390 },
+			{ \"latitude\": 13.73425, \"longitude\": 100.53402 },
+			{ \"latitude\": 13.73541, \"longitude\": 100.53420 },
+			{ \"latitude\": 13.73618, \"longitude\": 100.53431 },
+			{ \"latitude\": 13.73908, \"longitude\": 100.53474 },
+			{ \"latitude\": 13.74198, \"longitude\": 100.53517 },
+			{ \"latitude\": 13.74223, \"longitude\": 100.53347 },
+			{ \"latitude\": 13.74251, \"longitude\": 100.53176 },
+			{ \"latitude\": 13.74274, \"longitude\": 100.53029 },
+			{ \"latitude\": 13.74179, \"longitude\": 100.53016 },
+			{ \"latitude\": 13.73868, \"longitude\": 100.52971 },
+			{ \"latitude\": 13.73866, \"longitude\": 100.52996 },
+			{ \"latitude\": 13.73963, \"longitude\": 100.53013 },
+			{ \"latitude\": 13.73928, \"longitude\": 100.53222 },
+			{ \"latitude\": 13.73919, \"longitude\": 100.53286 },
+			{ \"latitude\": 13.73918, \"longitude\": 100.53291 },
+			{ \"latitude\": 13.73917, \"longitude\": 100.53296 },
+			{ \"latitude\": 13.73915, \"longitude\": 100.53301 },
+			{ \"latitude\": 13.73913, \"longitude\": 100.53305 },
+			{ \"latitude\": 13.73911, \"longitude\": 100.53308 },
+			{ \"latitude\": 13.73908, \"longitude\": 100.53312 },
+			{ \"latitude\": 13.73905, \"longitude\": 100.53315 },
+			{ \"latitude\": 13.73901, \"longitude\": 100.53317 },
+			{ \"latitude\": 13.73897, \"longitude\": 100.53320 },
+			{ \"latitude\": 13.73892, \"longitude\": 100.53321 },
+			{ \"latitude\": 13.73887, \"longitude\": 100.53323 },
+			{ \"latitude\": 13.73774, \"longitude\": 100.53306 },
+			{ \"latitude\": 13.73769, \"longitude\": 100.53301 },
+			{ \"latitude\": 13.73765, \"longitude\": 100.53297 },
+			{ \"latitude\": 13.73762, \"longitude\": 100.53293 },
+			{ \"latitude\": 13.73759, \"longitude\": 100.53289 },
+			{ \"latitude\": 13.73756, \"longitude\": 100.53285 },
+			{ \"latitude\": 13.73753, \"longitude\": 100.53281 },
+			{ \"latitude\": 13.73750, \"longitude\": 100.53278 },
+			{ \"latitude\": 13.73748, \"longitude\": 100.53274 },
+			{ \"latitude\": 13.73746, \"longitude\": 100.53271 },
+			{ \"latitude\": 13.73745, \"longitude\": 100.53267 },
+			{ \"latitude\": 13.73744, \"longitude\": 100.53264 },
+			{ \"latitude\": 13.73739, \"longitude\": 100.53252 },
+			{ \"latitude\": 13.73745, \"longitude\": 100.53212 },
+			{ \"latitude\": 13.73458, \"longitude\": 100.53177 }
+		]
+	},
+    {
+		\"name\": \"4\",
 		\"color\": \"FDCB01\",
 		\"pathway\": [
 			{ \"latitude\": 13.73458, \"longitude\": 100.53177 },
