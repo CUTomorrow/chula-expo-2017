@@ -18,7 +18,15 @@ import android.widget.Toast;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.dao.ReserveDao;
@@ -43,6 +51,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
     RoundDao dao;
     ReserveDao dao2;
     int selectedPos;
+    String aid;
 
     public ReservedCheckFragment() {
         super();
@@ -60,6 +69,8 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
+
+        aid = getArguments().getString("aid", "");
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
@@ -88,13 +99,18 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         btnSave.setOnClickListener(this);
         spnSelectTime.setOnItemSelectedListener(this);
 
-        /*String[] items = new String[]{"16 มีนาคม 2017 : 10.00 - 11.00", "17 มีนาคม 2017 : 10.00 - 11.00", "18 มีนาคม 2017 : 10.00 - 11.00"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>
-                (getContext(), android.R.layout.simple_dropdown_item_1line, items);
-        spnSelectTime.setAdapter(adapter);
-        spnSelectTime.setSelection(0);*/
+        JSONObject range = new JSONObject();
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+            Date startDate = new Date();
+            range.put("gte", startDate);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         String aid = "589b1d9c0028bd37f48906ad";
-        Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, "start");
+        Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, "start",range);
         callRound.enqueue(callbackRound);
 
     }
@@ -104,11 +120,12 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body();
-                Toast.makeText(Contextor.getInstance().getContext(),
+                /*Toast.makeText(Contextor.getInstance().getContext(),
                         "RESULT = " + dao.getResults().size(), Toast.LENGTH_LONG).show();
+                */
+                tvName.setText(dao.getResults().get(0).getName().getTh());
 
                 String[] items = new String[dao.getResults().size()];
-
 
                 for (int i = 0; i < dao.getResults().size(); i++) {
                     items[i] = DateConversionManager.getInstance()
@@ -169,7 +186,6 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             String rid = dao.getResults().get(selectedPos).getId();
             Toast.makeText(Contextor.getInstance().getContext(), aid + " " + rid, Toast.LENGTH_SHORT).show();
 
-            //TODO API with Server to check availability
             Call<ReserveDao> callReserve = HttpManager.getInstance().getService().reserveSelectedRound(aid, rid);
             callReserve.enqueue(callbackReserve);
             getFragmentManager().popBackStack();

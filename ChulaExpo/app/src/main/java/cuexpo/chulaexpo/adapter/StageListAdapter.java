@@ -20,19 +20,16 @@ public class StageListAdapter extends BaseExpandableListAdapter {
 
     private List<StageListItem> listDataHeader;
     private HashMap<StageListItem, StageInsideListItem> listDataChild;
-
-    public List<StageListItem> getListDataHeader() {
-        return listDataHeader;
-    }
-
-    public HashMap<StageListItem, StageInsideListItem> getListDataChild() {
-        return listDataChild;
-    }
+    private ActivityItemCollectionDao dao;
 
     public StageListAdapter(List<StageListItem> listDataHeader,
                             HashMap<StageListItem, StageInsideListItem> listChildData) {
         this.listDataHeader = listDataHeader;
         this.listDataChild = listChildData;
+    }
+
+    public void setDao(ActivityItemCollectionDao dao) {
+        this.dao = dao;
     }
 
     @Override
@@ -48,7 +45,6 @@ public class StageListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-
         StageInsideListItem item = (StageInsideListItem) getChild(groupPosition, childPosition);
 
         if (groupPosition != getGroupCount() - 1) {
@@ -91,28 +87,12 @@ public class StageListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-
         StageListItem item = (StageListItem) getGroup(groupPosition);
         StageManager manager = StageManager.getInstance();
 
-        item.setStatus(manager.setCircle(item.getStartTime(), item.getEndTime()));
-
-        if (groupPosition == 0) {
-            if(getGroupCount()>1)
-                item.setLineMode(2);
-            else
-                item.setLineMode(4);
-        } else if (groupPosition  == getGroupCount() - 1) {
-            item.setLineMode(3);
-        } else {
-            item.setLineMode(1);
-        }
-
-        if (isExpanded) {
-            item.setDrop(2);
-        } else {
-            item.setDrop(1);
-        }
+        item.setStatus(manager.setCircle(item.getStartTime(), item.getEndTime(), item.getDay()));
+        item.setLineMode(manager.setLine(groupPosition, getGroupCount()));
+        item.setDrop(manager.setDrop(isExpanded));
 
         return item;
     }

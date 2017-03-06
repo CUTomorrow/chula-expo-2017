@@ -1,12 +1,11 @@
 package cuexpo.chulaexpo.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
-import android.widget.Adapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,8 +29,9 @@ import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.EventDetailListAdapter;
 import cuexpo.chulaexpo.dao.ActivityItemDao;
 import cuexpo.chulaexpo.dao.ActivityItemResultDao;
-import cuexpo.chulaexpo.dao.ActivityItemResultDao;
 import cuexpo.chulaexpo.manager.HttpManager;
+import cuexpo.chulaexpo.utility.DateUtil;
+import cuexpo.chulaexpo.utility.Resource;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +48,7 @@ public class EventDetailFragment extends Fragment {
     private TextView title;
     private Fragment fragment;
     private ActivityItemResultDao dao;
-//    public EventDetailListAdapter adapter;
+    private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,11 +68,24 @@ public class EventDetailFragment extends Fragment {
 
         SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
         String id = activitySharedPref.getString("EventID", "");
+
+        String zone = activitySharedPref.getString("Zone", "");
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
+        String zoneShortName = sharedPref.getString(zone, "");
+        TextView eventTag = (TextView) rootView.findViewById(R.id.event_tag);
+        eventTag.setText(zoneShortName);
+        eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
+        for(int i=0;i<lightZone.length-1;i++){
+            if(zoneShortName.equals(lightZone[i])) {
+                eventTag.setTextColor(Color.BLACK);
+                break;
+            }
+        }
+
         Call<ActivityItemDao> call = HttpManager.getInstance().getService().loadActivityItem(id);
         call.enqueue(callbackActivity);
-
-//        ViewTreeObserver vto = headerView.getViewTreeObserver();
-//        vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
+//        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id);
+//        call.enqueue(callbackActivity);
 
         return rootView;
     }
@@ -81,7 +93,6 @@ public class EventDetailFragment extends Fragment {
     Callback<ActivityItemDao> callbackActivity = new Callback<ActivityItemDao>() {
         @Override
         public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
-            Log.d("response", response.toString());
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
                 Glide.with(fragment)
@@ -92,24 +103,6 @@ public class EventDetailFragment extends Fragment {
                 title.setText(dao.getName().getTh());
                 ViewTreeObserver vto = headerView.getViewTreeObserver();
                 vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
-//                LinearLayout.LayoutParams stickyViewSpacerLayoutParams = new LinearLayout.LayoutParams(
-//                        ViewGroup.LayoutParams.MATCH_PARENT,
-//                        headerView.getHeight() - dpToPx(7));
-//                stickyViewSpacer.setLayoutParams(stickyViewSpacerLayoutParams);
-//
-//                listView.addHeaderView(listHeader);
-//                listView.setOnScrollListener(onScrollListener);
-//
-//                EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), 0,
-//                        dao.getLocation().getRoom(),
-//                        dao.getContact(),
-//                        dao.getStart(),
-//                        dao.getDescription().getTh(),
-//                        dao.getLocation().getLatitude(),
-//                        dao.getLocation().getLongitude(),
-//                        dao.getPictures()
-//                );
-//                listView.setAdapter(adapter);
             } else {
                 try {
                     Log.e("fetch error", response.errorBody().string());
@@ -118,9 +111,7 @@ public class EventDetailFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-
         }
-
         @Override
         public void onFailure(Call<ActivityItemDao> call, Throwable t) {
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
@@ -160,10 +151,12 @@ public class EventDetailFragment extends Fragment {
             listView.addHeaderView(listHeader);
             listView.setOnScrollListener(onScrollListener);
 
-            EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), 0,
-                    dao.getLocation().getRoom(),
+            String strDate = dao.getStart();
+            String endDaye = dao.getEnd();
+            EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), dao.getId(),
+                    dao.getLocation().getPlace(),
                     dao.getContact(),
-                    dao.getStart(),
+                    DateUtil.getDateRangeThai(strDate, endDaye) + " \u2022 " + strDate.substring(11,16) + "-" + endDaye.substring(11,16),
                     dao.getDescription().getTh(),
                     dao.getLocation().getLatitude(),
                     dao.getLocation().getLongitude(),
@@ -177,7 +170,7 @@ public class EventDetailFragment extends Fragment {
 
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return Math.round(dp * (displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
     private View.OnClickListener closeButtonOnClickListener = new View.OnClickListener() {
@@ -187,4 +180,5 @@ public class EventDetailFragment extends Fragment {
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };
+
 }

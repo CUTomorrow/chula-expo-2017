@@ -19,67 +19,116 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="12dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="9dp"
-            android:paddingBottom="7dp">
+            android:paddingTop="9dp">
 
-            <TextView
-                android:text="ห้อง 204 ชั้น 2 ตึก 1"
+            <RelativeLayout
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ic_schedule"
+                    android:layout_width="16dp"
+                    android:layout_height="13dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/responsible_person"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/ic_schedule" />
+
+                <ImageView
+                    android:id="@+id/ic_pin"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/ic_pin" />
+
+                <TextView
+                    android:id="@+id/responsible_person"
+                    fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/location"
+                    android:layout_marginLeft="30dp"
+                    android:text="ชมรมสร้างสรรค์นวัตกรรม Thinc."
+                    android:textColor="@color/dark_grey"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/ic_avatar"
+                    android:layout_width="16dp"
+                    android:layout_height="13dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/location"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/ic_avatar" />
+
+                <TextView
+                    android:id="@+id/location"
+                    fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="ห้อง 204 ชั้น 2 ตึก 1"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/schedule"
+                    fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/responsible_person"
+                    android:layout_marginLeft="30dp"
+                    android:text="15 มีนาคม 8.00-9.00 10.00-11.00 13.00-14.00"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/reserve_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/location"
-                android:textColor="@color/dark_grey"
-                fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
-                android:textSize="17sp"
-                android:layout_marginLeft="30dp" />
-            <ImageView
-                app:srcCompat="@drawable/ic_pin"
-                android:id="@+id/ic_pin"
-                android:layout_marginTop="2dp"
-                android:layout_width="15dp"
-                android:layout_height="15dp" />
+                android:layout_below="@+id/info"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/shape_round_rec_black_stoke"
+                android:padding="7dp">
 
-            <TextView
-                android:text="ชมรมสร้างสรรค์นวัตกรรม Thinc."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/responsible_person"
-                android:textColor="@color/dark_grey"
-                fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
-                android:textSize="17sp"
-                android:layout_marginLeft="30dp"
-                android:layout_below="@+id/location" />
-            <ImageView
-                app:srcCompat="@drawable/ic_avatar"
-                android:id="@+id/ic_avatar"
-                android:layout_width="16dp"
-                android:layout_below="@+id/location"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="4dp"
-                android:layout_height="13dp" />
+                <TextView
+                    android:id="@+id/button_title"
+                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/button_icon"
+                    android:text="จอง EVENT"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:text="15 มีนาคม 8.00-9.00 10.00-11.00 13.00-14.00"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/schedule"
-                android:textColor="@color/dark_grey"
-                fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
-                android:textSize="17sp"
-                android:layout_marginLeft="30dp"
-                android:layout_below="@+id/responsible_person" />
+                <TextView
+                    android:id="@+id/button_detail"
+                    fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button_title"
+                    android:layout_marginTop="-6dp"
+                    android:layout_toRightOf="@+id/button_icon"
+                    android:text="Event นี้ต้องทำการจองเพื่อเข้าร่วม"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
 
-            <ImageView
-                app:srcCompat="@drawable/ic_schedule"
-                android:id="@+id/ic_schedule"
-                android:layout_width="16dp"
-                android:layout_below="@+id/responsible_person"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="4dp"
-                android:layout_height="13dp" />
+                <ImageView
+                    android:id="@+id/button_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    app:srcCompat="@drawable/ic_ticket_black" />
+            </RelativeLayout>
 
         </RelativeLayout>
 
