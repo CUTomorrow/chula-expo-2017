@@ -1,5 +1,7 @@
 package cuexpo.chulaexpo.utility;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -61,9 +63,10 @@ public class NormalPinMapEntity implements IMapEntity {
     public NormalPinMapEntity(String name, Location location, String type) {
         this.type = type;
         this.name = name;
-
+        Log.d("pin type", type);
         switch (type) {
             case "Canteen":
+                Log.d("type is canteen", "true");
                 markerIconDrawableResource = R.drawable.food;
                 break;
             case "Souvenir":
@@ -93,6 +96,7 @@ public class NormalPinMapEntity implements IMapEntity {
                 break;
 
             default:
+                Log.e("invalid pin type", type);
                 throw new IllegalArgumentException("Invalid pinType value.");
         }
 

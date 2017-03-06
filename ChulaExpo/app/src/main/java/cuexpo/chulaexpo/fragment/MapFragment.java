@@ -216,16 +216,43 @@ public class MapFragment extends Fragment implements
                 for (FacilityResult facility: facilities) {
                     String type = facility.getType();
                     String name = facility.getName().getTh();
+                    Log.d("facility type", type);
                     cuexpo.chulaexpo.dao.Location location = facility.getLocation();
                     if(type.equals("Canteen") || type.equals("Souvenir")) canteenPins.add(new NormalPinMapEntity(name, location, type));
-                    else if(type.equals("Registration")) infoPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Registration")) regisPins.add(new NormalPinMapEntity(name, location, type));
                     else if(type.equals("Information")) infoPins.add(new NormalPinMapEntity(name, location, type));
-                    else if(type.equals("Toilet")) infoPins.add(new NormalPinMapEntity(name, location, type));
-                    else if(type.equals("Carpark")) infoPins.add(new NormalPinMapEntity(name, location, type));
-                    else if(type.equals("Emergency")) infoPins.add(new NormalPinMapEntity(name, location, type));
-                    else if(type.equals("Prayer")) infoPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Toilet")) toiletPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Carpark")) carParkPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Emergency")) emerPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Prayer")) prayerPins.add(new NormalPinMapEntity(name, location, type));
                     // No rally(place in zone rally) and bus stop
                 }
+                initPins(canteenPins);
+                initPins(regisPins);
+                initPins(infoPins);
+                initPins(toiletPins);
+                initPins(rallyPins);
+                initPins(carParkPins);
+                initPins(emerPins);
+                initPins(prayerPins);
+                initPins(popBusStationPins);
+
+//                // Add Canteen pins
+//                for (NormalPinMapEntity entry : canteenPins) {
+//                    entry.setMap(googleMap);
+//                    entry.setVisible(false);
+//                }
+//                // Add Register pins
+//                for (NormalPinMapEntity entry : regisPins) {
+//                    entry.setMap(googleMap);
+//                    entry.setVisible(false);
+//                }
+//                // Add Info pins
+//                for (NormalPinMapEntity entry : infoPins) {
+//                    entry.setMap(googleMap);
+//                    entry.setVisible(false);
+//                }
+                Log.d("registrationPins size", ""+regisPins.size());
             } else {
                 try {
                     Log.e("fetch error", response.errorBody().string());
@@ -241,6 +268,12 @@ public class MapFragment extends Fragment implements
         }
     };
 
+    public void initPins(List<NormalPinMapEntity> entries){
+        for (NormalPinMapEntity entry : entries) {
+            entry.setMap(googleMap);
+            entry.setVisible(false);
+        }
+    }
     private View.OnClickListener showPinListOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -267,6 +300,12 @@ public class MapFragment extends Fragment implements
     private void setAllFacultiesVisibility(boolean isVisible) {
         for (IMapEntity faculty : faculties.values()) {
             faculty.setVisible(isVisible);
+        }
+    }
+
+    private void setAllNormalPinsVisibility(ArrayList<NormalPinMapEntity> entities, boolean visible) {
+        for (NormalPinMapEntity entity : entities) {
+            entity.setVisible(visible);
         }
     }
 
@@ -298,8 +337,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showCanteen.isSelected()){
                 showCanteen.setSelected(false);
+                setAllNormalPinsVisibility(canteenPins, false);
             } else {
                 showCanteen.setSelected(true);
+                setAllNormalPinsVisibility(canteenPins, true);
             }
         }
     };
@@ -308,8 +349,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showRegis.isSelected()){
                 showRegis.setSelected(false);
+                setAllNormalPinsVisibility(regisPins, false);
             } else {
                 showRegis.setSelected(true);
+                setAllNormalPinsVisibility(regisPins, true);
             }
         }
     };
@@ -318,8 +361,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showInfo.isSelected()){
                 showInfo.setSelected(false);
+                setAllNormalPinsVisibility(infoPins, false);
             } else {
                 showInfo.setSelected(true);
+                setAllNormalPinsVisibility(infoPins, true);
             }
         }
     };
@@ -328,8 +373,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showToilet.isSelected()){
                 showToilet.setSelected(false);
+                setAllNormalPinsVisibility(toiletPins, false);
             } else {
                 showToilet.setSelected(true);
+                setAllNormalPinsVisibility(toiletPins, true);
             }
         }
     };
@@ -338,8 +385,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showRally.isSelected()){
                 showRally.setSelected(false);
+                setAllNormalPinsVisibility(rallyPins, false);
             } else {
                 showRally.setSelected(true);
+                setAllNormalPinsVisibility(rallyPins, true);
             }
         }
     };
@@ -348,8 +397,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showCarPark.isSelected()){
                 showCarPark.setSelected(false);
+                setAllNormalPinsVisibility(carParkPins, false);
             } else {
                 showCarPark.setSelected(true);
+                setAllNormalPinsVisibility(carParkPins, true);
             }
         }
     };
@@ -358,8 +409,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showEmer.isSelected()){
                 showEmer.setSelected(false);
+                setAllNormalPinsVisibility(emerPins, false);
             } else {
                 showEmer.setSelected(true);
+                setAllNormalPinsVisibility(emerPins, true);
             }
         }
     };
@@ -368,8 +421,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showPrayer.isSelected()){
                 showPrayer.setSelected(false);
+                setAllNormalPinsVisibility(prayerPins, false);
             } else {
                 showPrayer.setSelected(true);
+                setAllNormalPinsVisibility(prayerPins, true);
             }
         }
     };
@@ -378,8 +433,10 @@ public class MapFragment extends Fragment implements
         public void onClick(View v) {
             if (showBusStop.isSelected()){
                 showBusStop.setSelected(false);
+                setAllNormalPinsVisibility(popBusStationPins, false);
             } else {
                 showBusStop.setSelected(true);
+                setAllNormalPinsVisibility(popBusStationPins, false);
             }
         }
     };
@@ -574,7 +631,6 @@ public class MapFragment extends Fragment implements
         for (PopbusRouteMapEntity routeEntry : popbusRoutes.values()) {
             routeEntry.setMap(googleMap);
         }
-
         googleMap.setOnMarkerClickListener(markerOCL);
     }
 
