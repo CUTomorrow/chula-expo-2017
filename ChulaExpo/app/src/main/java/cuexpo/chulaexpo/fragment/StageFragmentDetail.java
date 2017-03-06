@@ -85,8 +85,8 @@ public class StageFragmentDetail extends Fragment {
 
         JSONObject range = new JSONObject();
         try {
-            String startString = "2017-03-" + day + "T00:00:00.000-0700";
-            String endString = "2017-03-" + day + "T23:59:00.000-0700";
+            String startString = "2017-03-" + day + "T00:00:00.000Z";
+            String endString = "2017-03-" + day + "T23:59:00.000Z";
             range.put("gte", startString);
             range.put("lte", endString);
         } catch (JSONException e) {

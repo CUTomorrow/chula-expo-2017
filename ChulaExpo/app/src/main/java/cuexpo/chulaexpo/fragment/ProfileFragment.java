@@ -41,10 +41,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     Button btnLogout;
     TextView tvName;
     TextView tvEmail;
-    TextView tvYear;
-    TextView tvSchool;
     TextView tvAge;
     TextView tvGender;
+    TextView tvDescription;
+    TextView tvPlace;
     ImageView ivQR;
 
     SharedPreferences sharedPref;
@@ -86,12 +86,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnLogout.setOnClickListener(this);
 
         sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
-        setName(sharedPref.getString("name",""));
-        setEmail(sharedPref.getString("email",""));
-        setYear(sharedPref.getString("year",""));
-        setSchool(sharedPref.getString("school",""));
-        //tvAge.setText(sharedPref.getString("birthday",""));
-        setGender(sharedPref.getString("gender",""));
+        setName(sharedPref.getString("name", ""));
+        setEmail(sharedPref.getString("email", ""));
+        setGender(sharedPref.getString("gender", ""));
+        setAge(sharedPref.getString("birthday", ""));
+        if(sharedPref.getInt("role",0)==1){
+            setStudentDescription(sharedPref.getString("year", ""), "");
+            setPlace(sharedPref.getString("school", ""));
+        } else{
+            setAdultDescription(sharedPref.getString("company", ""));
+            setPlace(sharedPref.getString("company", ""));
+        }
+
+
         return rootView;
     }
 
@@ -114,10 +121,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnLogout = (Button) rootView.findViewById(R.id.profile_logout_btn);
         tvName = (TextView) rootView.findViewById(R.id.profile_name);
         tvEmail = (TextView) rootView.findViewById(R.id.profile_email);
-        tvYear = (TextView) rootView.findViewById(R.id.profile_year);
-        tvSchool = (TextView) rootView.findViewById(R.id.profile_school);
         tvAge = (TextView) rootView.findViewById(R.id.profile_age);
         tvGender = (TextView) rootView.findViewById(R.id.profile_gender);
+        tvDescription = (TextView) rootView.findViewById(R.id.profile_description);
+        tvPlace = (TextView) rootView.findViewById(R.id.profile_place);
     }
 
     @Override
@@ -197,19 +204,26 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setAge(String text) {
-        tvAge.setText("Age " + text);
+        String age = "อายุ " + text;
+        tvAge.setText(age);
     }
 
     public void setGender(String text) {
-        tvGender.setText("Gender " + text);
+        String gender = "เพศ " + text;
+        tvGender.setText(gender);
     }
 
-    public void setYear(String text) {
-        tvYear.setText("Year " + text);
+    public void setStudentDescription(String text, String text2) {
+        String description = text + " " + text2;
+        tvDescription.setText(description);
     }
 
-    public void setSchool(String text) {
-        tvSchool.setText(text);
+    public void setAdultDescription(String text) {
+        tvDescription.setText(text);
+    }
+
+    public void setPlace(String text) {
+        tvPlace.setText(text);
     }
 
 

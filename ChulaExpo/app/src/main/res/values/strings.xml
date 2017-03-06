@@ -48,4 +48,18 @@
     <string name="bus_stop">ป้ายรถประจำทาง</string>
     <string name="bus_line">สายรถ CU Tour</string>
 
+    <!--profile-->
+    <string name="profile_age">อายุ</string>
+    <string name="profile_year">ปริญญาตรี ปี</string>
+    <string name="profile_gender">เพศ</string>
+    <string name="profile_university">จุฬาลงกรณ์มหาวิทยาลัย</string>
+    <string name="profile_button_edit">แก้ไขข้อมูลส่วนตัว</string>
+    <string name="profile_button_1">Event ที่สนใจทั้งหมด</string>
+    <string name="profile_button_2">Event ที่จองทั้งหมด</string>
+    <string name="profile_button_3">แก้ไขเนื้อหาที่สนใจ</string>
+    <string name="profile_button_4">แก้ไขคณะที่สนใจ</string>
+    <string name="profile_button_5">FAQ</string>
+    <string name="profile_button_6">เกี่ยวกับ จุฬา Expo</string>
+    <string name="profile_button_7">ออกจากระบบ</string>
+
 </resources>
