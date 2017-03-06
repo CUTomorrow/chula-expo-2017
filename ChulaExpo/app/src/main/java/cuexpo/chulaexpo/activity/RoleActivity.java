@@ -22,7 +22,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RoleActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnStudent,btnAdult;
+    View btnStudent, btnAdult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class RoleActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initInstances() {
-        btnStudent = (Button) findViewById(R.id.btnStudent);
-        btnAdult = (Button) findViewById(R.id.btnAdult);
+        btnStudent = findViewById(R.id.btnStudent);
+        btnAdult = findViewById(R.id.btnAdult);
     }
 
 

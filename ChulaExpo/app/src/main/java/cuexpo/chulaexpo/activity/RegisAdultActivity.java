@@ -29,7 +29,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
 
     EditText  etRegisName,etEmail, etBirth,etWorkingPlace,etYear;
     Spinner   spGender;
-    Button    btnNext;
+    View btnNext;
     ImageView ivRegisProfile;
     String id,name,email,gender,birthday;
     SharedPreferences sharedPref;
@@ -46,22 +46,18 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         //TODO:Resize for fragmentation
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int height = displaymetrics.heightPixels;
-        int width = displaymetrics.widthPixels;
-        btnNext.setWidth(width/2);
-        //Click Action
         btnNext.setOnClickListener(this);
 
         //get SharedPref
         sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
         editor = sharedPref.edit();
-        id = sharedPref.getString("id","");
-        name = sharedPref.getString("name","");
-        email = sharedPref.getString("email","");
-        gender = sharedPref.getString("gender","male");
-        birthday = sharedPref.getString("birthday","");
-        editor.putInt("role",ADULT);
-        editor.putString("company",etWorkingPlace.getText().toString());
+        id = sharedPref.getString("id", "");
+        name = sharedPref.getString("name", "");
+        email = sharedPref.getString("email", "");
+        gender = sharedPref.getString("gender", "male");
+        birthday = sharedPref.getString("birthday", "");
+        editor.putInt("role", ADULT);
+        editor.putString("company", etWorkingPlace.getText().toString());
         editor.commit();
 
         etRegisName.setText(name);
@@ -99,16 +95,16 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         etWorkingPlace = (EditText) findViewById(R.id.etWorkingPlace);
         spGender = (Spinner) findViewById(R.id.spGender);
         ivRegisProfile = (ImageView) findViewById(R.id.ivRegisProfile);
-        btnNext = (Button)findViewById(R.id.btnNext);
+        btnNext = findViewById(R.id.btnNext);
         spGender.setOnItemSelectedListener(spGenderlistener);
-
     }
 
 
     @Override
     public void onClick(View v) {
         if(v == btnNext){
-            Intent intent = new Intent(this, InterestActivity.class);
+//            Intent intent = new Intent(this, InterestActivity.class);
+            Intent intent = new Intent(this, DoneRegisterActivity.class);
             startActivity(intent);
         }
     }

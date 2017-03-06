@@ -29,7 +29,7 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
 
     EditText  etRegisName,etEmail, etBirth,etSchool,etYear;
     Spinner   spGender;
-    Button    btnNext;
+    View    btnNext;
     ImageView ivRegisProfile;
     String id,name,email,gender,birthday;
     SharedPreferences sharedPref;
@@ -46,9 +46,6 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         //TODO:Resize for fragmentation
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int height = displaymetrics.heightPixels;
-        int width = displaymetrics.widthPixels;
-        btnNext.setWidth(width/2);
         //Click Action
         btnNext.setOnClickListener(this);
 
@@ -101,7 +98,7 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         etYear = (EditText)findViewById(R.id.etYear);
         spGender = (Spinner) findViewById(R.id.spGender);
         ivRegisProfile = (ImageView) findViewById(R.id.ivRegisProfile);
-        btnNext = (Button)findViewById(R.id.btnNext);
+        btnNext = findViewById(R.id.btnNext);
         spGender.setOnItemSelectedListener(spGenderlistener);
     }
 
@@ -109,7 +106,8 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if(v == btnNext){
-            Intent intent = new Intent(this, InterestActivity.class);
+//            Intent intent = new Intent(this, InterestActivity.class);
+            Intent intent = new Intent(this, DoneRegisterActivity.class);
             startActivity(intent);
         }
     }
