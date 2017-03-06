@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.dao.Location;
 
 /**
  * Created by Kasidit on 05-Nov-15.
@@ -19,24 +20,6 @@ public class NormalPinMapEntity implements IMapEntity {
     private GoogleMap map;
     private MarkerOptions markerOption;
     private boolean visible = true;
-    private int pinType;
-
-    public final static int INFO_POINT_PIN = 0;
-    public final static int LANDMARK_PIN = 1;
-    public final static int POPBUS_STATION_PIN = 2;
-
-    public String toString() {
-        switch (pinType) {
-            case INFO_POINT_PIN:
-                return "Information Pin : " + nameEn;
-            case LANDMARK_PIN:
-                return "Landmark Pin : " + nameEn;
-            case POPBUS_STATION_PIN:
-                return "Popbus Station Pin : " + nameEn;
-            default:
-                return "Normal Pin";
-        }
-    }
 
     @Override
     public boolean isVisible() {
@@ -58,15 +41,15 @@ public class NormalPinMapEntity implements IMapEntity {
         }
     }
 
-    private String nameTh;
-    private String nameEn;
+    private String name;
+    private String type;
 
-    public String getNameEn() {
-        return nameEn;
+    public String getName() {
+        return name;
     }
 
-    public String getNameTh() {
-        return nameTh;
+    public String getType() {
+        return type;
     }
 
     private int markerIconDrawableResource;
@@ -75,33 +58,47 @@ public class NormalPinMapEntity implements IMapEntity {
         return markerIconDrawableResource;
     }
 
-    public NormalPinMapEntity(JSONObject dataJSON, int pinType) {
-        this.pinType = pinType;
-        try {
-            nameTh = dataJSON.getString("nameTh");
-            nameEn = dataJSON.getString("nameEn");
+    public NormalPinMapEntity(String name, Location location, String type) {
+        this.type = type;
+        this.name = name;
 
-            switch (pinType) {
-                case INFO_POINT_PIN:
-//                    markerIconDrawableResource = R.drawable.pin_information;
-                    break;
-                case LANDMARK_PIN:
-//                    markerIconDrawableResource = R.drawable.pin_landmark;
-                    break;
-                case POPBUS_STATION_PIN:
-//                    markerIconDrawableResource = R.drawable.pin_cutour;
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid pinType value.");
-            }
+        switch (type) {
+            case "Canteen":
+                markerIconDrawableResource = R.drawable.food;
+                break;
+            case "Souvenir":
+                markerIconDrawableResource = R.drawable.food;
+                break;
+            case "Registration":
+                markerIconDrawableResource = R.drawable.regis;
+                break;
+            case "Information":
+                markerIconDrawableResource = R.drawable.info;
+                break;
+            case "Toilet":
+                markerIconDrawableResource = R.drawable.toilet;
+                break;
+            case "Rally":
+                markerIconDrawableResource = R.drawable.rally;
+                break;
+            case "Carpark":
+                markerIconDrawableResource = R.drawable.park;
+                break;
+            case "Emergency":
+                markerIconDrawableResource = R.drawable.aid;
+                break;
+            // TODO change to correct drawable
+            case "Prayer":
+                markerIconDrawableResource = R.drawable.aid;
+                break;
 
-            markerOption = new MarkerOptions()
-                    .position(new LatLng(dataJSON.getDouble("lat"), dataJSON.getDouble("lng")))
-                    .visible(isVisible());
-
-        } catch (JSONException ex) {
-            ex.printStackTrace();
+            default:
+                throw new IllegalArgumentException("Invalid pinType value.");
         }
+
+        markerOption = new MarkerOptions()
+                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                .visible(isVisible());
     }
 
     @Override

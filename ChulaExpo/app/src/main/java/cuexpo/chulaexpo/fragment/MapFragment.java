@@ -217,13 +217,13 @@ public class MapFragment extends Fragment implements
                     String type = facility.getType();
                     String name = facility.getName().getTh();
                     cuexpo.chulaexpo.dao.Location location = facility.getLocation();
-//                    if(type.equals("Canteen") || type.equals("Souvenir")) canteenPins.add(new NormalPinMapEntity(name, location, type);
-//                    else if(type.equals("Registration")) infoPins.add(new NormalPinMapEntity(name, location, type);
-//                    else if(type.equals("Information")) infoPins.add(new NormalPinMapEntity(name, location, type);
-//                    else if(type.equals("Toilet")) infoPins.add(new NormalPinMapEntity(name, location, type);
-//                    else if(type.equals("Carpark")) infoPins.add(new NormalPinMapEntity(name, location, type);
-//                    else if(type.equals("Emergency")) infoPins.add(new NormalPinMapEntity(name, location, type);
-//                    else if(type.equals("Prayer")) infoPins.add(new NormalPinMapEntity(name, location, type);
+                    if(type.equals("Canteen") || type.equals("Souvenir")) canteenPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Registration")) infoPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Information")) infoPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Toilet")) infoPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Carpark")) infoPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Emergency")) infoPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Prayer")) infoPins.add(new NormalPinMapEntity(name, location, type));
                     // No rally(place in zone rally) and bus stop
                 }
             } else {
