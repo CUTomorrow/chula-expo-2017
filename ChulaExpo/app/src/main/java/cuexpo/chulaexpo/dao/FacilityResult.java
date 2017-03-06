@@ -20,6 +20,10 @@ public class FacilityResult {
     @Expose
     private Location location;
 
+    @SerializedName("name")
+    @Expose
+    private Name name;
+
     public String getId() {
         return id;
     }
@@ -52,8 +56,4 @@ public class FacilityResult {
         this.name = name;
     }
 
-    @SerializedName("Name")
-
-    @Expose
-    private Name name;
 }

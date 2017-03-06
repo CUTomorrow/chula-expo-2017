@@ -25,9 +25,12 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,21 +38,31 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cuexpo.chulaexpo.MainApplication;
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.dao.FacilityDao;
+import cuexpo.chulaexpo.dao.FacilityDao;
+import cuexpo.chulaexpo.dao.FacilityResult;
+import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.utility.FacultyMapEntity;
 import cuexpo.chulaexpo.utility.IMapEntity;
 import cuexpo.chulaexpo.utility.NormalPinMapEntity;
 import cuexpo.chulaexpo.utility.PopbusRouteMapEntity;
 import cuexpo.chulaexpo.utility.Resource;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MapFragment extends Fragment implements
@@ -69,9 +82,16 @@ public class MapFragment extends Fragment implements
 //    private Application mainApp = getActivity().getApplication();
     HashMap<String, PopbusRouteMapEntity> popbusRoutes = new HashMap<>();
     HashMap<Integer, FacultyMapEntity> faculties = new HashMap<>();
-    ArrayList<NormalPinMapEntity> infoPointsPins = new ArrayList<>();
-    ArrayList<NormalPinMapEntity> landmarksPins = new ArrayList<>();
-    ArrayList<NormalPinMapEntity> cuTourStationPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> eventPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> canteenPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> regisPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> infoPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> toiletPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> rallyPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> carParkPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> emerPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> prayerPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> popBusStationPins = new ArrayList<>();
 
     private void initializeFaculties() {
         try {
@@ -81,20 +101,6 @@ public class MapFragment extends Fragment implements
             for (int i = 0; i < facultiesJSON.length(); i++) {
                 JSONObject facultyData = facultiesJSON.getJSONObject(i);
                 faculties.put(facultyData.getInt("id"), new FacultyMapEntity(facultyData));
-            }
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void initializeCUTourStation() {
-        try {
-            JSONArray cuTourStationJSON = new JSONArray(
-                    getContext().getResources().getString(R.string.jsonCUTourStation)
-            );
-            for (int i = 0; i < cuTourStationJSON.length(); i++) {
-                JSONObject cuTourStationData = cuTourStationJSON.getJSONObject(i);
-                cuTourStationPins.add(new NormalPinMapEntity(cuTourStationData, NormalPinMapEntity.POPBUS_STATION_PIN));
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
@@ -115,12 +121,9 @@ public class MapFragment extends Fragment implements
         }
     }
 
-    private void initializeMapData() {
+    private void initializeMapStaticData() {
         initializeFaculties();
         initializePopbusRoutes();
-//        initializeInfoPoints();
-//        initializeLandmarks();
-        initializeCUTourStation();
     }
 
     @Override
@@ -197,9 +200,46 @@ public class MapFragment extends Fragment implements
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map);
         mapFragment.getMapAsync(this);
-        initializeMapData();
+        initializeMapStaticData();
+
+        Call<FacilityDao> call = HttpManager.getInstance().getService().loadFacilityList();
+        call.enqueue(callbackFacility);
+
         return rootView;
     }
+
+    Callback<FacilityDao> callbackFacility = new Callback<FacilityDao>() {
+        @Override
+        public void onResponse(Call<FacilityDao> call, Response<FacilityDao> response) {
+            if (response.isSuccessful()) {
+                List<FacilityResult> facilities = response.body().getResults();
+                for (FacilityResult facility: facilities) {
+                    String type = facility.getType();
+                    String name = facility.getName().getTh();
+                    cuexpo.chulaexpo.dao.Location location = facility.getLocation();
+//                    if(type.equals("Canteen") || type.equals("Souvenir")) canteenPins.add(new NormalPinMapEntity(name, location, type);
+//                    else if(type.equals("Registration")) infoPins.add(new NormalPinMapEntity(name, location, type);
+//                    else if(type.equals("Information")) infoPins.add(new NormalPinMapEntity(name, location, type);
+//                    else if(type.equals("Toilet")) infoPins.add(new NormalPinMapEntity(name, location, type);
+//                    else if(type.equals("Carpark")) infoPins.add(new NormalPinMapEntity(name, location, type);
+//                    else if(type.equals("Emergency")) infoPins.add(new NormalPinMapEntity(name, location, type);
+//                    else if(type.equals("Prayer")) infoPins.add(new NormalPinMapEntity(name, location, type);
+                    // No rally(place in zone rally) and bus stop
+                }
+            } else {
+                try {
+                    Log.e("fetch error", response.errorBody().string());
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        @Override
+        public void onFailure(Call<FacilityDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private View.OnClickListener showPinListOnClick = new View.OnClickListener() {
         @Override
