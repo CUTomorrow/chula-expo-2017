@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
+            fontPath="@string/font_bold"
             android:text="Q : "
             android:textColor="@android:color/white"
             android:textSize="22sp"
@@ -46,6 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            fontPath="@string/font_bold"
             android:text="A : "
             android:textColor="@android:color/black"
             android:textSize="22sp"

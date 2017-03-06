@@ -119,6 +119,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tvHighlightLabel = (TextView)rootView.findViewById(R.id.tvHighlightLabel);
         highlightListAdapter = new HighlightListAdapter();
         vpHighlight.setAdapter(highlightListAdapter);
+        vpHighlight.setFocusable(false);
         indicatorHighlight.setViewPager(vpHighlight);
         highlightListAdapter.registerDataSetObserver(indicatorHighlight.getDataSetObserver());
 
