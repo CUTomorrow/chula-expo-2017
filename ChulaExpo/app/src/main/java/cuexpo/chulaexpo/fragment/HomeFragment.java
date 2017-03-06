@@ -342,10 +342,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     public JSONObject getCurrentTime(String operator){
-        TimeZone tz = TimeZone.getTimeZone("ICT");
+        TimeZone tz = TimeZone.getTimeZone("Asia/Bangkok");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
         String currentTime = df.format(new Date());
+        Log.d("HomeTime","CurrentTime = "+currentTime);
         JSONObject range = new JSONObject();
         try {
             range.put(operator,currentTime);
