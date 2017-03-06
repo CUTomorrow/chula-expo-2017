@@ -141,7 +141,6 @@ public class MapFragment extends Fragment implements
         infoCard = (CardView) rootView.findViewById(R.id.info_card);
         closeInfoCard = (ImageView) rootView.findViewById(R.id.close_info);
         showFaculty = (ImageView) rootView.findViewById(R.id.show_faculty_city);
-        showLandmark = (ImageView) rootView.findViewById(R.id.show_landmark);
         showInfo = (ImageView) rootView.findViewById(R.id.show_info);
         showInterest = (ImageView) rootView.findViewById(R.id.show_interest);
         showCanteen = (ImageView) rootView.findViewById(R.id.show_canteen);
@@ -163,7 +162,6 @@ public class MapFragment extends Fragment implements
         closeInfoCard.setOnClickListener(closeOCL);
 
         rootView.findViewById(R.id.faculty_city).setOnClickListener(showFacultyOCL);
-        rootView.findViewById(R.id.landmark).setOnClickListener(showLandmarkOCL);
         rootView.findViewById(R.id.info).setOnClickListener(showInfoOCL);
         rootView.findViewById(R.id.interest).setOnClickListener(showInterestOCL);
         rootView.findViewById(R.id.canteen).setOnClickListener(showCanteenOCL);
@@ -226,17 +224,6 @@ public class MapFragment extends Fragment implements
             faculty.setVisible(isVisible);
         }
     }
-
-    private View.OnClickListener showLandmarkOCL = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (showLandmark.isSelected()){
-                showLandmark.setSelected(false);
-            } else {
-                showLandmark.setSelected(true);
-            }
-        }
-    };
 
     private View.OnClickListener showInfoOCL = new View.OnClickListener() {
         @Override
