@@ -6,7 +6,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:background="#ececec">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -14,7 +15,10 @@
             <cuexpo.chulaexpo.view.ExpandableHeightListView
                 android:id="@+id/cities"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></cuexpo.chulaexpo.view.ExpandableHeightListView>
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:divider="#ececec"
+                android:dividerHeight="10dp"></cuexpo.chulaexpo.view.ExpandableHeightListView>
 
         </LinearLayout>
     </ScrollView>

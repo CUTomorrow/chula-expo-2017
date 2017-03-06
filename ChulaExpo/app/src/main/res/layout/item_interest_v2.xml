@@ -3,21 +3,23 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="wrap_content"
         android:id="@+id/interest_item"
         android:layout_margin="5dp">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:src="@drawable/faculty_1"
             android:scaleType="centerCrop"
             android:id="@+id/interest_image" />
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/dim_overlay"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/dim_overlay"
+            />
         <ImageView
             android:layout_width="40dp"
+
             android:layout_height="40dp"
             android:id="@+id/interest_icon"
             android:src="@drawable/cir_mock"
