@@ -51,13 +51,13 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         //get SharedPref
         sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
         editor = sharedPref.edit();
-        id = sharedPref.getString("id","");
-        name = sharedPref.getString("name","");
-        email = sharedPref.getString("email","");
-        gender = sharedPref.getString("gender","male");
-        birthday = sharedPref.getString("birthday","");
-        editor.putInt("role",ADULT);
-        editor.putString("company",etWorkingPlace.getText().toString());
+        id = sharedPref.getString("id", "");
+        name = sharedPref.getString("name", "");
+        email = sharedPref.getString("email", "");
+        gender = sharedPref.getString("gender", "male");
+        birthday = sharedPref.getString("birthday", "");
+        editor.putInt("role", ADULT);
+        editor.putString("company", etWorkingPlace.getText().toString());
         editor.commit();
 
         etRegisName.setText(name);
