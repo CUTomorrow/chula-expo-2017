@@ -236,23 +236,6 @@ public class MapFragment extends Fragment implements
                 initPins(emerPins);
                 initPins(prayerPins);
                 initPins(popBusStationPins);
-
-//                // Add Canteen pins
-//                for (NormalPinMapEntity entry : canteenPins) {
-//                    entry.setMap(googleMap);
-//                    entry.setVisible(false);
-//                }
-//                // Add Register pins
-//                for (NormalPinMapEntity entry : regisPins) {
-//                    entry.setMap(googleMap);
-//                    entry.setVisible(false);
-//                }
-//                // Add Info pins
-//                for (NormalPinMapEntity entry : infoPins) {
-//                    entry.setMap(googleMap);
-//                    entry.setVisible(false);
-//                }
-                Log.d("registrationPins size", ""+regisPins.size());
             } else {
                 try {
                     Log.e("fetch error", response.errorBody().string());
