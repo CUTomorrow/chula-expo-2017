@@ -125,6 +125,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         lvStage = (ExpandableHeightListView) rootView.findViewById(R.id.lvStage);
         lvStage.setExpanded(true);
+        lvStage.setFocusable(false);
         homeStageListAdapter = new HomeStageListAdapter();
         lvStage.setAdapter(homeStageListAdapter);
         lvStage.setOnItemClickListener(lvStageItemClickListener);
@@ -134,6 +135,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         activityListAdapter.setDao(photoListManager.getDao());
         lvActivity.setAdapter(activityListAdapter);
         lvActivity.setExpanded(true);
+        lvActivity.setFocusable(false);
         lvActivity.setOnItemClickListener(lvEventItemClickListener);
 
 //        activityListAdapter.notifyDataSetChanged();
