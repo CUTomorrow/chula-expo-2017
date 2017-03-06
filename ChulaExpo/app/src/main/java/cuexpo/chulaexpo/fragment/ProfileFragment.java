@@ -153,6 +153,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putBoolean("access",access);
         // Save Instance State here
     }
 
@@ -162,6 +163,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @SuppressWarnings("UnusedParameters")
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore Instance State here
+        access = savedInstanceState.getBoolean("access");
     }
 
     @Override
