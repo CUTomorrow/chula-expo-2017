@@ -85,31 +85,32 @@ public class FacultyMapEntity implements IMapEntity {
 
     private int getMarkerIconDrawableResource(int facultyId) {
         Log.d("faculty id", ""+facultyId);
+//        return Resource.getDrawable("pin_"+facultyId);
         switch (facultyId) {
             // Area
             case 0:
                 return R.drawable.pin_23;
             case 1:
-                return R.drawable.pin_21;
+                return R.drawable.pin_1;
             case 2:
-                return R.drawable.pin_21;
+                return R.drawable.pin_2;
             case 3:
-                return R.drawable.pin_21;
+                return R.drawable.pin_3;
             case 4:
-                return R.drawable.pin_21;
+                return R.drawable.pin_4;
             case 5:
-                return R.drawable.pin_21;
+                return R.drawable.pin_4;
             case 6:
-                return R.drawable.pin_21;
+                return R.drawable.pin_4;
             case 7:
-                return R.drawable.pin_21;
+                return R.drawable.pin_4;
             // City
             case 10:
-                return R.drawable.pin_21;
+                return R.drawable.pin_10;
             case 11:
-                return R.drawable.pin_21;
+                return R.drawable.pin_11;
             case 12:
-                return R.drawable.pin_21;
+                return R.drawable.pin_12;
             // Faculty
             case 21:
                 return R.drawable.pin_21;
@@ -144,7 +145,7 @@ public class FacultyMapEntity implements IMapEntity {
             case 35:
                 return R.drawable.pin_35;
             case 36:
-                return R.drawable.pin_37;
+                return R.drawable.pin_36;
             case 37:
                 return R.drawable.pin_37;
             case 38:
@@ -156,9 +157,9 @@ public class FacultyMapEntity implements IMapEntity {
             case 41:
                 return R.drawable.pin_40;
             case 42:
-                return R.drawable.pin_40;
+                return R.drawable.pin_42;
             case 43:
-                return R.drawable.pin_40;
+                return R.drawable.pin_42;
 
             default:
                 throw new IllegalArgumentException("Invalid faculty id : " + facultyId);
