@@ -629,7 +629,6 @@ public class MapFragment extends Fragment implements
 
             for (FacultyMapEntity facultyEntry : faculties.values()) {
                 if (facultyEntry.getMarker().equals(marker)) {
-                    Log.d("faculty", facultyEntry.getNameEn());
                     showInfoCard(facultyEntry.getMarkerIconDrawableResource(),
                             facultyEntry.getType(),
                             facultyEntry.getNameTh(),
