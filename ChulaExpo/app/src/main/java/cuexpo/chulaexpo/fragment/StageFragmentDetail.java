@@ -85,20 +85,13 @@ public class StageFragmentDetail extends Fragment {
 
         JSONObject range = new JSONObject();
         try {
-            String startString = "2017-03-" + day + "T00:00:00.000-0700";
-            String endString = "2017-03-" + day + "T23:59:00.000-0700";
-            /*Date start = new SimpleDateFormat(
-                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(startString);
-            Date end = new SimpleDateFormat(
-                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(endString);
-            System.out.println("DEBUGGGGGGG " + start.toString());*/
+            String startString = "2017-03-" + day + "T00:00:00.000Z";
+            String endString = "2017-03-" + day + "T23:59:00.000Z";
             range.put("gte", startString);
             range.put("lte", endString);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        System.out.println("DEBUGGGGGGG " + range.toString());
 
         Call<ActivityItemCollectionDao> callStageActivity = HttpManager
                 .getInstance().getService().loadActivityByZone(stageId, range.toString(),"start");

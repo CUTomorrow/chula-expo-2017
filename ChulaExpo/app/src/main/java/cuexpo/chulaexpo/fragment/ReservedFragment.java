@@ -98,7 +98,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         back.setOnClickListener(this);
 
         Call<ActivityItemCollectionDao> callReservedList = HttpManager.getInstance().getService().getReservedActivity();
-        callReservedList.enqueue(callbackReservedList);
+        //callReservedList.enqueue(callbackReservedList);
     }
 
     Callback<ActivityItemCollectionDao> callbackReservedList = new Callback<ActivityItemCollectionDao>() {
