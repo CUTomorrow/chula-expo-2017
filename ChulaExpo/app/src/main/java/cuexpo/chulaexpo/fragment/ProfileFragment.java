@@ -174,7 +174,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             } else {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.main_overlay, QRFragment.newInstance());
+                fragmentTransaction.add(R.id.main_overlay, new QRFragment());
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();

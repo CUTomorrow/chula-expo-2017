@@ -2,6 +2,8 @@ package cuexpo.chulaexpo.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -66,10 +68,11 @@ public class EventPageFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v == ivToolbarQR) {
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .add(R.id.event_page_containerQR, new QRFragment().newInstance(), "QRFragment")
-                    .addToBackStack(null)
-                    .commit();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new QRFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     }
 }

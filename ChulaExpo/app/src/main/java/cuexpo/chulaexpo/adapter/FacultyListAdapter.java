@@ -19,78 +19,7 @@ import cuexpo.chulaexpo.view.FacultyListItem;
 /**
  * Created by Administrator on 2/1/2017.
  */
-/*
-public class FacultyListAdapter extends RecyclerView.Adapter<FacultyListAdapter.Holder> {
 
-    ArrayList<FacultyListItem> data;
-
-    public FacultyListAdapter(FacultyListItem item) {
-        data = new ArrayList<FacultyListItem>();
-        data.add(item);
-    }
-
-    public FacultyListAdapter(ArrayList<FacultyListItem> item) {
-        data = new ArrayList<FacultyListItem>();
-        data.addAll(item);
-    }
-
-    public void addFaculty(FacultyListItem item) {
-        data.add(item);
-    }
-
-    public void addFaculty(ArrayList<FacultyListItem> item) {
-        data.addAll(item);
-    }
-
-    @Override
-    public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_faculty, parent, false);
-        Holder faculty = new Holder(item);
-        return faculty;
-    }
-
-    @Override
-    public void onBindViewHolder(Holder holder, int position) {
-        Log.d("bind", "bind data in onBindViewHolder position : " + position);
-        Log.d("bind", "bind data " + data.get(position).getFacultyTitle().getText().toString());
-        FacultyListItem item = data.get(position);
-        holder.facultyItem.setFacultyTitle(item.getFacultyTitle().getText().toString());
-        holder.facultyItem.setFacultyTitleEng(item.getFacultyTitleEng().getText().toString());
-        holder.facultyItem.setFacultyBg(item.getFacultyBg());
-        holder.facultyItem.setFacultyIcon(item.getfacultyIcon());
-        holder.facultyItem.setFacultyTag(item.getFacultyTag().getText().toString(), item.getFacultyTag().getCurrentTextColor(), item.getFacultyTag().getDrawingCacheBackgroundColor());
-        holder.title.setText(item.getFacultyTitle().getText().toString());
-        holder.titleEng.setText(item.getFacultyTitleEng().getText().toString());
-        holder.background.setImageDrawable(item.getFacultyBg());
-        holder.icon.setImageDrawable(item.getfacultyIcon());
-        holder.tag.setText(item.getFacultyTag().getText().toString());
-        holder.tag.setTextColor(item.getFacultyTag().getCurrentTextColor());
-        holder.tag.setBackgroundColor(item.getFacultyTag().getDrawingCacheBackgroundColor());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return data.size();
-    }
-
-    public static class Holder extends RecyclerView.ViewHolder{
-
-        public TextView title, titleEng, tag;
-        public ImageView background, icon;
-
-        public Holder(View itemView) {
-            super(itemView);
-            background = (ImageView) itemView.findViewById(R.id.faculty_bg);
-            icon = (ImageView) itemView.findViewById(R.id.faculty_icon);
-            tag = (TextView) itemView.findViewById(R.id.faculty_tag);
-            title = (TextView) itemView.findViewById(R.id.faculty_title);
-            titleEng = (TextView) itemView.findViewById(R.id.faculty_title_eng);
-        }
-    }
-
-}
-*/
 public class FacultyListAdapter extends BaseAdapter {
 
     public FacultyListAdapter() {
@@ -99,7 +28,7 @@ public class FacultyListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 17;
+        return 23;
     }
 
     @Override
@@ -121,33 +50,168 @@ public class FacultyListAdapter extends BaseAdapter {
             faculty = new FacultyListItem(parent.getContext());
 
         //mock
-        if (position%4 == 0) {
-            faculty.setFacultyBg("1");
-            faculty.setFacultyIcon("0");
-            faculty.setFacultyTag("ENG", Color.WHITE, Color.rgb(156, 11, 16));
-            faculty.setFacultyTitle("วิศวกรรมศาสตร์");
-            faculty.setFacultyTitleEng("Faculty of Engineering");
-        }
-        else if (position%4 == 1) {
-            faculty.setFacultyBg("0");
-            faculty.setFacultyIcon("0");
-            faculty.setFacultyTag("ART", Color.WHITE, Color.rgb(85, 85, 85));
-            faculty.setFacultyTitle("อักษรศาสตร์");
-            faculty.setFacultyTitleEng("Faculty of Arts");
-        }
-        else if (position%4 == 2) {
-            faculty.setFacultyBg("2");
-            faculty.setFacultyIcon("0");
-            faculty.setFacultyTag("SC", Color.GRAY, Color.rgb(254, 198, 1));
-            faculty.setFacultyTitle("วิทยาศาสตร์");
-            faculty.setFacultyTitleEng("Faculty of Science");
-        }
-        else {
-            faculty.setFacultyBg("1");
-            faculty.setFacultyIcon("0");
-            faculty.setFacultyTag("POLSCI", Color.WHITE, Color.BLACK);
-            faculty.setFacultyTitle("รัฐศาสตร์");
-            faculty.setFacultyTitleEng("Faculty of Political Science");
+        switch(position) {
+            case 0:
+                faculty.setFacultyBg(R.drawable.eng_bg);
+                faculty.setFacultyIcon(R.drawable.eng);
+                faculty.setFacultyTag("ENG", Color.WHITE, Color.rgb(128, 0, 0));
+                faculty.setFacultyTitle("วิศวกรรมศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Engineering");
+                break;
+            case 1:
+                faculty.setFacultyBg(R.drawable.arts_bg);
+                faculty.setFacultyIcon(R.drawable.arts);
+                faculty.setFacultyTag("ARTS", Color.WHITE, Color.rgb(153, 153, 153));
+                faculty.setFacultyTitle("อักษรศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Arts");
+                break;
+            case 2:
+                faculty.setFacultyBg(R.drawable.sci_bg);
+                faculty.setFacultyIcon(R.drawable.sci);
+                faculty.setFacultyTag("SCI", Color.GRAY, Color.rgb(255, 222, 00));
+                faculty.setFacultyTitle("วิทยาศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Science");
+                break;
+            case 3:
+                faculty.setFacultyBg(R.drawable.polsci_bg);
+                faculty.setFacultyIcon(R.drawable.polsci);
+                faculty.setFacultyTag("POLSCI", Color.WHITE, Color.BLACK);
+                faculty.setFacultyTitle("รัฐศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Political Science");
+                break;
+            case 4:
+                faculty.setFacultyBg(R.drawable.arch_bg);
+                faculty.setFacultyIcon(R.drawable.arch);
+                faculty.setFacultyTag("ARCH", Color.WHITE, Color.rgb(153, 51, 0));
+                faculty.setFacultyTitle("วิศวกรรมศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Engineering");
+                break;
+            case 5:
+                faculty.setFacultyBg(R.drawable.banshi_bg);
+                faculty.setFacultyIcon(R.drawable.banshi);
+                faculty.setFacultyTag("BANSHI", Color.WHITE, Color.rgb(00, 171, 214));
+                faculty.setFacultyTitle("อักษรศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Arts");
+                break;
+            case 6:
+                faculty.setFacultyBg(R.drawable.edu_bg);
+                faculty.setFacultyIcon(R.drawable.edu);
+                faculty.setFacultyTag("EDU", Color.GRAY, Color.rgb(255, 51, 00));
+                faculty.setFacultyTitle("วิทยาศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Science");
+                break;
+            case 7:
+                faculty.setFacultyBg(R.drawable.commarts_bg);
+                faculty.setFacultyIcon(R.drawable.commarts);
+                faculty.setFacultyTag("C-ARTS", Color.WHITE, Color.rgb(00, 00, 128));
+                faculty.setFacultyTitle("รัฐศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Political Science");
+                break;
+            case 8:
+                faculty.setFacultyBg(R.drawable.econ_bg);
+                faculty.setFacultyIcon(R.drawable.econ);
+                faculty.setFacultyTag("ECON", Color.WHITE, Color.rgb(164, 134, 11));
+                faculty.setFacultyTitle("วิศวกรรมศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Engineering");
+                break;
+            case 9:
+                faculty.setFacultyBg(R.drawable.med_bg);
+                faculty.setFacultyIcon(R.drawable.med);
+                faculty.setFacultyTag("MED", Color.WHITE, Color.rgb(00, 102, 00));
+                faculty.setFacultyTitle("อักษรศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Arts");
+                break;
+            case 10:
+                faculty.setFacultyBg(R.drawable.vet_bg);
+                faculty.setFacultyIcon(R.drawable.vet);
+                faculty.setFacultyTag("VET", Color.GRAY, Color.rgb(102, 204, 204));
+                faculty.setFacultyTitle("วิทยาศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Science");
+                break;
+            case 11:
+                faculty.setFacultyBg(R.drawable.dent_bg);
+                faculty.setFacultyIcon(R.drawable.dent);
+                faculty.setFacultyTag("DENT", Color.WHITE, Color.rgb(57, 25, 122));
+                faculty.setFacultyTitle("รัฐศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Political Science");
+                break;
+            case 12:
+                faculty.setFacultyBg(R.drawable.pham_bg);
+                faculty.setFacultyIcon(R.drawable.pharm);
+                faculty.setFacultyTag("PHARM", Color.WHITE, Color.rgb(102, 204, 204));
+                faculty.setFacultyTitle("วิศวกรรมศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Engineering");
+                break;
+            case 13:
+                faculty.setFacultyBg(R.drawable.law_bg);
+                faculty.setFacultyIcon(R.drawable.law);
+                faculty.setFacultyTag("LAW", Color.WHITE, Color.rgb(139, 139, 139));
+                faculty.setFacultyTitle("อักษรศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Arts");
+                break;
+            case 14:
+                faculty.setFacultyBg(R.drawable.faa_bg);
+                faculty.setFacultyIcon(R.drawable.faa);
+                faculty.setFacultyTag("FAA", Color.GRAY, Color.rgb(196, 28, 28));
+                faculty.setFacultyTitle("วิทยาศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Science");
+                break;
+            case 15:
+                faculty.setFacultyBg(R.drawable.nur_bg);
+                faculty.setFacultyIcon(R.drawable.nur);
+                faculty.setFacultyTag("NUR", Color.WHITE, Color.rgb(255, 00, 00));
+                faculty.setFacultyTitle("รัฐศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Political Science");
+                break;
+            case 16:
+                faculty.setFacultyBg(R.drawable.ahs_bg);
+                faculty.setFacultyIcon(R.drawable.ahs);
+                faculty.setFacultyTag("AHS", Color.WHITE, Color.rgb(204, 153, 255));
+                faculty.setFacultyTitle("วิศวกรรมศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Engineering");
+                break;
+            case 17:
+                faculty.setFacultyBg(R.drawable.psy_bg);
+                faculty.setFacultyIcon(R.drawable.psy);
+                faculty.setFacultyTag("PSY", Color.WHITE, Color.rgb(89, 51, 238));
+                faculty.setFacultyTitle("อักษรศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Arts");
+                break;
+            case 18:
+                faculty.setFacultyBg(R.drawable.spsc_bg);
+                faculty.setFacultyIcon(R.drawable.spsc);
+                faculty.setFacultyTag("SPSC", Color.GRAY, Color.rgb(255, 102, 00));
+                faculty.setFacultyTitle("วิทยาศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Science");
+                break;
+            case 19:
+                faculty.setFacultyBg(R.drawable.sar_bg);
+                faculty.setFacultyIcon(R.drawable.sar);
+                faculty.setFacultyTag("SAR", Color.WHITE, Color.rgb(147, 43, 42));
+                faculty.setFacultyTitle("รัฐศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Political Science");
+                break;
+            case 20:
+                faculty.setFacultyBg(R.drawable.sar_bg);
+                faculty.setFacultyIcon(R.drawable.sar);
+                faculty.setFacultyTag("POLSCI", Color.WHITE, Color.BLACK);
+                faculty.setFacultyTitle("รัฐศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Political Science");
+                break;
+            case 21:
+                faculty.setFacultyBg(R.drawable.sar_bg);
+                faculty.setFacultyIcon(R.drawable.sar);
+                faculty.setFacultyTag("POLSCI", Color.WHITE, Color.BLACK);
+                faculty.setFacultyTitle("รัฐศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Political Science");
+                break;
+            case 22:
+                faculty.setFacultyBg(R.drawable.grad_bg);
+                faculty.setFacultyIcon(R.drawable.grad);
+                faculty.setFacultyTag("GRAD", Color.WHITE, Color.rgb(233, 73, 127));
+                faculty.setFacultyTitle("รัฐศาสตร์");
+                faculty.setFacultyTitleEng("Faculty of Political Science");
+                break;
         }
 
         return faculty;

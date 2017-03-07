@@ -2,12 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuexpo.chulaexpo.fragment.InterestListFragment">
+    tools:context="cuexpo.chulaexpo.fragment.InterestListFragment"
+    android:background="#ececec">
 
     <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+
         android:numColumns="3"
         android:id="@+id/interest_grid"></GridView>
 

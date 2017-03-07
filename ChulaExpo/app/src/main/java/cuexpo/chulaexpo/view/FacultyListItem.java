@@ -111,26 +111,18 @@ public class FacultyListItem extends BaseCustomViewGroup {
     public TextView getFacultyTitle() {return facultyTitle;}
     public TextView getFacultyTitleEng() {return facultyTitleEng;}
 
-    public void setFacultyBg(String imageUrl) {
-        /*Glide.with(getContext())
-                .load(imageUrl)
-                .into(facultyBg);*/
-        //mock
-        this.imageUrl = imageUrl;
-        if (imageUrl == "0") facultyBg.setImageResource(R.drawable.faculty_1);
-        else if (imageUrl == "1") facultyBg.setImageResource(R.drawable.faculty_2);
-        else if (imageUrl == "2") facultyBg.setImageResource(R.drawable.faculty_3);
-        else facultyBg.setImageResource(R.drawable.faculty_2);
+    public void setFacultyBg(int res) {
 
+        facultyBg.setImageResource(res);
     }
 
-    public void setFacultyIcon(String iconUrl) {
+    public void setFacultyIcon(int res) {
         /*Glide.with(getContext())
                 .load(iconUrl)
                 .into(facultyIcon);*/
         //mock
         this.iconUrl = iconUrl;
-        facultyIcon.setImageResource(R.drawable.cir_mock);
+        facultyIcon.setImageResource(res);
     }
 
     public void setFacultyTag(String text, int textColor, int tagColor) {
