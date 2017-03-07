@@ -36,9 +36,6 @@ import cuexpo.chulaexpo.dao.PlaceItemDao;
 import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.utility.DateUtil;
 import cuexpo.chulaexpo.utility.Resource;
-import cuexpo.chulaexpo.view.ActivityListItem;
-import cuexpo.chulaexpo.view.EventListItem;
-import retrofit2.Call;
 
 public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCallback {
     private static LayoutInflater inflater;
@@ -66,6 +63,7 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
 
     @Override
     public int getCount() {
+        if (eventList.size() == 0) return 1;
         return 2 + eventList.size();
     }
 
@@ -148,7 +146,7 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
         googleMap.addMarker(
                 new MarkerOptions()
                         .position(new LatLng(lat, lng))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_21))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.fav))
         );
     }
 }

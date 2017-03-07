@@ -28,7 +28,7 @@ public class FacultyListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 23;
+        return 21;
     }
 
     @Override
@@ -192,20 +192,6 @@ public class FacultyListAdapter extends BaseAdapter {
                 faculty.setFacultyTitleEng("School of Agricultural Resource");
                 break;
             case 20:
-                faculty.setFacultyBg(R.drawable.sar_bg);
-                faculty.setFacultyIcon(R.drawable.sar);
-                faculty.setFacultyTag("POLSCI", Color.WHITE, Color.BLACK);
-                faculty.setFacultyTitle("รัฐศาสตร์");
-                faculty.setFacultyTitleEng("Faculty of Political Science");
-                break;
-            case 21:
-                faculty.setFacultyBg(R.drawable.sar_bg);
-                faculty.setFacultyIcon(R.drawable.sar);
-                faculty.setFacultyTag("POLSCI", Color.WHITE, Color.BLACK);
-                faculty.setFacultyTitle("รัฐศาสตร์");
-                faculty.setFacultyTitleEng("Faculty of Political Science");
-                break;
-            case 22:
                 faculty.setFacultyBg(R.drawable.grad_bg);
                 faculty.setFacultyIcon(R.drawable.grad);
                 faculty.setFacultyTag("GRAD", Color.WHITE, Color.rgb(233, 73, 127));
