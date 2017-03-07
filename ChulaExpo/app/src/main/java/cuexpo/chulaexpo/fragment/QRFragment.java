@@ -24,7 +24,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 /**
  * Created by James on 20/01/2017.
  */
-@SuppressWarnings("unused")
+
 public class QRFragment extends Fragment implements View.OnClickListener {
 
     ImageView ivQRProfile,ivQR, ivClear;
@@ -36,25 +36,10 @@ public class QRFragment extends Fragment implements View.OnClickListener {
     public static final int STUDENT = 1;
     public static final int ADULT = 2;
 
-    public QRFragment() {
-        super();
-    }
-
-    @SuppressWarnings("unused")
-    public static QRFragment newInstance() {
-        QRFragment fragment = new QRFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init(savedInstanceState);
-
-        if (savedInstanceState != null)
-            onRestoreInstanceState(savedInstanceState);
+        init();
     }
 
     @Override
@@ -62,12 +47,19 @@ public class QRFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_qrcode, container, false);
         initInstances(rootView, savedInstanceState);
+        rootView.findViewById(R.id.scan_qr).setOnClickListener(scanQrOCL);
         return rootView;
     }
 
-    private void init(Bundle savedInstanceState) {
-        // Init Fragment level's variable(s) here
+    private View.OnClickListener scanQrOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
+        }
+    };
+
+    private void init() {
+        // Init Fragment level's variable(s) here
         //get SharedPref
         sharedPref = this.getActivity().getSharedPreferences("FacebookInfo", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
@@ -80,8 +72,6 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         } else {
             company = sharedPref.getString("company","");
         }
-
-
     }
 
     private void initInstances(View rootView, Bundle savedInstanceState) {
@@ -110,33 +100,6 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         } catch (Exception e){
 
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    /*
-     * Save Instance State Here
-     */
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // Save Instance State here
-    }
-
-    /*
-     * Restore Instance State Here
-     */
-    @SuppressWarnings("UnusedParameters")
-    private void onRestoreInstanceState(Bundle savedInstanceState) {
-        // Restore Instance State here
     }
 
     @Override

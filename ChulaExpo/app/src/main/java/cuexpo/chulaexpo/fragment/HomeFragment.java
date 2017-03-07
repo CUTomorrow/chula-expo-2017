@@ -337,10 +337,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == ivToolbarQR){
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .add(R.id.containerQR, new QRFragment().newInstance(), "QRFragment")
-                    .addToBackStack(null)
-                    .commit();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new QRFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     }
 
