@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onError(FacebookException e) {
             Log.e("LoginFB", "facebook login failed error" + e.toString());
+            Toast.makeText(Contextor.getInstance().getContext(),"Weak Connection, please check the Internet and reconnect",Toast.LENGTH_SHORT);
         }
     };
 
@@ -108,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("id", object.getString("id"));
                 editor.putString("name", object.getString("name"));
                 editor.putString("email", object.getString("email"));
-                editor.putString("birthday", object.getString("birthday"));
+                //editor.putString("birthday", object.getString("birthday"));
                 editor.putString("gender", object.getString("gender"));
                 editor.apply();
 
@@ -130,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             LoginDao dao = response.body();
                             if(dao.getSuccess()){
-                                Log.d("LoginFB","Success=true");
+                                Log.e("LoginFB","Success=true");
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 LoginActivity.this.startActivity(intent);
                                 LoginActivity.this.finish();
@@ -168,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener guestLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(LoginActivity.this, RoleActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             LoginActivity.this.startActivity(intent);
             LoginActivity.this.finish();
         }
