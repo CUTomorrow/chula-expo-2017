@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cuexpo.chulaexpo.R;
@@ -63,6 +67,7 @@ public class ZoneMainPageFragment extends Fragment {
     private ZoneResult dao;
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
     private ZoneDetailListAdapter adapter;
+    List<ActivityItemResultDao> activities = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,7 +114,7 @@ public class ZoneMainPageFragment extends Fragment {
         @Override
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
-                List<ActivityItemResultDao> activities = response.body().getResults();
+                activities = response.body().getResults();
                 adapter.setEventList(activities);
                 adapter.notifyDataSetChanged();
             } else {
@@ -200,7 +205,7 @@ public class ZoneMainPageFragment extends Fragment {
 
             listView.addHeaderView(listHeader);
             listView.setOnScrollListener(onScrollListener);
-
+            listView.setOnItemClickListener(itemOCL);
             adapter = new ZoneDetailListAdapter(
                     getActivity(),
                     dao.getId(),
@@ -213,6 +218,23 @@ public class ZoneMainPageFragment extends Fragment {
             listView.setAdapter(adapter);
 
             headerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        }
+    };
+
+    private AdapterView.OnItemClickListener itemOCL = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (position >= 2) {
+                String activityId = activities.get(position).getId();
+                SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+                activitySharedPref.edit().putString("EventID", activityId).apply();
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.container, new EventDetailFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
         }
     };
 

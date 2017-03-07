@@ -40,7 +40,7 @@ import cuexpo.chulaexpo.view.ActivityListItem;
 import cuexpo.chulaexpo.view.EventListItem;
 import retrofit2.Call;
 
-public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCallback{
+public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCallback {
     private static LayoutInflater inflater;
     private Context context;
     private String id, type, website, description;
