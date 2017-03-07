@@ -10,6 +10,8 @@ public class InterestItem {
     private boolean interest;
     private String titleEng;
     private String iconUrl;
+    private int imageSrc;
+    private int iconSrc;
 
     public InterestItem(String title, String imageUrl, boolean interest) {
         this.title = title;
@@ -17,12 +19,12 @@ public class InterestItem {
         this.interest = interest;
     }
 
-    public InterestItem(String title, String titleEng, String imageUrl, String iconUrl, boolean interest) {
+    public InterestItem(String title, String titleEng, int imageSrc, int iconSrc, boolean interest) {
         this.title = title;
-        this.imageUrl = imageUrl;
+        this.imageSrc = imageSrc;
         this.interest = interest;
         this.titleEng = titleEng;
-        this.iconUrl = iconUrl;
+        this.iconSrc = iconSrc;
     }
 
     public String getTitle() {
@@ -56,4 +58,14 @@ public class InterestItem {
     public String getIconUrl() { return iconUrl;}
 
     public void setIconUrl(String iconUrl) { this.iconUrl = iconUrl;}
+
+    public int getImageSrc() {return imageSrc;}
+
+    public void setImageSrc(int imageSrc) {this.imageSrc = imageSrc;}
+
+    public int getIconSrc() {return iconSrc;}
+
+    public void setIconSrc(int iconSrc) {this.iconSrc = iconSrc;}
+
+
 }

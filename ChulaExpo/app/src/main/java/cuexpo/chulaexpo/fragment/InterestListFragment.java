@@ -75,25 +75,38 @@ public class InterestListFragment extends Fragment {
         interestItems = new ArrayList<InterestItem>();
 
         String[] title = {
-                "สุขภาพ", "อาหาร", "การเงิน", "กฏหมาย", "ไอเดีย", "ยานพาหนะ", "ภาษา", "การศึกษา",
-                "การแพทย์", "ธรรมชาติ", "คอมพิวเตอร์", "ศิลปะ", "Title", "Title"
+                "พลังงาน", "สังคมผู้สูงอายุ", "ร่างกาย", "จิตใจ", "ประเด็นสังคม", "สิ่งประดิษฐ์", "คุณภาพชีวิต", "อาหารและการเกษตร",
+                "ชุมชน", "ศิลปวัฒนธรรม", "การแพทย์", "เศรษฐกิจ", "การขนส่ง", "เทคโนโลยี", "สิ่งแวดล้อม", "ภูมิปัญญาไทย", "การออกแบบ",
+                "กฎหมาย", "การศึกษา", "พระราชกรณียกิจ", "ความงาม", "สัตว์และพันธุ์พืช", "ภาษาและการสื่อสาร", "กีฬา", "วิทยาศาสตร์",
+                "บันเทิง", "ต่างประเทศ"
         };
 
         String[] titleEng = {
-                "Health", "Food", "Economic", "Law", "Idea", "Vehicle", "Language", "Education",
-                "Medical", "Nature", "Computer", "Arts", "Title", "Title"
+                "Energy", "Ageing Society", "Body","Mind", "Social Issue", "Invention", "Quality of Life", "Food & Agriculture",
+                "Community", "Art & Culture", "Medication", "Economy", "Transportation", "Technology", "Environment",
+                "Thai Wisdom", "Design", "Law", "Education", "Royal Duties", "Beauty",
+                "Life", "Communication", "Sport", "Science", "Entertainment", "International Issue"
         };
 
-        String[] backgroundUrl = {
+        int[] backgroundUrl = {
                 //MOCK ONLY
-                "https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg",
-                "http://www.shedoesthecity.com/wp-content/uploads/files/2015/08/5-Questions-to-Ask-Yourself-When-Building-a-Health-Plan.jpg",
-                "http://morestaurants.org/wp-content/uploads/2016/03/economic-growth.jpg",
-                "http://i.huffpost.com/gen/1720141/images/o-LAW-facebook.jpg"
+                R.drawable.energy_bg, R.drawable.aging_society_bg, R.drawable.body_bg, R.drawable.mind_bg, R.drawable.social_bg,
+                R.drawable.invention_bg, R.drawable.qlt_of_life_bg, R.drawable.food_agriculture_bg, R.drawable.community_bg,
+                R.drawable.art_cult_bg, R.drawable.med_interest_bg, R.drawable.economy_bg, R.drawable.transport_bg, R.drawable.technology_bg,
+                R.drawable.environment_bg, R.drawable.thai_wisdom_bg, R.drawable.design_bg, R.drawable.law_interest_bg, R.drawable.education_bg,
+                R.drawable.royal_duties_bg, R.drawable.beauty_bg, R.drawable.life_bg, R.drawable.communication_bg, R.drawable.sport_bg,
+                R.drawable.science_bg, R.drawable.entertainment_bg, R.drawable.international_issue_bg
 
         };
 
-        String[] iconUrl = {
+        int[] iconUrl = {
+                R.drawable.int_energy, R.drawable.int_aging, R.drawable.int_body, R.drawable.int_mind, R.drawable.int_social_issue,
+                R.drawable.int_invention, R.drawable.int_qlt_of_life, R.drawable.int_food, R.drawable.int_community, R.drawable.int_art_cult,
+                R.drawable.int_med, R.drawable.int_economy, R.drawable.int_transport, R.drawable.int_tech, R.drawable.int_environ,
+                R.drawable.int_thai_wis, R.drawable.int_design, R.drawable.int_law, R.drawable.int_education, R.drawable.int_royal,
+                R.drawable.int_beauty, R.drawable.int_life, R.drawable.int_communication, R.drawable.int_sport, R.drawable.int_science,
+                R.drawable.int_entertainment, R.drawable.int_inter
+
         };
 
         boolean[] isInterest = {
@@ -101,11 +114,15 @@ public class InterestListFragment extends Fragment {
                 false, false, false,
                 false, false, false,
                 false, false, false,
-                false, false
+                false, false, false,
+                false, false, false,
+                false, false, false,
+                false, false, false,
+                false, false, false
         };
 
         for (int i = 0; i<title.length ; i++) {
-            InterestItem interest = new InterestItem(title[i], titleEng[i], backgroundUrl[i%4], null, isInterest[i]);
+            InterestItem interest = new InterestItem(title[i], titleEng[i], backgroundUrl[i], iconUrl[i], isInterest[i]);
             interestItems.add(interest);
         }
 
