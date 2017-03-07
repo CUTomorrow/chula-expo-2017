@@ -19,12 +19,11 @@
 
 
     <ListView
-        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_grey"
-        android:divider="@color/light_grey"
-        android:scrollbars="none" />
+        android:id="@+id/list_view"
+        android:scrollbars="none"
+        android:divider="@color/light_grey" />
 
     <FrameLayout
         android:layout_width="match_parent"
