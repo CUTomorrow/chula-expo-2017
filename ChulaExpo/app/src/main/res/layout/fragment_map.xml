@@ -92,422 +92,607 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        map:cardCornerRadius="16dp"
-        android:layout_height="wrap_content"
         android:id="@+id/pin_list"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/show_hide_pin"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="-200dp"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="-200dp">
+        map:cardCornerRadius="16dp">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="0dp"
-            android:dividerPadding="10dp"
-            android:layout_margin="5dp">
-
-            <!--Faculty-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/faculty_city"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    map:srcCompat="@drawable/selector_map_faculty"
-                    android:id="@+id/show_faculty_city"
-                    android:layout_centerVertical="true"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp" />
-
-                <TextView
-                    android:text="@string/faculty_city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView6"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="@dimen/font_13"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="false"
-                    android:layout_toRightOf="@+id/show_faculty_city"
-                    android:layout_toEndOf="@+id/show_faculty_city"
-                    android:layout_marginTop="-2dp" />
-
-                <TextView
-                    android:text="Faculty/City"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView6"
-                    android:layout_alignLeft="@+id/textView6"
-                    android:layout_alignStart="@+id/textView6"
-                    android:id="@+id/textView7"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_marginTop="-7dp" />
-            </RelativeLayout>
-            <!--Landmark-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/landmark"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    map:srcCompat="@drawable/selector_map_landmark"
-                    android:id="@+id/show_landmark"
-                    android:layout_centerVertical="true"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp" />
-
-                <TextView
-                    android:text="@string/landmark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/landmark_th"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="@dimen/font_13"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="false"
-                    android:layout_toRightOf="@+id/show_landmark"
-                    android:layout_toEndOf="@+id/show_landmark"
-                    android:layout_marginTop="-2dp" />
-
-                <TextView
-                    android:text="Landmark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/landmark_th"
-                    android:layout_alignLeft="@+id/landmark_th"
-                    android:layout_alignStart="@+id/landmark_th"
-                    android:id="@+id/landmark_en"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_marginTop="-7dp"
-                    map:srcCompat="@drawable/selector_map_landmark" />
-            </RelativeLayout>
-
-            <!--Information-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/info"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    map:srcCompat="@drawable/selector_map_info"
-                    android:id="@+id/show_info"
-                    android:layout_centerVertical="true"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp" />
-
-                <TextView
-                    android:text="@string/information"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/info_th"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="@dimen/font_13"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="false"
-                    android:layout_toRightOf="@+id/show_info"
-                    android:layout_toEndOf="@+id/show_info"
-                    android:layout_marginTop="-2dp" />
-
-                <TextView
-                    android:text="Information"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/info_th"
-                    android:layout_alignLeft="@+id/info_th"
-                    android:layout_alignStart="@+id/info_th"
-                    android:id="@+id/info_en"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_marginTop="-7dp"/>
-            </RelativeLayout>
-
-            <!--Interested-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/interest"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    map:srcCompat="@drawable/selector_map_interest"
-                    android:id="@+id/show_interest"
-                    android:layout_centerVertical="true"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp" />
-
-                <TextView
-                    android:text="@string/interested_reserved"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/interest_th"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="@dimen/font_13"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="false"
-                    android:layout_toRightOf="@+id/show_interest"
-                    android:layout_toEndOf="@+id/show_interest"
-                    android:layout_marginTop="-2dp" />
-
-                <TextView
-                    android:text="Interested/Reserved"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/interest_th"
-                    android:layout_alignLeft="@+id/interest_th"
-                    android:layout_alignStart="@+id/interest_th"
-                    android:id="@+id/interest_en"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_marginTop="-7dp"/>
-            </RelativeLayout>
-
-            <!--Canteen-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/canteen"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    map:srcCompat="@drawable/selector_map_canteen"
-                    android:id="@+id/show_canteen"
-                    android:layout_centerVertical="true"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp" />
-
-                <TextView
-                    android:text="@string/canteen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/canteen_th"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="@dimen/font_13"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="false"
-                    android:layout_toRightOf="@+id/show_canteen"
-                    android:layout_toEndOf="@+id/show_canteen"
-                    android:layout_marginTop="-2dp" />
-
-                <TextView
-                    android:text="Canteen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/canteen_th"
-                    android:layout_alignLeft="@+id/canteen_th"
-                    android:layout_alignStart="@+id/canteen_th"
-                    android:id="@+id/canteen_en"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_marginTop="-7dp"/>
-            </RelativeLayout>
-
-            <!--Toilet-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/toilet"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    map:srcCompat="@drawable/selector_map_toilet"
-                    android:id="@+id/show_toilet"
-                    android:layout_centerVertical="true"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp" />
-
-                <TextView
-                    android:text="@string/toilet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/toilet_th"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="@dimen/font_13"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="false"
-                    android:layout_toRightOf="@+id/show_toilet"
-                    android:layout_toEndOf="@+id/show_toilet"
-                    android:layout_marginTop="-2dp" />
-
-                <TextView
-                    android:text="Toilet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/toilet_th"
-                    android:layout_alignLeft="@+id/toilet_th"
-                    android:layout_alignStart="@+id/toilet_th"
-                    android:id="@+id/toilet_en"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_marginTop="-7dp"/>
-            </RelativeLayout>
-
-            <!--Bus Stop-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/bus_stop"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    map:srcCompat="@drawable/selector_map_bus_stop"
-                    android:id="@+id/show_bus_stop"
-                    android:layout_centerVertical="true"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp" />
-
-                <TextView
-                    android:text="@string/bus_stop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bus_stop_th"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="@dimen/font_13"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="false"
-                    android:layout_toRightOf="@+id/show_bus_stop"
-                    android:layout_toEndOf="@+id/show_bus_stop"
-                    android:layout_marginTop="-2dp" />
-
-                <TextView
-                    android:text="Bus Stop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/bus_stop_th"
-                    android:layout_alignLeft="@+id/bus_stop_th"
-                    android:layout_alignStart="@+id/bus_stop_th"
-                    android:id="@+id/bus_stop_en"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_marginTop="-7dp"/>
-            </RelativeLayout>
-
-            <android.support.v7.widget.CardView
-                xmlns:card_view="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
+                android:id="@+id/pop_line"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card_view:cardElevation="0dp"
-                map:cardElevation="0dp"
-                android:elevation="0dp"
-                map:cardBackgroundColor="#f6f6f6"
-                map:cardCornerRadius="10dp">
+                android:layout_alignParentBottom="true"
+                android:padding="5dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textView8"
+                    fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:layout_marginTop="-5dp"
+                    android:text="@string/bus_line"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_13" />
 
-                    <TextView
-                        android:text="@string/bus_line"
-                        fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView8"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_13"
-                        android:layout_marginTop="-5dp" />
+                <ImageView
+                    android:id="@+id/show_bus_line_1"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_below="@+id/textView8"
+                    android:layout_marginTop="3dp"
+                    map:srcCompat="@drawable/selector_map_bus_line_1" />
 
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        map:srcCompat="@drawable/selector_map_bus_line_1"
-                        android:id="@+id/show_bus_line_1"
-                        android:layout_below="@+id/textView8"
-                        android:layout_marginTop="3dp" />
+                <ImageView
+                    android:id="@+id/show_bus_line_2"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignTop="@+id/show_bus_line_1"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@+id/show_bus_line_1"
+                    map:srcCompat="@drawable/selector_map_bus_line_2" />
 
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        map:srcCompat="@drawable/selector_map_bus_line_2"
-                        android:id="@+id/show_bus_line_2"
-                        android:layout_toRightOf="@+id/show_bus_line_1"
-                        android:layout_alignTop="@+id/show_bus_line_1"
-                        android:layout_marginLeft="8dp" />
+                <ImageView
+                    android:id="@+id/show_bus_line_3"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignTop="@+id/show_bus_line_1"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@+id/show_bus_line_2"
+                    map:srcCompat="@drawable/selector_map_bus_line_3" />
 
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        map:srcCompat="@drawable/selector_map_bus_line_3"
-                        android:id="@+id/show_bus_line_3"
-                        android:layout_toRightOf="@+id/show_bus_line_2"
-                        android:layout_alignTop="@+id/show_bus_line_1"
-                        android:layout_marginLeft="8dp" />
+                <ImageView
+                    android:id="@+id/show_bus_line_4"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignTop="@+id/show_bus_line_1"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@+id/show_bus_line_3"
+                    map:srcCompat="@drawable/selector_map_bus_line_4" />
 
 
-                </RelativeLayout>
+            </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/pop_line"
+                android:layout_alignRight="@+id/pop_line"
+                android:overScrollMode="never">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:dividerPadding="10dp"
+                    android:elevation="0dp"
+                    android:orientation="vertical">
+
+                    <!--Faculty-->
+                    <RelativeLayout
+                        android:id="@+id/faculty_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_faculty_city"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_faculty" />
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_faculty_city"
+                            android:layout_toRightOf="@+id/show_faculty_city"
+                            android:text="@string/faculty_city"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/textView6"
+                            android:layout_alignStart="@+id/textView6"
+                            android:layout_below="@+id/textView6"
+                            android:layout_marginTop="-7dp"
+                            android:text="Faculty/City"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Interested-->
+                    <RelativeLayout
+                        android:id="@+id/interest"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_interest"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_interest" />
+
+                        <TextView
+                            android:id="@+id/interest_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_interest"
+                            android:layout_toRightOf="@+id/show_interest"
+                            android:text="@string/interested_reserved"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/interest_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/interest_th"
+                            android:layout_alignStart="@+id/interest_th"
+                            android:layout_below="@+id/interest_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="My Event"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Canteen-->
+                    <RelativeLayout
+                        android:id="@+id/canteen"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_canteen"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_canteen" />
+
+                        <TextView
+                            android:id="@+id/canteen_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_canteen"
+                            android:layout_toRightOf="@+id/show_canteen"
+                            android:text="@string/canteen"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/canteen_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/canteen_th"
+                            android:layout_alignStart="@+id/canteen_th"
+                            android:layout_below="@+id/canteen_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="Canteen"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Registration-->
+                    <RelativeLayout
+                        android:id="@+id/regis"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_regis"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_regis" />
+
+                        <TextView
+                            android:id="@+id/regis_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_regis"
+                            android:layout_toRightOf="@+id/show_regis"
+                            android:text="@string/regis"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/regis_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/regis_th"
+                            android:layout_alignStart="@+id/regis_th"
+                            android:layout_below="@+id/regis_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="Registration"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Information-->
+                    <RelativeLayout
+                        android:id="@+id/info"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_info"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_info" />
+
+                        <TextView
+                            android:id="@+id/info_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_info"
+                            android:layout_toRightOf="@+id/show_info"
+                            android:text="@string/information"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/info_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/info_th"
+                            android:layout_alignStart="@+id/info_th"
+                            android:layout_below="@+id/info_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="Information"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Toilet-->
+                    <RelativeLayout
+                        android:id="@+id/toilet"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_toilet"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_toilet" />
+
+                        <TextView
+                            android:id="@+id/toilet_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_toilet"
+                            android:layout_toRightOf="@+id/show_toilet"
+                            android:text="@string/toilet"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/toilet_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/toilet_th"
+                            android:layout_alignStart="@+id/toilet_th"
+                            android:layout_below="@+id/toilet_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="Toilet"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Rally-->
+                    <RelativeLayout
+                        android:id="@+id/rally"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_rally"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_rally" />
+
+                        <TextView
+                            android:id="@+id/rally_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_rally"
+                            android:layout_toRightOf="@+id/show_rally"
+                            android:text="@string/rally"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/rally_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/rally_th"
+                            android:layout_alignStart="@+id/rally_th"
+                            android:layout_below="@+id/rally_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="Rally"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Car park-->
+                    <RelativeLayout
+                        android:id="@+id/car_park"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_car_park"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_car_park" />
+
+                        <TextView
+                            android:id="@+id/car_park_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_car_park"
+                            android:layout_toRightOf="@+id/show_car_park"
+                            android:text="@string/car_park"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/car_park_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/car_park_th"
+                            android:layout_alignStart="@+id/car_park_th"
+                            android:layout_below="@+id/car_park_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="Car Park"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Emergency-->
+                    <RelativeLayout
+                        android:id="@+id/emer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_emer"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_emer" />
+
+                        <TextView
+                            android:id="@+id/emer_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_emer"
+                            android:layout_toRightOf="@+id/show_emer"
+                            android:text="@string/emer"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/emer_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/emer_th"
+                            android:layout_alignStart="@+id/emer_th"
+                            android:layout_below="@+id/emer_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="Emergency"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Prayer-->
+                    <RelativeLayout
+                        android:id="@+id/prayer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_prayer"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_prayer" />
+
+                        <TextView
+                            android:id="@+id/prayer_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_prayer"
+                            android:layout_toRightOf="@+id/show_prayer"
+                            android:text="@string/prayer"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/prayer_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/prayer_th"
+                            android:layout_alignStart="@+id/prayer_th"
+                            android:layout_below="@+id/prayer_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="Prayer"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--Bus Stop-->
+                    <RelativeLayout
+                        android:id="@+id/bus_stop"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/show_bus_stop"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            map:srcCompat="@drawable/selector_map_bus_stop" />
+
+                        <TextView
+                            android:id="@+id/bus_stop_th"
+                            fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:layout_toEndOf="@+id/show_bus_stop"
+                            android:layout_toRightOf="@+id/show_bus_stop"
+                            android:text="@string/bus_stop"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/bus_stop_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/bus_stop_th"
+                            android:layout_alignStart="@+id/bus_stop_th"
+                            android:layout_below="@+id/bus_stop_th"
+                            android:layout_marginTop="-7dp"
+                            android:text="Bus Stop"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
+
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/info_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        map:cardCornerRadius="8dp"
-        android:id="@+id/info_card"
-        android:visibility="gone">
+        android:visibility="gone"
+        map:cardCornerRadius="8dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp">
 
             <RelativeLayout
+                android:id="@+id/pin_icon_wraper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/pin_icon_wraper"
                 android:layout_centerVertical="true">
 
                 <ImageView
+                    android:id="@+id/pin_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    map:srcCompat="@drawable/pin_21"
-                    android:id="@+id/pin_icon"
                     android:paddingRight="12dp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    map:srcCompat="@drawable/pin_21" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/pin_icon_wraper"
-                android:layout_centerVertical="true">
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/pin_icon_wraper">
 
                 <TextView
-                    android:text="Faculty"
+                    android:id="@+id/facility"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/facility"
+                    android:text="Faculty"
                     android:textSize="15sp" />
 
                 <TextView
-                    android:text="ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์ ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์"
+                    android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/description"
                     android:layout_below="@+id/facility"
-                    android:textSize="@dimen/font_13"
                     android:layout_marginTop="-2dp"
-                    android:textColor="@color/black"
                     android:lineSpacingExtra="-6sp"
-                    android:paddingBottom="4dp" />
+                    android:paddingBottom="4dp"
+                    android:text="ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์ ห้อง iScale 404 ชั้น 4 ตึก 100 ปี วิศวกรรมศาสตร์"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_13" />
             </RelativeLayout>
 
         </RelativeLayout>

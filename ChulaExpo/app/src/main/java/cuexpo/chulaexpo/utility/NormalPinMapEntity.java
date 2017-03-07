@@ -1,5 +1,8 @@
 package cuexpo.chulaexpo.utility;
 
+import android.graphics.Color;
+import android.util.Log;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -10,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.dao.Location;
 
 /**
  * Created by Kasidit on 05-Nov-15.
@@ -19,24 +23,6 @@ public class NormalPinMapEntity implements IMapEntity {
     private GoogleMap map;
     private MarkerOptions markerOption;
     private boolean visible = true;
-    private int pinType;
-
-    public final static int INFO_POINT_PIN = 0;
-    public final static int LANDMARK_PIN = 1;
-    public final static int POPBUS_STATION_PIN = 2;
-
-    public String toString() {
-        switch (pinType) {
-            case INFO_POINT_PIN:
-                return "Information Pin : " + nameEn;
-            case LANDMARK_PIN:
-                return "Landmark Pin : " + nameEn;
-            case POPBUS_STATION_PIN:
-                return "Popbus Station Pin : " + nameEn;
-            default:
-                return "Normal Pin";
-        }
-    }
 
     @Override
     public boolean isVisible() {
@@ -58,15 +44,20 @@ public class NormalPinMapEntity implements IMapEntity {
         }
     }
 
-    private String nameTh;
-    private String nameEn;
+    private String name;
+    private String type;
+    private int color;
 
-    public String getNameEn() {
-        return nameEn;
+    public String getName() {
+        return name;
     }
 
-    public String getNameTh() {
-        return nameTh;
+    public String getType() {
+        return type;
+    }
+
+    public int getColor() {
+        return color;
     }
 
     private int markerIconDrawableResource;
@@ -75,33 +66,58 @@ public class NormalPinMapEntity implements IMapEntity {
         return markerIconDrawableResource;
     }
 
-    public NormalPinMapEntity(JSONObject dataJSON, int pinType) {
-        this.pinType = pinType;
-        try {
-            nameTh = dataJSON.getString("nameTh");
-            nameEn = dataJSON.getString("nameEn");
+    public NormalPinMapEntity(String name, Location location, String type) {
+        this.type = type;
+        this.name = name;
+        Log.d("pin type", type);
+        switch (type) {
+            case "Canteen":
+                Log.d("type is canteen", "true");
+                markerIconDrawableResource = R.drawable.food;
+                color = Color.parseColor("#ff9915");
+                break;
+            case "Souvenir":
+                markerIconDrawableResource = R.drawable.food;
+                color = Color.parseColor("#ff9915");
+                break;
+            case "Registration":
+                markerIconDrawableResource = R.drawable.regis;
+                color = Color.parseColor("#15b345");
+                break;
+            case "Information":
+                markerIconDrawableResource = R.drawable.info;
+                color = Color.parseColor("#01cab9");
+                break;
+            case "Toilet":
+                markerIconDrawableResource = R.drawable.toilet;
+                color = Color.parseColor("#3d93bf");
+                break;
+            case "Rally":
+                markerIconDrawableResource = R.drawable.rally;
+                color = Color.parseColor("#5c4083");
+                break;
+            case "Carpark":
+                markerIconDrawableResource = R.drawable.park;
+                color = Color.parseColor("#3e6b94");
+                break;
+            case "Emergency":
+                markerIconDrawableResource = R.drawable.aid;
+                color = Color.parseColor("#cc0d1f");
+                break;
+            // TODO change to correct drawable
+            case "Prayer":
+                markerIconDrawableResource = R.drawable.aid;
+                color = Color.parseColor("#786043");
+                break;
 
-            switch (pinType) {
-                case INFO_POINT_PIN:
-//                    markerIconDrawableResource = R.drawable.pin_information;
-                    break;
-                case LANDMARK_PIN:
-//                    markerIconDrawableResource = R.drawable.pin_landmark;
-                    break;
-                case POPBUS_STATION_PIN:
-//                    markerIconDrawableResource = R.drawable.pin_cutour;
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid pinType value.");
-            }
-
-            markerOption = new MarkerOptions()
-                    .position(new LatLng(dataJSON.getDouble("lat"), dataJSON.getDouble("lng")))
-                    .visible(isVisible());
-
-        } catch (JSONException ex) {
-            ex.printStackTrace();
+            default:
+                Log.e("invalid pin type", type);
+                throw new IllegalArgumentException("Invalid pinType value.");
         }
+
+        markerOption = new MarkerOptions()
+                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                .visible(isVisible());
     }
 
     @Override
