@@ -1,71 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/register_bg">
+
     <LinearLayout
         android:id="@+id/home_toolbar"
-        android:background="@color/bgPrimary"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:paddingLeft="20dp"
-        android:paddingTop="26dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:text="1"
-            android:textSize="@dimen/title_toolbar_size"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:background="@drawable/shape_circle_register"/>
+        android:layout_height="61dp"
+        android:background="@color/bgPrimary"
+        android:orientation="horizontal"
+        android:paddingLeft="26dp"
+        android:paddingTop="26dp">
+
+        <ImageView
+            android:id="@+id/step"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/step1" />
+
         <TextView
             android:id="@+id/role_toolbar_title"
-            android:text="@string/register_title"
-            android:textSize="@dimen/title_toolbar_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
+            android:layout_gravity="center"
             android:paddingLeft="10dp"
-            android:layout_gravity="center" />
+            android:text="@string/register_title"
+            android:textColor="@color/dark_blue"
+            android:textSize="22sp"
+            fontPath="fonts/ThaiSansNeue-Bold.ttf" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgPrimary">
+        android:layout_marginBottom="95dp"
+        android:layout_marginTop="61dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/blackTransparent"
             android:layout_centerInParent="true"
-            android:padding="10dp"
-            android:layout_margin="20dp">
-            <TextView
-                android:text="@string/role_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="20dp"
-                android:textSize="18dp"
-                style="@style/etRegis"/>
-            <Button
+            android:layout_centerVertical="false"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
                 android:id="@+id/btnStudent"
-                android:text="Student"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                style="@style/buttonPrimaryStyle" />
-            <Button
+                android:layout_width="230dp"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:background="@drawable/shape_round_rec_regis_darkblue_stroke"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ic_student"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/ic_student" />
+
+                <TextView
+                    android:id="@+id/student_txt"
+                    fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_below="@+id/ic_student"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="7dp"
+                    android:text="นักเรียน นิสิต นักศึกษา"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/btnAdult"
-                android:text="Adult"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                style="@style/buttonPrimaryStyle"/>
+                android:layout_width="230dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_round_rec_regis_darkblue_stroke"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ic_adult"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/ic_adult" />
+
+                <TextView
+                    android:id="@+id/adult_txt"
+                    fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_below="@+id/ic_adult"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="7dp"
+                    android:text="บุคคลทั่วไป อาจารย์"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+
         </LinearLayout>
     </RelativeLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/next"
+            fontPath="fonts/ThaiSansNeue-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/shape_round_rec_regis_dark_blue"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="ต่อไป"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/dot"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/dot1" />
+    </LinearLayout>
+
+</RelativeLayout>

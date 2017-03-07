@@ -29,6 +29,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
+import cuexpo.chulaexpo.dao.ActivityItemDao;
 import cuexpo.chulaexpo.dao.ReserveDao;
 import cuexpo.chulaexpo.dao.RoundDao;
 import cuexpo.chulaexpo.manager.DateConversionManager;
@@ -44,23 +46,26 @@ import retrofit2.Response;
 @SuppressWarnings("unused")
 public class ReservedCheckFragment extends Fragment implements View.OnClickListener, Spinner.OnItemSelectedListener {
 
-    ImageView ivClose;
-    LinearLayout btnSave;
-    Spinner spnSelectTime;
-    TextView tvName;
-    RoundDao dao;
-    ReserveDao dao2;
-    int selectedPos;
-    String aid;
+    private ImageView ivClose;
+    private LinearLayout btnSave;
+    private Spinner spnSelectTime;
+    private TextView tvName;
+    private RoundDao dao;
+    private ReserveDao dao2;
+    private int selectedPos;
+    private String aid;
+    private String aName;
 
     public ReservedCheckFragment() {
         super();
     }
 
     @SuppressWarnings("unused")
-    public static ReservedCheckFragment newInstance() {
+    public static ReservedCheckFragment newInstance(String aid, String aName) {
         ReservedCheckFragment fragment = new ReservedCheckFragment();
         Bundle args = new Bundle();
+        args.putString("aid", aid);
+        args.putString("aName", aName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,6 +76,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         init(savedInstanceState);
 
         aid = getArguments().getString("aid", "");
+        aName = getArguments().getString("aName", "");
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
@@ -109,8 +115,9 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             e.printStackTrace();
         }
 
-        String aid = "589b1d9c0028bd37f48906ad";
-        Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, "start",range);
+        //String aid = "589b1d9c0028bd37f48906ad";
+
+        Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, "start", range);
         callRound.enqueue(callbackRound);
 
     }
@@ -120,10 +127,8 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body();
-                /*Toast.makeText(Contextor.getInstance().getContext(),
-                        "RESULT = " + dao.getResults().size(), Toast.LENGTH_LONG).show();
-                */
-                tvName.setText(dao.getResults().get(0).getName().getTh());
+
+                tvName.setText(aName);
 
                 String[] items = new String[dao.getResults().size()];
 

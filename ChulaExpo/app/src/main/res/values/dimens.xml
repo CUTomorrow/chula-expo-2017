@@ -20,5 +20,6 @@
     <dimen name="font_13">18sp</dimen>
     <dimen name="font_12">16sp</dimen>
     <dimen name="font_11">16sp</dimen>
-	<dimen name="profile_margin">2dp</dimen>
+	<dimen name="profile_margin">6dp</dimen>
+    <dimen name="profile_center_margin">3dp</dimen>
 </resources>
