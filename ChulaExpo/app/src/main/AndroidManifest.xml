@@ -22,19 +22,19 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id2" />
 
-        <activity android:name=".activity.SplashScreenActivity">
+        <activity android:name=".activity.SplashScreenActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.LoginActivity" android:screenOrientation="portrait"/>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
-            android:name="com.facebook.CustomTabActivity"
+            android:name="com.facebook.CustomTabActivity" android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -43,16 +43,16 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RoleActivity" />
-        <activity android:name=".activity.RegisAdultActivity" />
-        <activity android:name=".activity.RegisStudentActivity" />
-        <activity android:name=".activity.InterestActivity" />
-        <activity android:name=".activity.DoneRegisterActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.StageActivity" />
-        <activity android:name=".activity.FavouriteActivity" />
-        <activity android:name=".activity.ReservedActivity" />
-        <activity android:name=".adapter.ScannerActivity" />
+        <activity android:name=".activity.RoleActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.RegisAdultActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.RegisStudentActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.InterestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DoneRegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.StageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.FavouriteActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReservedActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".adapter.ScannerActivity" android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="cuexpo.chulaexpo.configuration.GlideConfiguration"

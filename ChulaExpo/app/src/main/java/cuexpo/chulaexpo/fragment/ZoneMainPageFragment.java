@@ -65,6 +65,7 @@ public class ZoneMainPageFragment extends Fragment {
     private TextView title;
     private Fragment fragment;
     private ZoneResult dao;
+    private String zoneId;
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
     private ZoneDetailListAdapter adapter;
     List<ActivityItemResultDao> activities = new ArrayList<>();
@@ -90,22 +91,10 @@ public class ZoneMainPageFragment extends Fragment {
         String zoneName = zoneNameSharedPref.getString("ZoneName", "");
 
         SharedPreferences reverseZoneKeySharedPref = getActivity().getSharedPreferences("ReverseZoneKey", Context.MODE_PRIVATE);
-        String zoneId = reverseZoneKeySharedPref.getString(zoneName, "");
+        zoneId = reverseZoneKeySharedPref.getString(zoneName, "");
 
         Call<ZoneItemDao> call = HttpManager.getInstance().getService().loadZoneById(zoneId);
         call.enqueue(callbackActivity);
-
-        JSONObject range = new JSONObject();
-        try {
-            String startString = "2017-03-" + 15 + "T00:00:00.000Z";
-            String endString = "2017-03-" + 15 + "T23:59:00.000Z";
-            range.put("gte", startString);
-            range.put("lte", endString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Call<ActivityItemCollectionDao> eventCall = HttpManager.getInstance().getService().loadActivityByZone(zoneId, range.toString(), "start");
-        eventCall.enqueue(callbackEvent);
 
         return rootView;
     }
@@ -217,6 +206,18 @@ public class ZoneMainPageFragment extends Fragment {
             );
             listView.setAdapter(adapter);
 
+            JSONObject range = new JSONObject();
+            try {
+                String startString = "2017-03-" + 15 + "T00:00:00.000Z";
+                String endString = "2017-03-" + 15 + "T23:59:00.000Z";
+                range.put("gte", startString);
+                range.put("lte", endString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Call<ActivityItemCollectionDao> eventCall = HttpManager.getInstance().getService().loadActivityByZone(zoneId, range.toString(), "start");
+            eventCall.enqueue(callbackEvent);
+
             headerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
         }
     };
@@ -250,6 +251,5 @@ public class ZoneMainPageFragment extends Fragment {
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };
-
 
 }
