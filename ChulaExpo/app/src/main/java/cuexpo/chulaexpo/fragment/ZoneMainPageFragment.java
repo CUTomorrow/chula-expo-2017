@@ -226,7 +226,7 @@ public class ZoneMainPageFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             if (position >= 2) {
-                String activityId = activities.get(position).getId();
+                String activityId = activities.get(position-2).getId();
                 SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
                 activitySharedPref.edit().putString("EventID", activityId).apply();
 
