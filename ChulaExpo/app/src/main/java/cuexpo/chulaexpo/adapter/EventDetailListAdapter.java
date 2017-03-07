@@ -157,7 +157,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     image.setLayoutParams(imageParam);
                     Glide.with(context)
                             .load("https://staff.chulaexpo.com" + imageUrl)
-                            .placeholder(R.color.blackOverlay)
+                            .placeholder(R.drawable.thumb)
                             .centerCrop()
                             .into(image);
                     pictureLayout.addView(image);
