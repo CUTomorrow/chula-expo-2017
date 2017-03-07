@@ -248,7 +248,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:imeOptions="actionNext"
-                        android:text="4"
+                        android:text="ปริญญาตรี"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
                 </LinearLayout>

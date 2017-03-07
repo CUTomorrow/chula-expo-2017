@@ -92,6 +92,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         etEmail = (EditText)findViewById(R.id.etEmail);
         etBirth = (EditText) findViewById(R.id.etBirth);
         etYear = (EditText)findViewById(R.id.etYear);
+        etCareer = (EditText) findViewById(R.id.etCareer);
         spGender = (Spinner) findViewById(R.id.spGender);
         ivRegisProfile = (ImageView) findViewById(R.id.ivRegisProfile);
         btnNext = findViewById(R.id.btnNext);
