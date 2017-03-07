@@ -124,6 +124,8 @@ public class HighlightListItem extends BaseCustomViewGroup {
     public void setImageUrl(String url){
         Glide.with(getContext())
                 .load(url)
+                .error(R.drawable.banner)
+                .placeholder(R.drawable.banner)
                 .into(ivHighlight);
         /*mock
         if(url.equals("0")) ivHighlight.setImageResource(R.drawable.highlight_vidva_2);
