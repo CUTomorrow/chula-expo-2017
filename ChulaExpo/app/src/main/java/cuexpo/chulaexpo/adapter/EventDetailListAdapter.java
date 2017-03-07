@@ -186,7 +186,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         googleMap.addMarker(
                 new MarkerOptions()
                         .position(new LatLng(lat, lng))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_21))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.fav))
         );
     }
 
