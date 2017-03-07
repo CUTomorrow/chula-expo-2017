@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,12 +29,14 @@ import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import java.io.IOException;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.EventDetailListAdapter;
 import cuexpo.chulaexpo.adapter.ZoneDetailListAdapter;
 import cuexpo.chulaexpo.dao.ActivityItemDao;
 import cuexpo.chulaexpo.dao.ActivityItemResultDao;
 import cuexpo.chulaexpo.dao.ZoneDao;
 import cuexpo.chulaexpo.dao.ZoneResult;
+import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.utility.DateUtil;
 import cuexpo.chulaexpo.utility.Resource;
@@ -45,8 +48,6 @@ public class ZoneMainPageFragment extends Fragment {
 
     private View rootView;
     private ListView listView;
-    private ListView relatedListView;
-    private FrameLayout relatedHeader;
     private ImageView zoneImageView;
     private FrameLayout headerView;
     private View stickyViewSpacer;
@@ -68,8 +69,7 @@ public class ZoneMainPageFragment extends Fragment {
         headerView = (FrameLayout) rootView.findViewById(R.id.header);
         title = (TextView) rootView.findViewById(R.id.title);
 
-        relatedListView = (ListView) rootView.findViewById(R.id.related_list_view);
-        relatedHeader = (FrameLayout) rootView.findViewById(R.id.related_header);
+//
 
         ImageView closeButton = (ImageView) rootView.findViewById(R.id.close_button);
         closeButton.setOnClickListener(closeButtonOnClickListener);
@@ -115,7 +115,7 @@ public class ZoneMainPageFragment extends Fragment {
 //                        .into(zoneImageView);
 //                Log.d("zone", ""+dao.getName());
 //                title.setText(dao.getName().getTh());
-                zoneImageView.setImageResource(R.drawable.faculty_1);
+                zoneImageView.setImageResource(R.drawable.eng_bg);
                 title.setText("Faculty of engineering");
                 ViewTreeObserver vto = headerView.getViewTreeObserver();
                 vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
@@ -150,6 +150,7 @@ public class ZoneMainPageFragment extends Fragment {
                 }
 
                 int imageTopY = stickyViewSpacer.getTop();
+                Log.d("scroll", "im top = " + imageTopY + " : top y = " + topY);
                 headerView.setY(Math.max(0, imageTopY + topY));
                 zoneImageView.setY(topY * 0.5f);
             }
@@ -178,11 +179,13 @@ public class ZoneMainPageFragment extends Fragment {
             ZoneDetailListAdapter adapter = new ZoneDetailListAdapter(getActivity(), dao.getId(),
                     dao.getType(),
                     dao.getWebsite(),
-                    "this is คณะวิศวะ" + "\n" + "fjkewofwoe" + "\n" + "fjkewofwoe" + "\n" + "fjkewofwoe" +"\n" + "fjkewofwoe",
-                    0.0,
-                    0.0
+                    "this is คณะวิศวะ" + "\n" + "fjkewofwoe" + "\n" + "fjkewofwoe" + "\n" + "fjkewofwoe" +"\n" + "fjkewofwoe"
+                            + "\n" + "fjkewofwoe" + "\n" + "fjkewofwoe" + "\n" + "fjkewofwoe" +"\n" + "fjkewofwoe",
+                    13.736918631293552,
+                    100.53314714127805
             );
             listView.setAdapter(adapter);
+
 
             headerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
         }

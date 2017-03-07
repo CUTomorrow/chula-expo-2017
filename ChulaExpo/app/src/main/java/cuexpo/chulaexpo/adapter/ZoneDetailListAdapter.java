@@ -1,14 +1,17 @@
 package cuexpo.chulaexpo.adapter;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +28,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.dao.PlaceItemDao;
 import cuexpo.chulaexpo.manager.HttpManager;
+import cuexpo.chulaexpo.view.ActivityListItem;
+import cuexpo.chulaexpo.view.EventListItem;
 import retrofit2.Call;
 
 public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCallback{
@@ -32,6 +37,9 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
     private Context context;
     private String id, type, website, description;
     public double lat, lng;
+    private FrameLayout relatedHeader;
+
+    private ActivityListItem activityListItem;
 
     public ZoneDetailListAdapter(Context context, String id, String type, String website,
                                   String description, double lat, double lng) {
@@ -43,6 +51,7 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
         this.description = description;
         this.lat = lat;
         this.lng = lng;
+        relatedHeader = (FrameLayout) (inflater.inflate(R.layout.fragment_zone_main_page, null)).findViewById(R.id.related_header);
 //        this.imageUrls = imageUrls;
 
 //        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id);
@@ -52,7 +61,7 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
 
     @Override
     public int getCount() {
-        return 2;
+        return 5;
     }
 
     @Override
@@ -73,35 +82,23 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
         switch (position) {
 
             case 0:
-                convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
+                convertView = inflater.inflate(R.layout.item_zone_detail_detail, null);
                 TextView detail = (TextView) convertView.findViewById(R.id.detail);
                 detail.setText(description);
-                LinearLayout pictureLayout = (LinearLayout) convertView.findViewById(R.id.picture_layout);
-//                if (imageUrls.length == 0) convertView.findViewById(R.id.image_scroll_view).setVisibility(View.GONE);
-//                for(String imageUrl: imageUrls){
-//                    ImageView image = new ImageView(context);
-//                    RelativeLayout.LayoutParams imageParam = new RelativeLayout.LayoutParams(
-//                            dpToPx(44), dpToPx(44));
-//                    image.setLayoutParams(imageParam);
-//                    Glide.with(context)
-//                            .load("http://staff.chulaexpo.com" + imageUrl)
-//                            .placeholder(R.color.blackOverlay)
-//                            .centerCrop()
-//                            .into(image);
-//                    pictureLayout.addView(image);
-//                }
-                break;
-            case 1:
-                convertView = inflater.inflate(R.layout.item_event_detail_map, null);
                 MapView mapView = (MapView) convertView.findViewById(R.id.mapView);
                 mapView.onCreate(null);
                 mapView.onResume();
                 mapView.getMapAsync(this);
                 break;
-            case 2:
-
+            case 1:
+                convertView = relatedHeader;
                 break;
-
+            default:
+                activityListItem = new ActivityListItem(parent.getContext());
+                activityListItem.setNameText("วิศวกรรมศาสตร์");
+                activityListItem.setImageUrl("http://staff.chulaexpo.com" + "/public/img/activity/6a4ddb44ad0cf345e5ecba2e7ef929df1487688136450.jpeg");
+                convertView = activityListItem;
+                break;
         }
         zoneDetailView = convertView;
 

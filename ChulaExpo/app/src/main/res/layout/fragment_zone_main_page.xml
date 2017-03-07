@@ -18,7 +18,7 @@
         android:scaleType="centerCrop"/>
 
 
-    <ListView
+    <cuexpo.chulaexpo.view.ExpandableHeightListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/list_view"
@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             app:srcCompat="@color/light_grey"
             android:id="@+id/imageView5"
-            android:layout_marginBottom="6dp" />
+            android:layout_marginBottom="4dp" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -127,15 +127,6 @@
 
         </RelativeLayout>
     </FrameLayout>
-
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/related_list_view"
-        android:layout_below="@id/related_header"
-        android:scrollbars="none"
-        android:divider="@color/light_grey" />
 
 
     <ImageView
