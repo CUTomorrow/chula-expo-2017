@@ -83,14 +83,8 @@ public class InterestListAdapterNew extends BaseAdapter {
         holder.iconImage = (ImageView) interestView.findViewById(R.id.interest_icon);
 //        ((ImageView) interestView.findViewById(R.id.dim)).setImageResource(R.drawable.dim_overlay);
 
-        Glide.with(context)
-                .load(interestItem.getIconUrl())
-                .placeholder(R.drawable.cir_mock)
-                .into(holder.iconImage);
-        Glide.with(context)
-                .load(interestItem.getImageUrl())
-                .placeholder(R.drawable.faculty_1)
-                .into(holder.interestImage);
+        holder.interestImage.setImageResource(interestItem.getImageSrc());
+        holder.iconImage.setImageResource(interestItem.getIconSrc());
 
         if(interestItem.isInterest()) holder.checkImage.setVisibility(View.VISIBLE);
         else holder.checkImage.setVisibility(View.INVISIBLE);

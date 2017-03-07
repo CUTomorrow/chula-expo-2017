@@ -155,6 +155,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putBoolean("access",access);
         // Save Instance State here
     }
 
@@ -164,6 +165,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @SuppressWarnings("UnusedParameters")
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore Instance State here
+        access = savedInstanceState.getBoolean("access");
     }
 
     @Override
@@ -183,27 +185,35 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (!access) {
                 error();
             } else {
-                Intent intent = new Intent(getActivity(), FavouriteActivity.class);
-                getContext().startActivity(intent);
+                comingSoon();
+                /*Intent intent = new Intent(getActivity(), FavouriteActivity.class);
+                getContext().startActivity(intent);*/
             }
         } else if (v == btnReserved) {
             if (!access) {
                 error();
             } else {
-                Intent intent = new Intent(getActivity(), ReservedActivity.class);
-                getContext().startActivity(intent);
+                comingSoon();
+                /*Intent intent = new Intent(getActivity(), ReservedActivity.class);
+                getContext().startActivity(intent);*/
             }
         } else if (v == btnEdit) {
             if (!access) {
                 error();
+            } else{
+                comingSoon();
             }
         } else if (v == btnSetting) {
             if (!access) {
                 error();
+            } else{
+                comingSoon();
             }
         } else if (v == btnSetting2) {
             if (!access) {
                 error();
+            } else{
+                comingSoon();
             }
         } else if (v == btnFaq) {
             FragmentManager fragmentManager = getFragmentManager();
@@ -267,6 +277,20 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     public void setPlace(String text) {
         tvPlace.setText(text);
+    }
+
+    public void comingSoon() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle("Coming Soon");
+        alert.setMessage("พบกับฟังก์ชันนี้เร็ว ๆ นี้ ...");
+        alert.setCancelable(false);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert2 = alert.create();
+        alert2.show();
     }
 
     public void error() {
