@@ -8,7 +8,7 @@
         \"id\": 1,
         \"nameEn\": \"CU TALK\",
         \"nameTh\": \"CU TALK\",
-        \"type\": \"area\",
+        \"type\": \"Area\",
         \"color\": \"#ff4e9e\",
         \"centerPoint\": { \"lat\": 13.73826, \"lng\": 100.53272 },
         \"areaBorder\": [
@@ -43,7 +43,7 @@
         \"id\": 2,
         \"nameEn\": \"\",
         \"nameTh\": \"นิทรรศการกลาง\",
-        \"type\": \"area\",
+        \"type\": \"Area\",
         \"color\": \"#ff4e9e\",
         \"centerPoint\": { \"lat\": 13.73548, \"lng\": 100.53148 },
         \"areaBorder\": [
@@ -82,7 +82,7 @@
         \"id\": 3,
         \"nameEn\": \"International Forum\",
         \"nameTh\": \"International Forum\",
-        \"type\": \"area\",
+        \"type\": \"Area\",
         \"color\": \"#ff4e9e\",
         \"centerPoint\": { \"lat\": 13.73398, \"lng\": 100.53168 },
         \"areaBorder\": [
@@ -107,7 +107,7 @@
         \"id\": 4,
         \"nameEn\": \"Art Gallery\",
         \"nameTh\": \"Art Gallery\",
-        \"type\": \"area\",
+        \"type\": \"Area\",
         \"color\": \"#ff4e9e\",
         \"centerPoint\": { \"lat\": 13.73946, \"lng\": 100.53193 },
         \"areaBorder\": [
@@ -123,8 +123,8 @@
         \"id\": 5,
         \"nameEn\": \"Market\",
         \"nameTh\": \"ตลาด\",
-        \"type\": \"market\",
-        \"color\": \"#ff4e9e\",
+        \"type\": \"Market\",
+        \"color\": \"#ff9915\",
         \"centerPoint\": { \"lat\": 13.73796, \"lng\": 100.53421 },
         \"areaBorder\": [
             { \"lat\": 13.73875, \"lng\": 100.53426 },
@@ -138,8 +138,8 @@
         \"id\": 6,
         \"nameEn\": \"Sponsor\",
         \"nameTh\": \"ผู้สนับสนุน\",
-        \"type\": \"area\",
-        \"color\": \"#ff4e9e\",
+        \"type\": \"Area\",
+        \"color\": \"#6e7391\",
         \"centerPoint\": { \"lat\": 13.73782, \"lng\": 100.53208 },
         \"areaBorder\": [
             { \"lat\": 13.73812, \"lng\": 100.53206 },
@@ -153,7 +153,7 @@
         \"id\": 7,
         \"nameEn\": \"Sponsor\",
         \"nameTh\": \"ผู้สนับสนุน\",
-        \"type\": \"area\",
+        \"type\": \"Area\",
         \"color\": \"#ff4e9e\",
         \"centerPoint\": { \"lat\": 13.73782, \"lng\": 100.53208 },
         \"areaBorder\": [
@@ -169,7 +169,7 @@
         \"id\": 10,
         \"nameEn\": \"Human City\",
         \"nameTh\": \"Human City\",
-        \"type\": \"city\",
+        \"type\": \"City\",
         \"color\": \"#4a338b\",
         \"centerPoint\": { \"lat\": 13.73901, \"lng\": 100.53089 },
         \"areaBorder\": [
@@ -184,7 +184,7 @@
         \"id\": 11,
         \"nameEn\": \"Health City\",
         \"nameTh\": \"Health City\",
-        \"type\": \"city\",
+        \"type\": \"City\",
         \"color\": \"#71c2a1\",
         \"centerPoint\": { \"lat\": 13.73888, \"lng\": 100.53153 },
         \"areaBorder\": [
@@ -199,7 +199,7 @@
         \"id\": 12,
         \"nameEn\": \"Smart City\",
         \"nameTh\": \"Smart City\",
-        \"type\": \"city\",
+        \"type\": \"City\",
         \"color\": \"#f48a4a\",
         \"centerPoint\": { \"lat\": 13.73819, \"lng\": 100.53109 },
         \"areaBorder\": [
@@ -215,7 +215,7 @@
         \"id\": 21,
         \"nameEn\": \"Faculty of Engineering\",
         \"nameTh\": \"คณะวิศวกรรมศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#800000\",
         \"centerPoint\": { \"lat\": 13.73680, \"lng\": 100.53313 },
         \"areaBorder\": [
@@ -230,7 +230,7 @@
         \"id\": 22,
         \"nameEn\": \"Faculty of Arts\",
         \"nameTh\": \"คณะอักษรศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#999999\",
         \"centerPoint\": { \"lat\": 13.73934, \"lng\": 100.53353 },
         \"areaBorder\": [
@@ -245,7 +245,7 @@
         \"id\": 23,
         \"nameEn\": \"Faculty of Science\",
         \"nameTh\": \"คณะวิทยาศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#ffde00\",
         \"centerPoint\": { \"lat\": 13.73601, \"lng\": 100.53063 },
         \"areaBorder\": [
@@ -262,7 +262,7 @@
         \"id\": 24,
         \"nameEn\": \"Faculty of Political Science\",
         \"nameTh\": \"คณะรัฐศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#000000\",
         \"centerPoint\": { \"lat\": 13.73473, \"lng\": 100.53328 },
         \"areaBorder\": [
@@ -278,7 +278,7 @@
         \"id\": 25,
         \"nameEn\": \"Faculty of Architecture\",
         \"nameTh\": \"คณะสถาปัตยกรรมศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#993300\",
         \"centerPoint\": { \"lat\": 13.73983, \"lng\": 100.53082 },
         \"areaBorder\": [
@@ -293,7 +293,7 @@
         \"id\": 26,
         \"nameEn\": \"Faculty of Commerce and Accountancy\",
         \"nameTh\": \"คณะพาณิชยศาสตร์และการบัญชี\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#00abd6\",
         \"centerPoint\": { \"lat\": 13.73411, \"lng\": 100.53004 },
         \"areaBorder\": [
@@ -308,7 +308,7 @@
         \"id\": 27,
         \"nameEn\": \"Faculty of Education\",
         \"nameTh\": \"คณะครุศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#ff3300\",
         \"centerPoint\": { \"lat\": 13.73724, \"lng\": 100.52851 },
         \"areaBorder\": [
@@ -325,7 +325,7 @@
         \"id\": 28,
         \"nameEn\": \"Faculty of Communication Arts\",
         \"nameTh\": \"คณะนิเทศศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#000080\",
         \"centerPoint\": { \"lat\": 13.73616, \"lng\": 100.52877 },
         \"areaBorder\": [
@@ -344,7 +344,7 @@
         \"id\": 29,
         \"nameEn\": \"Faculty of Economics\",
         \"nameTh\": \"คณะเศรษฐศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#a4860b\",
         \"centerPoint\": { \"lat\": 13.73433, \"lng\": 100.53150 },
         \"areaBorder\": [
@@ -359,7 +359,7 @@
         \"id\": 30,
         \"nameEn\": \"Faculty of Medicine\",
         \"nameTh\": \"คณะแพทย์ศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#006600\",
         \"centerPoint\": { \"lat\": 13.73346, \"lng\": 100.53624 },
         \"areaBorder\": [
@@ -374,7 +374,7 @@
         \"id\": 31,
         \"nameEn\": \"Faculty of Veterinary Science\",
         \"nameTh\": \"คณะสัตวแพทยศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#66cccc\",
         \"centerPoint\": { \"lat\": 13.74239, \"lng\": 100.53418 },
         \"areaBorder\": [
@@ -391,7 +391,7 @@
         \"id\": 20,
         \"nameEn\": \"Faculty of Veterinary Science\",
         \"nameTh\": \"คณะสัตวแพทยศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#66cccc\",
         \"centerPoint\": { \"lat\": 13.74239, \"lng\": 100.53418 },
         \"areaBorder\": [
@@ -406,7 +406,7 @@
         \"id\": 32,
         \"nameEn\": \"Faculty of Dentistry\",
         \"nameTh\": \"คณะทันตแพทยศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#39197a\",
         \"centerPoint\": { \"lat\": 13.74346, \"lng\": 100.53451 },
         \"areaBorder\": [
@@ -429,7 +429,7 @@
         \"id\": 33,
         \"nameEn\": \"Faculty of Phamaceutical Science\",
         \"nameTh\": \"คณะเภสัชศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#66cc33\",
         \"centerPoint\": { \"lat\": 13.74335, \"lng\": 100.53124 },
         \"areaBorder\": [
@@ -458,7 +458,7 @@
         \"id\": 34,
         \"nameEn\": \"Faculty of Law\",
         \"nameTh\": \"คณะนิติศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#000000\",
         \"centerPoint\": { \"lat\": 13.73534, \"lng\": 100.52858 },
         \"areaBorder\": [
@@ -477,7 +477,7 @@
         \"id\": 35,
         \"nameEn\": \"Faculty of Fine and Applied Arts\",
         \"nameTh\": \"คณะศิลปกรรมศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#c41c1c\",
         \"centerPoint\": { \"lat\": 13.73953, \"lng\": 100.53291 },
         \"areaBorder\": [
@@ -496,7 +496,7 @@
         \"id\": 36,
         \"nameEn\": \"Faculty of Nursing\",
         \"nameTh\": \"คณะพยาบาลศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#ff0000\",
         \"centerPoint\": { \"lat\": 13.73874, \"lng\": 100.53265 },
         \"areaBorder\": [
@@ -511,7 +511,7 @@
         \"id\": 37,
         \"nameEn\": \"Faculty of Allied Health Sciences\",
         \"nameTh\": \"คณะสหเวชศาสตร์\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#cc99ff\",
         \"centerPoint\": { \"lat\": 13.73670, \"lng\": 100.53173 },
         \"areaBorder\": [
@@ -526,7 +526,7 @@
         \"id\": 38,
         \"nameEn\": \"Faculty of Psychology\",
         \"nameTh\": \"คณะจิตวิทยา\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#5933ee\",
         \"centerPoint\": { \"lat\": 13.73782, \"lng\": 100.53266 },
         \"areaBorder\": [
@@ -544,7 +544,7 @@
         \"id\": 39,
         \"nameEn\": \"Faculty of Sports Science\",
         \"nameTh\": \"คณะวิทยาศาสตร์การกีฬา\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#ff6600\",
         \"centerPoint\": { \"lat\": 13.73378, \"lng\": 100.53126 },
         \"areaBorder\": [
@@ -559,7 +559,7 @@
         \"id\": 40,
         \"nameEn\": \"The School of Agricultural Resource\",
         \"nameTh\": \"สำนักวิชาทรัพยากรการเกษตร\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#932b2a\",
         \"centerPoint\": { \"lat\": 13.73481, \"lng\": 100.53139 },
         \"areaBorder\": [
@@ -574,7 +574,7 @@
         \"id\": 41,
         \"nameEn\": \"Residence of Chulalongkorn University\",
         \"nameTh\": \"หอพักนิสิตจุฬาลงกรณ์มหาวิทยาลัย\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#991c1a\",
         \"centerPoint\": { \"lat\": 13.73488, \"lng\": 100.53155 },
         \"areaBorder\": [
@@ -589,7 +589,7 @@
         \"id\": 42,
         \"nameEn\": \"Graduate School\",
         \"nameTh\": \"สหสาขาวิชา บัณฑิตวิทยาลัย\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#e9497f\",
         \"centerPoint\": { \"lat\": 13.73484, \"lng\": 100.53119 },
         \"areaBorder\": [
@@ -604,7 +604,7 @@
         \"id\": 43,
         \"nameEn\": \"Center of Learning Network of the Region\",
         \"nameTh\": \"ศูนย์เครือข่ายการเรียนรู้เพื่อภูมิภาค\",
-        \"type\": \"faculty\",
+        \"type\": \"Faculty\",
         \"color\": \"#991c1a\",
         \"centerPoint\": { \"lat\": 13.73487, \"lng\": 100.53094 },
         \"areaBorder\": [
@@ -623,7 +623,7 @@
 [
 	{
 		\"name\": \"1\",
-		\"color\": \"F2423E\",
+		\"color\": \"f3423e\",
 		\"pathway\": [
 			{ \"latitude\": 13.73460, \"longitude\": 100.53173 },
 			{ \"latitude\": 13.73475, \"longitude\": 100.53066 },
@@ -727,7 +727,7 @@
 	},
 	{
 		\"name\": \"2\",
-		\"color\": \"448BCA\",
+		\"color\": \"448ccb\",
 		\"pathway\": [
 			{ \"latitude\": 13.73465, \"longitude\": 100.53170 },
 			{ \"latitude\": 13.73480, \"longitude\": 100.53062 },
@@ -831,7 +831,7 @@
 	},
 	{
 		\"name\": \"3\",
-		\"color\": \"FDCB01\",
+		\"color\": \"7ec360\",
 		\"pathway\": [
 			{ \"latitude\": 13.73458, \"longitude\": 100.53177 },
 			{ \"latitude\": 13.73423, \"longitude\": 100.53418 },
@@ -888,7 +888,7 @@
 	},
     {
 		\"name\": \"4\",
-		\"color\": \"FDCB01\",
+		\"color\": \"edbf44\",
 		\"pathway\": [
 			{ \"latitude\": 13.73458, \"longitude\": 100.53177 },
 			{ \"latitude\": 13.73423, \"longitude\": 100.53418 },

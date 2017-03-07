@@ -334,7 +334,7 @@
                             android:layout_alignStart="@+id/regis_th"
                             android:layout_below="@+id/regis_th"
                             android:layout_marginTop="-7dp"
-                            android:text="Information"
+                            android:text="Registration"
                             android:textColor="@color/black"
                             android:textSize="15sp" />
                     </RelativeLayout>

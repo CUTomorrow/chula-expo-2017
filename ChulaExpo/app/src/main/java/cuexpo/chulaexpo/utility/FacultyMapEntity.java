@@ -88,8 +88,6 @@ public class FacultyMapEntity implements IMapEntity {
 //        return Resource.getDrawable("pin_"+facultyId);
         switch (facultyId) {
             // Area
-            case 0:
-                return R.drawable.pin_23;
             case 1:
                 return R.drawable.pin_1;
             case 2:
@@ -99,11 +97,11 @@ public class FacultyMapEntity implements IMapEntity {
             case 4:
                 return R.drawable.pin_4;
             case 5:
-                return R.drawable.pin_4;
+                return R.drawable.pin_5;
             case 6:
-                return R.drawable.pin_4;
+                return R.drawable.pin_6;
             case 7:
-                return R.drawable.pin_4;
+                return R.drawable.pin_6;
             // City
             case 10:
                 return R.drawable.pin_10;

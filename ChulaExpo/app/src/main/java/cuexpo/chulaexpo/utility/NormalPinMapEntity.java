@@ -1,5 +1,6 @@
 package cuexpo.chulaexpo.utility;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -45,6 +46,7 @@ public class NormalPinMapEntity implements IMapEntity {
 
     private String name;
     private String type;
+    private int color;
 
     public String getName() {
         return name;
@@ -52,6 +54,10 @@ public class NormalPinMapEntity implements IMapEntity {
 
     public String getType() {
         return type;
+    }
+
+    public int getColor() {
+        return color;
     }
 
     private int markerIconDrawableResource;
@@ -68,31 +74,40 @@ public class NormalPinMapEntity implements IMapEntity {
             case "Canteen":
                 Log.d("type is canteen", "true");
                 markerIconDrawableResource = R.drawable.food;
+                color = Color.parseColor("#ff9915");
                 break;
             case "Souvenir":
                 markerIconDrawableResource = R.drawable.food;
+                color = Color.parseColor("#ff9915");
                 break;
             case "Registration":
                 markerIconDrawableResource = R.drawable.regis;
+                color = Color.parseColor("#15b345");
                 break;
             case "Information":
                 markerIconDrawableResource = R.drawable.info;
+                color = Color.parseColor("#01cab9");
                 break;
             case "Toilet":
                 markerIconDrawableResource = R.drawable.toilet;
+                color = Color.parseColor("#3d93bf");
                 break;
             case "Rally":
                 markerIconDrawableResource = R.drawable.rally;
+                color = Color.parseColor("#5c4083");
                 break;
             case "Carpark":
                 markerIconDrawableResource = R.drawable.park;
+                color = Color.parseColor("#3e6b94");
                 break;
             case "Emergency":
                 markerIconDrawableResource = R.drawable.aid;
+                color = Color.parseColor("#cc0d1f");
                 break;
             // TODO change to correct drawable
             case "Prayer":
                 markerIconDrawableResource = R.drawable.aid;
+                color = Color.parseColor("#786043");
                 break;
 
             default:

@@ -637,9 +637,34 @@ public class MapFragment extends Fragment implements
                     return true;
                 }
             }
+            setPinOnClick(canteenPins, marker);
+            setPinOnClick(regisPins, marker);
+            setPinOnClick(infoPins, marker);
+            setPinOnClick(toiletPins, marker);
+            setPinOnClick(rallyPins, marker);
+            setPinOnClick(carParkPins, marker);
+            setPinOnClick(emerPins, marker);
+            setPinOnClick(prayerPins, marker);
+            setPinOnClick(popBusStationPins, marker);
+
             return true;
         }
     };
+
+    public boolean setPinOnClick(List<NormalPinMapEntity> entries, Marker marker) {
+        for (NormalPinMapEntity entry : entries) {
+            if (entry.getMarker().equals(marker)) {
+                showInfoCard(entry.getMarkerIconDrawableResource(),
+                        entry.getType(),
+                        entry.getName(),
+                        -1,
+                        entry.getColor());
+                return true;
+            }
+        }
+        return true;
+    }
+
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         return Math.round(dp * ((float)displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
