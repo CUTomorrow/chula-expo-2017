@@ -63,8 +63,8 @@ public interface ApiService {
     @GET("/api/zones/{zid}")
     Call<ZoneItemDao> loadZoneById(@Path("zid") String zid);
 
-    @GET("api/me/reserved")
-    Call<ActivityItemCollectionDao> getReservedActivity();
+    @GET("api/me/reserved_rounds")
+    Call<RoundDao> getReservedActivity();
 
     @GET("/api/places/{pid}")
     Call<PlaceItemDao> loadPlaceItem(@Path("pid") String pid);

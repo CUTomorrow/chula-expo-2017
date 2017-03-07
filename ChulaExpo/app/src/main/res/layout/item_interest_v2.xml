@@ -9,14 +9,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/faculty_1"
+            android:src="@drawable/communication_bg"
             android:scaleType="centerCrop"
             android:id="@+id/interest_image" />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dim_overlay"
-            />
         <ImageView
             android:layout_width="40dp"
 
