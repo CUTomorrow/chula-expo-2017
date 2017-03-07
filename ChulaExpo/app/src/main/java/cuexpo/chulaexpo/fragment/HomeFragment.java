@@ -185,13 +185,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 //get SharedPref
                 sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
                 editor = sharedPref.edit();
+                SharedPreferences reverseZoneKeySharedPref = getActivity().getSharedPreferences("ReverseZoneKey", Context.MODE_PRIVATE);
+                SharedPreferences.Editor reverseZoneKeyEditor = reverseZoneKeySharedPref.edit();
+
                 for(int i=0;i<dao.getResults().size();i++){
                     ZoneResult zone = dao.getResults().get(i);
-                    editor.putString(zone.getId(),zone.getShortName().getEn());
+                    editor.putString(zone.getId(), zone.getShortName().getEn());
+                    reverseZoneKeyEditor.putString(zone.getShortName().getEn(), zone.getId());
                     if(zone.getType().equals("Stage")){
-                        Log.d("StageHome",zone.getId());
+                        Log.d("StageHome", zone.getId());
                         stageObjId.add(zone.getId());
-                        editor.putString(zone.getId(),zone.getShortName().getTh());
+                        editor.putString(zone.getId(), zone.getShortName().getTh());
                     }
                 }
                 Log.d("StageHome","stage size = " + stageObjId.size());
