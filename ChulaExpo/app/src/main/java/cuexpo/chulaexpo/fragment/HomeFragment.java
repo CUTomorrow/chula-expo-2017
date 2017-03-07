@@ -318,13 +318,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            Intent intent = new Intent(getContext(), EventDetailActivity.class);
-//            startActivity(intent);
             String activityId = activityListAdapter.getItem(position).getId();
-            String zone = activityListAdapter.getItem(position).getZone();
             SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
             activitySharedPref.edit().putString("EventID", activityId).apply();
-            activitySharedPref.edit().putString("Zone", zone).apply();
 
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -337,10 +333,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == ivToolbarQR){
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .add(R.id.containerQR,new QRFragment().newInstance(), "QRFragment")
-                    .addToBackStack(null)
-                    .commit();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new QRFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     }
 

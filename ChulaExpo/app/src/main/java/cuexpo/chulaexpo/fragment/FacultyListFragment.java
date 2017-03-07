@@ -75,50 +75,6 @@ public class FacultyListFragment extends Fragment {
         faculty.setOnItemClickListener(facultyItemListener);
 
 
-        //**** MOCK *******//
-        ArrayList<FacultyListItem> data = new ArrayList<>();
-        for (int position = 0; position < 17; position++) {
-            FacultyListItem faculty = new FacultyListItem(this.getContext());
-            if (position%4 == 0) {
-                faculty.setFacultyBg("1");
-                faculty.setFacultyIcon("0");
-                faculty.setFacultyTag("ENG", Color.WHITE, Color.rgb(156, 11, 16));
-                faculty.setFacultyTitle("วิศวกรรมศาสตร์");
-                faculty.setFacultyTitleEng("Faculty of Engineering");
-            }
-            else if (position%4 == 1) {
-                faculty.setFacultyBg("0");
-                faculty.setFacultyIcon("0");
-                faculty.setFacultyTag("ART", Color.WHITE, Color.rgb(85, 85, 85));
-                faculty.setFacultyTitle("อักษรศาสตร์");
-                faculty.setFacultyTitleEng("Faculty of Arts");
-            }
-            else if (position%4 == 2) {
-                faculty.setFacultyBg("2");
-                faculty.setFacultyIcon("0");
-                faculty.setFacultyTag("SC", Color.GRAY, Color.rgb(254, 198, 1));
-                faculty.setFacultyTitle("วิทยาศาสตร์");
-                faculty.setFacultyTitleEng("Faculty of Science");
-            }
-            else {
-                faculty.setFacultyBg("1");
-                faculty.setFacultyIcon("0");
-                faculty.setFacultyTag("POLSCI", Color.WHITE, Color.BLACK);
-                faculty.setFacultyTitle("รัฐศาสตร์");
-                faculty.setFacultyTitleEng("Faculty of Political Science");
-            }
-            data.add(faculty);
-            // TODO: remove log
-            Log.d("data", "init data " + position);
-        }
-        //**** END OF MOCK ******//
-//        facultyView = (RecyclerView) rootView.findViewById(R.id.faculty_grid);
-//        layoutManager = new GridLayoutManager(this.getContext(), 2);
-//        adapter = new FacultyListAdapter(data);
-//        facultyView.setAdapter(adapter);
-//        facultyView.setLayoutManager(layoutManager);
-//
-
     }
 
     @Override

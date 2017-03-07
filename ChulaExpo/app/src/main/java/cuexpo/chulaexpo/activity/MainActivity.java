@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onBackPressed() {
+        Log.d("backPressed", "back stack = " + getSupportFragmentManager().getBackStackEntryCount());
         if(getSupportFragmentManager().getBackStackEntryCount()>0){
             getSupportFragmentManager().popBackStack();
         } else {

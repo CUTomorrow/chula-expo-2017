@@ -18,7 +18,7 @@ import cuexpo.chulaexpo.R;
 
 public class CityListItem extends BaseCustomViewGroup {
 
-    TextView cityTitle, numberOfEvents, cityTag;
+    TextView cityTitle, cityTag;
     ImageView cityBg;
     ImageView cityIcon;
 
@@ -59,7 +59,6 @@ public class CityListItem extends BaseCustomViewGroup {
         // TODO: remove log
         Log.d("init", "init CITY");
         cityTitle = (TextView) findViewById(R.id.city_title);
-        numberOfEvents = (TextView) findViewById(R.id.number_of_events);
         cityTag = (TextView) findViewById(R.id.city_tag);
         cityBg = (ImageView) findViewById(R.id.city_background);
         cityIcon = (ImageView) findViewById(R.id.city_icon);
@@ -103,7 +102,6 @@ public class CityListItem extends BaseCustomViewGroup {
 
     public void setCityTitle(String cityTitle) { this.cityTitle.setText(cityTitle);}
 
-    public void setNumberOfEvents(String numberOfEvents) { this.numberOfEvents.setText(numberOfEvents); }
 
     public void setCityTag(String tag, int textColor, int tagBg) {
         this.cityTag.setText(tag);
@@ -111,19 +109,18 @@ public class CityListItem extends BaseCustomViewGroup {
         this.cityTag.setBackgroundColor(tagBg);
     }
 
-    public void setCityIcon(String iconUrl) {
+    public void setCityIcon(int res) {
         /*Glide.with(getContext())
                 .load(iconUrl)
                 .into(cityIcon);*/
-        cityIcon.setImageResource(R.drawable.cir_mock);
+        cityIcon.setImageResource(res);
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(int res) {
         /*Glide.with(getContext())
                 .load(imageUrl)
                 .into(bgImage);*/
-        if (imageUrl == "0") cityBg.setImageResource(R.drawable.city_1);
-        else cityBg.setImageResource(R.drawable.city_2);
+        cityBg.setImageResource(res);
     }
 
 }
