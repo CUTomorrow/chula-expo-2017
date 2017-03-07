@@ -3,6 +3,7 @@ package cuexpo.chulaexpo.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -100,9 +101,31 @@ public class CityListFragment extends Fragment {
     AdapterView.OnItemClickListener cityItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String zoneId = cityListAdapter.getItem(position).toString();
             SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Zone", Context.MODE_PRIVATE);
-            activitySharedPref.edit().putString("ZoneID", zoneId).apply();
+
+            switch(position) {
+                case 0:
+                    activitySharedPref.edit().putString("ZoneName", "SMART").apply();
+                    break;
+                case 1:
+                    activitySharedPref.edit().putString("ZoneName", "HEALTH").apply();
+                    break;
+                case 2:
+                    activitySharedPref.edit().putString("ZoneName", "HUMAN").apply();
+                    break;
+                case 3:
+                    activitySharedPref.edit().putString("ZoneName", "HALL").apply();
+                    break;
+                case 4:
+                    activitySharedPref.edit().putString("ZoneName", "SALA").apply();
+                    break;
+                case 5:
+                    activitySharedPref.edit().putString("ZoneName", "ART").apply();
+                    break;
+                case 6:
+                    activitySharedPref.edit().putString("ZoneName", "INTERFORUM").apply();
+                    break;
+            }
 
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

@@ -20,10 +20,6 @@ import cuexpo.chulaexpo.view.CityListItem;
 
 public class CityListAdapter extends BaseAdapter {
 
-    public CityListAdapter() {
-
-    }
-
     @Override
     public int getCount() {
         return 7;
@@ -31,13 +27,7 @@ public class CityListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        String itemId;
-        switch(position) {
-            case 0: itemId = ""+(R.string.ID_eng_faculty); break;
-            default : itemId = ""+0; break;
-        }
         return ""+R.string.ID_eng_faculty;
-
     }
 
     @Override

@@ -200,6 +200,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 Log.d("StageHome","stage size = " + stageObjId.size());
                 editor.commit();
+                reverseZoneKeyEditor.commit();
                 for(int k=0;k<stageObjId.size();k++){
                     if(k==0) firstStage = true;
                     Call<ActivityItemCollectionDao> callActivityOfStage = HttpManager.getInstance().getService()
