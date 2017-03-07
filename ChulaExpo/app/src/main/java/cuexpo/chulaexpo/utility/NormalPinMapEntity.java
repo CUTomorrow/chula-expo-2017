@@ -69,7 +69,6 @@ public class NormalPinMapEntity implements IMapEntity {
     public NormalPinMapEntity(String name, Location location, String type) {
         this.type = type;
         this.name = name;
-        Log.d("pin type", type);
         switch (type) {
             case "Canteen":
                 Log.d("type is canteen", "true");
@@ -77,7 +76,7 @@ public class NormalPinMapEntity implements IMapEntity {
                 color = Color.parseColor("#ff9915");
                 break;
             case "Souvenir":
-                markerIconDrawableResource = R.drawable.food;
+                markerIconDrawableResource = R.drawable.shop;
                 color = Color.parseColor("#ff9915");
                 break;
             case "Registration":
@@ -101,13 +100,16 @@ public class NormalPinMapEntity implements IMapEntity {
                 color = Color.parseColor("#3e6b94");
                 break;
             case "Emergency":
-                markerIconDrawableResource = R.drawable.aid;
+                markerIconDrawableResource = R.drawable.emer;
                 color = Color.parseColor("#cc0d1f");
                 break;
-            // TODO change to correct drawable
             case "Prayer":
-                markerIconDrawableResource = R.drawable.aid;
+                markerIconDrawableResource = R.drawable.pray;
                 color = Color.parseColor("#786043");
+                break;
+            case "BusStop":
+                markerIconDrawableResource = R.drawable.bus;
+                color = Color.parseColor("#ff2977");
                 break;
 
             default:
