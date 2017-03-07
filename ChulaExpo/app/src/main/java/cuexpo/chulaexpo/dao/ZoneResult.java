@@ -40,6 +40,9 @@ public class ZoneResult {
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
+    @SerializedName("banner")
+    @Expose
+    private String banner;
 
     public String getId() {
         return id;
@@ -128,5 +131,9 @@ public class ZoneResult {
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
+
+    public String getBanner() { return banner; }
+
+    public void setBanner(String banner) {this.banner = banner; }
 
 }

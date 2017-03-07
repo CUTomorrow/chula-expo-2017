@@ -66,4 +66,12 @@
     <string name="profile_button_6">เกี่ยวกับ จุฬา Expo</string>
     <string name="profile_button_7">ออกจากระบบ</string>
 
+    <!--Zone main page-->
+    <string name="related_event_header_text">RELATED EVENT</string>
+    <string name="Related_event_header_text_th">Events ที่เกี่ยวข้องทั้งหมด</string>
+
+    <!--Zone ID-->
+    <!--Faculty-->
+    <string name="ID_eng_faculty">5899a98a5eeecd3698f6cfc6</string>
+    <!--City-->
 </resources>
