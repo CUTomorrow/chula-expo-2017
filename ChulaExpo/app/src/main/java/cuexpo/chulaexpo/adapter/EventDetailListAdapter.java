@@ -145,7 +145,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                             dpToPx(44), dpToPx(44));
                     image.setLayoutParams(imageParam);
                     Glide.with(context)
-                            .load("http://staff.chulaexpo.com" + imageUrl)
+                            .load("https://staff.chulaexpo.com" + imageUrl)
                             .placeholder(R.color.blackOverlay)
                             .centerCrop()
                             .into(image);

@@ -1,6 +1,7 @@
 <resources>
     <!--facebook-->
     <string name="facebook_app_id">252924075145357</string>
+    <string name="facebook_app_id2">1382748031758385</string>
     <string name="fb_login_protocol_scheme">fb252924075145357</string>
     <!-- login -->
     <string name="login_fb">LOGIN WITH FACEBOOK</string>

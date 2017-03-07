@@ -16,6 +16,11 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id2" />
+
         <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +47,6 @@
         <activity android:name=".activity.RegisStudentActivity" />
         <activity android:name=".activity.InterestActivity" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.EventDetailActivity" />
         <activity android:name=".activity.FavouriteActivity" />
         <activity android:name=".activity.ReservedActivity" />
 
@@ -55,9 +59,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAY84UvXm-fLC6xkNN6tq9I30XAhKrQ124" />
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
 
         <activity android:name=".activity.StageActivity" />
     </application>

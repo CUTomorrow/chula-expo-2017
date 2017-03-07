@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.dao.ActivityItemDao;
-import cuexpo.chulaexpo.dao.ActivityItemResultDao;
+import cuexpo.chulaexpo.dao.LoginDao;
 import cuexpo.chulaexpo.dao.PlaceItemDao;
 import cuexpo.chulaexpo.dao.ReserveDao;
 import cuexpo.chulaexpo.dao.RoundDao;
@@ -69,5 +69,8 @@ public interface ApiService {
 
 //    @GET("/api/rooms/{rid}")
 //    Call<RoomItemDao> loadRoomItem(@Path("rid") String rid);
+
+    @GET("/auth/facebook/token")
+    Call<LoginDao> accessFacebook(@Query("access_token") String accessToken);
 
 }
