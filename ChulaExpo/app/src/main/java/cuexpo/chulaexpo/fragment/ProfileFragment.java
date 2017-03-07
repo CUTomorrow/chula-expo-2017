@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
+
 import org.w3c.dom.Text;
 
 import cuexpo.chulaexpo.R;
@@ -239,6 +241,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             editor.putString("company", "");
             editor.putInt("role", 0);
             editor.commit();
+            LoginManager.getInstance().logOut();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
             getActivity().finish();

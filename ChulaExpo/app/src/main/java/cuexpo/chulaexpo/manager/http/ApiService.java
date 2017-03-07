@@ -6,15 +6,21 @@ import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
 import cuexpo.chulaexpo.dao.ActivityItemDao;
 import cuexpo.chulaexpo.dao.ActivityItemResultDao;
 import cuexpo.chulaexpo.dao.FacilityDao;
+import cuexpo.chulaexpo.dao.LoginDao;
 import cuexpo.chulaexpo.dao.PlaceItemDao;
 import cuexpo.chulaexpo.dao.ReserveDao;
 import cuexpo.chulaexpo.dao.RoundDao;
 
+import cuexpo.chulaexpo.dao.Token;
+import cuexpo.chulaexpo.dao.UserProfile;
 import cuexpo.chulaexpo.dao.ZoneDao;
 import cuexpo.chulaexpo.dao.ZoneItemDao;
 import cuexpo.chulaexpo.dao.ZoneResult;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -63,7 +69,7 @@ public interface ApiService {
     @GET("/api/zones/{zid}")
     Call<ZoneItemDao> loadZoneById(@Path("zid") String zid);
 
-    @GET("api/me/reserved_rounds")
+    @GET("/api/me/reserved_rounds")
     Call<RoundDao> getReservedActivity();
 
     @GET("/api/places/{pid}")
@@ -74,5 +80,11 @@ public interface ApiService {
 
 //    @GET("/api/rooms/{rid}")
 //    Call<RoomItemDao> loadRoomItem(@Path("rid") String rid);
+
+    @GET("/auth/facebook/token")
+    Call<LoginDao> accessFacebook(@Query("access_token") String accessToken);
+
+    @POST("/api/signup")
+    Call<LoginDao> registerUser(@Body UserProfile userProfile);
 
 }

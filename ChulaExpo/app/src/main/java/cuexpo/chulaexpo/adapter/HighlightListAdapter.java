@@ -41,7 +41,7 @@ public class HighlightListAdapter extends PagerAdapter {
         ActivityItemResultDao result = dao.getResults().get(position);
         item.setNameText(result.getName().getTh());
         item.setDescriptionText(result.getShortDescription().getTh());
-        item.setImageUrl("http://staff.chulaexpo.com" + result.getBanner());
+        item.setImageUrl("https://staff.chulaexpo.com" + result.getBanner());
         /*mock highlight
         if(position%3==0){
             item.setNameText("ละครนิทรรศ 17");

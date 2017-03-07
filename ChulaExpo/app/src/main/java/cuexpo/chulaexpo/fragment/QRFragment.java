@@ -37,11 +37,20 @@ public class QRFragment extends Fragment implements View.OnClickListener {
     TextView tvQRName, tvQRPersonalInfo;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    String id,name,year,school,company;
-    int role;
-    public static final int STUDENT = 1;
-    public static final int ADULT = 2;
+    String id,name,year,school,workerJob,type;
     private final static int REQUEST_QR = 0;
+
+    public QRFragment() {
+        super();
+    }
+
+    @SuppressWarnings("unused")
+    public static QRFragment newInstance() {
+        QRFragment fragment = new QRFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,12 +117,12 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         editor = sharedPref.edit();
         id = sharedPref.getString("id","");
         name = sharedPref.getString("name","");
-        role = sharedPref.getInt("role",STUDENT);
-        if(role == STUDENT){
-            year = sharedPref.getString("year","");
-            school = sharedPref.getString("school","");
-        } else {
-            company = sharedPref.getString("company","");
+        type = sharedPref.getString("type","Guest");
+        if(type.equals("Academic")){
+            year = sharedPref.getString("academicYear","");
+            school = sharedPref.getString("academicSchool","");
+        } else if(type.equals("Worker")) {
+            workerJob = sharedPref.getString("workerJob","");
         }
     }
 
@@ -134,8 +143,10 @@ public class QRFragment extends Fragment implements View.OnClickListener {
                 .into(ivQRProfile);
 
         tvQRName.setText(name);
-        if(role == STUDENT) tvQRPersonalInfo.setText("Year"+year+" • "+school);
-        else tvQRPersonalInfo.setText(company);
+        //if(type.equals("Academic")) tvQRPersonalInfo.setText("Year"+year+" • "+school);
+        if(type.equals("Academic")) tvQRPersonalInfo.setText(school);
+        else if(type.equals("Worker")) tvQRPersonalInfo.setText(workerJob);
+        else tvQRPersonalInfo.setText("Guest");
 
         try {
             Bitmap qrBm = QRCode.from((String) tvQRName.getText()).bitmap();
