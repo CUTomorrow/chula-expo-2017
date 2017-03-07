@@ -161,7 +161,7 @@ public class InterestListFragment extends Fragment {
     private AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getActivity(), "wow much interest", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Coming Soon", Toast.LENGTH_SHORT).show();
         }
     };
 
