@@ -139,7 +139,7 @@ public class ZoneMainPageFragment extends Fragment {
                 dao = response.body().getResults();
                 Glide.with(fragment)
                         .load("http://staff.chulaexpo.com"+dao.getBanner())
-                        .placeholder(R.color.blackOverlay)
+                        .placeholder(R.drawable.banner)
                         .centerCrop()
                         .into(zoneImageView);
                 title.setText(dao.getName().getTh());
