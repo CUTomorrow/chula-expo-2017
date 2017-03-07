@@ -318,13 +318,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            Intent intent = new Intent(getContext(), EventDetailActivity.class);
-//            startActivity(intent);
             String activityId = activityListAdapter.getItem(position).getId();
-            String zone = activityListAdapter.getItem(position).getZone();
             SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
             activitySharedPref.edit().putString("EventID", activityId).apply();
-            activitySharedPref.edit().putString("Zone", zone).apply();
 
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
