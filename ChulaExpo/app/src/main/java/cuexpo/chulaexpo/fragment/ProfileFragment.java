@@ -155,7 +155,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("access",access);
+        outState.putBoolean("access", access);
         // Save Instance State here
     }
 
@@ -171,16 +171,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
-            if (!access) {
+            /*if (!access) {
                 error();
-            } else {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.main_overlay, new QRFragment());
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
+            } else {*/
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.main_overlay, new QRFragment());
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            //}
         } else if (v == btnFavourite) {
             if (!access) {
                 error();
@@ -200,19 +200,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         } else if (v == btnEdit) {
             if (!access) {
                 error();
-            } else{
+            } else {
                 comingSoon();
             }
         } else if (v == btnSetting) {
             if (!access) {
                 error();
-            } else{
+            } else {
                 comingSoon();
             }
         } else if (v == btnSetting2) {
             if (!access) {
                 error();
-            } else{
+            } else {
                 comingSoon();
             }
         } else if (v == btnFaq) {
