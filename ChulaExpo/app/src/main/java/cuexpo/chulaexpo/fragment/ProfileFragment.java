@@ -1,6 +1,7 @@
 package cuexpo.chulaexpo.fragment;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,9 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.activity.DoneRegisterActivity;
 import cuexpo.chulaexpo.activity.FavouriteActivity;
+import cuexpo.chulaexpo.activity.LoginActivity;
 import cuexpo.chulaexpo.activity.ReservedActivity;
 
 
@@ -31,23 +35,24 @@ import cuexpo.chulaexpo.activity.ReservedActivity;
 @SuppressWarnings("unused")
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
-    Button btnEdit;
-    LinearLayout btnFavourite;
-    LinearLayout btnReserved;
-    LinearLayout btnSetting;
-    LinearLayout btnSetting2;
-    LinearLayout btnFaq;
-    LinearLayout btnAbout;
-    Button btnLogout;
-    TextView tvName;
-    TextView tvEmail;
-    TextView tvAge;
-    TextView tvGender;
-    TextView tvDescription;
-    TextView tvPlace;
-    ImageView ivQR;
-
-    SharedPreferences sharedPref;
+    private Button btnEdit;
+    private LinearLayout btnFavourite;
+    private LinearLayout btnReserved;
+    private LinearLayout btnSetting;
+    private LinearLayout btnSetting2;
+    private LinearLayout btnFaq;
+    private LinearLayout btnAbout;
+    private Button btnLogout;
+    private TextView tvName;
+    private TextView tvEmail;
+    private TextView tvAge;
+    private TextView tvGender;
+    private TextView tvDescription;
+    private TextView tvPlace;
+    private ImageView ivQR;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
+    private boolean access;
 
     public ProfileFragment() {
         super();
@@ -86,16 +91,22 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnLogout.setOnClickListener(this);
 
         sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
-        setName(sharedPref.getString("name", ""));
-        setEmail(sharedPref.getString("email", ""));
-        setGender(sharedPref.getString("gender", ""));
-        setAge(sharedPref.getString("birthday", ""));
-        if(sharedPref.getInt("role",0)==1){
-            setStudentDescription(sharedPref.getString("year", ""), "");
-            setPlace(sharedPref.getString("school", ""));
-        } else{
-            setAdultDescription(sharedPref.getString("company", ""));
-            setPlace(sharedPref.getString("company", ""));
+        editor = sharedPref.edit();
+        access = !sharedPref.getString("id", "").equals("");
+
+
+        if (access) {
+            setName(sharedPref.getString("name", ""));
+            setEmail(sharedPref.getString("email", ""));
+            setGender(sharedPref.getString("gender", ""));
+            setAge(sharedPref.getString("birthday", ""));
+            if (sharedPref.getInt("role", 0) == 1) {
+                setStudentDescription(sharedPref.getString("year", ""), "");
+                setPlace(sharedPref.getString("school", ""));
+            } else {
+                setAdultDescription(sharedPref.getString("company", ""));
+                setPlace(sharedPref.getString("company", ""));
+            }
         }
 
 
@@ -111,7 +122,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         // Init 'View' instance(s) with rootView.findViewById here
         ivQR = (ImageView) rootView.findViewById(R.id.profile_toolbar_qr);
         btnEdit = (Button) rootView.findViewById(R.id.profile_edit_profile_btn);
-
         btnFavourite = (LinearLayout) rootView.findViewById(R.id.profile_favourite_btn);
         btnReserved = (LinearLayout) rootView.findViewById(R.id.profile_reserved_btn);
         btnSetting = (LinearLayout) rootView.findViewById(R.id.profile_setting_btn);
@@ -157,24 +167,42 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.main_overlay, QRFragment.newInstance());
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            if (!access) {
+                error();
+            } else {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.main_overlay, QRFragment.newInstance());
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
         } else if (v == btnFavourite) {
-            Intent intent = new Intent(getActivity(), FavouriteActivity.class);
-            getContext().startActivity(intent);
+            if (!access) {
+                error();
+            } else {
+                Intent intent = new Intent(getActivity(), FavouriteActivity.class);
+                getContext().startActivity(intent);
+            }
         } else if (v == btnReserved) {
-            Intent intent = new Intent(getActivity(), ReservedActivity.class);
-            getContext().startActivity(intent);
+            if (!access) {
+                error();
+            } else {
+                Intent intent = new Intent(getActivity(), ReservedActivity.class);
+                getContext().startActivity(intent);
+            }
         } else if (v == btnEdit) {
-
+            if (!access) {
+                error();
+            }
         } else if (v == btnSetting) {
-
+            if (!access) {
+                error();
+            }
         } else if (v == btnSetting2) {
-
+            if (!access) {
+                error();
+            }
         } else if (v == btnFaq) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -191,7 +219,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (v == btnLogout) {
-
+            editor.putString("id", "");
+            editor.putString("name", "");
+            editor.putString("email", "");
+            editor.putString("gender", "");
+            editor.putString("birthday", "");
+            editor.putString("year", "");
+            editor.putString("school", "");
+            editor.putString("company", "");
+            editor.putInt("role", 0);
+            editor.commit();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
         }
     }
 
@@ -226,5 +266,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         tvPlace.setText(text);
     }
 
+    public void error() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle("ขออภัย");
+        alert.setMessage("ฟังก์ชันแก้ไขข้อมูลเเปิดให้เฉพาะ Facebook User เท่านั้น!");
+        alert.setCancelable(false);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert2 = alert.create();
+        alert2.show();
+    }
 
 }

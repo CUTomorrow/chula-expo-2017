@@ -24,8 +24,8 @@
     <string name="role_adult">ADULT</string>
     <string name="interest_title">Select Your Interest</string>
     <string-array name="gender">
-        <item>Male</item>
-        <item>Female</item>
+        <item>ชาย</item>
+        <item>หญิง</item>
     </string-array>
     <!--Home-->
     <string name="home_stage_header_title">NOW ON STAGE</string>

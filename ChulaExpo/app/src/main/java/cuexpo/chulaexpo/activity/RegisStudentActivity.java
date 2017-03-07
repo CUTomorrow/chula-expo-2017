@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import cuexpo.chulaexpo.R;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -85,7 +87,7 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, genderList);
         spGender.setAdapter(adapterGender);
-        spGender.setSelection(gender.equals("male")? 0 : 1,true);
+        spGender.setSelection(gender.equals("ชาย")? 0 : 1,true);
         View spinnerSelectedView = spGender.getSelectedView();
         ((TextView)spinnerSelectedView).setTextColor(Color.WHITE);
     }
@@ -138,8 +140,9 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             View spinnerSelectedView = spGender.getSelectedView();
-            ((TextView)spinnerSelectedView).setTextColor(Color.WHITE);
-            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "male":"female");
+            ((TextView)spinnerSelectedView)
+                .setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(),R.color.dark_blue));
+            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "ชาย":"หญิง");
             editor.commit();
         }
 

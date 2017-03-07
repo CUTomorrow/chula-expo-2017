@@ -1,11 +1,15 @@
 package cuexpo.chulaexpo.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -58,16 +62,26 @@ public class InterestListAdapterNew extends BaseAdapter {
         InterestViewHolder holder = new InterestViewHolder();
         View interestView;
         InterestItem interestItem = (InterestItem) this.getItem(position);
+        GridView.LayoutParams layoutParams = new GridView.LayoutParams(parent.getWidth()/3,parent.getWidth()/3);
 
-        if (convertView != null)
+        if (convertView != null) {
             interestView = convertView;
-        else
+            Log.d("old view-1-", "load old view position = " + position + " with dim = " + interestView.getMeasuredWidth() + " : " +  interestView.getMeasuredHeight());
+            if (interestView.getWidth() == 0)
+                interestView.setLayoutParams(layoutParams);
+            Log.d("old view-2-", "load old view position = " + position + " with dim = " + interestView.getMeasuredWidth() + " : " +  interestView.getMeasuredHeight());
+        } else {
             interestView = inflater.inflate(R.layout.item_interest_v2, null);
+            interestView.setLayoutParams(layoutParams);
+            Log.d("new view-1-", "load position : " + position + " dim : " + layoutParams.height + " - " + layoutParams.width);
+        }
+
         holder.titleTxt = (TextView) interestView.findViewById(R.id.interest_title);
         holder.titleEngTxt = (TextView) interestView.findViewById(R.id.interest_title_eng);
         holder.interestImage = (ImageView) interestView.findViewById(R.id.interest_image);
         holder.checkImage = (ImageView) interestView.findViewById(R.id.interest_check);
         holder.iconImage = (ImageView) interestView.findViewById(R.id.interest_icon);
+//        ((ImageView) interestView.findViewById(R.id.dim)).setImageResource(R.drawable.dim_overlay);
 
         Glide.with(context)
                 .load(interestItem.getIconUrl())
@@ -83,6 +97,7 @@ public class InterestListAdapterNew extends BaseAdapter {
 
         holder.titleTxt.setText(interestItem.getTitle());
         holder.titleEngTxt.setText(interestItem.getTitleEng());
+
 
         return interestView;
     }

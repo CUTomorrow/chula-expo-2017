@@ -1,12 +1,17 @@
 package cuexpo.chulaexpo.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +21,9 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.SearchFragment;
 import cuexpo.chulaexpo.fragment.EventPageFragment;
@@ -24,20 +32,23 @@ import cuexpo.chulaexpo.fragment.MapFragment;
 import cuexpo.chulaexpo.fragment.ProfileFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     public View rootView;
+    private SharedPreferences sharedPref;
+    private ViewPager viewPager;
+    private SmartTabLayout viewPagerTab;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rootView = this.findViewById(android.R.id.content);
         initTab();
     }
 
-    private void initTab(){
-        final SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
+    private void initTab() {
+        viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         final LayoutInflater inflater = LayoutInflater.from(viewPagerTab.getContext());
         final Context viewPagerContext = viewPagerTab.getContext();
         viewPagerTab.setCustomTabView(new SmartTabLayout.TabProvider() {
@@ -72,16 +83,17 @@ public class MainActivity extends AppCompatActivity {
                 .add("4", ProfileFragment.class)
                 .create());
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
         viewPager.setOffscreenPageLimit(3);
         viewPagerTab.setViewPager(viewPager);
     }
 
     @Override
     public void onBackPressed() {
-        if(getFragmentManager().getBackStackEntryCount()>0){
-            getFragmentManager().popBackStack();
+        if(getSupportFragmentManager().getBackStackEntryCount()>0){
+            getSupportFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
         }
@@ -90,5 +102,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (position == 3) {
+            sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
+            if (sharedPref.getString("id", "").equals("")) {
+                final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("ขออภัย");
+                alert.setMessage("ฟังก์ชันแก้ไขข้อมูลเเปิดให้เฉพาะ Facebook User เท่านั้น!");
+                alert.setCancelable(false);
+                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert2 = alert.create();
+                alert2.show();
+            }
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }
