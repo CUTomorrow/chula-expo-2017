@@ -69,19 +69,6 @@ public class EventDetailFragment extends Fragment {
         SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
         String id = activitySharedPref.getString("EventID", "");
 
-        String zone = activitySharedPref.getString("Zone", "");
-        SharedPreferences sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
-        String zoneShortName = sharedPref.getString(zone, "");
-        TextView eventTag = (TextView) rootView.findViewById(R.id.event_tag);
-        eventTag.setText(zoneShortName);
-        eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
-        for(int i=0;i<lightZone.length-1;i++){
-            if(zoneShortName.equals(lightZone[i])) {
-                eventTag.setTextColor(Color.BLACK);
-                break;
-            }
-        }
-
         Call<ActivityItemDao> call = HttpManager.getInstance().getService().loadActivityItem(id);
         call.enqueue(callbackActivity);
 //        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id);
@@ -101,6 +88,19 @@ public class EventDetailFragment extends Fragment {
                         .centerCrop()
                         .into((ImageView) eventImageView);
                 title.setText(dao.getName().getTh());
+
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
+                String zoneShortName = sharedPref.getString(dao.getZone(), "");
+                TextView eventTag = (TextView) rootView.findViewById(R.id.event_tag);
+                eventTag.setText(zoneShortName);
+                eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
+                for(int i=0;i<lightZone.length-1;i++){
+                    if(zoneShortName.equals(lightZone[i])) {
+                        eventTag.setTextColor(Color.BLACK);
+                        break;
+                    }
+                }
+
                 ViewTreeObserver vto = headerView.getViewTreeObserver();
                 vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
             } else {
@@ -160,7 +160,8 @@ public class EventDetailFragment extends Fragment {
                     dao.getDescription().getTh(),
                     dao.getLocation().getLatitude(),
                     dao.getLocation().getLongitude(),
-                    dao.getPictures()
+                    dao.getPictures(),
+                    dao.getName().getTh()
             );
             listView.setAdapter(adapter);
 

@@ -25,9 +25,12 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,21 +38,31 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cuexpo.chulaexpo.MainApplication;
 import cuexpo.chulaexpo.R;
+import cuexpo.chulaexpo.dao.FacilityDao;
+import cuexpo.chulaexpo.dao.FacilityDao;
+import cuexpo.chulaexpo.dao.FacilityResult;
+import cuexpo.chulaexpo.manager.HttpManager;
 import cuexpo.chulaexpo.utility.FacultyMapEntity;
 import cuexpo.chulaexpo.utility.IMapEntity;
 import cuexpo.chulaexpo.utility.NormalPinMapEntity;
 import cuexpo.chulaexpo.utility.PopbusRouteMapEntity;
 import cuexpo.chulaexpo.utility.Resource;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MapFragment extends Fragment implements
@@ -61,16 +74,24 @@ public class MapFragment extends Fragment implements
     private CardView pinList, infoCard;
     private boolean isShowingPinList = false;
     private boolean isShowingInfoCard = false;
-    private ImageView showFaculty, showLandmark, showInfo, showInterest, showCanteen, showToilet,
-            showBusStop, showBusLine1, showBusLine2, showBusLine3, closeInfoCard, pinIcon;
+    private ImageView showFaculty, showInterest, showCanteen, showRegis, showToilet, showInfo,
+            showRally, showCarPark, showEmer, showPrayer, showBusStop,
+            showBusLine1, showBusLine2, showBusLine3, showBusLine4, closeInfoCard, pinIcon;
     private TextView facility, description;
 
 //    private Application mainApp = getActivity().getApplication();
     HashMap<String, PopbusRouteMapEntity> popbusRoutes = new HashMap<>();
     HashMap<Integer, FacultyMapEntity> faculties = new HashMap<>();
-    ArrayList<NormalPinMapEntity> infoPointsPins = new ArrayList<>();
-    ArrayList<NormalPinMapEntity> landmarksPins = new ArrayList<>();
-    ArrayList<NormalPinMapEntity> cuTourStationPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> eventPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> canteenPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> regisPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> infoPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> toiletPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> rallyPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> carParkPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> emerPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> prayerPins = new ArrayList<>();
+    ArrayList<NormalPinMapEntity> popBusStationPins = new ArrayList<>();
 
     private void initializeFaculties() {
         try {
@@ -80,20 +101,6 @@ public class MapFragment extends Fragment implements
             for (int i = 0; i < facultiesJSON.length(); i++) {
                 JSONObject facultyData = facultiesJSON.getJSONObject(i);
                 faculties.put(facultyData.getInt("id"), new FacultyMapEntity(facultyData));
-            }
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void initializeCUTourStation() {
-        try {
-            JSONArray cuTourStationJSON = new JSONArray(
-                    getContext().getResources().getString(R.string.jsonCUTourStation)
-            );
-            for (int i = 0; i < cuTourStationJSON.length(); i++) {
-                JSONObject cuTourStationData = cuTourStationJSON.getJSONObject(i);
-                cuTourStationPins.add(new NormalPinMapEntity(cuTourStationData, NormalPinMapEntity.POPBUS_STATION_PIN));
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
@@ -114,12 +121,9 @@ public class MapFragment extends Fragment implements
         }
     }
 
-    private void initializeMapData() {
+    private void initializeMapStaticData() {
         initializeFaculties();
         initializePopbusRoutes();
-//        initializeInfoPoints();
-//        initializeLandmarks();
-        initializeCUTourStation();
     }
 
     @Override
@@ -140,16 +144,24 @@ public class MapFragment extends Fragment implements
         pinList = (CardView) rootView.findViewById(R.id.pin_list);
         infoCard = (CardView) rootView.findViewById(R.id.info_card);
         closeInfoCard = (ImageView) rootView.findViewById(R.id.close_info);
+
         showFaculty = (ImageView) rootView.findViewById(R.id.show_faculty_city);
-        showLandmark = (ImageView) rootView.findViewById(R.id.show_landmark);
-        showInfo = (ImageView) rootView.findViewById(R.id.show_info);
         showInterest = (ImageView) rootView.findViewById(R.id.show_interest);
         showCanteen = (ImageView) rootView.findViewById(R.id.show_canteen);
+        showRegis = (ImageView) rootView.findViewById(R.id.show_regis);
+        showInfo = (ImageView) rootView.findViewById(R.id.show_info);
         showToilet = (ImageView) rootView.findViewById(R.id.show_toilet);
+        showRally = (ImageView) rootView.findViewById(R.id.show_rally);
+        showCarPark = (ImageView) rootView.findViewById(R.id.show_car_park);
+        showEmer = (ImageView) rootView.findViewById(R.id.show_emer);
+        showPrayer = (ImageView) rootView.findViewById(R.id.show_prayer);
         showBusStop = (ImageView) rootView.findViewById(R.id.show_bus_stop);
+
         showBusLine1 = (ImageView) rootView.findViewById(R.id.show_bus_line_1);
         showBusLine2 = (ImageView) rootView.findViewById(R.id.show_bus_line_2);
         showBusLine3 = (ImageView) rootView.findViewById(R.id.show_bus_line_3);
+        showBusLine4 = (ImageView) rootView.findViewById(R.id.show_bus_line_4);
+
         // Get Card Content
         pinIcon = (ImageView) rootView.findViewById(R.id.pin_icon);
         facility = (TextView) rootView.findViewById(R.id.facility);
@@ -163,28 +175,88 @@ public class MapFragment extends Fragment implements
         closeInfoCard.setOnClickListener(closeOCL);
 
         rootView.findViewById(R.id.faculty_city).setOnClickListener(showFacultyOCL);
-        rootView.findViewById(R.id.landmark).setOnClickListener(showLandmarkOCL);
-        rootView.findViewById(R.id.info).setOnClickListener(showInfoOCL);
         rootView.findViewById(R.id.interest).setOnClickListener(showInterestOCL);
         rootView.findViewById(R.id.canteen).setOnClickListener(showCanteenOCL);
+        rootView.findViewById(R.id.regis).setOnClickListener(showRegisOCL);
+        rootView.findViewById(R.id.info).setOnClickListener(showInfoOCL);
         rootView.findViewById(R.id.toilet).setOnClickListener(showToiletOCL);
+        rootView.findViewById(R.id.rally).setOnClickListener(showRallyOCL);
+        rootView.findViewById(R.id.car_park).setOnClickListener(showCarParkOCL);
+        rootView.findViewById(R.id.emer).setOnClickListener(showEmerOCL);
+        rootView.findViewById(R.id.prayer).setOnClickListener(showPrayerOCL);
         rootView.findViewById(R.id.bus_stop).setOnClickListener(showBusStopOCL);
+
         showBusLine1.setOnClickListener(showBusLine1OCL);
         showBusLine2.setOnClickListener(showBusLine2OCL);
         showBusLine3.setOnClickListener(showBusLine3OCL);
+        showBusLine4.setOnClickListener(showBusLine4OCL);
 
         // Set visibility
         showFaculty.setSelected(true);
         showBusLine1.setSelected(true);
         showBusLine2.setSelected(true);
         showBusLine3.setSelected(true);
+        showBusLine4.setSelected(true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map);
         mapFragment.getMapAsync(this);
-        initializeMapData();
+        initializeMapStaticData();
+
+        Call<FacilityDao> call = HttpManager.getInstance().getService().loadFacilityList();
+        call.enqueue(callbackFacility);
+
         return rootView;
     }
 
+    Callback<FacilityDao> callbackFacility = new Callback<FacilityDao>() {
+        @Override
+        public void onResponse(Call<FacilityDao> call, Response<FacilityDao> response) {
+            if (response.isSuccessful()) {
+                List<FacilityResult> facilities = response.body().getResults();
+                for (FacilityResult facility: facilities) {
+                    String type = facility.getType();
+                    String name = facility.getName().getTh();
+                    Log.d("facility type", type);
+                    cuexpo.chulaexpo.dao.Location location = facility.getLocation();
+                    if(type.equals("Canteen") || type.equals("Souvenir")) canteenPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Registration")) regisPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Information")) infoPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Toilet")) toiletPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Carpark")) carParkPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Emergency")) emerPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Prayer")) prayerPins.add(new NormalPinMapEntity(name, location, type));
+                    // No rally(place in zone rally) and bus stop
+                }
+                initPins(canteenPins);
+                initPins(regisPins);
+                initPins(infoPins);
+                initPins(toiletPins);
+                initPins(rallyPins);
+                initPins(carParkPins);
+                initPins(emerPins);
+                initPins(prayerPins);
+                initPins(popBusStationPins);
+            } else {
+                try {
+                    Log.e("fetch error", response.errorBody().string());
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        @Override
+        public void onFailure(Call<FacilityDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    public void initPins(List<NormalPinMapEntity> entries){
+        for (NormalPinMapEntity entry : entries) {
+            entry.setMap(googleMap);
+            entry.setVisible(false);
+        }
+    }
     private View.OnClickListener showPinListOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -208,6 +280,19 @@ public class MapFragment extends Fragment implements
         }
     };
 
+    private void setAllFacultiesVisibility(boolean isVisible) {
+        for (IMapEntity faculty : faculties.values()) {
+            faculty.setVisible(isVisible);
+        }
+    }
+
+    private void setAllNormalPinsVisibility(ArrayList<NormalPinMapEntity> entities, boolean visible) {
+        for (NormalPinMapEntity entity : entities) {
+            entity.setVisible(visible);
+        }
+    }
+
+    // TODO OnClickListener
     private View.OnClickListener showFacultyOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -220,35 +305,6 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
-    private void setAllFacultiesVisibility(boolean isVisible) {
-        for (IMapEntity faculty : faculties.values()) {
-            faculty.setVisible(isVisible);
-        }
-    }
-
-    private View.OnClickListener showLandmarkOCL = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (showLandmark.isSelected()){
-                showLandmark.setSelected(false);
-            } else {
-                showLandmark.setSelected(true);
-            }
-        }
-    };
-
-    private View.OnClickListener showInfoOCL = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (showInfo.isSelected()){
-                showInfo.setSelected(false);
-            } else {
-                showInfo.setSelected(true);
-            }
-        }
-    };
-
     private View.OnClickListener showInterestOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -259,36 +315,111 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
     private View.OnClickListener showCanteenOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (showCanteen.isSelected()){
                 showCanteen.setSelected(false);
+                setAllNormalPinsVisibility(canteenPins, false);
             } else {
                 showCanteen.setSelected(true);
+                setAllNormalPinsVisibility(canteenPins, true);
             }
         }
     };
-
+    private View.OnClickListener showRegisOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showRegis.isSelected()){
+                showRegis.setSelected(false);
+                setAllNormalPinsVisibility(regisPins, false);
+            } else {
+                showRegis.setSelected(true);
+                setAllNormalPinsVisibility(regisPins, true);
+            }
+        }
+    };
+    private View.OnClickListener showInfoOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showInfo.isSelected()){
+                showInfo.setSelected(false);
+                setAllNormalPinsVisibility(infoPins, false);
+            } else {
+                showInfo.setSelected(true);
+                setAllNormalPinsVisibility(infoPins, true);
+            }
+        }
+    };
     private View.OnClickListener showToiletOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (showToilet.isSelected()){
                 showToilet.setSelected(false);
+                setAllNormalPinsVisibility(toiletPins, false);
             } else {
                 showToilet.setSelected(true);
+                setAllNormalPinsVisibility(toiletPins, true);
             }
         }
     };
-
+    private View.OnClickListener showRallyOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showRally.isSelected()){
+                showRally.setSelected(false);
+                setAllNormalPinsVisibility(rallyPins, false);
+            } else {
+                showRally.setSelected(true);
+                setAllNormalPinsVisibility(rallyPins, true);
+            }
+        }
+    };
+    private View.OnClickListener showCarParkOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showCarPark.isSelected()){
+                showCarPark.setSelected(false);
+                setAllNormalPinsVisibility(carParkPins, false);
+            } else {
+                showCarPark.setSelected(true);
+                setAllNormalPinsVisibility(carParkPins, true);
+            }
+        }
+    };
+    private View.OnClickListener showEmerOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showEmer.isSelected()){
+                showEmer.setSelected(false);
+                setAllNormalPinsVisibility(emerPins, false);
+            } else {
+                showEmer.setSelected(true);
+                setAllNormalPinsVisibility(emerPins, true);
+            }
+        }
+    };
+    private View.OnClickListener showPrayerOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showPrayer.isSelected()){
+                showPrayer.setSelected(false);
+                setAllNormalPinsVisibility(prayerPins, false);
+            } else {
+                showPrayer.setSelected(true);
+                setAllNormalPinsVisibility(prayerPins, true);
+            }
+        }
+    };
     private View.OnClickListener showBusStopOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (showBusStop.isSelected()){
                 showBusStop.setSelected(false);
+                setAllNormalPinsVisibility(popBusStationPins, false);
             } else {
                 showBusStop.setSelected(true);
+                setAllNormalPinsVisibility(popBusStationPins, false);
             }
         }
     };
@@ -305,7 +436,6 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
     private View.OnClickListener showBusLine2OCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -318,7 +448,6 @@ public class MapFragment extends Fragment implements
             }
         }
     };
-
     private View.OnClickListener showBusLine3OCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -328,6 +457,18 @@ public class MapFragment extends Fragment implements
             } else {
                 showBusLine3.setSelected(true);
                 popbusRoutes.get("3").setVisible(true);
+            }
+        }
+    };
+    private View.OnClickListener showBusLine4OCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (showBusLine4.isSelected()){
+                showBusLine4.setSelected(false);
+                popbusRoutes.get("4").setVisible(false);
+            } else {
+                showBusLine4.setSelected(true);
+                popbusRoutes.get("4").setVisible(true);
             }
         }
     };
@@ -473,7 +614,6 @@ public class MapFragment extends Fragment implements
         for (PopbusRouteMapEntity routeEntry : popbusRoutes.values()) {
             routeEntry.setMap(googleMap);
         }
-
         googleMap.setOnMarkerClickListener(markerOCL);
     }
 
@@ -489,7 +629,6 @@ public class MapFragment extends Fragment implements
 
             for (FacultyMapEntity facultyEntry : faculties.values()) {
                 if (facultyEntry.getMarker().equals(marker)) {
-                    Log.d("faculty", facultyEntry.getNameEn());
                     showInfoCard(facultyEntry.getMarkerIconDrawableResource(),
                             facultyEntry.getType(),
                             facultyEntry.getNameTh(),
@@ -498,9 +637,34 @@ public class MapFragment extends Fragment implements
                     return true;
                 }
             }
+            setPinOnClick(canteenPins, marker);
+            setPinOnClick(regisPins, marker);
+            setPinOnClick(infoPins, marker);
+            setPinOnClick(toiletPins, marker);
+            setPinOnClick(rallyPins, marker);
+            setPinOnClick(carParkPins, marker);
+            setPinOnClick(emerPins, marker);
+            setPinOnClick(prayerPins, marker);
+            setPinOnClick(popBusStationPins, marker);
+
             return true;
         }
     };
+
+    public boolean setPinOnClick(List<NormalPinMapEntity> entries, Marker marker) {
+        for (NormalPinMapEntity entry : entries) {
+            if (entry.getMarker().equals(marker)) {
+                showInfoCard(entry.getMarkerIconDrawableResource(),
+                        entry.getType(),
+                        entry.getName(),
+                        -1,
+                        entry.getColor());
+                return true;
+            }
+        }
+        return true;
+    }
+
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         return Math.round(dp * ((float)displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));

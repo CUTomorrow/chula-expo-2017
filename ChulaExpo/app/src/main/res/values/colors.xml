@@ -9,10 +9,12 @@
     <color name="light_grey_header">#cbcbcb</color>
     <color name="dark_grey">#444444</color>
     <color name="blackTransparent">#30000000</color>
-    <color name="blackOverlay">#88000000</color>
+    <color name="blackOverlay">#cc000000</color>
     <!-- Login -->
     <color name="blue_fb">#3b5998</color>
     <color name="bgPrimary">#f3f3f3</color>
+    <!-- Register -->
+    <color name="dark_blue">#323846</color>
     <!-- Event item -->
     <color name="time">#313131</color>
     <!-- Home -->

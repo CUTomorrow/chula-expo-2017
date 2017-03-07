@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import cuexpo.chulaexpo.R;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -29,7 +31,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
 
     EditText  etRegisName,etEmail, etBirth,etWorkingPlace,etYear;
     Spinner   spGender;
-    Button    btnNext;
+    View btnNext;
     ImageView ivRegisProfile;
     String id,name,email,gender,birthday;
     SharedPreferences sharedPref;
@@ -46,22 +48,18 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         //TODO:Resize for fragmentation
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int height = displaymetrics.heightPixels;
-        int width = displaymetrics.widthPixels;
-        btnNext.setWidth(width/2);
-        //Click Action
         btnNext.setOnClickListener(this);
 
         //get SharedPref
         sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
         editor = sharedPref.edit();
-        id = sharedPref.getString("id","");
-        name = sharedPref.getString("name","");
-        email = sharedPref.getString("email","");
-        gender = sharedPref.getString("gender","male");
-        birthday = sharedPref.getString("birthday","");
-        editor.putInt("role",ADULT);
-        editor.putString("company",etWorkingPlace.getText().toString());
+        id = sharedPref.getString("id", "");
+        name = sharedPref.getString("name", "");
+        email = sharedPref.getString("email", "");
+        gender = sharedPref.getString("gender", "male");
+        birthday = sharedPref.getString("birthday", "");
+        editor.putInt("role", ADULT);
+        editor.putString("company", etWorkingPlace.getText().toString());
         editor.commit();
 
         etRegisName.setText(name);
@@ -86,7 +84,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, genderList);
         spGender.setAdapter(adapterGender);
-        spGender.setSelection(gender.equals("male")? 0 : 1,true);
+        spGender.setSelection(gender.equals("ชาย")? 0 : 1,true);
         View spinnerSelectedView = spGender.getSelectedView();
         ((TextView)spinnerSelectedView).setTextColor(Color.WHITE);
     }
@@ -99,16 +97,16 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         etWorkingPlace = (EditText) findViewById(R.id.etWorkingPlace);
         spGender = (Spinner) findViewById(R.id.spGender);
         ivRegisProfile = (ImageView) findViewById(R.id.ivRegisProfile);
-        btnNext = (Button)findViewById(R.id.btnNext);
+        btnNext = findViewById(R.id.btnNext);
         spGender.setOnItemSelectedListener(spGenderlistener);
-
     }
 
 
     @Override
     public void onClick(View v) {
         if(v == btnNext){
-            Intent intent = new Intent(this, InterestActivity.class);
+//            Intent intent = new Intent(this, InterestActivity.class);
+            Intent intent = new Intent(this, DoneRegisterActivity.class);
             startActivity(intent);
         }
     }
@@ -137,8 +135,9 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             View spinnerSelectedView = spGender.getSelectedView();
-            ((TextView)spinnerSelectedView).setTextColor(Color.WHITE);
-            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "male":"female");
+            ((TextView)spinnerSelectedView).
+                    setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(),R.color.dark_blue));
+            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "ชาย":"หญิง");
             editor.commit();
         }
 

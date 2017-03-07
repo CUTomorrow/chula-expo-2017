@@ -119,11 +119,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tvHighlightLabel = (TextView)rootView.findViewById(R.id.tvHighlightLabel);
         highlightListAdapter = new HighlightListAdapter();
         vpHighlight.setAdapter(highlightListAdapter);
+        vpHighlight.setFocusable(false);
         indicatorHighlight.setViewPager(vpHighlight);
         highlightListAdapter.registerDataSetObserver(indicatorHighlight.getDataSetObserver());
 
         lvStage = (ExpandableHeightListView) rootView.findViewById(R.id.lvStage);
         lvStage.setExpanded(true);
+        lvStage.setFocusable(false);
         homeStageListAdapter = new HomeStageListAdapter();
         lvStage.setAdapter(homeStageListAdapter);
         lvStage.setOnItemClickListener(lvStageItemClickListener);
@@ -133,6 +135,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         activityListAdapter.setDao(photoListManager.getDao());
         lvActivity.setAdapter(activityListAdapter);
         lvActivity.setExpanded(true);
+        lvActivity.setFocusable(false);
         lvActivity.setOnItemClickListener(lvEventItemClickListener);
 
 //        activityListAdapter.notifyDataSetChanged();
@@ -315,13 +318,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            Intent intent = new Intent(getContext(), EventDetailActivity.class);
-//            startActivity(intent);
             String activityId = activityListAdapter.getItem(position).getId();
-            String zone = activityListAdapter.getItem(position).getZone();
             SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
             activitySharedPref.edit().putString("EventID", activityId).apply();
-            activitySharedPref.edit().putString("Zone", zone).apply();
 
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -334,18 +333,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == ivToolbarQR){
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .add(R.id.containerQR,new QRFragment().newInstance(), "QRFragment")
-                    .addToBackStack(null)
-                    .commit();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new QRFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     }
 
     public JSONObject getCurrentTime(String operator){
-        TimeZone tz = TimeZone.getTimeZone("ICT");
+        TimeZone tz = TimeZone.getTimeZone("Asia/Bangkok");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
         String currentTime = df.format(new Date());
+        Log.d("HomeTime","CurrentTime = "+currentTime);
         JSONObject range = new JSONObject();
         try {
             range.put(operator,currentTime);

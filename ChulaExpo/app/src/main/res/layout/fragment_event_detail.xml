@@ -59,6 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="-7sp"
+                    android:paddingBottom="7dp"
                     android:text="Robotic Vacuum Cleaner"
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
@@ -69,7 +70,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title"
-                    android:layout_marginTop="7dp"
                     android:background="@color/booking_full"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
@@ -89,5 +89,11 @@
         android:src="@drawable/close_button"
         android:layout_width="60dp"
         android:layout_height="60dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/event_detail_overlay">
+    </FrameLayout>
 
 </RelativeLayout>

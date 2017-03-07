@@ -24,8 +24,8 @@
     <string name="role_adult">ADULT</string>
     <string name="interest_title">Select Your Interest</string>
     <string-array name="gender">
-        <item>Male</item>
-        <item>Female</item>
+        <item>ชาย</item>
+        <item>หญิง</item>
     </string-array>
     <!--Home-->
     <string name="home_stage_header_title">NOW ON STAGE</string>
@@ -37,24 +37,41 @@
     <string name="font_bold">fonts/ThaiSansNeue-Bold.ttf</string>
 
     <!-- Map -->
-    <string name="show_hide_pin">แสดง/ซ่อน ตำแหน่ง</string>
+    <string name="show_hide_pin">แสดง/ซ่อนหมุด</string>
     <string name="current_location">ตำแหน่งปัจจุบัน</string>
     <string name="faculty_city">คณะ/เมือง</string>
-    <string name="landmark">จุดสังเกต</string>
+    <string name="interested_reserved">กิจกรรมของฉัน</string>
+    <string name="canteen">ร้านค้า/อาหาร</string>
+    <string name="regis">จุดลงทะเบียน</string>
     <string name="information">จุดประชาสัมพันธ์</string>
-    <string name="interested_reserved">Event ที่สนใจ/จอง</string>
-    <string name="canteen">โรงอาหาร</string>
     <string name="toilet">ห้องน้ำ</string>
+    <string name="rally">กิจกรรมแรลลี่</string>
+    <string name="car_park">ที่จอดรถ</string>
+    <string name="emer">จุดปฐมพยาบาล</string>
+    <string name="prayer">ห้องละหมาด</string>
     <string name="bus_stop">ป้ายรถประจำทาง</string>
     <string name="bus_line">สายรถ CU Tour</string>
+
+    <!--profile-->
+    <string name="profile_age">อายุ</string>
+    <string name="profile_year">ปริญญาตรี ปี</string>
+    <string name="profile_gender">เพศ</string>
+    <string name="profile_university">จุฬาลงกรณ์มหาวิทยาลัย</string>
+    <string name="profile_button_edit">แก้ไขข้อมูลส่วนตัว</string>
+    <string name="profile_button_1">Event ที่สนใจทั้งหมด</string>
+    <string name="profile_button_2">Event ที่จองทั้งหมด</string>
+    <string name="profile_button_3">แก้ไขเนื้อหาที่สนใจ</string>
+    <string name="profile_button_4">แก้ไขคณะที่สนใจ</string>
+    <string name="profile_button_5">FAQ</string>
+    <string name="profile_button_6">เกี่ยวกับ จุฬา Expo</string>
+    <string name="profile_button_7">ออกจากระบบ</string>
 
     <!--Zone main page-->
     <string name="related_event_header_text">RELATED EVENT</string>
     <string name="Related_event_header_text_th">Events ที่เกี่ยวข้องทั้งหมด</string>
-    
-    <!--Zone ID-->
-        <!--Faculty-->
-    <string name="ID_eng_faculty">5899a98a5eeecd3698f6cfc6</string>
-        <!--City-->
 
+    <!--Zone ID-->
+    <!--Faculty-->
+    <string name="ID_eng_faculty">5899a98a5eeecd3698f6cfc6</string>
+    <!--City-->
 </resources>
