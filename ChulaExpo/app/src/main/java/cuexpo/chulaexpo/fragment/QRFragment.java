@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +21,7 @@ import com.bumptech.glide.Glide;
 
 import net.glxn.qrgen.android.QRCode;
 
-import java.util.Map;
-
 import cuexpo.chulaexpo.R;
-//import cuexpo.chulaexpo.adapter.ScannerActivity;
 import cuexpo.chulaexpo.activity.MainActivity;
 import cuexpo.chulaexpo.adapter.ScannerActivity;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -99,7 +95,6 @@ public class QRFragment extends Fragment implements View.OnClickListener {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             } else {
-//                Log.
                 new AlertDialog.Builder(getContext())
                         .setTitle("QR Code ไม่ถูกต้อง")
                         .setMessage(qrValue + "ไม่ใช่ URL ของ Chula Expo Event")
@@ -115,19 +110,6 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void showCheckInSuccessDialog(String checkInPlaceName, final boolean isBingo) {
-        new AlertDialog.Builder(getContext())
-                .setTitle("การเช็คอินสำเร็จ")
-                .setMessage("คุณเช็คอินที่ \"" + checkInPlaceName + "\" เรียบร้อย :)")
-                .setNeutralButton("ตกลง", null)
-                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-//                        if (isBingo) showBingoDialog();
-                    }
-                })
-                .show();
-    }
     private void init() {
         // Init Fragment level's variable(s) here
         //get SharedPref

@@ -94,7 +94,7 @@ public class StageFragmentDetail extends Fragment {
         }
 
         Call<ActivityItemCollectionDao> callStageActivity = HttpManager
-                .getInstance().getService().loadActivityByZone(stageId, range.toString(),"start");
+                .getInstance().getService().loadActivityByZone(stageId, range.toString(), "start");
         callStageActivity.enqueue(callBackStageActivity);
         return rootView;
     }

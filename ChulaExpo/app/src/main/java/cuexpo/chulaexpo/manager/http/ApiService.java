@@ -14,6 +14,7 @@ import cuexpo.chulaexpo.dao.RoundDao;
 import cuexpo.chulaexpo.dao.Token;
 import cuexpo.chulaexpo.dao.UserProfile;
 import cuexpo.chulaexpo.dao.ZoneDao;
+import cuexpo.chulaexpo.dao.ZoneItemDao;
 import cuexpo.chulaexpo.dao.ZoneResult;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -66,7 +67,7 @@ public interface ApiService {
     Call<ZoneDao> loadZoneList();
 
     @GET("/api/zones/{zid}")
-    Call<ZoneResult>  loadZoneById(@Path("zid") String zid);
+    Call<ZoneItemDao> loadZoneById(@Path("zid") String zid);
 
     @GET("/api/me/reserved_rounds")
     Call<RoundDao> getReservedActivity();

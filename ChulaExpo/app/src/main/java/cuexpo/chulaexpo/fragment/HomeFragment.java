@@ -185,9 +185,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 //get SharedPref
                 sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
                 editor = sharedPref.edit();
+                SharedPreferences reverseZoneKeySharedPref = getActivity().getSharedPreferences("ReverseZoneKey", Context.MODE_PRIVATE);
+                SharedPreferences.Editor reverseZoneKeyEditor = reverseZoneKeySharedPref.edit();
                 for (int i = 0; i < dao.getResults().size(); i++) {
                     ZoneResult zone = dao.getResults().get(i);
-                    editor.putString(zone.getId(), zone.getShortName().getEn());
+                    reverseZoneKeyEditor.putString(zone.getShortName().getEn(), zone.getId());
                     if (zone.getType().equals("Stage")) {
                         Log.d("StageHome", zone.getId());
                         stageObjId.add(zone.getId());
@@ -196,8 +198,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 Log.d("StageHome", "stage size = " + stageObjId.size());
                 editor.commit();
-                for (int k = 0; k < stageObjId.size(); k++) {
-                    if (k == 0) firstStage = true;
+                reverseZoneKeyEditor.commit();
+                for(int k=0; k<stageObjId.size(); k++){
+                    if(k==0) firstStage = true;
                     Call<ActivityItemCollectionDao> callActivityOfStage = HttpManager.getInstance().getService()
                             .loadIncomingActivityOnStage(stageObjId.get(k), "name,start,end,zone", getCurrentTime("gte"), "start", 1);
                     callActivityOfStage.enqueue(callbackStageObjId);
