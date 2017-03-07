@@ -38,6 +38,7 @@ public class HttpManager {
 
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                //.setLenient()
                 .create();
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -58,7 +59,7 @@ public class HttpManager {
         OkHttpClient client = httpClient.build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://staff.chulaexpo.com")
+                .baseUrl("https://staff.chulaexpo.com")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

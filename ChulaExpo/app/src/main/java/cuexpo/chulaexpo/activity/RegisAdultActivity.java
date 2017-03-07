@@ -29,15 +29,13 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RegisAdultActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
-    EditText  etRegisName,etEmail, etBirth,etWorkingPlace,etYear;
+    EditText  etRegisName,etEmail, etBirth,etYear, etCareer;
     Spinner   spGender;
     View btnNext;
     ImageView ivRegisProfile;
     String id,name,email,gender,birthday;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    public static final int STUDENT = 1;
-    public static final int ADULT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +55,9 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         name = sharedPref.getString("name", "");
         email = sharedPref.getString("email", "");
         gender = sharedPref.getString("gender", "male");
-        birthday = sharedPref.getString("birthday", "");
-        editor.putInt("role", ADULT);
-        editor.putString("company", etWorkingPlace.getText().toString());
+        //birthday = sharedPref.getString("birthday", "");
+        editor.putString("type","Worker");
+        editor.putString("profile","http://graph.facebook.com/"+id+"/picture?type=large");
         editor.commit();
 
         etRegisName.setText(name);
@@ -69,7 +67,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         etRegisName.addTextChangedListener(this);
         etEmail.addTextChangedListener(this);
         etBirth.addTextChangedListener(this);
-        etWorkingPlace.addTextChangedListener(this);
+        etCareer.addTextChangedListener(this);
 
 
         //Load Image
@@ -94,7 +92,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         etEmail = (EditText)findViewById(R.id.etEmail);
         etBirth = (EditText) findViewById(R.id.etBirth);
         etYear = (EditText)findViewById(R.id.etYear);
-        etWorkingPlace = (EditText) findViewById(R.id.etWorkingPlace);
+        etCareer = (EditText) findViewById(R.id.etCareer);
         spGender = (Spinner) findViewById(R.id.spGender);
         ivRegisProfile = (ImageView) findViewById(R.id.ivRegisProfile);
         btnNext = findViewById(R.id.btnNext);
@@ -126,8 +124,8 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         editor.putString("name",etRegisName.getText().toString());
         Log.d("regis","Name: "+etRegisName.getText().toString());
         editor.putString("email",etEmail.getText().toString());
-        editor.putString("birthday",etBirth.getText().toString());
-        editor.putString("company",etWorkingPlace.getText().toString());
+        editor.putInt("age",Integer.parseInt(etBirth.getText().toString()));
+        editor.putString("workerJob",etCareer.getText().toString());
         editor.commit();
     }
 
@@ -137,7 +135,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
             View spinnerSelectedView = spGender.getSelectedView();
             ((TextView)spinnerSelectedView).
                     setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(),R.color.dark_blue));
-            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "ชาย":"หญิง");
+            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "Male":"Female");
             editor.commit();
         }
 
