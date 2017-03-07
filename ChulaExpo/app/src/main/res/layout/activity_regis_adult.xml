@@ -182,6 +182,7 @@
                             android:backgroundTint="@color/transparent"
                             android:imeOptions="actionNext"
                             android:text="20"
+                            android:inputType="number"
                             android:textColor="@color/dark_blue"
                             android:textColorLink="@color/transparent" />
                     </LinearLayout>
@@ -245,11 +246,11 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:imeOptions="actionNext"
-                        android:text="4"
+                        android:text="Student"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
                 </LinearLayout>
-
+                <!--
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
@@ -280,17 +281,11 @@
                         android:text="Chulalongkorn University"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
-
                 </LinearLayout>
+                -->
 
 
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </RelativeLayout>
 
 
         </RelativeLayout>
@@ -325,5 +320,17 @@
             android:layout_height="match_parent"
             app:srcCompat="@drawable/dot2" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="98dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="26dp">
+
+    </RelativeLayout>
 
 </RelativeLayout>

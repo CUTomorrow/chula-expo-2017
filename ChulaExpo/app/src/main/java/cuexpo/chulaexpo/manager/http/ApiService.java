@@ -9,10 +9,15 @@ import cuexpo.chulaexpo.dao.PlaceItemDao;
 import cuexpo.chulaexpo.dao.ReserveDao;
 import cuexpo.chulaexpo.dao.RoundDao;
 
+import cuexpo.chulaexpo.dao.Token;
+import cuexpo.chulaexpo.dao.UserProfile;
 import cuexpo.chulaexpo.dao.ZoneDao;
 import cuexpo.chulaexpo.dao.ZoneResult;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -61,7 +66,7 @@ public interface ApiService {
     @GET("/api/zones/{zid}")
     Call<ZoneResult>  loadZoneById(@Path("zid") String zid);
 
-    @GET("api/me/reserved")
+    @GET("/api/me/reserved")
     Call<ActivityItemCollectionDao> getReservedActivity();
 
     @GET("/api/places/{pid}")
@@ -72,5 +77,8 @@ public interface ApiService {
 
     @GET("/auth/facebook/token")
     Call<LoginDao> accessFacebook(@Query("access_token") String accessToken);
+
+    @POST("/api/signup")
+    Call<LoginDao> registerUser(@Body UserProfile userProfile);
 
 }

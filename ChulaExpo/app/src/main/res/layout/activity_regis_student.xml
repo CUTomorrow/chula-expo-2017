@@ -182,6 +182,7 @@
                             android:backgroundTint="@color/transparent"
                             android:imeOptions="actionNext"
                             android:text="20"
+                            android:inputType="number"
                             android:textColor="@color/dark_blue"
                             android:textColorLink="@color/transparent" />
                     </LinearLayout>

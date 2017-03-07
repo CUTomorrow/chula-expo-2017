@@ -33,11 +33,9 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
     Spinner   spGender;
     View    btnNext;
     ImageView ivRegisProfile;
-    String id,name,email,gender,birthday;
+    String id,name,email,gender;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    public static final int STUDENT = 1;
-    public static final int ADULT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +57,16 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         name = sharedPref.getString("name","");
         email = sharedPref.getString("email","");
         gender = sharedPref.getString("gender","male");
-        birthday = sharedPref.getString("birthday","");
-        editor.putInt("role",STUDENT);
-        editor.putString("year",etYear.getText().toString());
-        editor.putString("school",etSchool.getText().toString());
+        //birthday = sharedPref.getString("birthday","");
+        editor.putString("type","Academic");
+        //editor.putString("academicYear",etYear.getText().toString());
+        editor.putString("academicSchool",etSchool.getText().toString());
+        editor.putString("profile","http://graph.facebook.com/"+id+"/picture?type=large");
         editor.commit();
 
         etRegisName.setText(name);
         etEmail.setText(email);
-        etBirth.setText(birthday);
+        //etBirth.setText(birthday);
 
         etRegisName.addTextChangedListener(textWatcher);
         etEmail.addTextChangedListener(textWatcher);
@@ -129,7 +128,7 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         public void afterTextChanged(Editable s) {
             editor.putString("name", etRegisName.getText().toString());
             editor.putString("email", etEmail.getText().toString());
-            editor.putString("birthday", etBirth.getText().toString());
+            editor.putInt("age",Integer.parseInt(etBirth.getText().toString()));
             editor.putString("school", etSchool.getText().toString());
             editor.putString("year", etYear.getText().toString());
             editor.commit();
@@ -142,7 +141,7 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
             View spinnerSelectedView = spGender.getSelectedView();
             ((TextView)spinnerSelectedView)
                 .setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(),R.color.dark_blue));
-            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "ชาย":"หญิง");
+            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "Male":"Female");
             editor.commit();
         }
 

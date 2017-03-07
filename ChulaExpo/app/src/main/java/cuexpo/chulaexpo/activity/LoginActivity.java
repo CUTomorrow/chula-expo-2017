@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             "user_birthday", "public_profile");
     private CallbackManager callbackManager;
     private AccessToken accessToken;
-    private String token;
+    private String token, kind;
 
 
 
@@ -82,6 +82,10 @@ public class LoginActivity extends AppCompatActivity {
             GraphRequest request = GraphRequest.newMeRequest(loginResults.getAccessToken(), graphJSONObjectCallback);
             token = loginResults.getAccessToken().getToken();
             Log.e("LoginFB","Token Token Token Token Token Token Token Token Token Token");
+            SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("fbToken",token);
+            editor.apply();
             Bundle parameters = new Bundle();
             parameters.putString("fields", "id,name,email,gender,birthday");
             request.setParameters(parameters);
@@ -132,6 +136,14 @@ public class LoginActivity extends AppCompatActivity {
                             LoginDao dao = response.body();
                             if(dao.getSuccess()){
                                 Log.e("LoginFB","Success=true");
+
+                                //keep token
+                                SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("apiToken",dao.getResults().getToken());
+                                Log.e("LoginFB","apiToken = " + dao.getResults().getToken());
+                                editor.apply();
+
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 LoginActivity.this.startActivity(intent);
                                 LoginActivity.this.finish();
