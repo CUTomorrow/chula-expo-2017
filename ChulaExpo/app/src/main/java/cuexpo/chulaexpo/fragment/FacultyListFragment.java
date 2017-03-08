@@ -111,7 +111,7 @@ public class FacultyListFragment extends Fragment {
     AdapterView.OnItemClickListener facultyItemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getActivity(), "*gogo*", Toast.LENGTH_SHORT).show();
+
         }
     };
 

@@ -145,7 +145,7 @@ public class FacultyListAdapter extends BaseAdapter {
             case 13:
                 faculty.setFacultyBg(R.drawable.law_bg);
                 faculty.setFacultyIcon(R.drawable.law);
-                faculty.setFacultyTag("LAW", Color.BLACK, Color.rgb(00, 00, 00));
+                faculty.setFacultyTag("LAW", Color.BLACK, Color.rgb(0, 0, 0));
                 faculty.setFacultyTitle("นิติศาสตร์");
                 faculty.setFacultyTitleEng("Faculty of Law");
                 break;
