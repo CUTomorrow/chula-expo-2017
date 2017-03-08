@@ -28,6 +28,7 @@ import cuexpo.chulaexpo.fragment.EventDetailFragment;
  */
 public class StageInsideListItem extends BaseCustomViewGroup implements View.OnClickListener {
 
+    private StageListItem parent;
     private TextView tvDescription;
     private TextView tvFavourite;
     private TextView tvStar;
@@ -39,8 +40,9 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnC
     private String id;
 
 
-    public StageInsideListItem(Context context) {
+    public StageInsideListItem(Context context, StageListItem item) {
         super(context);
+        parent = item;
         initInflate();
         initInstances();
     }
@@ -167,10 +169,12 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnC
             if (!selected) {
                 tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
                 tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
+                parent.setNameHighlight(1);
 
             } else {
                 tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
                 tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+                parent.setNameHighlight(2);
             }
             selected = !selected;
         }

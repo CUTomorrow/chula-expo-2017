@@ -1,9 +1,11 @@
 package cuexpo.chulaexpo.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -108,7 +110,6 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     };
 
 
-
     @Override
     public int getCount() {
         return 3;
@@ -133,9 +134,12 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 convertView = inflater.inflate(R.layout.item_event_detail_schedule, null);
                 if (time == null) ((TextView) convertView.findViewById(R.id.schedule)).setText("-");
                 else ((TextView) convertView.findViewById(R.id.schedule)).setText(time);
-                if (contact == null) ((TextView) convertView.findViewById(R.id.responsible_person)).setText("-");
-                else ((TextView) convertView.findViewById(R.id.responsible_person)).setText(contact);
-                if (place == null) ((TextView) convertView.findViewById(R.id.location)).setText("-");
+                if (contact == null)
+                    ((TextView) convertView.findViewById(R.id.responsible_person)).setText("-");
+                else
+                    ((TextView) convertView.findViewById(R.id.responsible_person)).setText(contact);
+                if (place == null)
+                    ((TextView) convertView.findViewById(R.id.location)).setText("-");
                 else ((TextView) convertView.findViewById(R.id.location)).setText(place);
                 convertView.findViewById(R.id.reserve_button).setOnClickListener(reserveOCL);
                 break;
@@ -144,15 +148,16 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 TextView detail = (TextView) convertView.findViewById(R.id.detail);
                 detail.setText(description);
                 LinearLayout pictureLayout = (LinearLayout) convertView.findViewById(R.id.picture_layout);
-                if (imageUrls.length == 0) convertView.findViewById(R.id.image_scroll_view).setVisibility(View.GONE);
-                for(String imageUrl: imageUrls){
+                if (imageUrls.length == 0)
+                    convertView.findViewById(R.id.image_scroll_view).setVisibility(View.GONE);
+                for (String imageUrl : imageUrls) {
                     ImageView image = new ImageView(context);
                     RelativeLayout.LayoutParams imageParam = new RelativeLayout.LayoutParams(
                             dpToPx(44), dpToPx(44));
                     image.setLayoutParams(imageParam);
                     Glide.with(context)
-                            .load("http://staff.chulaexpo.com" + imageUrl)
-                            .placeholder(R.color.blackOverlay)
+                            .load("https://staff.chulaexpo.com" + imageUrl)
+                            .placeholder(R.drawable.thumb)
                             .centerCrop()
                             .into(image);
                     pictureLayout.addView(image);
@@ -186,20 +191,31 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         googleMap.addMarker(
                 new MarkerOptions()
                         .position(new LatLng(lat, lng))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_21))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.fav))
         );
     }
 
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(dp * ((float)displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+        return Math.round(dp * ((float) displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
     private View.OnClickListener reserveOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             // TODO for Boom-sama
-            if(canReserve){
+            final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+            alert.setTitle("Coming Soon");
+            alert.setMessage("พบกับฟังก์ชันนี้เร็ว ๆ นี้ ...");
+            alert.setCancelable(false);
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert2 = alert.create();
+            alert2.show();
+            /*if(canReserve){
                 FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id,title));
@@ -208,7 +224,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 fragmentTransaction.commit();
             } else {
 
-            }
+            }*/
         }
     };
 }

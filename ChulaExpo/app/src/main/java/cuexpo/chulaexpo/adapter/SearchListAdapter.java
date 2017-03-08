@@ -38,13 +38,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private FragmentManager fragmentManager;
 
     public class EventViewHolder extends RecyclerView.ViewHolder{
-        public TextView title, time;
-        public LinearLayout tags;
+        public TextView title, time, tag;
         public EventViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             time = (TextView) view.findViewById(R.id.time);
-            tags = (LinearLayout) view.findViewById(R.id.tags);
+            tag = (TextView) view.findViewById(R.id.event_tag);
             view.setOnClickListener(onEventClick);
         }
     }

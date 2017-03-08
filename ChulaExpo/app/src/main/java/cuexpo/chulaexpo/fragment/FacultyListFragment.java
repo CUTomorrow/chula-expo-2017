@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -68,13 +70,10 @@ public class FacultyListFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
-
         faculty = (GridView) rootView.findViewById(R.id.faculty_grid);
         adapter = new FacultyListAdapter();
         faculty.setAdapter(adapter);
         faculty.setOnItemClickListener(facultyItemListener);
-
-
     }
 
     @Override
@@ -111,7 +110,78 @@ public class FacultyListFragment extends Fragment {
     AdapterView.OnItemClickListener facultyItemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Zone", Context.MODE_PRIVATE);
+        switch(position) {
+            case 0:
+                activitySharedPref.edit().putString("ZoneName", "ENG").apply();
+                break;
+            case 1:
+                activitySharedPref.edit().putString("ZoneName", "ARTS").apply();
+                break;
+            case 2:
+                activitySharedPref.edit().putString("ZoneName", "SCI").apply();
+                break;
+            case 3:
+                activitySharedPref.edit().putString("ZoneName", "POLSCI").apply();
+                break;
+            case 4:
+                activitySharedPref.edit().putString("ZoneName", "ARCH").apply();
+                break;
+            case 5:
+                activitySharedPref.edit().putString("ZoneName", "BANSHI").apply();
+                break;
+            case 6:
+                activitySharedPref.edit().putString("ZoneName", "EDU").apply();
+                break;
+            case 7:
+                activitySharedPref.edit().putString("ZoneName", "COMMARTS").apply();
+                break;
+            case 8:
+                activitySharedPref.edit().putString("ZoneName", "ECON").apply();
+                break;
+            case 9:
+                activitySharedPref.edit().putString("ZoneName", "MED").apply();
+                break;
+            case 10:
+                activitySharedPref.edit().putString("ZoneName", "VET").apply();
+                break;
+            case 11:
+                activitySharedPref.edit().putString("ZoneName", "DENT").apply();
+                break;
+            case 12:
+                activitySharedPref.edit().putString("ZoneName", "PHARM").apply();
+                break;
+            case 13:
+                activitySharedPref.edit().putString("ZoneName", "LAW").apply();
+                break;
+            case 14:
+                activitySharedPref.edit().putString("ZoneName", "FAA").apply();
+                break;
+            case 15:
+                activitySharedPref.edit().putString("ZoneName", "NUR").apply();
+                break;
+            case 16:
+                activitySharedPref.edit().putString("ZoneName", "AHS").apply();
+                break;
+            case 17:
+                activitySharedPref.edit().putString("ZoneName", "PSY").apply();
+                break;
+            case 18:
+                activitySharedPref.edit().putString("ZoneName", "SPSC").apply();
+                break;
+            case 19:
+                activitySharedPref.edit().putString("ZoneName", "SAR").apply();
+                break;
+            case 20:
+                activitySharedPref.edit().putString("ZoneName", "GRAD").apply();
+                break;
+        }
 
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.container, new ZoneMainPageFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
         }
     };
 

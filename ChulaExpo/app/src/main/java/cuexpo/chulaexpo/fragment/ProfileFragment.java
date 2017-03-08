@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
+
 import org.w3c.dom.Text;
 
 import cuexpo.chulaexpo.R;
@@ -153,6 +155,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putBoolean("access", access);
         // Save Instance State here
     }
 
@@ -162,46 +165,55 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @SuppressWarnings("UnusedParameters")
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore Instance State here
+        access = savedInstanceState.getBoolean("access");
     }
 
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
-            if (!access) {
+            /*if (!access) {
                 error();
-            } else {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.main_overlay, new QRFragment());
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
+            } else {*/
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.main_overlay, new QRFragment());
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            //}
         } else if (v == btnFavourite) {
             if (!access) {
                 error();
             } else {
-                Intent intent = new Intent(getActivity(), FavouriteActivity.class);
-                getContext().startActivity(intent);
+                comingSoon();
+                /*Intent intent = new Intent(getActivity(), FavouriteActivity.class);
+                getContext().startActivity(intent);*/
             }
         } else if (v == btnReserved) {
             if (!access) {
                 error();
             } else {
-                Intent intent = new Intent(getActivity(), ReservedActivity.class);
-                getContext().startActivity(intent);
+                comingSoon();
+                /*Intent intent = new Intent(getActivity(), ReservedActivity.class);
+                getContext().startActivity(intent);*/
             }
         } else if (v == btnEdit) {
             if (!access) {
                 error();
+            } else {
+                comingSoon();
             }
         } else if (v == btnSetting) {
             if (!access) {
                 error();
+            } else {
+                comingSoon();
             }
         } else if (v == btnSetting2) {
             if (!access) {
                 error();
+            } else {
+                comingSoon();
             }
         } else if (v == btnFaq) {
             FragmentManager fragmentManager = getFragmentManager();
@@ -229,6 +241,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             editor.putString("company", "");
             editor.putInt("role", 0);
             editor.commit();
+            LoginManager.getInstance().logOut();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
             getActivity().finish();
@@ -264,6 +277,20 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     public void setPlace(String text) {
         tvPlace.setText(text);
+    }
+
+    public void comingSoon() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle("Coming Soon");
+        alert.setMessage("พบกับฟังก์ชันนี้เร็ว ๆ นี้ ...");
+        alert.setCancelable(false);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert2 = alert.create();
+        alert2.show();
     }
 
     public void error() {

@@ -19,29 +19,28 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="12dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="9dp"
-            android:paddingBottom="7dp">
+            android:paddingTop="9dp">
 
             <TextView
-                android:text="Text"
+                android:id="@+id/detail"
+                fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/detail"
+                android:layout_marginBottom="5dp"
+                android:text="Text"
                 android:textColor="@android:color/black"
-                fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
-                android:textSize="16sp"
-                android:layout_marginBottom="5dp"/>
+                android:textSize="16sp" />
 
 
-            <com.google.android.gms.maps.MapView
-                android:layout_margin="5dp"
-                android:layout_below="@id/detail"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <com.google.android.gms.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/mapView"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
+                android:layout_below="@id/detail"
+                android:layout_marginTop="5dp"
                 android:focusable="true"
                 map:liteMode="true" />
 

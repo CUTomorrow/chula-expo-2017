@@ -14,11 +14,15 @@ import android.widget.Toast;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import java.io.IOException;
+import java.util.List;
 
 import cuexpo.chulaexpo.R;
 import cuexpo.chulaexpo.adapter.ActivityListAdapter;
 import cuexpo.chulaexpo.adapter.ReservedListAdapter;
 import cuexpo.chulaexpo.dao.ActivityItemCollectionDao;
+import cuexpo.chulaexpo.dao.ActivityItemDao;
+import cuexpo.chulaexpo.dao.ActivityItemResultDao;
+import cuexpo.chulaexpo.dao.RoundDao;
 import cuexpo.chulaexpo.datatype.MutableInteger;
 import cuexpo.chulaexpo.manager.ActivityListManager;
 import cuexpo.chulaexpo.manager.HttpManager;
@@ -34,14 +38,15 @@ import retrofit2.Response;
 @SuppressWarnings("unused")
 public class ReservedFragment extends Fragment implements View.OnClickListener {
 
-    ImageView back;
-    ExpandableHeightListView upComingEventListView;
-    ExpandableHeightListView previousEventListView;
-    ActivityListManager photoListManager;
-    ActivityListAdapter upComingAdapter;
-    ActivityListAdapter previousAdapter;
-    ReservedListAdapter adapter;
-    MutableInteger lastPositionInteger;
+    private ImageView back;
+    private ExpandableHeightListView upComingEventListView;
+    private ExpandableHeightListView previousEventListView;
+    private ActivityListManager photoListManager;
+    private ActivityListAdapter upComingAdapter;
+    private ActivityListAdapter previousAdapter;
+    private ReservedListAdapter adapter;
+    private MutableInteger lastPositionInteger;
+    private ActivityItemCollectionDao dao2 = new ActivityItemCollectionDao();
 
     public ReservedFragment() {
         super();
@@ -97,18 +102,26 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
         back.setOnClickListener(this);
 
-        Call<ActivityItemCollectionDao> callReservedList = HttpManager.getInstance().getService().getReservedActivity();
+        Call<RoundDao> callReservedList = HttpManager.getInstance().getService().getReservedActivity();
         //callReservedList.enqueue(callbackReservedList);
+
     }
 
-    Callback<ActivityItemCollectionDao> callbackReservedList = new Callback<ActivityItemCollectionDao>() {
+    Callback<RoundDao> callbackReservedList = new Callback<RoundDao>() {
         @Override
-        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
+        public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
-                ActivityItemCollectionDao dao = response.body();
+                RoundDao dao = response.body();
                 Toast.makeText(Contextor.getInstance().getContext(),dao.getResults().size() + "",Toast.LENGTH_LONG).show();
-                upComingAdapter.setDao(dao);
-                upComingAdapter.notifyDataSetChanged();
+                adapter.setRoundDao(dao);
+                adapter.notifyDataSetChanged();
+
+                for(int i = 0 ;i < dao.getResults().size();i++) {
+                    Call<ActivityItemDao> callActivity =
+                            HttpManager.getInstance().getService().
+                                    loadActivityItem(dao.getResults().get(i).getId());
+                    callActivity.enqueue(callbackActivity);
+                }
             } else {
                 try {
                     Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
@@ -119,7 +132,31 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
+        public void onFailure(Call<RoundDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+        }
+    };
+
+    Callback<ActivityItemDao> callbackActivity = new Callback<ActivityItemDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
+            if (response.isSuccessful()) {
+                ActivityItemDao dao = response.body();
+                dao2.setSuccess(true);
+                dao2.addResults(dao.getResults());
+                adapter.setActivityDao(dao2);
+                adapter.notifyDataSetChanged();
+            } else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ActivityItemDao> call, Throwable t) {
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
         }
     };

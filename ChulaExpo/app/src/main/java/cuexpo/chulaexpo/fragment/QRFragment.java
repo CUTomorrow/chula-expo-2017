@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +21,7 @@ import com.bumptech.glide.Glide;
 
 import net.glxn.qrgen.android.QRCode;
 
-import java.util.Map;
-
 import cuexpo.chulaexpo.R;
-//import cuexpo.chulaexpo.adapter.ScannerActivity;
 import cuexpo.chulaexpo.activity.MainActivity;
 import cuexpo.chulaexpo.adapter.ScannerActivity;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -41,11 +37,20 @@ public class QRFragment extends Fragment implements View.OnClickListener {
     TextView tvQRName, tvQRPersonalInfo;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    String id,name,year,school,company;
-    int role;
-    public static final int STUDENT = 1;
-    public static final int ADULT = 2;
+    String id,name,year,school,workerJob,type;
     private final static int REQUEST_QR = 0;
+
+    public QRFragment() {
+        super();
+    }
+
+    @SuppressWarnings("unused")
+    public static QRFragment newInstance() {
+        QRFragment fragment = new QRFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,7 +95,6 @@ public class QRFragment extends Fragment implements View.OnClickListener {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             } else {
-//                Log.
                 new AlertDialog.Builder(getContext())
                         .setTitle("QR Code ไม่ถูกต้อง")
                         .setMessage(qrValue + "ไม่ใช่ URL ของ Chula Expo Event")
@@ -106,19 +110,6 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void showCheckInSuccessDialog(String checkInPlaceName, final boolean isBingo) {
-        new AlertDialog.Builder(getContext())
-                .setTitle("การเช็คอินสำเร็จ")
-                .setMessage("คุณเช็คอินที่ \"" + checkInPlaceName + "\" เรียบร้อย :)")
-                .setNeutralButton("ตกลง", null)
-                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-//                        if (isBingo) showBingoDialog();
-                    }
-                })
-                .show();
-    }
     private void init() {
         // Init Fragment level's variable(s) here
         //get SharedPref
@@ -126,12 +117,12 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         editor = sharedPref.edit();
         id = sharedPref.getString("id","");
         name = sharedPref.getString("name","");
-        role = sharedPref.getInt("role",STUDENT);
-        if(role == STUDENT){
-            year = sharedPref.getString("year","");
-            school = sharedPref.getString("school","");
-        } else {
-            company = sharedPref.getString("company","");
+        type = sharedPref.getString("type","Guest");
+        if(type.equals("Academic")){
+            year = sharedPref.getString("academicYear","");
+            school = sharedPref.getString("academicSchool","");
+        } else if(type.equals("Worker")) {
+            workerJob = sharedPref.getString("workerJob","");
         }
     }
 
@@ -152,8 +143,10 @@ public class QRFragment extends Fragment implements View.OnClickListener {
                 .into(ivQRProfile);
 
         tvQRName.setText(name);
-        if(role == STUDENT) tvQRPersonalInfo.setText("Year"+year+" • "+school);
-        else tvQRPersonalInfo.setText(company);
+        //if(type.equals("Academic")) tvQRPersonalInfo.setText("Year"+year+" • "+school);
+        if(type.equals("Academic")) tvQRPersonalInfo.setText(school);
+        else if(type.equals("Worker")) tvQRPersonalInfo.setText(workerJob);
+        else tvQRPersonalInfo.setText("Guest");
 
         try {
             Bitmap qrBm = QRCode.from((String) tvQRName.getText()).bitmap();

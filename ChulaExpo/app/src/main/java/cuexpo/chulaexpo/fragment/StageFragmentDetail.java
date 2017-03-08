@@ -94,7 +94,7 @@ public class StageFragmentDetail extends Fragment {
         }
 
         Call<ActivityItemCollectionDao> callStageActivity = HttpManager
-                .getInstance().getService().loadActivityByZone(stageId, range.toString(),"start");
+                .getInstance().getService().loadActivityByZone(stageId, range.toString(), "start");
         callStageActivity.enqueue(callBackStageActivity);
         return rootView;
     }
@@ -112,13 +112,13 @@ public class StageFragmentDetail extends Fragment {
                     StageListItem item = new StageListItem(getContext());
                     item.setTime(dao.getResults().get(i).getStart().substring(11, 16)
                             , dao.getResults().get(i).getEnd().substring(11, 16));
-                    item.setName(dao.getResults().get(i).getName().getEn());
+                    item.setName(dao.getResults().get(i).getName().getTh());
                     item.setDay(day);
 
                     head.add(item);
 
-                    StageInsideListItem item2 = new StageInsideListItem(getContext());
-                    item2.setDescription(dao.getResults().get(i).getDescription().getEn());
+                    StageInsideListItem item2 = new StageInsideListItem(getContext(),item);
+                    item2.setDescription(dao.getResults().get(i).getDescription().getTh());
                     item2.setId(dao.getResults().get(i).getId());
                     tail.put(head.get(i), item2);
                 }
