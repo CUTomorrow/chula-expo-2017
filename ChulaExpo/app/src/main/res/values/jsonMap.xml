@@ -701,7 +701,38 @@
     <string name="jsonPopBusStation">
 
 [
-    { \"nameTh\": \"ป้ายรถ CU Tour\", \"nameEn\": \"CU Tour Bus Stop\", \"lat\": 13.73591, \"lng\": 100.53173 }
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74588, \"lng\": 100.53243 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74496, \"lng\": 100.53568 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74175, \"lng\": 100.53516 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73923, \"lng\": 100.53478 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73435, \"lng\": 100.53387 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73317, \"lng\": 100.53547 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73471, \"lng\": 100.53181 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73460, \"lng\": 100.53118 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73599, \"lng\": 100.52939 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73844, \"lng\": 100.52969 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74064, \"lng\": 100.53004 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74368, \"lng\": 100.53047 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74095, \"lng\": 100.52983 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74096, \"lng\": 100.52757 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74279, \"lng\": 100.52780 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74100, \"lng\": 100.52740 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74374, \"lng\": 100.52797 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74632, \"lng\": 100.52830 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74663, \"lng\": 100.52558 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74440, \"lng\": 100.52514 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73963, \"lng\": 100.52660 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73798, \"lng\": 100.52857 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73635, \"lng\": 100.52608 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73795, \"lng\": 100.52665 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73537, \"lng\": 100.52716 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73514, \"lng\": 100.52860 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.74122, \"lng\": 100.52557 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73991, \"lng\": 100.52533 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73809, \"lng\": 100.52525 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73732, \"lng\": 100.52492 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73932, \"lng\": 100.52946 },
+    { \"nameTh\": \"ป้ายรถปอพ\", \"nameEn\": \"CU Pop Bus Stop\", \"lat\": 13.73497, \"lng\": 100.52959 }
 ]
 
     </string>

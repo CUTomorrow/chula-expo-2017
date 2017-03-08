@@ -121,9 +121,27 @@ public class MapFragment extends Fragment implements
         }
     }
 
+    private void initializePopBusStation() {
+        try {
+            JSONArray cuTourStationJSON = new JSONArray(
+                    getContext().getResources().getString(R.string.jsonPopBusStation)
+            );
+            for (int i = 0; i < cuTourStationJSON.length(); i++) {
+                JSONObject cuTourStationData = cuTourStationJSON.getJSONObject(i);
+                cuexpo.chulaexpo.dao.Location location = new cuexpo.chulaexpo.dao.Location();
+                location.setLatitude(cuTourStationData.getDouble("lat"));
+                location.setLongitude(cuTourStationData.getDouble("lng"));
+                popBusStationPins.add(new NormalPinMapEntity(cuTourStationData.getString("nameTh"), location, "BusStop"));
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private void initializeMapStaticData() {
         initializeFaculties();
         initializePopbusRoutes();
+        initializePopBusStation();
     }
 
     @Override
@@ -419,7 +437,7 @@ public class MapFragment extends Fragment implements
                 setAllNormalPinsVisibility(popBusStationPins, false);
             } else {
                 showBusStop.setSelected(true);
-                setAllNormalPinsVisibility(popBusStationPins, false);
+                setAllNormalPinsVisibility(popBusStationPins, true);
             }
         }
     };
