@@ -189,6 +189,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 SharedPreferences.Editor reverseZoneKeyEditor = reverseZoneKeySharedPref.edit();
                 for (int i = 0; i < dao.getResults().size(); i++) {
                     ZoneResult zone = dao.getResults().get(i);
+                    editor.putString(zone.getId(), zone.getShortName().getEn());
                     reverseZoneKeyEditor.putString(zone.getShortName().getEn(), zone.getId());
                     if (zone.getType().equals("Stage")) {
                         Log.d("StageHome", zone.getId());

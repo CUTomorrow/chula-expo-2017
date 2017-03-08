@@ -947,37 +947,8 @@
 ]
 
     </string>
-    <string name="jsonInformationPoint">
 
-[
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.7396, \"lng\": 100.5308 },
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73796, \"lng\": 100.52993 },
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73739, \"lng\": 100.53195 },
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73892, \"lng\": 100.53415 },
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73636, \"lng\": 100.52979 },
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73483, \"lng\": 100.53079 },
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73813, \"lng\": 100.52908 },
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.74384, \"lng\": 100.53246 },
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.74329, \"lng\": 100.52817 },
-	{ \"nameTh\": \"จุดปฏิคม\", \"nameEn\": \"Information\", \"lat\": 13.73336, \"lng\": 100.53588 }
-]
-
-    </string>
-    <string name="jsonLandmarks">
-
-[
-	{ \"nameTh\": \"ศาลาพระเกี้ยว\", \"nameEn\": \"Sala Phra Kieo\", \"lat\": 13.73548, \"lng\": 100.53147 },
-	{ \"nameTh\": \"พระบรมรูป 2 รัชกาล\", \"nameEn\": \"The Statues of King Rama V and King Rama VI\", \"lat\": 13.73841, \"lng\": 100.53169 },
-	{ \"nameTh\": \"ป้ายรถ ปอ.พ.\", \"nameEn\": \"Pop Bus Station\", \"lat\": 13.73504, \"lng\": 100.53185 },
-	{ \"nameTh\": \"หอสมุดกลาง\", \"nameEn\": \"CU Library\", \"lat\": 13.739, \"lng\": 100.52763 },
-	{ \"nameTh\": \"เฉลิมราชสุดากีฬาสถาน\", \"nameEn\": \"CU Sport Complex\", \"lat\": 13.73881, \"lng\": 100.52655 },
-	{ \"nameTh\": \"เทวาลัย\", \"nameEn\": \"Maha Chulalongkorn Building\", \"lat\": 13.73814, \"lng\": 100.53359 },
-	{ \"nameTh\": \"หอประชุมจุฬาฯ\", \"nameEn\": \"CU Auditorium\", \"lat\": 13.73826, \"lng\": 100.53271 },
-	{ \"nameTh\": \"เวทีกลาง\", \"nameEn\": \"Main Stage\", \"lat\": 13.73648, \"lng\": 100.53176 }
-]
-
-    </string>
-    <string name="jsonCUTourStation">
+    <string name="jsonPopBusStation">
 
 [
     { \"nameTh\": \"ป้ายรถ CU Tour\", \"nameEn\": \"CU Tour Bus Stop\", \"lat\": 13.73591, \"lng\": 100.53173 }
