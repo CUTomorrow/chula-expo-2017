@@ -225,8 +225,8 @@ public class ZoneMainPageFragment extends Fragment {
     private AdapterView.OnItemClickListener itemOCL = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (position >= 2) {
-                String activityId = activities.get(position-2).getId();
+            if (position >= 3) {
+                String activityId = activities.get(position-3).getId();
                 SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
                 activitySharedPref.edit().putString("EventID", activityId).apply();
 

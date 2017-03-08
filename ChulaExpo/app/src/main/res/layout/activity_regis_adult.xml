@@ -42,7 +42,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/profile_pic"
             android:layout_centerInParent="true"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="vertical"
@@ -52,7 +51,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profile_pic"
                 android:layout_centerInParent="true"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -320,17 +318,5 @@
             android:layout_height="match_parent"
             app:srcCompat="@drawable/dot2" />
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/linearLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="98dp"
-        android:layout_marginEnd="98dp"
-        android:layout_marginBottom="26dp">
-
-    </RelativeLayout>
 
 </RelativeLayout>
