@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,7 +72,8 @@ public class MapFragment extends Fragment implements
 
     private View rootView;
     protected static GoogleMap googleMap;
-    private CardView pinList, infoCard;
+    private CardView pinList;
+    private RelativeLayout infoCard;
     private boolean isShowingPinList = false;
     private boolean isShowingInfoCard = false;
     private ImageView showFaculty, showInterest, showCanteen, showRegis, showToilet, showInfo,
@@ -160,7 +162,7 @@ public class MapFragment extends Fragment implements
 
         // Get View
         pinList = (CardView) rootView.findViewById(R.id.pin_list);
-        infoCard = (CardView) rootView.findViewById(R.id.info_card);
+        infoCard = (RelativeLayout) rootView.findViewById(R.id.info_card);
         closeInfoCard = (ImageView) rootView.findViewById(R.id.close_info);
 
         showFaculty = (ImageView) rootView.findViewById(R.id.show_faculty_city);
