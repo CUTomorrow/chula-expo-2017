@@ -4,7 +4,7 @@
     android:id="@+id/activity_favourite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuexpo.chulaexpo.activity.FavouriteActivity">
+    tools:context="cuexpo.chulaexpo2017.activity.FavouriteActivity">
 
     <FrameLayout
         android:id="@+id/favourite_acitivity_content_container"

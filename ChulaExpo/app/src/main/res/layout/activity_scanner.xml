@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuexpo.chulaexpo.adapter.ScannerActivity">
+    tools:context="cuexpo.chulaexpo2017.adapter.ScannerActivity">
 
 </android.support.constraint.ConstraintLayout>

@@ -4,7 +4,7 @@
     android:id="@+id/activity_stage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuexpo.chulaexpo.activity.StageActivity">
+    tools:context="cuexpo.chulaexpo2017.activity.StageActivity">
     <FrameLayout
         android:id="@+id/stage_container"
         android:layout_width="match_parent"
