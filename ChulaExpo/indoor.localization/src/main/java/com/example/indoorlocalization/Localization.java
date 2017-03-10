@@ -18,7 +18,7 @@ import java.util.Collections;
 public class Localization extends AsyncTask<JSONObject, Void, JSONObject> {
 
     private boolean isPrint = true;
-    private String server = "161.200.92.6/localization/requests/";
+    private String server = "ezindoor.xyz";
     private OnTaskCompleteListener taskDone;
 
     public Localization(OnTaskCompleteListener taskdone) {
@@ -42,7 +42,7 @@ public class Localization extends AsyncTask<JSONObject, Void, JSONObject> {
     private JSONObject sendToServer(JSONObject jsonToServer) {
         try {
             String returnMessage;
-            String url = "http://" + server + "requests.php";
+            String url = "http://" + server;
             URL urlObj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
             con.setDoOutput(true);
