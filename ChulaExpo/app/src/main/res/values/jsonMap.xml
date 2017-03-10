@@ -279,7 +279,7 @@
         \"nameEn\": \"Faculty of Architecture\",
         \"nameTh\": \"คณะสถาปัตยกรรมศาสตร์\",
         \"type\": \"Faculty\",
-        \"color\": \"#993300\",
+        \"color\": \"#704733\",
         \"centerPoint\": { \"lat\": 13.73983, \"lng\": 100.53082 },
         \"areaBorder\": [
             { \"lat\": 13.74003, \"lng\": 100.53139 },

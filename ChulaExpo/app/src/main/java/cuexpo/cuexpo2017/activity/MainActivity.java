@@ -26,6 +26,7 @@ import cuexpo.cuexpo2017.fragment.HomeFragment;
 import cuexpo.cuexpo2017.fragment.MapFragment;
 import cuexpo.cuexpo2017.fragment.ProfileFragment;
 import cuexpo.cuexpo2017.utility.IGoToMapable;
+import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, IGoToMapable {
@@ -138,15 +139,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
 
     @Override
-    public void goToMap(String entityName) {
-
-    }
-
-    @Override
-    public void goToMap(double lat, double lng) {
+    public void goToMap(NormalPinMapEntity entity) {
         viewPager.setCurrentItem(1); // Go to map
         MapFragment mapFragment = (MapFragment) getSupportFragmentManager()
                 .findFragmentByTag("android:switcher:" + R.id.pager + ":" + 1);
-        mapFragment.goToMap(lat, lng);
+        mapFragment.goToMap(entity);
     }
 }

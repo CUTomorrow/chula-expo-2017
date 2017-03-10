@@ -37,6 +37,7 @@ import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.IGoToMapable;
+import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -172,8 +173,6 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
-//        googleMap.setOnMarkerClickListener(this);
-//        googleMap.setOnMapClickListener(this);
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition.Builder()
                         .target(new LatLng(lat, lng))
@@ -198,8 +197,11 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
     private void goToBiggerMap() {
         Activity act = fragment.getActivity();
+        cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
+        location.setLatitude(lat);
+        location.setLongitude(lng);
         if (act instanceof IGoToMapable) {
-            ((IGoToMapable) act).goToMap(lat, lng);
+            ((IGoToMapable) act).goToMap(new NormalPinMapEntity(title, location, "Event"));
         }
         fragment.getFragmentManager().popBackStack();
     }
