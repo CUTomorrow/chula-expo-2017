@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ViewPager vpHighlight;
     TextView tvHighlightLabel;
     CircleIndicator indicatorHighlight;
-    ImageView ivToolbarQR;
+    ImageView ivToolbarQR, ivVPHighlight;
     View rootView;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -105,12 +105,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         toolbar.setTitle("");
         ivToolbarQR = (ImageView) rootView.findViewById(R.id.home_toolbar_qr);
         ivToolbarQR.setOnClickListener(this);
+        ivVPHighlight = (ImageView) rootView.findViewById(R.id.ivHighlight);
+        //ivVPHighlight.setOnClickListener(this);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         vpHighlight = (ViewPager) rootView.findViewById(R.id.vpHighlight);
         indicatorHighlight = (CircleIndicator) rootView.findViewById(R.id.indicatorHighlight);
         tvHighlightLabel = (TextView) rootView.findViewById(R.id.tvHighlightLabel);
-        highlightListAdapter = new HighlightListAdapter();
+        highlightListAdapter = new HighlightListAdapter(this);
         vpHighlight.setAdapter(highlightListAdapter);
         vpHighlight.setFocusable(false);
         indicatorHighlight.setViewPager(vpHighlight);
@@ -336,6 +338,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
+        /*
+        else if(v == ivVPHighlight){
+            String highlightActivityId = highlightListAdapter.getItemPosition(vpHighlight.getCurrentItem())+"" ;
+            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+            activitySharedPref.edit().putString("HighlightEventID", activityId).apply();
+
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new EventDetailFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+        */
+
     }
 
     public JSONObject getCurrentTime(String operator) {
@@ -345,7 +361,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         String currentTime = df.format(new Date());
         Log.d("HomeTime", "CurrentTime = " + currentTime);
         JSONObject range = new JSONObject();
-        try {
+            try {
             range.put(operator, currentTime);
         } catch (JSONException e) {
             e.printStackTrace();

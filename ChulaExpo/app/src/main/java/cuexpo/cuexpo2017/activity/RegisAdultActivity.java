@@ -123,7 +123,11 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         editor.putString("name",etRegisName.getText().toString());
         Log.d("regis","Name: "+etRegisName.getText().toString());
         editor.putString("email",etEmail.getText().toString());
-        editor.putInt("age",Integer.parseInt(etBirth.getText().toString()));
+        try {
+            editor.putInt("age", Integer.parseInt(etBirth.getText().toString()));
+        } catch (NumberFormatException exception){
+            editor.putInt("age", 0);
+        }
         editor.putString("workerJob",etCareer.getText().toString());
         editor.commit();
     }

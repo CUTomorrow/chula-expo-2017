@@ -153,7 +153,7 @@ public class EventDetailFragment extends Fragment {
 
             String strDate = dao.getStart();
             String endDaye = dao.getEnd();
-            EventDetailListAdapter adapter = new EventDetailListAdapter(getActivity(), dao.getId(),
+            EventDetailListAdapter adapter = new EventDetailListAdapter(fragment, getActivity(), dao.getId(),
                     dao.getLocation().getPlace(),
                     dao.getContact(),
                     DateUtil.getDateRangeThai(strDate, endDaye) + " \u2022 " + strDate.substring(11,16) + "-" + endDaye.substring(11,16),
