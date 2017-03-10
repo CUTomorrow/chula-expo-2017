@@ -19,6 +19,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
@@ -64,31 +65,39 @@ public class LoginActivity extends AppCompatActivity {
         facebookLogin.setOnClickListener(facebookLoginOnClick);
         guestLogin.setOnClickListener(guestLoginOnClick);
 
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-                updateWithToken(newAccessToken);
-            }
-        };
+//        accessTokenTracker = new AccessTokenTracker() {
+//            @Override
+//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
+//                updateWithToken(newAccessToken);
+//            }
+//        };
     }
 
-    private void updateWithToken(AccessToken currentAccessToken) {
-        if (currentAccessToken != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            LoginActivity.this.startActivity(intent);
-            LoginActivity.this.finish();
-        } else {
-            Log.e("Facebook login", "No access token");
-        }
-    }
+//    private void updateWithToken(AccessToken currentAccessToken) {
+//        if (currentAccessToken != null) {
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            LoginActivity.this.startActivity(intent);
+//            LoginActivity.this.finish();
+//        } else {
+//            Log.e("Facebook login", "No access token");
+//        }
+//    }
 
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if(AccessToken.getCurrentAccessToken() != null){
-                LoginManager.getInstance().logOut();
+                Log.e("user id key", AccessToken.USER_ID_KEY);
+                new GraphRequest(AccessToken.getCurrentAccessToken(), "/"+AccessToken.USER_ID_KEY+"/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
+                    @Override
+                    public void onCompleted(GraphResponse graphResponse) {
+                        LoginManager.getInstance().logOut();
+                        Toast.makeText(activity, "Please try logging in again", Toast.LENGTH_SHORT).show();
+//                        LoginManager.getInstance().logInWithReadPermissions(activity, permissionNeeds);
+                    }
+                }).executeAsync();
             }
-            LoginManager.getInstance().logInWithReadPermissions(activity, permissionNeeds);
+            else LoginManager.getInstance().logInWithReadPermissions(activity, permissionNeeds);
         }
     };
 
@@ -117,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onError(FacebookException e) {
             if(AccessToken.getCurrentAccessToken() !=  null) Log.e("access token", AccessToken.getCurrentAccessToken().getToken());
             else Log.e("LoginFB", "facebook login error " + e.toString());
-            Toast.makeText(Contextor.getInstance().getContext(),"Weak Connection, please check the Internet and reconnect",Toast.LENGTH_SHORT);
+            Toast.makeText(Contextor.getInstance().getContext(),"Weak Connection, please check the Internet and reconnect",Toast.LENGTH_SHORT).show();
         }
     };
 
