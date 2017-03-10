@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="cuexpo.chulaexpo.fragment.EventPageFragment">
+    tools:context="cuexpo.cuexpo2017.fragment.EventPageFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
