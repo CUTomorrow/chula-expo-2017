@@ -67,8 +67,11 @@ public class NormalPinMapEntity implements IMapEntity {
         this.type = type;
         this.name = name;
         switch (type) {
+            case "Event":
+                markerIconDrawableResource = R.drawable.pin_event;
+                color = Color.parseColor("#e40434");
+                break;
             case "Canteen":
-                Log.d("type is canteen", "true");
                 markerIconDrawableResource = R.drawable.food;
                 color = Color.parseColor("#ff9915");
                 break;
@@ -127,5 +130,9 @@ public class NormalPinMapEntity implements IMapEntity {
         this.map = map;
         markerOption.icon(BitmapDescriptorFactory.fromResource(markerIconDrawableResource));
         marker = map.addMarker(markerOption);
+    }
+
+    public void clearMarker() {
+        if(marker != null) marker.remove();
     }
 }
