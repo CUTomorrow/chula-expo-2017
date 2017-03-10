@@ -132,4 +132,8 @@ public class HighlightListItem extends BaseCustomViewGroup {
         else ivHighlight.setImageResource(R.drawable.highlight_psy_1);
         */
     }
+
+    public ImageView getIvHighlight() {
+        return ivHighlight;
+    }
 }
