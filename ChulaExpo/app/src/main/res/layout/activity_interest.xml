@@ -9,7 +9,7 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context="cuexpo.chulaexpo2017.activity.InterestActivity">
+    tools:context="cuexpo.cuexpo2017.activity.InterestActivity">
 
     <TextView
         android:text="Selected"

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuexpo.chulaexpo2017.fragment.HomeFragment">
+    tools:context="cuexpo.cuexpo2017.fragment.HomeFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -99,12 +99,12 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp">
-            <cuexpo.chulaexpo2017.view.ExpandableHeightListView
+            <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:id="@+id/lvStage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:divider="@color/transparent"></cuexpo.chulaexpo2017.view.ExpandableHeightListView>
+                android:divider="@color/transparent"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
         </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/layoutActivityHeader"
@@ -149,11 +149,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <cuexpo.chulaexpo2017.view.ExpandableHeightListView
+                <cuexpo.cuexpo2017.view.ExpandableHeightListView
                     android:id="@+id/lvActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:divider="@color/transparent"></cuexpo.chulaexpo2017.view.ExpandableHeightListView>
+                    android:divider="@color/transparent"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
             </LinearLayout>
             </LinearLayout>
         </ScrollView>

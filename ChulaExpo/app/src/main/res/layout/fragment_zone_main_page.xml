@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="cuexpo.chulaexpo2017.fragment.ZoneMainPageFragment"
+    tools:context="cuexpo.cuexpo2017.fragment.ZoneMainPageFragment"
     android:background="@color/light_grey">
 
 

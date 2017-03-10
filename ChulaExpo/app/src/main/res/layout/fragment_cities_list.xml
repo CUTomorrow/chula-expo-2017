@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuexpo.chulaexpo2017.fragment.CityListFragment"
+    tools:context="cuexpo.cuexpo2017.fragment.CityListFragment"
     android:id="@+id/container">
     <ScrollView
         android:layout_width="match_parent"
@@ -13,13 +13,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <cuexpo.chulaexpo2017.view.ExpandableHeightListView
+            <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:id="@+id/cities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:divider="#ececec"
-                android:dividerHeight="10dp"></cuexpo.chulaexpo2017.view.ExpandableHeightListView>
+                android:dividerHeight="10dp"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
 
         </LinearLayout>
     </ScrollView>

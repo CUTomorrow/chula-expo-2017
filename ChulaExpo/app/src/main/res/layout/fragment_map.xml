@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:map="http://schemas.android.com/apk/res-auto"
-    tools:context="cuexpo.chulaexpo2017.fragment.MapFragment">
+    tools:context="cuexpo.cuexpo2017.fragment.MapFragment">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/main_map"
