@@ -110,8 +110,6 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             e.printStackTrace();
         }
 
-        //String aid = "589b1d9c0028bd37f48906ad";
-
         Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, "start", range);
         callRound.enqueue(callbackRound);
 

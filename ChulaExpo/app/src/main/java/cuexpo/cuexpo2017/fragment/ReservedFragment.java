@@ -1,24 +1,33 @@
 package cuexpo.cuexpo2017.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.adapter.ActivityListAdapter;
 import cuexpo.cuexpo2017.adapter.ReservedListAdapter;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemDao;
+import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
+import cuexpo.cuexpo2017.dao.RoundResult;
 import cuexpo.cuexpo2017.datatype.MutableInteger;
 import cuexpo.cuexpo2017.manager.ActivityListManager;
 import cuexpo.cuexpo2017.manager.HttpManager;
@@ -86,20 +95,26 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         previousEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.reserved_content_container2);
         back = (ImageView) rootView.findViewById(R.id.reserved_back);
 
+        adapter = new ReservedListAdapter();
+
         upComingAdapter = new ActivityListAdapter(lastPositionInteger);
         upComingAdapter.setDao(photoListManager.getDao());
-        upComingEventListView.setAdapter(upComingAdapter);
+
+        upComingEventListView.setAdapter(adapter);
         upComingEventListView.setExpanded(true);
         upComingEventListView.setFocusable(false);
+        upComingEventListView.setOnItemClickListener(lvEventItemClickListener);
 
-        previousEventListView.setAdapter(adapter);
+        previousEventListView.setAdapter(upComingAdapter);
         previousEventListView.setExpanded(true);
         previousEventListView.setFocusable(false);
+        previousEventListView.setOnItemClickListener(lvEventItemClickListener);
 
         back.setOnClickListener(this);
+        dao2.setResults(new ArrayList<ActivityItemResultDao>());
 
         Call<RoundDao> callReservedList = HttpManager.getInstance().getService().getReservedActivity();
-        //callReservedList.enqueue(callbackReservedList);
+        callReservedList.enqueue(callbackReservedList);
 
     }
 
@@ -108,14 +123,14 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
                 RoundDao dao = response.body();
-                Toast.makeText(Contextor.getInstance().getContext(),dao.getResults().size() + "",Toast.LENGTH_LONG).show();
                 adapter.setRoundDao(dao);
                 adapter.notifyDataSetChanged();
 
-                for(int i = 0 ;i < dao.getResults().size();i++) {
+                for (int i = 0; i < dao.getResults().size(); i++) {
+                    System.out.println("number " + i + " " + dao.getResults().get(i).getId() + " " + dao.getResults().get(i).getActivityId());
                     Call<ActivityItemDao> callActivity =
                             HttpManager.getInstance().getService().
-                                    loadActivityItem(dao.getResults().get(i).getId());
+                                    loadActivityItem(dao.getResults().get(i).getActivityId());
                     callActivity.enqueue(callbackActivity);
                 }
             } else {
@@ -157,6 +172,22 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         }
     };
 
+    AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            System.out.println("CICKED LISTENER " + position);
+            String activityId = adapter.getItem(position).getId();
+            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+            activitySharedPref.edit().putString("EventID", activityId).apply();
+
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.reserved_acitivity_content_container, new EventDetailFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+    };
+
     @Override
     public void onStart() {
         super.onStart();
@@ -186,7 +217,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v==back){
+        if (v == back) {
             getActivity().finish();
         }
     }

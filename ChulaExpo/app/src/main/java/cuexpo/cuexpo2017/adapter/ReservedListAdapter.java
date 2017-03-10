@@ -27,8 +27,8 @@ import cuexpo.cuexpo2017.view.ActivityListItem;
 public class ReservedListAdapter extends BaseAdapter {
 
 
-    private RoundDao roundDao;
-    private ActivityItemCollectionDao activityDao;
+    private RoundDao roundDao = new RoundDao();
+    private ActivityItemCollectionDao activityDao = new  ActivityItemCollectionDao();
     private SharedPreferences sharedPref;
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
 
@@ -42,14 +42,14 @@ public class ReservedListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (roundDao == null) return 0;
-        if (roundDao.getResults() == null) return 0;
-        return roundDao.getResults().size();
+        if (activityDao == null) return 0;
+        if (activityDao.getResults() == null) return 0;
+        return activityDao.getResults().size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return roundDao.getResults().get(position);
+    public ActivityItemResultDao getItem(int position) {
+        return activityDao.getResults().get(position);
     }
 
     @Override

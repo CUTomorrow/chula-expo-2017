@@ -2,7 +2,10 @@ package cuexpo.cuexpo2017.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +34,7 @@ import java.io.IOException;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
+import cuexpo.cuexpo2017.fragment.ReservedCheckFragment;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -189,7 +193,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         @Override
         public void onClick(View v) {
             // TODO for Boom-sama
-            final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+            /*final AlertDialog.Builder alert = new AlertDialog.Builder(context);
             alert.setTitle("Coming Soon");
             alert.setMessage("พบกับฟังก์ชันนี้เร็ว ๆ นี้ ...");
             alert.setCancelable(false);
@@ -199,8 +203,8 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 }
             });
             AlertDialog alert2 = alert.create();
-            alert2.show();
-            /*if(canReserve){
+            alert2.show();*/
+            if(canReserve){
                 FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id,title));
@@ -209,7 +213,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 fragmentTransaction.commit();
             } else {
 
-            }*/
+            }
         }
     };
 }
