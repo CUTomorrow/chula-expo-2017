@@ -2,6 +2,7 @@ package cuexpo.cuexpo2017.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
@@ -126,6 +128,27 @@ public class MapFragment extends Fragment implements
         initializeFaculties();
         initializePopbusRoutes();
         initializePopBusStation();
+    }
+
+    public void goToMap(double lat, double lng){
+//        facultyBox.setSelected(true);
+//        setAllEventVisibility(true);
+
+//        FacultyMapEntity entity = faculties.get(facultyId);
+//        if (MapFragment.googleMap != null) {
+//            MapFragment.googleMap.animateCamera(
+//                    CameraUpdateFactory.newLatLngZoom(entity.getMarker().getPosition(), 18.5f)
+//                    , 1500, null
+//            );
+//        }
+
+//        showBottomBoxWithContent(entity);
+        if (MapFragment.googleMap != null) {
+            MapFragment.googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 18.5f)
+                    , 1500, null
+            );
+        }
     }
 
     @Override

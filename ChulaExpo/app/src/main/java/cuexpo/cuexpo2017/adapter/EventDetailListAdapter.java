@@ -1,7 +1,10 @@
 package cuexpo.cuexpo2017.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.location.Location;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -23,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
@@ -32,6 +36,7 @@ import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
+import cuexpo.cuexpo2017.utility.IGoToMapable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,10 +52,12 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     public double lat, lng;
     private String[] imageUrls;
     private boolean canReserve = true;
+    private Fragment fragment;
 
-    public EventDetailListAdapter(Context context, String id, String place, String contact,
-                                  String time, String description, double lat, double lng,
-                                  String[] imageUrls, String title) {
+    public EventDetailListAdapter(Fragment fragment, Context context, String id, String place,
+                                  String contact, String time, String description,
+                                  double lat, double lng, String[] imageUrls, String title) {
+        this.fragment = fragment;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.id = id;
@@ -178,6 +185,23 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                         .position(new LatLng(lat, lng))
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.fav))
         );
+        googleMap.setOnMarkerClickListener(mapOCL);
+    }
+
+    private GoogleMap.OnMarkerClickListener mapOCL = new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            goToBiggerMap();
+            return true;
+        }
+    };
+
+    private void goToBiggerMap() {
+        Activity act = fragment.getActivity();
+        if (act instanceof IGoToMapable) {
+            ((IGoToMapable) act).goToMap(lat, lng);
+        }
+        fragment.getFragmentManager().popBackStack();
     }
 
     public int dpToPx(int dp) {
