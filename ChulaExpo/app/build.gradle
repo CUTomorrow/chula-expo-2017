@@ -12,11 +12,11 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "cuexpo.chulaexpo"
+        applicationId "cuexpo.cuexpo2017"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.2"
+        versionCode 2
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -61,6 +61,6 @@ dependencies {
     compile 'jp.wasabeef:recyclerview-animators:2.2.5'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.android.support.constraint:constraint-layout:+'
-    compile 'me.dm7.barcodescanner:zbar:1.9'
+    compile 'me.dm7.barcodescanner:zbar:1.8.3'
     testCompile 'junit:junit:4.12'
 }
