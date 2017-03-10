@@ -85,8 +85,8 @@ public class InterestListAdapterNew extends BaseAdapter {
         if(interestItem.isInterest()) holder.checkImage.setVisibility(View.VISIBLE);
         else holder.checkImage.setVisibility(View.INVISIBLE);
 
-        holder.titleTxt.setText(interestItem.getTitle());
-        holder.titleEngTxt.setText(interestItem.getTitleEng());
+        holder.titleTxt.setText(interestItem.getName());
+        holder.titleEngTxt.setText(interestItem.getNameEng());
 
 
         return interestView;

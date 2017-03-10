@@ -13,21 +13,48 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.adapter.FacultyListAdapter;
+import cuexpo.cuexpo2017.datatype.InterestItem;
+import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
+import cuexpo.cuexpo2017.utility.PopbusRouteMapEntity;
 
 
 public class FacultyListFragment extends Fragment {
 
     GridView faculty;
     FacultyListAdapter adapter;
-//
-//    private FacultyListAdapter adapter;
-//    private RecyclerView facultyView;
-//    private RecyclerView.LayoutManager layoutManager;
+    List<InterestItem> facultyData = new ArrayList<>();
+
+    private void initializeFacultyData() {
+        try {
+            JSONArray facultyJSON = new JSONArray(
+                    getContext().getResources().getString(R.string.jsonFacultyMap)
+            );
+            for (int i = 21; i <=42; i++) {
+                if (i != 41) {
+                    JSONObject facData = facultyJSON.getJSONObject(i);
+                    facultyData.add(new InterestItem(
+                            facData.getInt("id"),
+                            facData.getString("nameTh"),
+                            facData.getString("nameEn")));
+                }
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public FacultyListFragment() {
         super();
+        initializeFacultyData();
     }
 
     @SuppressWarnings("unused")
@@ -63,7 +90,7 @@ public class FacultyListFragment extends Fragment {
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
         faculty = (GridView) rootView.findViewById(R.id.faculty_grid);
-        adapter = new FacultyListAdapter();
+        adapter = new FacultyListAdapter(facultyData);
         faculty.setAdapter(adapter);
         faculty.setOnItemClickListener(facultyItemListener);
     }
@@ -103,71 +130,7 @@ public class FacultyListFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Zone", Context.MODE_PRIVATE);
-        switch(position) {
-            case 0:
-                activitySharedPref.edit().putString("ZoneName", "ENG").apply();
-                break;
-            case 1:
-                activitySharedPref.edit().putString("ZoneName", "ARTS").apply();
-                break;
-            case 2:
-                activitySharedPref.edit().putString("ZoneName", "SCI").apply();
-                break;
-            case 3:
-                activitySharedPref.edit().putString("ZoneName", "POLSCI").apply();
-                break;
-            case 4:
-                activitySharedPref.edit().putString("ZoneName", "ARCH").apply();
-                break;
-            case 5:
-                activitySharedPref.edit().putString("ZoneName", "BANSHI").apply();
-                break;
-            case 6:
-                activitySharedPref.edit().putString("ZoneName", "EDU").apply();
-                break;
-            case 7:
-                activitySharedPref.edit().putString("ZoneName", "COMMARTS").apply();
-                break;
-            case 8:
-                activitySharedPref.edit().putString("ZoneName", "ECON").apply();
-                break;
-            case 9:
-                activitySharedPref.edit().putString("ZoneName", "MED").apply();
-                break;
-            case 10:
-                activitySharedPref.edit().putString("ZoneName", "VET").apply();
-                break;
-            case 11:
-                activitySharedPref.edit().putString("ZoneName", "DENT").apply();
-                break;
-            case 12:
-                activitySharedPref.edit().putString("ZoneName", "PHARM").apply();
-                break;
-            case 13:
-                activitySharedPref.edit().putString("ZoneName", "LAW").apply();
-                break;
-            case 14:
-                activitySharedPref.edit().putString("ZoneName", "FAA").apply();
-                break;
-            case 15:
-                activitySharedPref.edit().putString("ZoneName", "NUR").apply();
-                break;
-            case 16:
-                activitySharedPref.edit().putString("ZoneName", "AHS").apply();
-                break;
-            case 17:
-                activitySharedPref.edit().putString("ZoneName", "PSY").apply();
-                break;
-            case 18:
-                activitySharedPref.edit().putString("ZoneName", "SPSC").apply();
-                break;
-            case 19:
-                activitySharedPref.edit().putString("ZoneName", "SAR").apply();
-                break;
-            case 20:
-                activitySharedPref.edit().putString("ZoneName", "GRAD").apply();
-                break;
-        }
+        activitySharedPref.edit().putString("ZoneName", (String) adapter.getItem(position)).apply();
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
