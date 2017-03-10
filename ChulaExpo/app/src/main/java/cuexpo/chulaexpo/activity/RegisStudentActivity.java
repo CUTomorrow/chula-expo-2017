@@ -128,7 +128,11 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         public void afterTextChanged(Editable s) {
             editor.putString("name", etRegisName.getText().toString());
             editor.putString("email", etEmail.getText().toString());
+            try{
             editor.putInt("age",Integer.parseInt(etBirth.getText().toString()));
+            } catch (NumberFormatException exception){
+                editor.putInt("age", 0);
+            }
             editor.putString("school", etSchool.getText().toString());
             editor.putString("year", etYear.getText().toString());
             editor.commit();
