@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -44,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private AccessToken accessToken;
     private String token, kind;
-
+    private AccessTokenTracker accessTokenTracker;
 
 
 
@@ -57,17 +58,36 @@ public class LoginActivity extends AppCompatActivity {
         RelativeLayout facebookLogin = (RelativeLayout) findViewById(R.id.login_fb);
         TextView guestLogin = (TextView) findViewById(R.id.login_guest);
 
-
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, facebookCallback);
 
         facebookLogin.setOnClickListener(facebookLoginOnClick);
         guestLogin.setOnClickListener(guestLoginOnClick);
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
+                updateWithToken(newAccessToken);
+            }
+        };
+    }
+
+    private void updateWithToken(AccessToken currentAccessToken) {
+        if (currentAccessToken != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            LoginActivity.this.startActivity(intent);
+            LoginActivity.this.finish();
+        } else {
+            Log.e("Facebook login", "No access token");
+        }
     }
 
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if(AccessToken.getCurrentAccessToken() != null){
+                LoginManager.getInstance().logOut();
+            }
             LoginManager.getInstance().logInWithReadPermissions(activity, permissionNeeds);
         }
     };
@@ -95,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         @Override
         public void onError(FacebookException e) {
-            Log.e("LoginFB", "facebook login failed error" + e.toString());
+            if(AccessToken.getCurrentAccessToken() !=  null) Log.e("access token", AccessToken.getCurrentAccessToken().getToken());
+            else Log.e("LoginFB", "facebook login error " + e.toString());
             Toast.makeText(Contextor.getInstance().getContext(),"Weak Connection, please check the Internet and reconnect",Toast.LENGTH_SHORT);
         }
     };

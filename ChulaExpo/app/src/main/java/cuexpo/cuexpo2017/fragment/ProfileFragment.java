@@ -17,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 
 import cuexpo.cuexpo2017.R;
@@ -223,6 +227,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (v == btnLogout) {
+            String facebookId = sharedPref.getString("id", "");
             editor.putString("id", "");
             editor.putString("name", "");
             editor.putString("email", "");
@@ -233,10 +238,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             editor.putString("company", "");
             editor.putInt("role", 0);
             editor.commit();
-            LoginManager.getInstance().logOut();
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+
+            new GraphRequest(AccessToken.getCurrentAccessToken(), "/"+facebookId+"/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
+                @Override
+                public void onCompleted(GraphResponse graphResponse) {
+                    LoginManager.getInstance().logOut();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            }).executeAsync();
         }
     }
 
