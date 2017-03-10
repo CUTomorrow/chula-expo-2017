@@ -67,7 +67,7 @@ public interface ApiService {
     Call<ZoneItemDao> loadZoneById(@Path("zid") String zid);
 
     @GET("/api/me/reserved_rounds")
-    Call<RoundDao> getReservedActivity();
+    Call<RoundDao> loadReservedRounds(@Query("start") JSONObject range);
 
     @DELETE("/api/me/reserved_rounds/{rid}")
     Call<DeleteResultDao> removeRound(@Path("rid") String rid);

@@ -237,7 +237,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (!access) {
                 error();
             } else {
-                //comingSoon();
                 Intent intent = new Intent(getActivity(), ReservedActivity.class);
                 getContext().startActivity(intent);
             }
@@ -248,13 +247,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 comingSoon();
             }
         } else if (v == btnSetting) {
-           /* if (!access) {
+            if (!access) {
                 error();
             } else {
-                //comingSoon();*/
-                Call<DeleteResultDao> callDelete = HttpManager.getInstance().getService().removeRound("58ac654202b6d021ff4bc2e5");
-                callDelete.enqueue(callbackDelete);
-            //}
+                comingSoon();
+            }
         } else if (v == btnSetting2) {
             if (!access) {
                 error();

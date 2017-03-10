@@ -26,9 +26,10 @@ import cuexpo.cuexpo2017.fragment.HomeFragment;
 import cuexpo.cuexpo2017.fragment.MapFragment;
 import cuexpo.cuexpo2017.fragment.ProfileFragment;
 import cuexpo.cuexpo2017.manager.HttpManager;
+import cuexpo.cuexpo2017.utility.IGoToMapable;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, IGoToMapable {
 
     public View rootView;
     private SharedPreferences sharedPref;
@@ -134,5 +135,24 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void goToMap(int facultyId) {
+
+
+    }
+
+    @Override
+    public void goToMap(String entityName) {
+
+    }
+
+    @Override
+    public void goToMap(double lat, double lng) {
+        viewPager.setCurrentItem(1); // Go to map
+        MapFragment mapFragment = (MapFragment) getSupportFragmentManager()
+                .findFragmentByTag("android:switcher:" + R.id.pager + ":" + 1);
+        mapFragment.goToMap(lat, lng);
     }
 }
