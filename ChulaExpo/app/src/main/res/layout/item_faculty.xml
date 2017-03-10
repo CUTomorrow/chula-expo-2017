@@ -16,13 +16,14 @@
                 android:src="@drawable/eng_bg"
                 android:scaleType="centerCrop"
                 android:id="@+id/faculty_bg" />
+
             <ImageView
+                android:id="@+id/faculty_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:id="@+id/faculty_icon"
-                android:src="@drawable/cir_mock"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:src="@drawable/eng" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

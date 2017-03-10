@@ -21,8 +21,6 @@ public class FacultyListItem extends BaseCustomViewGroup {
     public ImageView facultyBg;
     ImageView facultyIcon;
     TextView facultyTag, facultyTitle, facultyTitleEng;
-    private String imageUrl;
-    private String iconUrl;
 
     public FacultyListItem(Context context) {
         super(context);
@@ -34,14 +32,12 @@ public class FacultyListItem extends BaseCustomViewGroup {
         super(context, attrs);
         initInflate();
         initInstances();
-        initWithAttrs(attrs, 0, 0);
     }
 
     public FacultyListItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initInflate();
         initInstances();
-        initWithAttrs(attrs, defStyleAttr, 0);
     }
 
     @TargetApi(21)
@@ -49,7 +45,6 @@ public class FacultyListItem extends BaseCustomViewGroup {
         super(context, attrs, defStyleAttr, defStyleRes);
         initInflate();
         initInstances();
-        initWithAttrs(attrs, defStyleAttr, defStyleRes);
     }
 
     private void initInflate() {
@@ -57,29 +52,11 @@ public class FacultyListItem extends BaseCustomViewGroup {
     }
 
     private void initInstances() {
-        // findViewById here
-        // TODO: remove log
-        Log.d("init", "init FACULTY");
         facultyBg = (ImageView) findViewById(R.id.faculty_bg);
         facultyIcon = (ImageView) findViewById(R.id.faculty_icon);
         facultyTag = (TextView) findViewById(R.id.faculty_tag);
         facultyTitle = (TextView) findViewById(R.id.faculty_title);
         facultyTitleEng = (TextView) findViewById(R.id.faculty_title_eng);
-    }
-
-    private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        /*
-        TypedArray a = getContext().getTheme().obtainStyledAttributes(
-                attrs,
-                R.styleable.StyleableName,
-                defStyleAttr, defStyleRes);
-
-        try {
-
-        } finally {
-            a.recycle();
-        }
-        */
     }
 
     @Override
@@ -110,8 +87,8 @@ public class FacultyListItem extends BaseCustomViewGroup {
     public TextView getFacultyTitleEng() {return facultyTitleEng;}
 
     public void setFacultyBg(int res) {
-
-        facultyBg.setImageResource(res);
+        facultyBg.setBackgroundResource(res);
+//        facultyBg.setImageResource(res);
     }
 
     public void setFacultyIcon(int res) {

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,32 +47,11 @@ public class FacultyListFragment extends Fragment {
                             facData.getInt("id"),
                             facData.getString("nameTh"),
                             facData.getString("nameEn")));
+                Log.e("Init faculty data", "complete");
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public FacultyListFragment() {
-        super();
-
-    }
-
-    @SuppressWarnings("unused")
-    public static FragmentTemplateFull newInstance() {
-        FragmentTemplateFull fragment = new FragmentTemplateFull();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init(savedInstanceState);
-
-        if (savedInstanceState != null)
-            onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -83,49 +63,12 @@ public class FacultyListFragment extends Fragment {
         return rootView;
     }
 
-    private void init(Bundle savedInstanceState) {
-        // Init Fragment level's variable(s) here
-    }
-
-    @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
-        // Init 'View' instance(s) with rootView.findViewById here
         faculty = (GridView) rootView.findViewById(R.id.faculty_grid);
         adapter = new FacultyListAdapter(facultyData);
         faculty.setAdapter(adapter);
         faculty.setOnItemClickListener(facultyItemListener);
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    /*
-     * Save Instance State Here
-     */
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // Save Instance State here
-    }
-
-    /*
-     * Restore Instance State Here
-     */
-    @SuppressWarnings("UnusedParameters")
-    private void onRestoreInstanceState(Bundle savedInstanceState) {
-        // Restore Instance State here
-    }
-
-    /**
-     * listener
-     */
 
     AdapterView.OnItemClickListener facultyItemListener = new AdapterView.OnItemClickListener() {
         @Override

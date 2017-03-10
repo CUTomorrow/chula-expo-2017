@@ -1,31 +1,19 @@
-//package cuexpo.cuexpo2017.activity;
-//
-//import android.app.Activity;
-//import android.content.Context;
-//import android.content.Intent;
-//import android.support.v7.app.AppCompatActivity;
-//import android.os.Bundle;
-//import android.util.DisplayMetrics;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.widget.AdapterView;
-//import android.widget.ImageView;
-//import android.widget.TextView;
-//
-//import java.util.ArrayList;
-//
-//import cuexpo.cuexpo2017.R;
-//import cuexpo.cuexpo2017.adapter.InterestListAdapter;
-//import cuexpo.cuexpo2017.datatype.InterestItem;
-//import in.srain.cube.views.GridViewWithHeaderAndFooter;
-//import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-//
-//public class InterestActivity extends AppCompatActivity {
+package cuexpo.cuexpo2017.activity;
 
-//    private Activity activity;
-//    ArrayList<InterestItem> interestItems;
-//    TextView selectedText;
-//
+import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import cuexpo.cuexpo2017.datatype.InterestItem;
+
+
+public class InterestActivity extends AppCompatActivity {
+    private Activity activity;
+    ArrayList<InterestItem> interestItems;
+    TextView selectedText;
+
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -97,15 +85,14 @@
 //        }
 //    };
 //
-//    private void setSelectedText(){
-//        int selectedItem = 0;
-//        int totalItem = 0;
-//        for(InterestItem interestItem: interestItems){
-//            if(interestItem.isInterest()) selectedItem++;
-//            totalItem++;
-//        }
-//        selectedText.setText(selectedItem + "/" + totalItem);
-//    }
-
-//
+    private void setSelectedText() {
+        int selectedItem = 0;
+        int totalItem = 0;
+        for (InterestItem interestItem : interestItems) {
+            if (interestItem.isInterest()) selectedItem++;
+            totalItem++;
+        }
+        selectedText.setText(selectedItem + "/" + totalItem);
+    }
+}
 

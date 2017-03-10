@@ -27,7 +27,6 @@ public class FacultyListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        Log.e("faculty size", ""+faculties.size());
         return faculties.size();
     }
 
