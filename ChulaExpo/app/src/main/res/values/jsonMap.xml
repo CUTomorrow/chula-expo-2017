@@ -575,7 +575,7 @@
         \"nameEn\": \"Residence of Chulalongkorn University\",
         \"nameTh\": \"หอพักนิสิตจุฬาลงกรณ์มหาวิทยาลัย\",
         \"type\": \"Faculty\",
-        \"color\": \"#991c1a\",
+        \"color\": \"#ff4e9e\",
         \"centerPoint\": { \"lat\": 13.73488, \"lng\": 100.53155 },
         \"areaBorder\": [
             { \"lat\": 13.73502, \"lng\": 100.53161 },
@@ -605,7 +605,7 @@
         \"nameEn\": \"Center of Learning Network of the Region\",
         \"nameTh\": \"ศูนย์เครือข่ายการเรียนรู้เพื่อภูมิภาค\",
         \"type\": \"Faculty\",
-        \"color\": \"#991c1a\",
+        \"color\": \"#ff4e9e\",
         \"centerPoint\": { \"lat\": 13.73487, \"lng\": 100.53094 },
         \"areaBorder\": [
             { \"lat\": 13.73492, \"lng\": 100.53105 },
