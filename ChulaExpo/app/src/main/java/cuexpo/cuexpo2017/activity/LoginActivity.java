@@ -65,23 +65,23 @@ public class LoginActivity extends AppCompatActivity {
         facebookLogin.setOnClickListener(facebookLoginOnClick);
         guestLogin.setOnClickListener(guestLoginOnClick);
 
-//        accessTokenTracker = new AccessTokenTracker() {
-//            @Override
-//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-//                updateWithToken(newAccessToken);
-//            }
-//        };
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
+                updateWithToken(newAccessToken);
+            }
+        };
     }
 
-//    private void updateWithToken(AccessToken currentAccessToken) {
-//        if (currentAccessToken != null) {
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            LoginActivity.this.startActivity(intent);
-//            LoginActivity.this.finish();
-//        } else {
-//            Log.e("Facebook login", "No access token");
-//        }
-//    }
+    private void updateWithToken(AccessToken currentAccessToken) {
+        if (currentAccessToken != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            LoginActivity.this.startActivity(intent);
+            LoginActivity.this.finish();
+        } else {
+            Log.e("Facebook login", "No access token");
+        }
+    }
 
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
