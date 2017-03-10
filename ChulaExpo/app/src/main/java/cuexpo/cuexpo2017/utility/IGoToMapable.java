@@ -7,6 +7,5 @@ import android.location.Location;
  */
 public interface IGoToMapable {
     void goToMap(int facultyId);
-    void goToMap(String entityName);
-    void goToMap(double lat, double lng);
+    void goToMap(NormalPinMapEntity entity);
 }

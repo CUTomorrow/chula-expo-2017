@@ -97,11 +97,11 @@ public class FacultyMapEntity implements IMapEntity {
             case 4:
                 return R.drawable.pin_4;
             case 5:
-                return R.drawable.pin_5;
+                return R.drawable.shop;
             case 6:
-                return R.drawable.pin_6;
+                return R.drawable.sponsor;
             case 7:
-                return R.drawable.pin_6;
+                return R.drawable.sponsor;
             // City
             case 10:
                 return R.drawable.pin_10;
@@ -153,11 +153,11 @@ public class FacultyMapEntity implements IMapEntity {
             case 40:
                 return R.drawable.pin_40;
             case 41:
-                return R.drawable.pin_40;
+                return R.drawable.pin_41;
             case 42:
                 return R.drawable.pin_42;
             case 43:
-                return R.drawable.pin_42;
+                return R.drawable.pin_43;
 
             default:
                 throw new IllegalArgumentException("Invalid faculty id : " + facultyId);
