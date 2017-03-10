@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +49,10 @@ public class LoginActivity extends AppCompatActivity {
     private AccessToken accessToken;
     private String token, kind;
     private AccessTokenTracker accessTokenTracker;
+    private FrameLayout container;
+    private ProgressBar progress;
+    private RelativeLayout facebookLogin;
+    private int countClick = 0;
 
 
 
@@ -56,8 +62,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         activity = this;
 
-        RelativeLayout facebookLogin = (RelativeLayout) findViewById(R.id.login_fb);
+        facebookLogin = (RelativeLayout) findViewById(R.id.login_fb);
         TextView guestLogin = (TextView) findViewById(R.id.login_guest);
+        container = (FrameLayout) findViewById(R.id.containerLogin);
+        progress = (ProgressBar) findViewById(R.id.progress);
 
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, facebookCallback);
@@ -86,6 +94,10 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //container.setClickable(true);
+            countClick++;
+            Log.e("loginFB","Click count = " + countClick);
+            facebookLogin.setClickable(false);
             if(AccessToken.getCurrentAccessToken() != null){
                 Log.e("user id key", AccessToken.USER_ID_KEY);
                 new GraphRequest(AccessToken.getCurrentAccessToken(), "/"+AccessToken.USER_ID_KEY+"/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
@@ -120,10 +132,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         @Override
         public void onCancel() {
+            //container.setClickable(false);
+            facebookLogin.setClickable(true);
             Log.e("LoginFB","facebook login canceled");
         }
         @Override
         public void onError(FacebookException e) {
+            //container.setClickable(false);
+            facebookLogin.setClickable(true);
             if(AccessToken.getCurrentAccessToken() !=  null) Log.e("access token", AccessToken.getCurrentAccessToken().getToken());
             else Log.e("LoginFB", "facebook login error " + e.toString());
             Toast.makeText(Contextor.getInstance().getContext(),"Weak Connection, please check the Internet and reconnect",Toast.LENGTH_SHORT).show();
@@ -209,6 +225,8 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener guestLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            container.setClickable(true);
+            progress.setVisibility(View.VISIBLE);
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             LoginActivity.this.startActivity(intent);
             LoginActivity.this.finish();
