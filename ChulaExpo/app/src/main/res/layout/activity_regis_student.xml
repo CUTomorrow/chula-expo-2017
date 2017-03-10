@@ -108,7 +108,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:imeOptions="actionNext"
-                        android:text="Mark Zuckerberg"
+                        android:text=""
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
                 </LinearLayout>
@@ -139,7 +139,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:imeOptions="actionNext"
-                        android:text="Chula.Expo@hotmail.com"
+                        android:hint="chulaexpo@hotmail.com"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
                 </LinearLayout>
@@ -179,7 +179,7 @@
                             android:background="@color/transparent"
                             android:backgroundTint="@color/transparent"
                             android:imeOptions="actionNext"
-                            android:text="20"
+                            android:hint="20"
                             android:inputType="number"
                             android:textColor="@color/dark_blue"
                             android:textColorLink="@color/transparent" />
@@ -214,11 +214,16 @@
                         </Spinner>
                     </LinearLayout>
                 </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginBottom="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="38dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_weight="6"
                     android:background="@drawable/shape_round_rec_regis_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -238,18 +243,38 @@
                         android:textColor="@color/dark_blue"
                         android:textSize="13sp" />
 
-                    <EditText
-                        android:id="@+id/etYear"
+                    <Spinner
+                        android:id="@+id/spAcademicLevel"
                         style="@style/etRegis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
-                        android:imeOptions="actionNext"
                         android:text="ปริญญาตรี"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center_vertical|center_horizontal|center"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/shape_round_rec_regis_white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <Spinner
+                        android:id="@+id/spAcademicYear"
+                        style="@style/etRegis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </Spinner>
+                </LinearLayout>
+            </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

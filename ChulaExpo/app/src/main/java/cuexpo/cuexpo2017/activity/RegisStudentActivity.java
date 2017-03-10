@@ -28,7 +28,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class RegisStudentActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText  etRegisName,etEmail, etBirth,etSchool,etYear;
-    Spinner   spGender;
+    Spinner   spGender, spAcademicYear, spAcademicLevel;
     View    btnNext;
     ImageView ivRegisProfile;
     String id,name,email,gender;
@@ -87,6 +87,8 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         spGender.setSelection(gender.equals("ชาย")? 0 : 1,true);
         View spinnerSelectedView = spGender.getSelectedView();
         ((TextView)spinnerSelectedView).setTextColor(Color.WHITE);
+
+
     }
 
     private void initInstances() {
