@@ -3,6 +3,7 @@ package cuexpo.cuexpo2017.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.hardware.Camera;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -48,7 +49,6 @@ public class ScannerActivity extends AppCompatActivity implements ZBarScannerVie
         switch (item.getItemId()) {
             case 0:
                 mFlash = !mFlash;
-
                 if (mScannerView != null) {
                     try {
                         mScannerView.setFlash(mFlash);
@@ -70,6 +70,8 @@ public class ScannerActivity extends AppCompatActivity implements ZBarScannerVie
             @Override
             public void run() {
                 mScannerView = new ZBarScannerView(ScannerActivity.this);
+//                mScannerView.setupScanner();
+//                Camera.open();
                 mScannerView.setResultHandler(ScannerActivity.this); // Register ourselves as a handler for scan results.
                 mScannerView.startCamera();          // Start camera on resume
                 mScannerView.setFlash(mFlash);
@@ -81,6 +83,8 @@ public class ScannerActivity extends AppCompatActivity implements ZBarScannerVie
     @Override
     public void onPause() {
         super.onPause();
+//        mScannerView.
+//        mScannerView.stopCamera();
         if (mScannerView != null) {
             mScannerView.stopCamera();           // Stop camera on pause
         }
