@@ -35,17 +35,17 @@ public class FacultyListFragment extends Fragment {
 
     private void initializeFacultyData() {
         try {
-            JSONArray facultyJSON = new JSONArray(
+            JSONArray facultiesJSON = new JSONArray(
                     getContext().getResources().getString(R.string.jsonFacultyMap)
             );
-            for (int i = 21; i <=42; i++) {
-                if (i != 41) {
-                    JSONObject facData = facultyJSON.getJSONObject(i);
+            for (int i = 0; i < facultiesJSON.length(); i++) {
+                JSONObject facData = facultiesJSON.getJSONObject(i);
+                int id = facData.getInt("id");
+                if (id!=41 && id>=21 && id<=42)
                     facultyData.add(new InterestItem(
                             facData.getInt("id"),
                             facData.getString("nameTh"),
                             facData.getString("nameEn")));
-                }
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
@@ -54,7 +54,7 @@ public class FacultyListFragment extends Fragment {
 
     public FacultyListFragment() {
         super();
-        initializeFacultyData();
+
     }
 
     @SuppressWarnings("unused")
@@ -78,6 +78,7 @@ public class FacultyListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_faculty_list, container, false);
+        initializeFacultyData();
         initInstances(rootView, savedInstanceState);
         return rootView;
     }

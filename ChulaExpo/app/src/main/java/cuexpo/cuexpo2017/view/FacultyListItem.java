@@ -115,18 +115,13 @@ public class FacultyListItem extends BaseCustomViewGroup {
     }
 
     public void setFacultyIcon(int res) {
-        /*Glide.with(getContext())
-                .load(iconUrl)
-                .into(facultyIcon);*/
-        //mock
-        this.iconUrl = iconUrl;
         facultyIcon.setImageResource(res);
     }
 
     public void setFacultyTag(String text, int textColor, int tagColor) {
         facultyTag.setText(text);
         facultyTag.setTextColor(textColor);
-        facultyTag.setBackgroundColor(tagColor);
+        facultyTag.setBackgroundResource(tagColor);
     }
 
     public void setFacultyTitle(String title) {

@@ -1,5 +1,7 @@
 package cuexpo.cuexpo2017.utility;
 
+import android.graphics.Color;
+
 import cuexpo.cuexpo2017.R;
 
 /**
@@ -7,6 +9,7 @@ import cuexpo.cuexpo2017.R;
  */
 
 public class Resource {
+    public static String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
 
     public static int getColor(String color) {
         try {
@@ -15,6 +18,12 @@ public class Resource {
             e.printStackTrace();
             return R.color.DEFAULT;
         }
+    }
+
+    public static int getTagColor(String zoneShortName){
+        for(String zone: lightZone) if(zoneShortName.equals(zone)) return Color.BLACK;
+        return Color.WHITE;
+
     }
 
     public static int getDrawable(String drawable) {
