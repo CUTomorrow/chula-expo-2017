@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cuexpo.chulaexpo">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cuexpo.cuexpo2017">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:hardwareAccelerated="true"
-        android:name=".MainApplication"
+        android:name="cuexpo.cuexpo2017.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,13 +24,13 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id2" />
 
-        <activity android:name=".activity.SplashScreenActivity" android:screenOrientation="portrait">
+        <activity android:name="cuexpo.cuexpo2017.activity.SplashScreenActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.LoginActivity" android:screenOrientation="portrait"/>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -43,19 +45,19 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RoleActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.RegisAdultActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.RegisStudentActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.InterestActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.DoneRegisterActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.StageActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.FavouriteActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ReservedActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".adapter.ScannerActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.RoleActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.RegisAdultActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.RegisStudentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.InterestActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.DoneRegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.StageActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.FavouriteActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.ReservedActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.adapter.ScannerActivity" android:screenOrientation="portrait"/>
 
         <meta-data
-            android:name="cuexpo.chulaexpo.configuration.GlideConfiguration"
+            android:name="cuexpo.cuexpo2017.configuration.GlideConfiguration"
             android:value="GlideModule" />
         <meta-data
             android:name="com.google.android.gms.version"

@@ -78,11 +78,11 @@
                     android:src="@drawable/ic_event"/>
             </LinearLayout>
 
-            <cuexpo.chulaexpo.view.ExpandableHeightListView
+            <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:id="@+id/favourite_content_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </cuexpo.chulaexpo.view.ExpandableHeightListView>
+            </cuexpo.cuexpo2017.view.ExpandableHeightListView>
 
 
             <LinearLayout
@@ -126,11 +126,11 @@
                     android:src="@drawable/ic_event"/>
             </LinearLayout>
 
-            <cuexpo.chulaexpo.view.ExpandableHeightListView
+            <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:id="@+id/favourite_content_container2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </cuexpo.chulaexpo.view.ExpandableHeightListView>
+            </cuexpo.cuexpo2017.view.ExpandableHeightListView>
 
         </LinearLayout>
     </ScrollView>

@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="cuexpo.chulaexpo.activity.SplashScreenActivity"
+    tools:context="cuexpo.cuexpo2017.activity.SplashScreenActivity"
     android:background="@drawable/splash_screen_bg">
 
     <RelativeLayout
