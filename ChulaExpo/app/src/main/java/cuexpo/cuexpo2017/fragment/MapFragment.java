@@ -131,27 +131,6 @@ public class MapFragment extends Fragment implements
         initializePopBusStation();
     }
 
-    public void goToMap(double lat, double lng){
-//        facultyBox.setSelected(true);
-//        setAllEventVisibility(true);
-
-//        FacultyMapEntity entity = faculties.get(facultyId);
-//        if (MapFragment.googleMap != null) {
-//            MapFragment.googleMap.animateCamera(
-//                    CameraUpdateFactory.newLatLngZoom(entity.getMarker().getPosition(), 18.5f)
-//                    , 1500, null
-//            );
-//        }
-
-//        showBottomBoxWithContent(entity);
-        if (MapFragment.googleMap != null) {
-            MapFragment.googleMap.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 18.5f)
-                    , 1500, null
-            );
-        }
-    }
-
     public void goToMap(NormalPinMapEntity entity){
         if(tempEventPin != null) tempEventPin.clearMarker();
         tempEventPin = entity;

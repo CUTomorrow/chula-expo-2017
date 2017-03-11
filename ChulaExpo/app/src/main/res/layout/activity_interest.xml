@@ -5,74 +5,89 @@
     android:id="@+id/activity_interest"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingTop="0dp"
+    android:background="@drawable/register_bg"
     tools:context="cuexpo.cuexpo2017.activity.InterestActivity">
 
-    <TextView
-        android:text="Selected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/selected_title"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="14dp" />
+    <LinearLayout
+        android:id="@+id/home_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:background="@color/bgPrimary"
+        android:orientation="horizontal"
+        android:paddingLeft="26dp"
+        android:paddingTop="26dp">
 
-    <TextView
-        android:text="4/15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/selected"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="24dp" />
+        <ImageView
+            android:id="@+id/step"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/step3" />
 
-    <in.srain.cube.views.GridViewWithHeaderAndFooter
+        <TextView
+            android:id="@+id/role_toolbar_title"
+            fontPath="fonts/ThaiSansNeue-Bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:text="เลือกประเภทเนื้อหาที่สนใจ"
+            android:textColor="@color/dark_blue"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:id="@+id/grid_view"
-        android:numColumns="3"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="70dp"
         android:listSelector="#00000000"
-        android:paddingLeft="13dp"
-        android:paddingRight="13dp"
+        android:numColumns="3"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:scrollbarAlwaysDrawVerticalTrack="false"
-        android:scrollbarStyle="outsideOverlay" />
+        android:scrollbarStyle="outsideOverlay"
+        android:overScrollMode="never" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        app:srcCompat="@drawable/white_gradient"
         android:id="@+id/white_gradient"
-    android:layout_alignParentBottom="true"
-    android:layout_height="150dp"
-    android:scaleType="fitXY" />
-
-    <ImageView
         android:layout_width="wrap_content"
-        app:srcCompat="@drawable/dottab_3"
-        android:id="@+id/dot_3"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="14dp"
-        android:layout_height="9dp" />
+        android:layout_height="150dp"
+        android:layout_above="@+id/button"
+        android:layout_alignParentBottom="false"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/white_gradient" />
 
-    <ImageView
-        app:srcCompat="@drawable/done_button"
-        android:id="@+id/done_btn"
+    <LinearLayout
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_height="50dp"
-        android:layout_marginBottom="32dp"
-        android:layout_width="320dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginRight="28dp" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btnNext"
+            fontPath="fonts/ThaiSansNeue-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:background="@drawable/shape_round_rec_regis_dark_blue"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="ต่อไป"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/dot"
+            android:layout_width="70dp"
+            android:layout_height="26dp"
+            app:srcCompat="@drawable/dot3" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="-7sp"
                     android:paddingBottom="7dp"
-                    android:text="Robotic Vacuum Cleaner"
+                    android:text="Loading..."
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
 
@@ -73,7 +73,7 @@
                     android:background="@color/booking_full"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
-                    android:text="ENG"
+                    android:text="..."
                     android:textColor="@color/white" />
 
             </RelativeLayout>
