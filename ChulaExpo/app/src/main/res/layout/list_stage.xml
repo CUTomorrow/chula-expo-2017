@@ -126,13 +126,10 @@
 
                 <ImageView
                     android:id="@+id/stage_iv_dropdown"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="0.1"
-                    android:scaleX="0.75"
-                    android:scaleY="0.75"
                     android:src="@drawable/down" />
             </LinearLayout>
         </android.support.v7.widget.CardView>

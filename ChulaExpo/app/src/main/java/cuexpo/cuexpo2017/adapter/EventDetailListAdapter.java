@@ -2,19 +2,16 @@ package cuexpo.cuexpo2017.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.location.Location;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,13 +37,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import cuexpo.cuexpo2017.R;
-import cuexpo.cuexpo2017.dao.ActivityItemDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
 import cuexpo.cuexpo2017.fragment.ReservedCheckFragment;
-import cuexpo.cuexpo2017.manager.DateConversionManager;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.IGoToMapable;
 import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
@@ -66,6 +61,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private String[] imageUrls;
     private boolean canReserve = true;
     private boolean isReserve = false;
+    private boolean isFavourite = false;
     private Fragment fragment;
     private RoundDao activityDao;
     private RoundDao myReserveDao;
@@ -102,7 +98,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
             e.printStackTrace();
         }
 
-        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id, "start", range);
+        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id, range, "start");
         roundCall.enqueue(callbackRound);
     }
 
@@ -127,6 +123,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<PlaceItemDao> call, Throwable t) {
+            System.out.println("Place ERROR " + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
@@ -138,8 +135,14 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 activityDao = response.body();
                 if (activityDao.getResults().size() == 0) {
                     canReserve = false;
+                    isReserve = false;
+                    isFavourite = false;
+                    notifyDataSetChanged();
                 } else if (activityDao.getResults().get(0).getSeats().getFullCapacity() == 0) {
                     canReserve = false;
+                    isReserve = false;
+                    isFavourite = false;
+                    notifyDataSetChanged();
                 } else {
                     JSONObject range = new JSONObject();
                     try {
@@ -150,11 +153,12 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Call<RoundDao> callReservedList = HttpManager.getInstance().getService().loadReservedRounds(range);
+                    Call<RoundDao> callReservedList = HttpManager.getInstance().getService().loadReservedRounds();
                     callReservedList.enqueue(callbackReservedList);
                 }
             } else {
                 try {
+                    System.out.println("ELSE 2" +response.errorBody().string());
                     Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -164,6 +168,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
+            System.out.println("ERROR " + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
@@ -196,6 +201,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
             } else {
                 try {
                     Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    System.out.println("ELSE 2 " +response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -204,7 +210,8 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+            System.out.println("ERROR 2 " + t.toString());
+            //Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
         }
     };
 
@@ -244,16 +251,47 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 if (canReserve) {
                     ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง EVENT");
                     ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้ต้องทำการจองเพื่อเข้าร่วม");
-                    ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
+                    ((TextView) convertView.findViewById(R.id.button_title)).
+                            setTextColor(ContextCompat.getColor(parent.getContext(),R.color.black));
+                    ((TextView) convertView.findViewById(R.id.button_detail)).
+                            setTextColor(ContextCompat.getColor(parent.getContext(),R.color.black));
+                    convertView.findViewById(R.id.reserve_button).
+                            setBackgroundResource(R.drawable.shape_round_rec_pink_stroke);
+                    ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_pink);
                 } else {
                     if (isReserve) {
-                        ((TextView) convertView.findViewById(R.id.button_title)).setText("ยกเลิกการจอง Event");
-                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถยกเลิกได้");
-                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
+                        ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง Event แล้ว");
+                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("กดเพื่อยกเลิกการสนใจ Event");
+                        ((TextView) convertView.findViewById(R.id.button_title)).
+                                setTextColor(ContextCompat.getColor(parent.getContext(),R.color.white));
+                        ((TextView) convertView.findViewById(R.id.button_detail)).
+                                setTextColor(ContextCompat.getColor(parent.getContext(),R.color.white));
+                        convertView.findViewById(R.id.reserve_button).
+                                setBackgroundResource(R.drawable.shape_round_rec_pink);
+                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket);
                     } else {
-                        ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event");
-                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถเข้าร่วมได้โดยไม่ต้องจอง");
-                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
+                        if(!isFavourite) {
+                            ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event");
+                            ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถเข้าร่วมได้โดยไม่ต้องจอง");
+                            ((TextView) convertView.findViewById(R.id.button_title)).
+                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                            ((TextView) convertView.findViewById(R.id.button_detail)).
+                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                            convertView.findViewById(R.id.reserve_button).
+                                    setBackgroundResource(R.drawable.shape_round_rec_pink_stroke);
+                            ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_small_star_pink);
+                        }
+                        else{
+                            ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event แล้ว");
+                            ((TextView) convertView.findViewById(R.id.button_detail)).setText("กดเพื่อยกเลิกการสนใจ Event");
+                            ((TextView) convertView.findViewById(R.id.button_title)).
+                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
+                            ((TextView) convertView.findViewById(R.id.button_detail)).
+                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
+                            convertView.findViewById(R.id.reserve_button).
+                                    setBackgroundResource(R.drawable.shape_round_rec_pink);
+                            ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_small_star);
+                        }
                     }
                 }
                 break;
@@ -270,7 +308,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                             dpToPx(44), dpToPx(44));
                     image.setLayoutParams(imageParam);
                     Glide.with(context)
-                            .load("https://staff.chulaexpo.com" + imageUrl)
+                            .load("https://api.chulaexpo.com" + imageUrl)
                             .placeholder(R.drawable.thumb)
                             .centerCrop()
                             .into(image);
@@ -351,7 +389,15 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     canReserve = true;
                     notifyDataSetChanged();
                 } else {
-                    System.out.println("Let's Love");
+                    if(isFavourite) {
+                        isFavourite = false;
+                        System.out.println("LET's LOVE");
+                        notifyDataSetChanged();
+                    }else{
+                        isFavourite = true;
+                        System.out.println("LET's NOT LOVE");
+                        notifyDataSetChanged();
+                    }
                 }
             }
         }
@@ -362,6 +408,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         public void onResponse(Call<DeleteResultDao> call, Response<DeleteResultDao> response) {
             if (response.isSuccessful()) {
                 DeleteResultDao dao = response.body();
+                System.out.println("ERROR Delete" + dao.getMessage());
                 Toast.makeText(Contextor.getInstance().getContext(), dao.getSuccess() + dao.getMessage(), Toast.LENGTH_SHORT).show();
             } else {
                 //Handle
