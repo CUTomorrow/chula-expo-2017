@@ -63,7 +63,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private ImageView ivQR;
     private ImageView ivProfile;
     private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
     private boolean access;
 
     public ProfileFragment() {
@@ -103,9 +102,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnLogout.setOnClickListener(this);
 
         sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
-        editor = sharedPref.edit();
-        access = !sharedPref.getString("fbToken", "").equals("");
 
+        access = !sharedPref.getString("fbToken", "").equals("");
 
         if (access) {
             setName(sharedPref.getString("name", ""));
@@ -276,6 +274,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (v == btnLogout) {
+            SharedPreferences.Editor editor = sharedPref.edit();
             String facebookId = sharedPref.getString("id", "");
             editor.putString("fbToken", "");
             editor.putString("apiToken", "");
@@ -289,7 +288,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             editor.putString("academicLevel", "");
             editor.putString("workerJob", "");
             editor.putString("type", "");
-            editor.commit();
+            editor.apply();
 
             new GraphRequest(AccessToken.getCurrentAccessToken(), "/" + facebookId + "/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
                 @Override

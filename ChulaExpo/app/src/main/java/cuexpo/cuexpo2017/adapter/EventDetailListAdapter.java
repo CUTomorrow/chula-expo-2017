@@ -2,6 +2,7 @@ package cuexpo.cuexpo2017.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
@@ -66,6 +67,8 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private RoundDao activityDao;
     private RoundDao myReserveDao;
     private String reserveId;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
 
     public EventDetailListAdapter(Fragment fragment, Context context, String id, String place,
                                   String contact, String time, String description,
@@ -82,6 +85,9 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         this.lng = lng;
         this.imageUrls = imageUrls;
         this.title = title;
+
+        sharedPref = context.getSharedPreferences("favouriteActivity", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
 
         Call<PlaceItemDao> call = HttpManager.getInstance().getService().loadPlaceItem(place);
         call.enqueue(callbackPlace);
@@ -136,7 +142,10 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 if (activityDao.getResults().size() == 0) {
                     canReserve = false;
                     isReserve = false;
-                    isFavourite = false;
+                    if(sharedPref.contains(id))
+                        isFavourite = true;
+                    else
+                        isFavourite = false;
                     notifyDataSetChanged();
                 } else if (activityDao.getResults().get(0).getSeats().getFullCapacity() == 0) {
                     canReserve = false;
@@ -158,7 +167,6 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 }
             } else {
                 try {
-                    System.out.println("ELSE 2" +response.errorBody().string());
                     Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -201,7 +209,6 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
             } else {
                 try {
                     Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
-                    System.out.println("ELSE 2 " +response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -389,12 +396,16 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     canReserve = true;
                     notifyDataSetChanged();
                 } else {
-                    if(isFavourite) {
-                        isFavourite = false;
+                    if(!isFavourite) {
+                        editor.putString(id,"");
+                        editor.commit();
+                        isFavourite = true;
                         System.out.println("LET's LOVE");
                         notifyDataSetChanged();
                     }else{
-                        isFavourite = true;
+                        isFavourite = false;
+                        editor.remove(id);
+                        editor.commit();
                         System.out.println("LET's NOT LOVE");
                         notifyDataSetChanged();
                     }

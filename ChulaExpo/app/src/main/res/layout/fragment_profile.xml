@@ -56,8 +56,8 @@
                         android:weightSum="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -93,8 +93,8 @@
                                     android:layout_gravity="center"
                                     android:background="@color/profile_bg_dark"
                                     android:gravity="center"
-                                    android:paddingLeft="5dp"
-                                    android:paddingRight="5dp"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp"
                                     android:text="@string/profile_button_edit"
                                     android:textColor="@color/white"
                                     android:textSize="16sp" />

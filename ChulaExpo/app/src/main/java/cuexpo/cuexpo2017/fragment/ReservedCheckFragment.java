@@ -139,7 +139,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
                 selectedPos = 0;
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), "XXX" + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -148,7 +148,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), "XXY" + t.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -184,7 +184,6 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         if (v == btnSave) {
             String aid = dao.getResults().get(selectedPos).getActivityId();
             String rid = dao.getResults().get(selectedPos).getId();
-            Toast.makeText(Contextor.getInstance().getContext(), aid + " " + rid, Toast.LENGTH_SHORT).show();
 
             Call<ReserveDao> callReserve = HttpManager.getInstance().getService().reserveSelectedRound(aid, rid);
             callReserve.enqueue(callbackReserve);
@@ -207,7 +206,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
                 Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() + dao2.getMessage(), Toast.LENGTH_LONG).show();
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), "XXZ" + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -216,7 +215,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onFailure(Call<ReserveDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), "XXXX" + t.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Contextor.getInstance().getContext(),t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
 

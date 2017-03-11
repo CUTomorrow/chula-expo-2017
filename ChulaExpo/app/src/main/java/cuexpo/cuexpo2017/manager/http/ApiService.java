@@ -32,7 +32,7 @@ public interface ApiService {
     Call<ActivityItemCollectionDao> loadActivityList(@Query("fields") String fields,
                                                      @Query("limit") int limit,
                                                      @Query("sort") String sort);
-    
+
     @GET("/api/activities/recommend")
     Call<ActivityItemCollectionDao> loadRecommendedActivityList(@Header("authorization") String authorization);
 

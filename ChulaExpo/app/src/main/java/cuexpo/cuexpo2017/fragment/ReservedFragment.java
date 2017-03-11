@@ -342,10 +342,4 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
             getActivity().finish();
         }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        System.out.println("RESUME");
-    }
 }
