@@ -42,7 +42,7 @@ public class HttpManager {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://161.200.194.27")
+                .baseUrl("https://api.chulaexpo.com")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         service = retrofit.create(ApiService.class);
@@ -74,7 +74,7 @@ public class HttpManager {
         OkHttpClient client = httpClient.build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://161.200.194.27")
+                .baseUrl("https://api.chulaexpo.com")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

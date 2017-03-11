@@ -57,7 +57,7 @@ public class DoneRegisterActivity extends AppCompatActivity {
         academicSchool = sharedPref.getString("academicSchool","");
         age = sharedPref.getInt("age",0);
 
-        UserProfile userProfile = new UserProfile(email,tokens,name,gender,age,profile,
+        final UserProfile userProfile = new UserProfile(email,tokens,name,gender,age,profile,
                 type,tags,academicLevel,academicYear,academicSchool,workerJob);
         Call<LoginDao> callRegister = HttpManager.getInstance().getService().registerUser(userProfile);
         callRegister.enqueue(new Callback<LoginDao>() {
@@ -66,6 +66,7 @@ public class DoneRegisterActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     LoginDao dao = response.body();
                     if(dao.getSuccess()){
+                        //Log.e("signup","signup success" + userProfile.toString());
                         sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                         editor = sharedPref.edit();
                         editor.putString("apiToken",dao.getResults().getToken());

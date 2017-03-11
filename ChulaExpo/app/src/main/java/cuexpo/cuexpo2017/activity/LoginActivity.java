@@ -215,6 +215,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             try {
                                 Log.e("LoginFB","facebook login not success " + response.errorBody().string());
+                                facebookLogin.setClickable(true);
                                 //Toast.makeText(Contextor.getInstance().getContext(),errorDao.getErrors().getMessage(),Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
