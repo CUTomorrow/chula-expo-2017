@@ -92,7 +92,7 @@ public class ReservedListAdapter extends BaseAdapter {
             if (isLight)
                 item.setFacultyText(zoneShortName, Color.BLACK, Resource.getColor(zoneShortName));
             else item.setFacultyText(zoneShortName, Color.WHITE, Resource.getColor(zoneShortName));
-            item.setImageUrl("http://staff.chulaexpo.com" + dao.getThumbnail());
+            item.setImageUrl("https://api.chulaexpo.com" + dao.getThumbnail());
 
             return item;
         }

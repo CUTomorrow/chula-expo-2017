@@ -83,7 +83,7 @@ public class EventDetailFragment extends Fragment {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
                 Glide.with(fragment)
-                        .load("http://staff.chulaexpo.com"+dao.getBanner())
+                        .load("https://api.chulaexpo.com"+dao.getBanner())
                         .placeholder(R.drawable.banner)
                         .centerCrop()
                         .into((ImageView) eventImageView);

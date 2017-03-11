@@ -77,7 +77,7 @@ public class ActivityListAdapter extends BaseAdapter{
         }
         if(isLight) item.setFacultyText(zoneShortName,Color.BLACK, Resource.getColor(zoneShortName));
         else item.setFacultyText(zoneShortName,Color.WHITE, Resource.getColor(zoneShortName));
-        item.setImageUrl("https://staff.chulaexpo.com" + dao.getThumbnail());
+        item.setImageUrl("https://api.chulaexpo.com" + dao.getThumbnail());
 
         /*Mock
         if(position%3==0){
