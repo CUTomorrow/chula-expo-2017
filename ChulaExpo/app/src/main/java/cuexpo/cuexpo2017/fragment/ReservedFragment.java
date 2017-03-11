@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import cuexpo.cuexpo2017.R;
@@ -63,6 +64,9 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
     private ActivityItemCollectionDao dao3 = new ActivityItemCollectionDao();
     private RoundDao reserveUpcomingDao;
     private RoundDao reservePreviousDao;
+
+    private SharedPreferences sharedPref;
+
 
     public ReservedFragment() {
         super();
@@ -105,6 +109,8 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         upComingEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.reserved_content_container);
         previousEventListView = (ExpandableHeightListView) rootView.findViewById(R.id.reserved_content_container2);
         back = (ImageView) rootView.findViewById(R.id.reserved_back);
+
+        sharedPref = getContext().getSharedPreferences("reservedActivity", Context.MODE_PRIVATE);
 
         upComingAdapter = new ReservedListAdapter();
         previousAdapter = new ReservedListAdapter();
@@ -162,14 +168,23 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                         upComingAdapter.setRoundDao(reserveUpcomingDao);
                         upComingAdapter.notifyDataSetChanged();
 
+                        SharedPreferences.Editor editor = sharedPref.edit();
                         for (int i = 0; i < reserveUpcomingDao.getResults().size(); i++) {
+                            editor.putString(reserveUpcomingDao.getResults().get(i).getActivityId(), "");
                             Call<ActivityItemDao> callActivity =
                                     HttpManager.getInstance().getService().
                                             loadActivityItem(reserveUpcomingDao.getResults().get(i).getActivityId());
                             callActivity.enqueue(callbackActivity);
                         }
+
+                        editor.apply();
+                        Map<String, ?> allEntries = sharedPref.getAll();
+
+                        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                            Log.e("Reserved List",entry.getKey());
+                        }
                     }
-                } else{
+                } else {
                     Call<RoundDao> callUpcomingReservedList = HttpManager.getInstance().getService().loadReservedRounds();
                     callUpcomingReservedList.enqueue(callbackReservedList);
 
@@ -212,7 +227,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                             callActivity.enqueue(callbackActivity2);
                         }
                     }
-                } else{
+                } else {
                     Call<RoundDao> callPreviousReservedList = HttpManager.getInstance().getService().loadReservedRounds();
                     callPreviousReservedList.enqueue(callbackReservedList2);
                 }
