@@ -2,6 +2,7 @@ package cuexpo.cuexpo2017.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
@@ -76,6 +78,7 @@ public class MapFragment extends Fragment implements
     ArrayList<NormalPinMapEntity> emerPins = new ArrayList<>();
     ArrayList<NormalPinMapEntity> prayerPins = new ArrayList<>();
     ArrayList<NormalPinMapEntity> popBusStationPins = new ArrayList<>();
+    NormalPinMapEntity tempEventPin;
 
     private void initializeFaculties() {
         try {
@@ -126,6 +129,40 @@ public class MapFragment extends Fragment implements
         initializeFaculties();
         initializePopbusRoutes();
         initializePopBusStation();
+    }
+
+    public void goToMap(double lat, double lng){
+//        facultyBox.setSelected(true);
+//        setAllEventVisibility(true);
+
+//        FacultyMapEntity entity = faculties.get(facultyId);
+//        if (MapFragment.googleMap != null) {
+//            MapFragment.googleMap.animateCamera(
+//                    CameraUpdateFactory.newLatLngZoom(entity.getMarker().getPosition(), 18.5f)
+//                    , 1500, null
+//            );
+//        }
+
+//        showBottomBoxWithContent(entity);
+        if (MapFragment.googleMap != null) {
+            MapFragment.googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 18.5f)
+                    , 1500, null
+            );
+        }
+    }
+
+    public void goToMap(NormalPinMapEntity entity){
+        if(tempEventPin != null) tempEventPin.clearMarker();
+        tempEventPin = entity;
+        tempEventPin.setMap(googleMap);
+        if (MapFragment.googleMap != null) {
+            MapFragment.googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(entity.getMarker().getPosition(), 18.5f)
+                    , 1500, null
+            );
+        }
+        showInfoCard(entity.getMarkerIconDrawableResource(), entity.getType(), entity.getName(), -1, entity.getColor());
     }
 
     @Override
@@ -648,6 +685,7 @@ public class MapFragment extends Fragment implements
             setPinOnClick(emerPins, marker);
             setPinOnClick(prayerPins, marker);
             setPinOnClick(popBusStationPins, marker);
+            setPinOnClick(tempEventPin, marker);
 
             return true;
         }
@@ -663,6 +701,18 @@ public class MapFragment extends Fragment implements
                         entry.getColor());
                 return true;
             }
+        }
+        return true;
+    }
+
+    public boolean setPinOnClick(NormalPinMapEntity entry, Marker marker) {
+        if (entry.getMarker().equals(marker)) {
+            showInfoCard(entry.getMarkerIconDrawableResource(),
+                    entry.getType(),
+                    entry.getName(),
+                    -1,
+                    entry.getColor());
+            return true;
         }
         return true;
     }

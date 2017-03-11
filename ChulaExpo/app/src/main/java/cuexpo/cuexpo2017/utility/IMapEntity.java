@@ -11,4 +11,5 @@ public interface IMapEntity {
     void setVisible(boolean visible);
 
     void setMap(GoogleMap map);
+
 }
