@@ -1,0 +1,75 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="cuexpo.cuexpo2017.fragment.TagPageFragment"
+    android:background="@color/light_grey">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:id="@+id/toolbar">
+            <ImageView
+                android:id="@+id/toolbar_qr"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/iv_qr_black_icon"
+                android:scaleType="centerInside"/>
+            <TextView
+                android:id="@+id/tag_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fontPath="@string/font_bold"
+                android:textSize="@dimen/title_toolbar_size"
+                android:layout_gravity="center"
+                android:text="Interest"
+                android:textColor="@android:color/black"
+                />
+        </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            app:cardCornerRadius="4dp"
+            android:id="@+id/card_tag_header"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="6dp">
+            <TextView
+                fontPath="@string/font_bold"
+                android:id="@+id/tag_header"
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:textSize="21sp"
+                android:text="ภาษา - Language"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="9dp"
+                />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/element"
+            android:layout_below="@id/card_tag_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            app:cardCornerRadius="4dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="6dp">
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+</FrameLayout>
