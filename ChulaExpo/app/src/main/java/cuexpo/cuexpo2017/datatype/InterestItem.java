@@ -31,7 +31,6 @@ public class InterestItem {
         this.name = name;
         this.imageSrc = imageSrc;
         this.interest = interest;
-
         this.nameEng = nameEng;
         this.iconSrc = iconSrc;
     }
@@ -55,10 +54,6 @@ public class InterestItem {
     public String getNameEng() { return nameEng;}
 
     public void setNameEng(String nameEng) { this.nameEng = nameEng;}
-
-    public String getIconUrl() { return iconUrl;}
-
-    public void setIconUrl(String iconUrl) { this.iconUrl = iconUrl;}
 
     public int getImageSrc() {return imageSrc;}
 
