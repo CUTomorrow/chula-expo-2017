@@ -10,6 +10,23 @@ import cuexpo.cuexpo2017.R;
 
 public class Resource {
     public static String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
+    public static int[] tagBgs = {
+            R.drawable.energy_bg, R.drawable.aging_society_bg, R.drawable.body_bg, R.drawable.mind_bg, R.drawable.social_bg,
+            R.drawable.invention_bg, R.drawable.qlt_of_life_bg, R.drawable.food_agriculture_bg, R.drawable.community_bg,
+            R.drawable.art_cult_bg, R.drawable.med_interest_bg, R.drawable.economy_bg, R.drawable.transport_bg, R.drawable.technology_bg,
+            R.drawable.environment_bg, R.drawable.thai_wisdom_bg, R.drawable.design_bg, R.drawable.law_interest_bg, R.drawable.education_bg,
+            R.drawable.royal_duties_bg, R.drawable.beauty_bg, R.drawable.life_bg, R.drawable.communication_bg, R.drawable.sport_bg,
+            R.drawable.science_bg, R.drawable.entertainment_bg, R.drawable.international_issue_bg
+    };
+
+    public static int[] tagIcons = {
+            R.drawable.int_energy, R.drawable.int_aging, R.drawable.int_body, R.drawable.int_mind, R.drawable.int_social_issue,
+            R.drawable.int_invention, R.drawable.int_qlt_of_life, R.drawable.int_food, R.drawable.int_community, R.drawable.int_art_cult,
+            R.drawable.int_med, R.drawable.int_economy, R.drawable.int_transport, R.drawable.int_tech, R.drawable.int_environ,
+            R.drawable.int_thai_wis, R.drawable.int_design, R.drawable.int_law, R.drawable.int_education, R.drawable.int_royal,
+            R.drawable.int_beauty, R.drawable.int_life, R.drawable.int_communication, R.drawable.int_sport, R.drawable.int_science,
+            R.drawable.int_entertainment, R.drawable.int_inter
+    };
 
     public static int getColor(String color) {
         try {
@@ -33,5 +50,13 @@ public class Resource {
             e.printStackTrace();
             return R.color.DEFAULT;
         }
+    }
+
+    public static int getTagBg(int id){
+        return tagBgs[id+1];
+    }
+
+    public static int getTagIcon(int id){
+        return tagIcons[id+1];
     }
 }
