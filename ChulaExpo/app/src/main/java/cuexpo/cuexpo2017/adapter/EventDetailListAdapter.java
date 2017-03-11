@@ -3,14 +3,18 @@ package cuexpo.cuexpo2017.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,11 +34,19 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import cuexpo.cuexpo2017.R;
+import cuexpo.cuexpo2017.dao.ActivityItemDao;
+import cuexpo.cuexpo2017.dao.DeleteResultDao;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
+import cuexpo.cuexpo2017.dao.RoundDao;
+import cuexpo.cuexpo2017.fragment.ReservedCheckFragment;
+import cuexpo.cuexpo2017.manager.DateConversionManager;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.IGoToMapable;
 import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
@@ -53,7 +65,11 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     public double lat, lng;
     private String[] imageUrls;
     private boolean canReserve = true;
+    private boolean isReserve = false;
     private Fragment fragment;
+    private RoundDao activityDao;
+    private RoundDao myReserveDao;
+    private String reserveId;
 
     public EventDetailListAdapter(Fragment fragment, Context context, String id, String place,
                                   String contact, String time, String description,
@@ -74,8 +90,20 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         Call<PlaceItemDao> call = HttpManager.getInstance().getService().loadPlaceItem(place);
         call.enqueue(callbackPlace);
 
-//        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id);
-//        roundCall.enqueue(callbackPlace);
+        checkId();
+    }
+
+    private void checkId() {
+        JSONObject range = new JSONObject();
+        try {
+            String startString = "2017-03-15T00:00:00.000Z";
+            range.put("gte", startString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id, "start", range);
+        roundCall.enqueue(callbackRound);
     }
 
     Callback<PlaceItemDao> callbackPlace = new Callback<PlaceItemDao>() {
@@ -85,6 +113,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 PlaceItemResultDao dao = response.body().getResults();
                 place = dao.getName().getTh();
                 notifyDataSetChanged();
+
             } else {
                 try {
                     Log.e("fetch error", response.errorBody().string());
@@ -99,6 +128,83 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         @Override
         public void onFailure(Call<PlaceItemDao> call, Throwable t) {
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    Callback<RoundDao> callbackRound = new Callback<RoundDao>() {
+        @Override
+        public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
+            if (response.isSuccessful()) {
+                activityDao = response.body();
+                if (activityDao.getResults().size() == 0) {
+                    canReserve = false;
+                } else if (activityDao.getResults().get(0).getSeats().getFullCapacity() == 0) {
+                    canReserve = false;
+                } else {
+                    JSONObject range = new JSONObject();
+                    try {
+                        String startString = "2017-03-15T00:00:00.000Z";
+                        String endString = "2017-03-19T23:59:00.000Z";
+                        range.put("gte", startString);
+                        range.put("lte", endString);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Call<RoundDao> callReservedList = HttpManager.getInstance().getService().loadReservedRounds(range);
+                    callReservedList.enqueue(callbackReservedList);
+                }
+            } else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<RoundDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    Callback<RoundDao> callbackReservedList = new Callback<RoundDao>() {
+        @Override
+        public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
+            if (response.isSuccessful()) {
+                myReserveDao = response.body();
+                search:
+                {
+                    for (int i = 0; i < myReserveDao.getResults().size(); i++) {
+                        for (int j = 0; j < activityDao.getResults().size(); j++) {
+                            if (myReserveDao.getResults().get(i).getActivityId().
+                                    equals(activityDao.getResults().get(j).getActivityId())) {
+                                if (myReserveDao.getResults().get(i).getId().
+                                        equals(activityDao.getResults().get(j).getId())) {
+                                    reserveId = myReserveDao.getResults().get(i).getId();
+                                    isReserve = true;
+                                    canReserve = false;
+                                    notifyDataSetChanged();
+                                    break search;
+                                }
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                }
+            } else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<RoundDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
         }
     };
 
@@ -135,6 +241,21 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     ((TextView) convertView.findViewById(R.id.location)).setText("-");
                 else ((TextView) convertView.findViewById(R.id.location)).setText(place);
                 convertView.findViewById(R.id.reserve_button).setOnClickListener(reserveOCL);
+                if (canReserve) {
+                    ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง EVENT");
+                    ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้ต้องทำการจองเพื่อเข้าร่วม");
+                    ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
+                } else {
+                    if (isReserve) {
+                        ((TextView) convertView.findViewById(R.id.button_title)).setText("ยกเลิกการจอง Event");
+                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถยกเลิกได้");
+                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
+                    } else {
+                        ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event");
+                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถเข้าร่วมได้โดยไม่ต้องจอง");
+                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
+                    }
+                }
                 break;
             case 1:
                 convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
@@ -215,27 +336,42 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         @Override
         public void onClick(View v) {
             // TODO for Boom-sama
-            final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-            alert.setTitle("Coming Soon");
-            alert.setMessage("พบกับฟังก์ชันนี้เร็ว ๆ นี้ ...");
-            alert.setCancelable(false);
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.dismiss();
-                }
-            });
-            AlertDialog alert2 = alert.create();
-            alert2.show();
-            /*if(canReserve){
-                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+            if (canReserve) {
+                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id,title));
+                fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id, title));
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             } else {
+                if (isReserve) {
+                    System.out.println("Already Reserved");
+                    Call<DeleteResultDao> callDelete = HttpManager.getInstance().getService().removeRound(reserveId);
+                    callDelete.enqueue(callbackDelete);
+                    canReserve = true;
+                    notifyDataSetChanged();
+                } else {
+                    System.out.println("Let's Love");
+                }
+            }
+        }
+    };
 
-            }*/
+    Callback<DeleteResultDao> callbackDelete = new Callback<DeleteResultDao>() {
+        @Override
+        public void onResponse(Call<DeleteResultDao> call, Response<DeleteResultDao> response) {
+            if (response.isSuccessful()) {
+                DeleteResultDao dao = response.body();
+                Toast.makeText(Contextor.getInstance().getContext(), dao.getSuccess() + dao.getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                //Handle
+                Log.e("HomeActivity", "Load Activities Not Success");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<DeleteResultDao> call, Throwable t) {
+            Log.e("HomeActivity", "Load Activities Fail");
         }
     };
 }

@@ -25,6 +25,7 @@ import cuexpo.cuexpo2017.fragment.EventPageFragment;
 import cuexpo.cuexpo2017.fragment.HomeFragment;
 import cuexpo.cuexpo2017.fragment.MapFragment;
 import cuexpo.cuexpo2017.fragment.ProfileFragment;
+import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.IGoToMapable;
 import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -85,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         viewPager.addOnPageChangeListener(this);
         viewPager.setOffscreenPageLimit(3);
         viewPagerTab.setViewPager(viewPager);
+
+        sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
+        if(!sharedPref.getString("apiToken","").equals("")){
+            HttpManager.getInstance().setAPIKey(sharedPref.getString("apiToken",""));
+        }
     }
 
     @Override

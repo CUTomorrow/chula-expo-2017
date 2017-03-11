@@ -41,6 +41,21 @@ public class HttpManager {
                 //.setLenient()
                 .create();
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://161.200.194.27")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        service = retrofit.create(ApiService.class);
+    }
+
+    public void setAPIKey(final String apiKey){
+        mContext = Contextor.getInstance().getContext();
+
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                //.setLenient()
+                .create();
+
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(new Interceptor() {
             @Override
@@ -49,7 +64,7 @@ public class HttpManager {
 
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
-                        .header("Authorization", "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1OGFhZWJjNmFkZjJlNDZlODg4NThlNGIiLCJpYXQiOjE0ODc2ODE1NTQsImV4cCI6MTQ4NzcxMDM1NH0.Ry5FSuZfW2Ehqin0acYdJ90dhv5TuaE1IyKtDQPPZx8"); // <-- this is the important line
+                        .header("Authorization", "JWT " + apiKey); // <-- this is the important line
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
@@ -59,7 +74,7 @@ public class HttpManager {
         OkHttpClient client = httpClient.build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://staff.chulaexpo.com")
+                .baseUrl("http://161.200.194.27")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
