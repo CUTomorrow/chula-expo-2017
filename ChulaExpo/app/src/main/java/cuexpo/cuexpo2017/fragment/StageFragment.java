@@ -23,13 +23,13 @@ import cuexpo.cuexpo2017.R;
 @SuppressWarnings("unused")
 public class StageFragment extends Fragment implements View.OnClickListener {
 
-    FragmentPagerItemAdapter pagerItemAdapter;
-    ViewPager viewPager;
-    SmartTabLayout viewPagerTab;
-    TextView tvStageName;
-    ImageView ivBack;
-    int stageNo;
-    String stageId;
+    private FragmentPagerItemAdapter pagerItemAdapter;
+    private ViewPager viewPager;
+    private  SmartTabLayout viewPagerTab;
+    private TextView tvStageName;
+    private ImageView ivBack;
+    private int stageNo;
+    private String stageId;
 
     public StageFragment() {
         super();
@@ -77,6 +77,8 @@ public class StageFragment extends Fragment implements View.OnClickListener {
 
         tvStageName = (TextView) rootView.findViewById(R.id.stage_toolbar_title);
         ivBack = (ImageView) rootView.findViewById(R.id.stage_back);
+        viewPager = (ViewPager) rootView.findViewById(R.id.stage_pager);
+        viewPagerTab = (SmartTabLayout) rootView.findViewById(R.id.stage_pager_tab);
 
         ivBack.setOnClickListener(this);
 
@@ -105,10 +107,10 @@ public class StageFragment extends Fragment implements View.OnClickListener {
                 .add("19\nMAR", StageFragmentDetail.class, date19)
                 .create());
 
-        viewPager = (ViewPager) rootView.findViewById(R.id.stage_pager);
-        viewPager.setAdapter(pagerItemAdapter);
 
-        viewPagerTab = (SmartTabLayout) rootView.findViewById(R.id.stage_pager_tab);
+        viewPager.setAdapter(pagerItemAdapter);
+        viewPager.setOffscreenPageLimit(4);
+
         viewPagerTab.setViewPager(viewPager);
 
     }
@@ -146,5 +148,6 @@ public class StageFragment extends Fragment implements View.OnClickListener {
             getActivity().finish();
         }
     }
+
 
 }

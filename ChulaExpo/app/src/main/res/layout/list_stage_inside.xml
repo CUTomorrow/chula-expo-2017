@@ -101,7 +101,7 @@
                     <ImageView
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
-                        android:src="@drawable/info"
+                        android:src="@drawable/ic_info"
                         android:layout_width="20dp"
                         android:layout_height="20dp" />
 

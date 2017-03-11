@@ -94,8 +94,8 @@ public class EventDetailFragment extends Fragment {
                 TextView eventTag = (TextView) rootView.findViewById(R.id.event_tag);
                 eventTag.setText(zoneShortName);
                 eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
-                for(int i=0;i<lightZone.length-1;i++){
-                    if(zoneShortName.equals(lightZone[i])) {
+                for (int i = 0; i < lightZone.length - 1; i++) {
+                    if (zoneShortName.equals(lightZone[i])) {
                         eventTag.setTextColor(Color.BLACK);
                         break;
                     }
@@ -114,6 +114,7 @@ public class EventDetailFragment extends Fragment {
         }
         @Override
         public void onFailure(Call<ActivityItemDao> call, Throwable t) {
+            System.out.println("ERROR Fragment" + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
@@ -156,7 +157,7 @@ public class EventDetailFragment extends Fragment {
             EventDetailListAdapter adapter = new EventDetailListAdapter(fragment, getActivity(), dao.getId(),
                     dao.getLocation().getPlace(),
                     dao.getContact(),
-                    DateUtil.getDateRangeThai(strDate, endDaye) + " \u2022 " + strDate.substring(11,16) + "-" + endDaye.substring(11,16),
+                    DateUtil.getDateRangeThai(strDate, endDaye) + " \u2022 " + strDate.substring(11, 16) + "-" + endDaye.substring(11, 16),
                     dao.getDescription().getTh(),
                     dao.getLocation().getLatitude(),
                     dao.getLocation().getLongitude(),
@@ -178,8 +179,7 @@ public class EventDetailFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };
-
 }
