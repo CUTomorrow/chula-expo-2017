@@ -54,6 +54,7 @@ public class EventDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_event_detail, container, false);
+
         fragment = this;
         listView = (ListView) rootView.findViewById(R.id.list_view);
 
@@ -83,7 +84,7 @@ public class EventDetailFragment extends Fragment {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
                 Glide.with(fragment)
-                        .load("http://staff.chulaexpo.com"+dao.getBanner())
+                        .load("https://api.chulaexpo.com" + dao.getBanner())
                         .placeholder(R.drawable.banner)
                         .centerCrop()
                         .into((ImageView) eventImageView);
@@ -94,8 +95,8 @@ public class EventDetailFragment extends Fragment {
                 TextView eventTag = (TextView) rootView.findViewById(R.id.event_tag);
                 eventTag.setText(zoneShortName);
                 eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
-                for(int i=0;i<lightZone.length-1;i++){
-                    if(zoneShortName.equals(lightZone[i])) {
+                for (int i = 0; i < lightZone.length - 1; i++) {
+                    if (zoneShortName.equals(lightZone[i])) {
                         eventTag.setTextColor(Color.BLACK);
                         break;
                     }
@@ -112,8 +113,10 @@ public class EventDetailFragment extends Fragment {
                 }
             }
         }
+
         @Override
         public void onFailure(Call<ActivityItemDao> call, Throwable t) {
+            System.out.println("ERROR Fragment" + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
@@ -156,7 +159,7 @@ public class EventDetailFragment extends Fragment {
             EventDetailListAdapter adapter = new EventDetailListAdapter(fragment, getActivity(), dao.getId(),
                     dao.getLocation().getPlace(),
                     dao.getContact(),
-                    DateUtil.getDateRangeThai(strDate, endDaye) + " \u2022 " + strDate.substring(11,16) + "-" + endDaye.substring(11,16),
+                    DateUtil.getDateRangeThai(strDate, endDaye) + " \u2022 " + strDate.substring(11, 16) + "-" + endDaye.substring(11, 16),
                     dao.getDescription().getTh(),
                     dao.getLocation().getLatitude(),
                     dao.getLocation().getLongitude(),
@@ -181,5 +184,6 @@ public class EventDetailFragment extends Fragment {
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };
+
 
 }

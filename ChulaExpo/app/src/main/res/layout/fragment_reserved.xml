@@ -47,6 +47,7 @@
                 android:background="@color/header_background"
                 android:orientation="horizontal"
                 android:padding="8dp"
+                android:layout_margin="8dp"
                 android:weightSum="1">
 
                 <LinearLayout
@@ -65,7 +66,6 @@
                         android:paddingLeft="10dp"
                         android:text="UPCOMING EVENT"
                         android:textStyle="bold" />
-
                     <TextView
                         android:id="@+id/reserved_ue_desc"
                         style="@style/tvHeaderDesc"
@@ -73,15 +73,15 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dp"
-                        android:paddingTop="3dp"
+                        android:paddingTop="-3dp"
                         android:text="Events ที่กำลังจะเกิดขึ้น"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_event" />
             </LinearLayout>
@@ -98,6 +98,7 @@
                 android:background="@color/header_background"
                 android:orientation="horizontal"
                 android:padding="8dp"
+                android:layout_margin="8dp"
                 android:weightSum="1">
 
                 <LinearLayout
@@ -124,15 +125,15 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dp"
-                        android:paddingTop="3dp"
+                        android:paddingTop="-3dp"
                         android:text="Events ที่เริ่มไปแล้ว"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_event" />
             </LinearLayout>

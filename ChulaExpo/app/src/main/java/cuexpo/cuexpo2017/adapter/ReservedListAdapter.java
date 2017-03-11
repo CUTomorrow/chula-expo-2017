@@ -1,9 +1,11 @@
 package cuexpo.cuexpo2017.adapter;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
@@ -27,10 +30,15 @@ import cuexpo.cuexpo2017.view.ActivityListItem;
 public class ReservedListAdapter extends BaseAdapter {
 
 
-    private RoundDao roundDao = new RoundDao();
-    private ActivityItemCollectionDao activityDao = new  ActivityItemCollectionDao();
+    private RoundDao roundDao;
+    private ActivityItemCollectionDao activityDao;
     private SharedPreferences sharedPref;
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
+    private Boolean isZero = true;
+
+    public void setIsZero(boolean value) {
+        isZero = value;
+    }
 
     public void setRoundDao(RoundDao dao) {
         this.roundDao = dao;
@@ -42,8 +50,7 @@ public class ReservedListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (activityDao == null) return 0;
-        if (activityDao.getResults() == null) return 0;
+        if (activityDao == null) return 1;
         return activityDao.getResults().size();
     }
 
@@ -60,20 +67,20 @@ public class ReservedListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ActivityListItem item;
-        if (convertView != null)
-            item = (ActivityListItem) convertView;
-        else
+        if (convertView != null) {
+            if (!isZero && convertView instanceof ActivityListItem) {
+                item = (ActivityListItem)convertView;
+            } else{
+                item = new ActivityListItem(parent.getContext());
+            }
+        } else
             item = new ActivityListItem(parent.getContext());
 
-        if (roundDao.getResults().size() == 0) {
-            TextView tv = new TextView(parent.getContext());
-            tv.setText("ไม่มี Event ที่กำลังจะเกิดขึ้น");
-            tv.setGravity(Gravity.CENTER);
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-            final float scale = parent.getResources().getDisplayMetrics().density;
-            int pixels = (int) (15 * scale + 0.5f);
-            tv.setPadding(0, pixels, 0, pixels);
-            return tv;
+        if (isZero) {
+            convertView = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
+                    inflate(R.layout.item_empty, null);
+            ((TextView) convertView.findViewById(R.id.item_empty_text)).setText("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+            return convertView;
         } else {
 
             ActivityItemResultDao dao = activityDao.getResults().get(position);

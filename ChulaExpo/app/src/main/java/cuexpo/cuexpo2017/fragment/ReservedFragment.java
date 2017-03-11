@@ -60,6 +60,8 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
     private MutableInteger lastPositionInteger;
     private ActivityItemCollectionDao dao2 = new ActivityItemCollectionDao();
     private ActivityItemCollectionDao dao3 = new ActivityItemCollectionDao();
+    private RoundDao reserveUpcomingDao;
+    private RoundDao reservePreviousDao;
 
     public ReservedFragment() {
         super();
@@ -114,17 +116,17 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         previousEventListView.setAdapter(previousAdapter);
         previousEventListView.setExpanded(true);
         previousEventListView.setFocusable(false);
-        previousEventListView.setOnItemClickListener(lvEventItemClickListener2);
+        previousEventListView.setOnItemClickListener(lvEventItemClickListener);
 
         back.setOnClickListener(this);
 
         dao2.setResults(new ArrayList<ActivityItemResultDao>());
         dao3.setResults(new ArrayList<ActivityItemResultDao>());
 
-        Call<RoundDao> callUpcomingReservedList = HttpManager.getInstance().getService().loadReservedRounds(getCurrentTime("gte"));
+        Call<RoundDao> callUpcomingReservedList = HttpManager.getInstance().getService().loadReservedRounds();
         callUpcomingReservedList.enqueue(callbackReservedList);
 
-        Call<RoundDao> callPreviousReservedList = HttpManager.getInstance().getService().loadReservedRounds(getCurrentTime("lt"));
+        Call<RoundDao> callPreviousReservedList = HttpManager.getInstance().getService().loadReservedRounds();
         callPreviousReservedList.enqueue(callbackReservedList2);
     }
 
@@ -133,6 +135,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
         String currentTime = df.format(new Date());
+        System.out.println("NOW " + currentTime);
         JSONObject range = new JSONObject();
         try {
             range.put(operator, currentTime);
@@ -146,16 +149,21 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
-                RoundDao dao = response.body();
-                upComingAdapter.setRoundDao(dao);
-                upComingAdapter.notifyDataSetChanged();
+                reserveUpcomingDao = response.body();
+                if (reserveUpcomingDao.getResults() == null) {
+                    upComingAdapter.notifyDataSetChanged();
+                } else if (reserveUpcomingDao.getResults().size() == 0) {
+                    upComingAdapter.notifyDataSetChanged();
+                } else {
+                    upComingAdapter.setRoundDao(reserveUpcomingDao);
+                    upComingAdapter.notifyDataSetChanged();
 
-                for (int i = 0; i < dao.getResults().size(); i++) {
-                    System.out.println("number " + i + " " + dao.getResults().get(i).getId() + " " + dao.getResults().get(i).getActivityId());
-                    Call<ActivityItemDao> callActivity =
-                            HttpManager.getInstance().getService().
-                                    loadActivityItem(dao.getResults().get(i).getActivityId());
-                    callActivity.enqueue(callbackActivity);
+                    for (int i = 0; i < reserveUpcomingDao.getResults().size(); i++) {
+                        Call<ActivityItemDao> callActivity =
+                                HttpManager.getInstance().getService().
+                                        loadActivityItem(reserveUpcomingDao.getResults().get(i).getActivityId());
+                        callActivity.enqueue(callbackActivity);
+                    }
                 }
             } else {
                 try {
@@ -176,16 +184,21 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
-                RoundDao dao = response.body();
-                previousAdapter.setRoundDao(dao);
-                previousAdapter.notifyDataSetChanged();
+                reservePreviousDao = response.body();
+                if (reserveUpcomingDao.getResults() == null) {
+                    previousAdapter.notifyDataSetChanged();
+                } else if (reserveUpcomingDao.getResults().size() == 0) {
+                    previousAdapter.notifyDataSetChanged();
+                } else {
+                    previousAdapter.setRoundDao(reservePreviousDao);
+                    previousAdapter.notifyDataSetChanged();
 
-                for (int i = 0; i < dao.getResults().size(); i++) {
-                    System.out.println("number " + i + " " + dao.getResults().get(i).getId() + " " + dao.getResults().get(i).getActivityId());
-                    Call<ActivityItemDao> callActivity =
-                            HttpManager.getInstance().getService().
-                                    loadActivityItem(dao.getResults().get(i).getActivityId());
-                    callActivity.enqueue(callbackActivity2);
+                    for (int i = 0; i < reservePreviousDao.getResults().size(); i++) {
+                        Call<ActivityItemDao> callActivity =
+                                HttpManager.getInstance().getService().
+                                        loadActivityItem(reservePreviousDao.getResults().get(i).getActivityId());
+                        callActivity.enqueue(callbackActivity2);
+                    }
                 }
             } else {
                 try {
@@ -207,6 +220,14 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
             if (response.isSuccessful()) {
                 ActivityItemDao dao = response.body();
+                upComingAdapter.setIsZero(false);
+                for (int i = 0; i < reserveUpcomingDao.getResults().size(); i++) {
+                    if (dao.getResults().getId().equals(reserveUpcomingDao.getResults().get(i).getActivityId())) {
+                        dao.getResults().setStart(reserveUpcomingDao.getResults().get(i).getStart());
+                        dao.getResults().setEnd(reserveUpcomingDao.getResults().get(i).getEnd());
+                        break;
+                    }
+                }
                 dao2.setSuccess(true);
                 dao2.addResults(dao.getResults());
                 upComingAdapter.setActivityDao(dao2);
@@ -231,6 +252,14 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
             if (response.isSuccessful()) {
                 ActivityItemDao dao = response.body();
+                previousAdapter.setIsZero(false);
+                for (int i = 0; i < reservePreviousDao.getResults().size(); i++) {
+                    if (dao.getResults().getId().equals(reservePreviousDao.getResults().get(i).getActivityId())) {
+                        dao.getResults().setStart(reservePreviousDao.getResults().get(i).getStart());
+                        dao.getResults().setEnd(reservePreviousDao.getResults().get(i).getEnd());
+                        break;
+                    }
+                }
                 dao3.setSuccess(true);
                 dao3.addResults(dao.getResults());
                 previousAdapter.setActivityDao(dao3);
@@ -253,24 +282,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            System.out.println("CICKED LISTENER " + position);
             String activityId = upComingAdapter.getItem(position).getId();
-            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
-            activitySharedPref.edit().putString("EventID", activityId).apply();
-
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.reserved_acitivity_content_container, new EventDetailFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        }
-    };
-
-    AdapterView.OnItemClickListener lvEventItemClickListener2 = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            System.out.println("CICKED LISTENER " + position);
-            String activityId = previousAdapter.getItem(position).getId();
             SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
             activitySharedPref.edit().putString("EventID", activityId).apply();
 
