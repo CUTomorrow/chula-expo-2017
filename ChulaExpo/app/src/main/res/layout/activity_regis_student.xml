@@ -305,7 +305,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:imeOptions="actionNext"
-                        android:text="Chulalongkorn University"
+                        android:hint="จุฬาลงกรณ์มหาวิทยาลัย"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
 

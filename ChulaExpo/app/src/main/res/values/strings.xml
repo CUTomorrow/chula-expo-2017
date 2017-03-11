@@ -39,17 +39,17 @@
         <item>อื่นๆ</item>
     </string-array>
 
-    <string-array name="academicLevel1">
+    <string-array name="academicYear1">
         <item>ม.1</item>
         <item>ม.2</item>
         <item>ม.3</item>
     </string-array>
-    <string-array name="academicLevel2">
+    <string-array name="academicYear2">
         <item>ม.4</item>
         <item>ม.5</item>
         <item>ม.6</item>
     </string-array>
-    <string-array name="academicLevel3">
+    <string-array name="academicYear3">
         <item>ปี 1</item>
         <item>ปี 2</item>
         <item>ปี 3</item>
@@ -59,7 +59,7 @@
         <item>ปี 7</item>
         <item>ปี 8</item>
     </string-array>
-    <string-array name="academicLevel4">
+    <string-array name="academicYear4">
         <item>ปี 1</item>
         <item>ปี 2</item>
         <item>ปี 3</item>

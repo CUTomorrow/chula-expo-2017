@@ -160,12 +160,15 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 // "http://graph.facebook.com/"+id+"/picture?type=large";
                 editor.putString("id", object.getString("id"));
-                Log.e("LoginFB","id: "+object.getString("id"));
+                //Log.e("LoginFB","id: "+object.getString("id"));
                 editor.putString("name", object.getString("name"));
                 editor.putString("email", object.getString("email"));
                 //Log.e("LoginFB","birthday:"+object.getString("birthday"));
                 //editor.putString("birthday", object.getString("birthday"));
-                editor.putString("gender", object.getString("gender"));
+                String gen = object.getString("gender");
+                if(gen.equals("male")) gen = "Male";
+                else gen = "Female";
+                editor.putString("gender", gen);
                 //Log.e("LoginFB","gender:"+object.getString("gender"));
                 editor.apply();
 

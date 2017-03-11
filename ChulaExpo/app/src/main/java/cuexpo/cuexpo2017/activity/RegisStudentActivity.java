@@ -27,13 +27,15 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RegisStudentActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText  etRegisName,etEmail, etBirth,etSchool,etYear;
+    EditText  etRegisName,etEmail, etBirth,etSchool;
     Spinner   spGender, spAcademicYear, spAcademicLevel;
     View    btnNext;
     ImageView ivRegisProfile;
     String id,name,email,gender;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
+    String[] academicYear1List, academicLevelList, academicYear2List, academicYear3List, academicYear4List, genderList;
+    ArrayAdapter<String> adapterGender, adapterAcademicLevel ,adapterAcademicYear1, adapterAcademicYear2, adapterAcademicYear3, adapterAcademicYear4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         id = sharedPref.getString("id","");
         name = sharedPref.getString("name","");
         email = sharedPref.getString("email","");
-        gender = sharedPref.getString("gender","male");
+        gender = sharedPref.getString("gender","Male");
         //birthday = sharedPref.getString("birthday","");
         editor.putString("type","Academic");
         //editor.putString("academicYear",etYear.getText().toString());
@@ -70,7 +72,6 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         etEmail.addTextChangedListener(textWatcher);
         etBirth.addTextChangedListener(textWatcher);
         etSchool.addTextChangedListener(textWatcher);
-        etYear.addTextChangedListener(textWatcher);
 
         //Load Image
         Glide.with(this)
@@ -80,15 +81,40 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into(ivRegisProfile);
         //Spinner
-        String[] genderList = getResources().getStringArray(R.array.gender);
-        ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this,
+        genderList = getResources().getStringArray(R.array.gender);
+        academicLevelList = getResources().getStringArray(R.array.academicLevel);
+        academicYear1List = getResources().getStringArray(R.array.academicYear1);
+        academicYear2List = getResources().getStringArray(R.array.academicYear2);
+        academicYear3List = getResources().getStringArray(R.array.academicYear3);
+        academicYear4List = getResources().getStringArray(R.array.academicYear4);
+
+        adapterGender = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, genderList);
+        adapterAcademicLevel = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, academicLevelList);
+        adapterAcademicYear1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, academicYear1List);
+        adapterAcademicYear2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, academicYear2List);
+        adapterAcademicYear3 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, academicYear3List);
+        adapterAcademicYear4 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, academicYear4List);
+
         spGender.setAdapter(adapterGender);
-        spGender.setSelection(gender.equals("ชาย")? 0 : 1,true);
+        spGender.setSelection(gender.equals("Male")? 0 : 1,true);
         View spinnerSelectedView = spGender.getSelectedView();
         ((TextView)spinnerSelectedView).setTextColor(Color.WHITE);
 
+        spAcademicLevel.setAdapter(adapterAcademicLevel);
+        spAcademicLevel.setSelection(1,true);
+        View spAcademicLevelSelectedView = spAcademicLevel.getSelectedView();
+        ((TextView)spAcademicLevelSelectedView).setTextColor(Color.WHITE);
 
+        spAcademicYear.setAdapter(adapterAcademicYear2);
+        spAcademicYear.setSelection(0,true);
+        View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
+        ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
     }
 
     private void initInstances() {
@@ -96,11 +122,14 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
         etEmail = (EditText)findViewById(R.id.etEmail);
         etBirth = (EditText) findViewById(R.id.etBirth);
         etSchool = (EditText) findViewById(R.id.etSchool);
-        etYear = (EditText)findViewById(R.id.etYear);
         spGender = (Spinner) findViewById(R.id.spGender);
+        spAcademicLevel = (Spinner) findViewById(R.id.spAcademicLevel);
+        spAcademicYear = (Spinner) findViewById(R.id.spAcademicYear);
         ivRegisProfile = (ImageView) findViewById(R.id.ivRegisProfile);
         btnNext = findViewById(R.id.btnNext);
         spGender.setOnItemSelectedListener(spGenderlistener);
+        spAcademicLevel.setOnItemSelectedListener(spAcademicLevelListener);
+        spAcademicYear.setOnItemSelectedListener(spAcademicYearListener);
     }
 
 
@@ -134,7 +163,7 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
                 editor.putInt("age", 0);
             }
             editor.putString("school", etSchool.getText().toString());
-            editor.putString("year", etYear.getText().toString());
+            //editor.putString("year", etYear.getText().toString());
             editor.commit();
         }
     };
@@ -145,7 +174,73 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
             View spinnerSelectedView = spGender.getSelectedView();
             ((TextView)spinnerSelectedView)
                 .setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(),R.color.dark_blue));
-            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "Male":"Female");
+            String gen = genderList[spGender.getSelectedItemPosition()];
+            if(gen.equals("ชาย")) gen = "Male";
+            else if(gen.equals("หญิง")) gen = "Female";
+            else gen = "Other";
+            editor.putString("gender",gen);
+            editor.commit();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    AdapterView.OnItemSelectedListener spAcademicLevelListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            View spinnerSelectedView = spAcademicLevel.getSelectedView();
+            ((TextView) spinnerSelectedView)
+                    .setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(), R.color.dark_blue));
+            editor.putString("academicLevel", academicLevelList[spAcademicLevel.getSelectedItemPosition()]);
+            editor.commit();
+            if(spAcademicLevel.getSelectedItemPosition() == 0){
+                spAcademicYear.setAdapter(adapterAcademicYear1);
+                spAcademicYear.setSelection(0,true);
+                View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
+                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
+            } else if(spAcademicLevel.getSelectedItemPosition() == 1) {
+                spAcademicYear.setAdapter(adapterAcademicYear2);
+                spAcademicYear.setSelection(0,true);
+                View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
+                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
+            }else if(spAcademicLevel.getSelectedItemPosition() == 2) {
+                spAcademicYear.setAdapter(adapterAcademicYear3);
+                spAcademicYear.setSelection(0,true);
+                View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
+                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
+            }else if(spAcademicLevel.getSelectedItemPosition() == 3) {
+                spAcademicYear.setAdapter(adapterAcademicYear4);
+                spAcademicYear.setSelection(0,true);
+                View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
+                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
+            } else {
+                spAcademicYear.setAdapter(adapterAcademicYear3);
+                spAcademicYear.setSelection(0,true);
+                View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
+                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    AdapterView.OnItemSelectedListener spAcademicYearListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            View spinnerSelectedView = spAcademicYear.getSelectedView();
+            ((TextView) spinnerSelectedView)
+                    .setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(), R.color.dark_blue));
+            if(spAcademicLevel.getSelectedItemPosition() == 0) editor.putString("academicYear", academicYear1List[spAcademicYear.getSelectedItemPosition()]);
+            else if(spAcademicLevel.getSelectedItemPosition() == 1) editor.putString("academicYear", academicYear2List[spAcademicYear.getSelectedItemPosition()]);
+            else if(spAcademicLevel.getSelectedItemPosition() == 2) editor.putString("academicYear", academicYear3List[spAcademicYear.getSelectedItemPosition()]);
+            else if(spAcademicLevel.getSelectedItemPosition() == 3) editor.putString("academicYear", academicYear4List[spAcademicYear.getSelectedItemPosition()]);
+            else editor.putString("academicYear", academicYear3List[spAcademicYear.getSelectedItemPosition()]);
             editor.commit();
         }
 
