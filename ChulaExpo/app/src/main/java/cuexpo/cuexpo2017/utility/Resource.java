@@ -53,10 +53,10 @@ public class Resource {
     }
 
     public static int getTagBg(int id){
-        return tagBgs[id+1];
+        return tagBgs[id-1];
     }
 
     public static int getTagIcon(int id){
-        return tagIcons[id+1];
+        return tagIcons[id-1];
     }
 }

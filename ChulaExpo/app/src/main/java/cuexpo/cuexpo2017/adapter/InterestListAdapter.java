@@ -2,13 +2,16 @@ package cuexpo.cuexpo2017.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,10 +27,18 @@ public class InterestListAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private ArrayList<InterestItem> interestItems;
     private Context context;
+    private int paddingDp = 0;
 
     public InterestListAdapter(Context context, ArrayList<InterestItem> interestItems) {
         this.context = context;
         this.interestItems = interestItems;
+        inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public InterestListAdapter(Context context, ArrayList<InterestItem> interestItems, int paddingDp) {
+        this.context = context;
+        this.interestItems = interestItems;
+        this.paddingDp = paddingDp;
         inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -59,7 +70,8 @@ public class InterestListAdapter extends BaseAdapter {
         InterestViewHolder holder = new InterestViewHolder();
         View interestView;
         InterestItem interestItem = (InterestItem) this.getItem(position);
-        GridView.LayoutParams layoutParams = new GridView.LayoutParams(parent.getWidth()/3,parent.getWidth()/3);
+        int size = (parent.getWidth()-dpToPx(paddingDp))/3;
+        GridView.LayoutParams layoutParams = new GridView.LayoutParams(size, size);
 
         if (convertView != null) {
             interestView = convertView;
@@ -91,5 +103,10 @@ public class InterestListAdapter extends BaseAdapter {
         }
 
         return interestView;
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * ((float) displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }

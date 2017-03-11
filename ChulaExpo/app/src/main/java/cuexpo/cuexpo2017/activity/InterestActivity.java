@@ -1,13 +1,16 @@
 package cuexpo.cuexpo2017.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +25,7 @@ import cuexpo.cuexpo2017.adapter.InterestListAdapter;
 import cuexpo.cuexpo2017.datatype.InterestItem;
 import cuexpo.cuexpo2017.utility.Resource;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class InterestActivity extends AppCompatActivity {
@@ -35,32 +39,33 @@ public class InterestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_interest);
 
         activity = this;
-        adapter = new InterestListAdapter(this, interestItems);
+
+        initInterestItems();
+        adapter = new InterestListAdapter(this, interestItems, 40);
 
         LayoutInflater inflater = getLayoutInflater();
-        View gridViewFooter = inflater.inflate(R.layout.item_interest_footer, null);
-        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view);
-        gridView.addFooterView(gridViewFooter);
+//        View gridViewFooter = inflater.inflate(R.layout.item_interest_footer, null);
+//        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view);
+//        gridView.addFooterView(gridViewFooter);
+        GridView gridView = (GridView) findViewById(R.id.grid_view);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(onItemClick);
 
-        ImageView doneBtn = (ImageView) findViewById(R.id.done_btn);
+        View doneBtn = findViewById(R.id.btnNext);
         doneBtn.setOnClickListener(doneListener);
-
-        initInterestItems();
     }
 
     private void initInterestItems(){
         try {
-            JSONArray facultiesJSON = new JSONArray(
-                    getResources().getString(R.string.jsonFacultyMap)
+            JSONArray interestTagJSON = new JSONArray(
+                    getResources().getString(R.string.jsonInterestTag)
             );
-            for (int i = 0; i < facultiesJSON.length(); i++) {
-                JSONObject facData = facultiesJSON.getJSONObject(i);
-                int id = facData.getInt("id");
+            for (int i = 0; i < interestTagJSON.length(); i++) {
+                JSONObject tagData = interestTagJSON.getJSONObject(i);
+                int id = tagData.getInt("id");
                 interestItems.add(new InterestItem(
-                        facData.getString("nameTh"),
-                        facData.getString("nameEn"),
+                        tagData.getString("nameTh"),
+                        tagData.getString("nameEn"),
                         Resource.getTagBg(id),
                         Resource.getTagIcon(id),
                         false)
@@ -69,7 +74,6 @@ public class InterestActivity extends AppCompatActivity {
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
-        adapter.notifyDataSetChanged();
     }
 
     private View.OnClickListener doneListener = new View.OnClickListener() {
@@ -84,15 +88,19 @@ public class InterestActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             InterestItem interestItem = interestItems.get(position);
-            ImageView checkImage = (ImageView) v.findViewById(R.id.check_image);
             if(interestItem.isInterest()) {
                 interestItem.setInterest(false);
             }
             else {
                 interestItem.setInterest(true);
             }
-
+            adapter.notifyDataSetChanged();
         }
     };
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }
 

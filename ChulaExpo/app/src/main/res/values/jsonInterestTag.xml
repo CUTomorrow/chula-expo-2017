@@ -42,12 +42,12 @@
         \"id\": 6,
         \"nameTh\": \"สิ่งประดิษฐ์\",
         \"nameEn\": \"Invention\",
-        \"desTh\": \"นวัตกรรมและสิ่งประดิษฐ์ที่ “จับต้องได้” คิดค้นขึ้นเพื่อตอบสนองความต้องการของมนุษย์\",
+        \"desTh\": \"นวัตกรรมและสิ่งประดิษฐ์ที่ จับต้องได้ คิดค้นขึ้นเพื่อสนองความต้องการของมนุษย์\",
         \"desEn\": \"Tangible innovation and invention that respond to the need of humanity\"
     },
     {
         \"id\": 7,
-        \"nameTh\": \"คุณภาพชีวิต \",
+        \"nameTh\": \"คุณภาพชีวิต\",
         \"nameEn\": \"Quality of Life\",
         \"desTh\": \"นวัตกรรมที่พัฒนาความเป็นอยู่ที่ดีของตนเอง และสังคมโดยรวม\nแนวทางในการแก้ไขปัญหาที่เกิดขึ้นและการพัฒนาชีวิตให้มีความปลอดภัย สะดวกสบาย และสามารถดำรงอยู่ในสังคมยุคปัจจุบันได้อย่างมีความสุข\",
         \"desEn\": \"The innovation that develop the quality of life of oneself and society\nThe way to amend the problems and develop safeness, convenience and maintain the livings in the modern society.\"
@@ -55,7 +55,7 @@
     {
         \"id\": 8,
         \"nameTh\": \"อาหารและการเกษตร\",
-        \"nameEn\": \"Food \u0026 Agriculture\",
+        \"nameEn\": \"Food &amp; Agriculture\",
         \"desTh\": \"การศึกษาเกี่ยวกับตำรับอาหารและโภชนาการในด้านต่างๆ\nนวัตกรรมด้านการเกษตร และอุตสาหกรรมอาหารต่างๆ\nการแก้ไขปัญหา และการจัดการการเกษตรอย่างมีประสิทธิภาพ\",
         \"desEn\": \"The study of cuisine and nutrition in different ways\nInnovation in agriculture and food industry\nThe way to solving agricultural problem and to manage plantation efficiently\"
     },
@@ -69,7 +69,7 @@
     {
         \"id\": 10,
         \"nameTh\": \"ศิลปวัฒนธรรม\",
-        \"nameEn\": \"Art \u0026 Culture\",
+        \"nameEn\": \"Art &amp; Culture\",
         \"desTh\": \"การศึกษาและการสร้างสรรค์ผลงานศิลปะด้านต่างๆ เช่น จิตรกรรม วรรณกรรม ดนตรี สถาปัตยกรรม\nการศึกษาวัฒนธรรมและวัฒนธรรมย่อยในประเด็นต่างๆ\",
         \"desEn\": \"The study and creation of art in different field such as drawing, literature, music, architecture and sculpture\nThe study of culture and subculture in different topics\"
     },
@@ -160,7 +160,7 @@
     {
         \"id\": 23,
         \"nameTh\": \"การสื่อสาร\",
-        \"nameEn\": \"Communication\"
+        \"nameEn\": \"Communication\",
         \"desTh\": \"นวัตกรรมและเทคโนโลยีด้านการสื่อสารต่างๆ\n ความรู้ด้านการสื่อสารมวลชน การประชาสัมพันธ์ และการเท่าทันสื่อ\n ผลงานที่เกี่ยวข้องกับการสื่อสาร\n องค์ความรู้ทางภาษาที่เกี่ยวข้องกับการสื่อสาร ทั้งวจนภาษา และอวจนภาษา\",
         \"desEn\": \"Innovation and technology in Communication\n Knowledge of mass communication, public relation, and new\n Workings associated in a communication\n The knowledge of linguistics involved in communication in both verbal language and non-verbal language\"
     },
@@ -188,7 +188,7 @@
     {
         \"id\": 27,
         \"nameTh\": \"ต่างประเทศ\",
-        \"nameEn\": \"International Issue\"
+        \"nameEn\": \"International Issue\",
         \"desTh\": \"การศึกษาหรือการวิจัยของจุฬาฯในระดับนานาชาติ\nผลงานที่เกี่ยวข้องกับต่างประเทศ\nการศึกษา หรือประเด็นปัญหาในต่างประเทศ\nกิจกรรมที่เกี่ยวข้องกับนักเรียนแลกเปลี่ยน หรือชาวต่างชาติ\",
         \"desEn\": \"The study or research of Chulalongkorn University in global level\nProject related to international countries\nThe study or issue in another nations\nActivity involving exchange student or foreigner\"
     }
