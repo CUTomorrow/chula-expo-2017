@@ -8,7 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,16 +22,15 @@
                 android:id="@+id/interest_image" />
             <ImageView
                 android:layout_width="40dp"
-
                 android:layout_height="40dp"
                 android:id="@+id/interest_icon"
                 android:src="@drawable/cir_mock"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="15dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="2dp"
+                android:layout_marginTop="5dp"
                 android:text="วิศวกรรมศาสตร์"
                 fontPath="@string/font_bold"
                 android:textSize="15sp"

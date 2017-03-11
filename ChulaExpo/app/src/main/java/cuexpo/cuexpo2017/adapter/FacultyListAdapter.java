@@ -20,7 +20,7 @@ public class FacultyListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 21;
+        return 23;
     }
 
     @Override
@@ -149,9 +149,9 @@ public class FacultyListAdapter extends BaseAdapter {
                 faculty.setFacultyTitleEng("Faculty of Fine and Applied Arts");
                 break;
             case 15:
-                faculty.setFacultyBg(R.drawable.nur_bg);
-                faculty.setFacultyIcon(R.drawable.nur);
-                faculty.setFacultyTag("NUR", Color.WHITE, Color.rgb(255, 00, 00));
+                faculty.setFacultyBg(R.drawable.fon_bg);
+                faculty.setFacultyIcon(R.drawable.nur_icon);
+                faculty.setFacultyTag("FON", Color.WHITE, Color.rgb(255, 00, 00));
                 faculty.setFacultyTitle("พยาบาลศาสตร์");
                 faculty.setFacultyTitleEng("Faculty of Nursing");
                 break;
@@ -189,6 +189,20 @@ public class FacultyListAdapter extends BaseAdapter {
                 faculty.setFacultyTag("GRAD", Color.WHITE, Color.rgb(233, 73, 127));
                 faculty.setFacultyTitle("บัณฑิตวิทยาลัย");
                 faculty.setFacultyTitleEng("Graduate School");
+                break;
+            case 21:
+                faculty.setFacultyBg(R.drawable.trcn_bg);
+                faculty.setFacultyIcon(R.drawable.trcn_icon);
+                faculty.setFacultyTag("TRCN", Color.WHITE, Color.rgb(233, 73, 127));
+                faculty.setFacultyTitle("พยาบาลกาชาด");
+                faculty.setFacultyTitleEng("Thai Red Cross College of Nursing");
+                break;
+            case 22:
+                faculty.setFacultyBg(R.drawable.pnc_bg);
+                faculty.setFacultyIcon(R.drawable.pnc_icon);
+                faculty.setFacultyTag("PNC", Color.WHITE, Color.rgb(233, 73, 127));
+                faculty.setFacultyTitle("พยาบาลตำรวจ");
+                faculty.setFacultyTitleEng("Police Nursing College");
                 break;
         }
 

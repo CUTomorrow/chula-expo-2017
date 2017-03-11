@@ -167,7 +167,14 @@ public class FacultyListFragment extends Fragment {
             case 20:
                 activitySharedPref.edit().putString("ZoneName", "GRAD").apply();
                 break;
+            case 21:
+                activitySharedPref.edit().putString("ZoneName", "TRCN").apply();
+                break;
+            case 22:
+                activitySharedPref.edit().putString("ZoneName", "PNC").apply();
+                break;
         }
+        // TODO: correct TRCH and PNC tag color 
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
