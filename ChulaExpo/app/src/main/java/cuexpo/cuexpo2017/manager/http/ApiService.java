@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemDao;
+import cuexpo.cuexpo2017.dao.DeleteResultDao;
 import cuexpo.cuexpo2017.dao.FacilityDao;
 import cuexpo.cuexpo2017.dao.LoginDao;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
@@ -15,7 +16,9 @@ import cuexpo.cuexpo2017.dao.ZoneDao;
 import cuexpo.cuexpo2017.dao.ZoneItemDao;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -29,7 +32,12 @@ public interface ApiService {
     Call<ActivityItemCollectionDao> loadActivityList(@Query("fields") String fields,
                                                      @Query("limit") int limit,
                                                      @Query("sort") String sort);
-    @GET("/api/activities")
+
+    @GET("/api/activities/recommend")
+    Call<ActivityItemCollectionDao> loadRecommendedActivityList(@Header("authorization") String authorization);
+
+
+                                                     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadIncomingActivityOnStage(@Query("zone") String zone,
                                                                 @Query("fields") String fields,
                                                                 @Query("end") JSONObject end,
@@ -65,7 +73,10 @@ public interface ApiService {
     Call<ZoneItemDao> loadZoneById(@Path("zid") String zid);
 
     @GET("/api/me/reserved_rounds")
-    Call<RoundDao> getReservedActivity();
+    Call<RoundDao> loadReservedRounds(@Query("start") JSONObject range);
+
+    @DELETE("/api/me/reserved_rounds/{rid}")
+    Call<DeleteResultDao> removeRound(@Path("rid") String rid);
 
     @GET("/api/places/{pid}")
     Call<PlaceItemDao> loadPlaceItem(@Path("pid") String pid);

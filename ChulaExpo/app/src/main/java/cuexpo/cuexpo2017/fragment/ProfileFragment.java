@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +17,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.activity.LoginActivity;
+import cuexpo.cuexpo2017.activity.ReservedActivity;
+import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
+import cuexpo.cuexpo2017.dao.DeleteResultDao;
+import cuexpo.cuexpo2017.manager.HttpManager;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -48,6 +60,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView tvDescription;
     private TextView tvPlace;
     private ImageView ivQR;
+    private ImageView ivProfile;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     private boolean access;
@@ -90,23 +103,39 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
         editor = sharedPref.edit();
-        access = !sharedPref.getString("id", "").equals("");
+        access = !sharedPref.getString("fbToken", "").equals("");
 
 
         if (access) {
             setName(sharedPref.getString("name", ""));
             setEmail(sharedPref.getString("email", ""));
-            setGender(sharedPref.getString("gender", ""));
-            setAge(sharedPref.getString("birthday", ""));
-            if (sharedPref.getInt("role", 0) == 1) {
-                setStudentDescription(sharedPref.getString("year", ""), "");
-                setPlace(sharedPref.getString("school", ""));
-            } else {
-                setAdultDescription(sharedPref.getString("company", ""));
-                setPlace(sharedPref.getString("company", ""));
+            if (sharedPref.getString("gender", "").equals("Male")) {
+                setGender("ชาย");
+            } else if (sharedPref.getString("gender", "").equals("Female")) {
+                setGender("หญิง");
+            } else if (sharedPref.getString("gender", "").equals("Other")) {
+                setGender("อื่นๆ");
             }
-        }
+            /*if (sharedPref.getInt("age", 20) > 0) {
+                setAge(sharedPref.getInt("age", 20) + "");
+            } else {*/
+                setAge("-");
+            //}
 
+            if (sharedPref.getString("type", "").equals("Academic")) {
+                setStudentDescription(sharedPref.getString("academicLevel", ""),
+                        sharedPref.getString("academicYear", ""));
+                setPlace(sharedPref.getString("academicSchool", ""));
+            } else if (sharedPref.getString("type", "").equals("Worker")) {
+                setAdultDescription(sharedPref.getString("wokerJob", ""));
+            }
+            Glide.with(this)
+                    .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
+                    .placeholder(R.drawable.iv_profile_temp)
+                    .error(R.drawable.iv_profile_temp)
+                    .bitmapTransform(new CropCircleTransformation(getActivity()))
+                    .into(ivProfile);
+        }
 
         return rootView;
     }
@@ -119,6 +148,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
         ivQR = (ImageView) rootView.findViewById(R.id.profile_toolbar_qr);
+        ivProfile = (ImageView) rootView.findViewById(R.id.profile_image);
         btnEdit = (Button) rootView.findViewById(R.id.profile_edit_profile_btn);
         btnFavourite = (LinearLayout) rootView.findViewById(R.id.profile_favourite_btn);
         btnReserved = (LinearLayout) rootView.findViewById(R.id.profile_reserved_btn);
@@ -164,6 +194,24 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         access = savedInstanceState.getBoolean("access");
     }
 
+    Callback<DeleteResultDao> callbackDelete = new Callback<DeleteResultDao>() {
+        @Override
+        public void onResponse(Call<DeleteResultDao> call, Response<DeleteResultDao> response) {
+            if (response.isSuccessful()) {
+                DeleteResultDao dao = response.body();
+                Toast.makeText(Contextor.getInstance().getContext(),dao.getSuccess() + dao.getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                //Handle
+                Log.e("HomeActivity", "Load Activities Not Success");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<DeleteResultDao> call, Throwable t) {
+            Log.e("HomeActivity", "Load Activities Fail");
+        }
+    };
+
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
@@ -189,9 +237,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (!access) {
                 error();
             } else {
-                comingSoon();
-                /*Intent intent = new Intent(getActivity(), ReservedActivity.class);
-                getContext().startActivity(intent);*/
+                Intent intent = new Intent(getActivity(), ReservedActivity.class);
+                getContext().startActivity(intent);
             }
         } else if (v == btnEdit) {
             if (!access) {
@@ -228,18 +275,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.commit();
         } else if (v == btnLogout) {
             String facebookId = sharedPref.getString("id", "");
-            editor.putString("id", "");
+            editor.putString("fbToken", "");
+            editor.putString("apiToken", "");
+            editor.putString("id","");
             editor.putString("name", "");
             editor.putString("email", "");
             editor.putString("gender", "");
-            editor.putString("birthday", "");
-            editor.putString("year", "");
-            editor.putString("school", "");
-            editor.putString("company", "");
-            editor.putInt("role", 0);
+            editor.putString("age", "");
+            editor.putString("academicYear", "");
+            editor.putString("academicSchool", "");
+            editor.putString("academicLevel", "");
+            editor.putString("workerJob", "");
+            editor.putString("type", "");
             editor.commit();
 
-            new GraphRequest(AccessToken.getCurrentAccessToken(), "/"+facebookId+"/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
+            new GraphRequest(AccessToken.getCurrentAccessToken(), "/" + facebookId + "/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
                 @Override
                 public void onCompleted(GraphResponse graphResponse) {
                     LoginManager.getInstance().logOut();

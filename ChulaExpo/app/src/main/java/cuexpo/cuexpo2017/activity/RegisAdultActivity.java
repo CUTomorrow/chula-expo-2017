@@ -28,13 +28,14 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RegisAdultActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
-    EditText  etRegisName,etEmail, etBirth,etYear, etCareer;
+    EditText  etRegisName,etEmail, etBirth, etCareer;
     Spinner   spGender;
     View btnNext;
     ImageView ivRegisProfile;
     String id,name,email,gender,birthday;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
+    String[] genderList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         id = sharedPref.getString("id", "");
         name = sharedPref.getString("name", "");
         email = sharedPref.getString("email", "");
-        gender = sharedPref.getString("gender", "male");
+        gender = sharedPref.getString("gender", "Male");
         //birthday = sharedPref.getString("birthday", "");
         editor.putString("type","Worker");
         editor.putString("profile","http://graph.facebook.com/"+id+"/picture?type=large");
@@ -77,11 +78,11 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into(ivRegisProfile);
         //Spinner
-        String[] genderList = getResources().getStringArray(R.array.gender);
+        genderList = getResources().getStringArray(R.array.gender);
         ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, genderList);
         spGender.setAdapter(adapterGender);
-        spGender.setSelection(gender.equals("ชาย")? 0 : 1,true);
+        spGender.setSelection(gender.equals("Male")? 0 : 1,true);
         View spinnerSelectedView = spGender.getSelectedView();
         ((TextView)spinnerSelectedView).setTextColor(Color.WHITE);
     }
@@ -90,7 +91,6 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
         etRegisName = (EditText)findViewById(R.id.etRegisName);
         etEmail = (EditText)findViewById(R.id.etEmail);
         etBirth = (EditText) findViewById(R.id.etBirth);
-        etYear = (EditText)findViewById(R.id.etYear);
         etCareer = (EditText) findViewById(R.id.etCareer);
         spGender = (Spinner) findViewById(R.id.spGender);
         ivRegisProfile = (ImageView) findViewById(R.id.ivRegisProfile);
@@ -138,7 +138,12 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
             View spinnerSelectedView = spGender.getSelectedView();
             ((TextView)spinnerSelectedView).
                     setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(),R.color.dark_blue));
-            editor.putString("gender",spGender.getSelectedItemPosition() == 0? "Male":"Female");
+
+            String gen = genderList[spGender.getSelectedItemPosition()];
+            if(gen.equals("ชาย")) gen = "Male";
+            else if(gen.equals("หญิง")) gen = "Female";
+            else gen = "Other";
+            editor.putString("gender",gen);
             editor.commit();
         }
 

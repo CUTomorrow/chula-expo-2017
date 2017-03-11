@@ -6,19 +6,33 @@ import com.google.gson.annotations.SerializedName;
 
 public class Errors {
 
-    @SerializedName("code")
+    @SerializedName("additionMessage")
     @Expose
-    private Integer code;
+    private AdditionMessage additionMessage;
+    @SerializedName("status")
+    @Expose
+    private String status;
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("code")
+    @Expose
+    private int code;
 
-    public Integer getCode() {
-        return code;
+    public AdditionMessage getAdditionMessage() {
+        return additionMessage;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setAdditionMessage(AdditionMessage additionMessage) {
+        this.additionMessage = additionMessage;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -27,6 +41,14 @@ public class Errors {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
 }
