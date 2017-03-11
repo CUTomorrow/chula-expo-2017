@@ -243,7 +243,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 convertView.findViewById(R.id.reserve_button).setOnClickListener(reserveOCL);
                 if (canReserve) {
                     ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง EVENT");
-                    ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้ต้องทำการจองเพื่อเข้าร่วม");
+                    ((TextView) convertView.findViewById(R.id.button_detail)).setText("โปรดจองก่อนเข้าร่วม Event นี้");
                     ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
                 } else {
                     if (isReserve) {
