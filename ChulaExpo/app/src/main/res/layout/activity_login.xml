@@ -72,5 +72,16 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp" />
-
+    <FrameLayout
+        android:id="@+id/containerLogin"
+        android:clickable="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@android:style/Widget.Holo.ProgressBar.Large"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

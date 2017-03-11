@@ -4,11 +4,8 @@ package cuexpo.cuexpo2017.dao;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Errors {
+public class AdditionMessage {
 
-    @SerializedName("additionMessage")
-    @Expose
-    private AdditionMessage additionMessage;
     @SerializedName("status")
     @Expose
     private String status;
@@ -17,15 +14,7 @@ public class Errors {
     private String message;
     @SerializedName("code")
     @Expose
-    private int code;
-
-    public AdditionMessage getAdditionMessage() {
-        return additionMessage;
-    }
-
-    public void setAdditionMessage(AdditionMessage additionMessage) {
-        this.additionMessage = additionMessage;
-    }
+    private String code;
 
     public String getStatus() {
         return status;
@@ -43,11 +32,11 @@ public class Errors {
         this.message = message;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
