@@ -4,17 +4,23 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.adapter.InterestListAdapter;
 import cuexpo.cuexpo2017.datatype.InterestItem;
+import cuexpo.cuexpo2017.utility.Resource;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 
 
@@ -37,7 +43,7 @@ public class InterestActivity extends AppCompatActivity {
         gridView.addFooterView(gridViewFooter);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(onItemClick);
-//
+
         ImageView doneBtn = (ImageView) findViewById(R.id.done_btn);
         doneBtn.setOnClickListener(doneListener);
 
@@ -45,10 +51,24 @@ public class InterestActivity extends AppCompatActivity {
     }
 
     private void initInterestItems(){
-//        for(int i=0; i<titles.length; i++){
-//            InterestItem interestItem = new InterestItem(name, nameEng, imageSrc, iconSrc, interest);
-//            interestItems.add(interestItem);
-//        }
+        try {
+            JSONArray facultiesJSON = new JSONArray(
+                    getResources().getString(R.string.jsonFacultyMap)
+            );
+            for (int i = 0; i < facultiesJSON.length(); i++) {
+                JSONObject facData = facultiesJSON.getJSONObject(i);
+                int id = facData.getInt("id");
+                interestItems.add(new InterestItem(
+                        facData.getString("nameTh"),
+                        facData.getString("nameEn"),
+                        Resource.getTagBg(id),
+                        Resource.getTagIcon(id),
+                        false)
+                );
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
         adapter.notifyDataSetChanged();
     }
 

@@ -8,7 +8,6 @@ public class InterestItem {
     private int id;
     private String name;
     private String nameEng;
-    private String iconUrl;
     private int imageSrc;
     private int iconSrc;
     private boolean interest;

@@ -47,7 +47,6 @@ public class FacultyListFragment extends Fragment {
                             facData.getInt("id"),
                             facData.getString("nameTh"),
                             facData.getString("nameEn")));
-                Log.e("Init faculty data", "complete");
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
