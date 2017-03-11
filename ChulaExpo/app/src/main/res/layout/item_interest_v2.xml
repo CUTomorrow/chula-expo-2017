@@ -1,52 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="wrap_content">
-    <RelativeLayout
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/interest_item"
         android:layout_margin="5dp">
-        <ImageView
+
+        <RelativeLayout
+            android:id="@+id/interest_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/communication_bg"
-            android:scaleType="centerCrop"
-            android:id="@+id/interest_image" />
-        <ImageView
-            android:layout_width="40dp"
+            android:layout_margin="-3dp">
 
-            android:layout_height="40dp"
-            android:id="@+id/interest_icon"
-            android:src="@drawable/cir_mock"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="2dp"
-            android:text="วิศวกรรมศาสตร์"
-            fontPath="@string/font_bold"
-            android:textSize="15sp"
-            android:layout_below="@id/interest_icon"
-            android:textColor="@android:color/white"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/interest_title"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="0dp"
-            android:text="Faculty of Engineering"
-            fontPath="@string/font_bold"
-            android:textSize="10sp"
-            android:layout_below="@id/interest_title"
-            android:textColor="@android:color/white"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/interest_title_eng"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/interest_check"/>
+            <ImageView
+                android:id="@+id/interest_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/communication_bg" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/interest_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/eng" />
+
+                <ImageView
+                    android:id="@+id/interest_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/interest_title"
+                    fontPath="@string/font_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/interest_icon"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="2dp"
+                    android:text="วิศวกรรมศาสตร์"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/interest_title_eng"
+                    fontPath="@string/font_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/interest_title"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="0dp"
+                    android:text="Faculty of Engineering"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+
+            </RelativeLayout>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
 </FrameLayout>

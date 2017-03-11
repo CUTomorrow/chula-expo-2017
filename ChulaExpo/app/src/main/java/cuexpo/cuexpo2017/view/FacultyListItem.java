@@ -87,8 +87,7 @@ public class FacultyListItem extends BaseCustomViewGroup {
     public TextView getFacultyTitleEng() {return facultyTitleEng;}
 
     public void setFacultyBg(int res) {
-        facultyBg.setBackgroundResource(res);
-//        facultyBg.setImageResource(res);
+        facultyBg.setImageResource(res);
     }
 
     public void setFacultyIcon(int res) {
