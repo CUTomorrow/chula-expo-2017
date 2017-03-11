@@ -11,15 +11,14 @@
         <RelativeLayout
             android:id="@+id/interest_item"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="-3dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/interest_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@drawable/communication_bg" />
+                android:background="@drawable/eng_bg"
+                android:scaleType="centerCrop" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
