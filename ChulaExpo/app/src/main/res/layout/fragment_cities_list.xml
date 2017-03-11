@@ -12,16 +12,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical" >
+
             <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:id="@+id/cities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:divider="#ececec"
-                android:dividerHeight="10dp"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
-
+                android:dividerHeight="0dp" />
         </LinearLayout>
+
     </ScrollView>
 
 </FrameLayout>
