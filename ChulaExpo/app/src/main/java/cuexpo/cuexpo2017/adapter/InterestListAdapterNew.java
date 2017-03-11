@@ -77,8 +77,6 @@ public class InterestListAdapterNew extends BaseAdapter {
         holder.interestImage = (ImageView) interestView.findViewById(R.id.interest_image);
         holder.checkImage = (ImageView) interestView.findViewById(R.id.interest_check);
         holder.iconImage = (ImageView) interestView.findViewById(R.id.interest_icon);
-//        ((ImageView) interestView.findViewById(R.id.dim)).setImageResource(R.drawable.dim_overlay);
-
         holder.interestImage.setImageResource(interestItem.getImageSrc());
         holder.iconImage.setImageResource(interestItem.getIconSrc());
 
@@ -87,7 +85,6 @@ public class InterestListAdapterNew extends BaseAdapter {
 
         holder.titleTxt.setText(interestItem.getName());
         holder.titleEngTxt.setText(interestItem.getNameEng());
-
 
         return interestView;
     }
