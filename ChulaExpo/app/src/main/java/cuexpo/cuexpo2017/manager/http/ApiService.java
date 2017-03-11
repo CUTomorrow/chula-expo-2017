@@ -31,12 +31,14 @@ public interface ApiService {
     Call<ActivityItemCollectionDao> loadActivityList(@Query("fields") String fields,
                                                      @Query("limit") int limit,
                                                      @Query("sort") String sort);
+
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadIncomingActivityOnStage(@Query("zone") String zone,
                                                                 @Query("fields") String fields,
                                                                 @Query("end") JSONObject end,
                                                                 @Query("sort") String sort,
                                                                 @Query("limit") int limit);
+
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadHighlightActivity(@Query("highlight") boolean highlight,
                                                           @Query("fields") String fields,
@@ -53,8 +55,8 @@ public interface ApiService {
 
     @GET("/api/activities/{aid}/rounds")
     Call<RoundDao> loadRoundsById(@Path("aid") String aid,
-                                   @Query("sort") String sort,
-                                   @Query("start") JSONObject range);
+                                  @Query("start") JSONObject range,
+                                  @Query("sort") String sort);
 
     @POST("/api/activities/{aid}/rounds/{rid}/reserve")
     Call<ReserveDao> reserveSelectedRound(@Path("aid") String aid,
@@ -66,8 +68,11 @@ public interface ApiService {
     @GET("/api/zones/{zid}")
     Call<ZoneItemDao> loadZoneById(@Path("zid") String zid);
 
+    /*@GET("/api/me/reserved_rounds")
+    Call<RoundDao> loadReservedRounds(@Query("start") JSONObject range);*/
+
     @GET("/api/me/reserved_rounds")
-    Call<RoundDao> loadReservedRounds(@Query("start") JSONObject range);
+    Call<RoundDao> loadReservedRounds();
 
     @DELETE("/api/me/reserved_rounds/{rid}")
     Call<DeleteResultDao> removeRound(@Path("rid") String rid);
