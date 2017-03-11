@@ -15,6 +15,8 @@
     <color name="bgPrimary">#f3f3f3</color>
     <!-- Register -->
     <color name="dark_blue">#323846</color>
+    <!-- Interest -->
+    <color name="green">#60CC08</color>
     <!-- Event item -->
     <color name="time">#313131</color>
     <!-- Home -->
