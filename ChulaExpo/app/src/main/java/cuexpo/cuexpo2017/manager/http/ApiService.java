@@ -18,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -31,7 +32,12 @@ public interface ApiService {
     Call<ActivityItemCollectionDao> loadActivityList(@Query("fields") String fields,
                                                      @Query("limit") int limit,
                                                      @Query("sort") String sort);
-    @GET("/api/activities")
+
+    @GET("/api/activities/recommend")
+    Call<ActivityItemCollectionDao> loadRecommendedActivityList(@Header("authorization") String authorization);
+
+
+                                                     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadIncomingActivityOnStage(@Query("zone") String zone,
                                                                 @Query("fields") String fields,
                                                                 @Query("end") JSONObject end,

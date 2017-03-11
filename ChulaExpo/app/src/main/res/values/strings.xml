@@ -27,7 +27,45 @@
     <string-array name="gender">
         <item>ชาย</item>
         <item>หญิง</item>
+        <item>อื่นๆ</item>
     </string-array>
+
+    <string-array name="academicLevel">
+        <item>มัธยมต้น</item>
+        <item>มัธยมปลาย</item>
+        <item>ปริญญาตรี</item>
+        <item>ปริญญาโท</item>
+        <item>ปริญญาเอก</item>
+        <item>อื่นๆ</item>
+    </string-array>
+
+    <string-array name="academicYear1">
+        <item>ม.1</item>
+        <item>ม.2</item>
+        <item>ม.3</item>
+    </string-array>
+    <string-array name="academicYear2">
+        <item>ม.4</item>
+        <item>ม.5</item>
+        <item>ม.6</item>
+    </string-array>
+    <string-array name="academicYear3">
+        <item>ปี 1</item>
+        <item>ปี 2</item>
+        <item>ปี 3</item>
+        <item>ปี 4</item>
+        <item>ปี 5</item>
+        <item>ปี 6</item>
+        <item>ปี 7</item>
+        <item>ปี 8</item>
+    </string-array>
+    <string-array name="academicYear4">
+        <item>ปี 1</item>
+        <item>ปี 2</item>
+        <item>ปี 3</item>
+        <item>ปี 4</item>
+    </string-array>
+
     <!--Home-->
     <string name="home_stage_header_title">NOW ON STAGE</string>
     <string name="home_stage_header_desc">กิจกรรมที่กำลังเกิดขึ้นบนเวที</string>

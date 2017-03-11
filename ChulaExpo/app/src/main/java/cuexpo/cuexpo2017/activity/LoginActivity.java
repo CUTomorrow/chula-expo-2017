@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,10 +29,13 @@ import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 import cuexpo.cuexpo2017.R;
+import cuexpo.cuexpo2017.dao.ErrorResponse;
+import cuexpo.cuexpo2017.dao.Errors;
 import cuexpo.cuexpo2017.dao.LoginDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import retrofit2.Call;
@@ -47,6 +52,10 @@ public class LoginActivity extends AppCompatActivity {
     private AccessToken accessToken;
     private String token, kind;
     private AccessTokenTracker accessTokenTracker;
+    private FrameLayout container;
+    private ProgressBar progress;
+    private RelativeLayout facebookLogin;
+    private int countClick = 0;
 
 
 
@@ -56,8 +65,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         activity = this;
 
-        RelativeLayout facebookLogin = (RelativeLayout) findViewById(R.id.login_fb);
+        facebookLogin = (RelativeLayout) findViewById(R.id.login_fb);
         TextView guestLogin = (TextView) findViewById(R.id.login_guest);
+        container = (FrameLayout) findViewById(R.id.containerLogin);
+        progress = (ProgressBar) findViewById(R.id.progress);
 
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, facebookCallback);
@@ -75,17 +86,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateWithToken(AccessToken currentAccessToken) {
         if (currentAccessToken != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            LoginActivity.this.startActivity(intent);
-            LoginActivity.this.finish();
+            Log.e("LoginFB","updateToken");
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            LoginActivity.this.startActivity(intent);
+//            LoginActivity.this.finish();
         } else {
-            Log.e("Facebook login", "No access token");
+            Log.e("LoginFB", "No access token");
         }
     }
 
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //container.setClickable(true);
+            countClick++;
+            Log.e("LoginFB","Click count = " + countClick);
+            facebookLogin.setClickable(false);
             if(AccessToken.getCurrentAccessToken() != null){
                 Log.e("user id key", AccessToken.USER_ID_KEY);
                 new GraphRequest(AccessToken.getCurrentAccessToken(), "/"+AccessToken.USER_ID_KEY+"/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
@@ -93,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onCompleted(GraphResponse graphResponse) {
                         LoginManager.getInstance().logOut();
                         Toast.makeText(activity, "Please try logging in again", Toast.LENGTH_SHORT).show();
+                        facebookLogin.setClickable(true);
 //                        LoginManager.getInstance().logInWithReadPermissions(activity, permissionNeeds);
                     }
                 }).executeAsync();
@@ -120,10 +137,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         @Override
         public void onCancel() {
+            //container.setClickable(false);
+            facebookLogin.setClickable(true);
             Log.e("LoginFB","facebook login canceled");
         }
         @Override
         public void onError(FacebookException e) {
+            //container.setClickable(false);
+            facebookLogin.setClickable(true);
             if(AccessToken.getCurrentAccessToken() !=  null) Log.e("access token", AccessToken.getCurrentAccessToken().getToken());
             else Log.e("LoginFB", "facebook login error " + e.toString());
             Toast.makeText(Contextor.getInstance().getContext(),"Weak Connection, please check the Internet and reconnect",Toast.LENGTH_SHORT).show();
@@ -139,10 +160,16 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 // "http://graph.facebook.com/"+id+"/picture?type=large";
                 editor.putString("id", object.getString("id"));
+                //Log.e("LoginFB","id: "+object.getString("id"));
                 editor.putString("name", object.getString("name"));
                 editor.putString("email", object.getString("email"));
+                //Log.e("LoginFB","birthday:"+object.getString("birthday"));
                 //editor.putString("birthday", object.getString("birthday"));
-                editor.putString("gender", object.getString("gender"));
+                String gen = object.getString("gender");
+                if(gen.equals("male")) gen = "Male";
+                else gen = "Female";
+                editor.putString("gender", gen);
+                //Log.e("LoginFB","gender:"+object.getString("gender"));
                 editor.apply();
 
                 //api
@@ -177,6 +204,7 @@ public class LoginActivity extends AppCompatActivity {
                                 LoginActivity.this.finish();
                             } else {
                                 if(dao.getErrors().getCode() == 2){
+                                    Log.e("LoginFB","Account doesn't exist");
                                     Intent intent = new Intent(LoginActivity.this, RoleActivity.class);
                                     LoginActivity.this.startActivity(intent);
                                     LoginActivity.this.finish();
@@ -185,13 +213,19 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         } else {
-                            Log.e("LoginFB","facebook login not success");
+                            try {
+                                Log.e("LoginFB","facebook login not success " + response.errorBody().string());
+                                //Toast.makeText(Contextor.getInstance().getContext(),errorDao.getErrors().getMessage(),Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<LoginDao> call, Throwable t) {
                         Log.e("LoginFB","facebook login Failure" + t.toString());
+                        facebookLogin.setClickable(true);
                         Toast.makeText(Contextor.getInstance().getContext(),"No Connection",Toast.LENGTH_SHORT);
                     }
                 });
@@ -201,7 +235,8 @@ public class LoginActivity extends AppCompatActivity {
 //                LoginActivity.this.startActivity(intent);
 //                LoginActivity.this.finish();
             } catch (JSONException error) {
-                Log.e("Login - parse json", error.toString());
+                Log.e("LoginFB","Parse JSON" + error.toString());
+                facebookLogin.setClickable(true);
             }
         }
     };
@@ -209,6 +244,8 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener guestLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            container.setClickable(true);
+            progress.setVisibility(View.VISIBLE);
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             LoginActivity.this.startActivity(intent);
             LoginActivity.this.finish();
