@@ -193,7 +193,6 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.event_detail_overlay, new EventDetailFragment());
-            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (v == ivClose) {
             getFragmentManager().popBackStack();

@@ -155,6 +155,7 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnC
             FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.stage_container, new EventDetailFragment());
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } /*else if (v == btnFavourite){

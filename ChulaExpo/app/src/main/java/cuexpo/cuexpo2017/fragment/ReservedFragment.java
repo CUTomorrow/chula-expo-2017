@@ -1,6 +1,7 @@
 package cuexpo.cuexpo2017.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -150,20 +151,28 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
                 reserveUpcomingDao = response.body();
-                if (reserveUpcomingDao.getResults() == null) {
-                    upComingAdapter.notifyDataSetChanged();
-                } else if (reserveUpcomingDao.getResults().size() == 0) {
-                    upComingAdapter.notifyDataSetChanged();
-                } else {
-                    upComingAdapter.setRoundDao(reserveUpcomingDao);
-                    upComingAdapter.notifyDataSetChanged();
+                if (reserveUpcomingDao != null) {
+                    if (reserveUpcomingDao.getResults() == null) {
+                        upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        upComingAdapter.notifyDataSetChanged();
+                    } else if (reserveUpcomingDao.getResults().size() == 0) {
+                        upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        upComingAdapter.notifyDataSetChanged();
+                    } else {
+                        upComingAdapter.setRoundDao(reserveUpcomingDao);
+                        upComingAdapter.notifyDataSetChanged();
 
-                    for (int i = 0; i < reserveUpcomingDao.getResults().size(); i++) {
-                        Call<ActivityItemDao> callActivity =
-                                HttpManager.getInstance().getService().
-                                        loadActivityItem(reserveUpcomingDao.getResults().get(i).getActivityId());
-                        callActivity.enqueue(callbackActivity);
+                        for (int i = 0; i < reserveUpcomingDao.getResults().size(); i++) {
+                            Call<ActivityItemDao> callActivity =
+                                    HttpManager.getInstance().getService().
+                                            loadActivityItem(reserveUpcomingDao.getResults().get(i).getActivityId());
+                            callActivity.enqueue(callbackActivity);
+                        }
                     }
+                } else{
+                    Call<RoundDao> callUpcomingReservedList = HttpManager.getInstance().getService().loadReservedRounds();
+                    callUpcomingReservedList.enqueue(callbackReservedList);
+
                 }
             } else {
                 try {
@@ -185,20 +194,27 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
                 reservePreviousDao = response.body();
-                if (reserveUpcomingDao.getResults() == null) {
-                    previousAdapter.notifyDataSetChanged();
-                } else if (reserveUpcomingDao.getResults().size() == 0) {
-                    previousAdapter.notifyDataSetChanged();
-                } else {
-                    previousAdapter.setRoundDao(reservePreviousDao);
-                    previousAdapter.notifyDataSetChanged();
+                if (reserveUpcomingDao != null) {
+                    if (reserveUpcomingDao.getResults() == null) {
+                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.notifyDataSetChanged();
+                    } else if (reserveUpcomingDao.getResults().size() == 0) {
+                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.notifyDataSetChanged();
+                    } else {
+                        previousAdapter.setRoundDao(reservePreviousDao);
+                        previousAdapter.notifyDataSetChanged();
 
-                    for (int i = 0; i < reservePreviousDao.getResults().size(); i++) {
-                        Call<ActivityItemDao> callActivity =
-                                HttpManager.getInstance().getService().
-                                        loadActivityItem(reservePreviousDao.getResults().get(i).getActivityId());
-                        callActivity.enqueue(callbackActivity2);
+                        for (int i = 0; i < reservePreviousDao.getResults().size(); i++) {
+                            Call<ActivityItemDao> callActivity =
+                                    HttpManager.getInstance().getService().
+                                            loadActivityItem(reservePreviousDao.getResults().get(i).getActivityId());
+                            callActivity.enqueue(callbackActivity2);
+                        }
                     }
+                } else{
+                    Call<RoundDao> callPreviousReservedList = HttpManager.getInstance().getService().loadReservedRounds();
+                    callPreviousReservedList.enqueue(callbackReservedList2);
                 }
             } else {
                 try {
@@ -285,10 +301,9 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
             String activityId = upComingAdapter.getItem(position).getId();
             SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
             activitySharedPref.edit().putString("EventID", activityId).apply();
-
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.reserved_acitivity_content_container, new EventDetailFragment());
+            fragmentTransaction.replace(R.id.reserved_acitivity_content_container, new EventDetailFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
@@ -326,5 +341,11 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         if (v == back) {
             getActivity().finish();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("RESUME");
     }
 }

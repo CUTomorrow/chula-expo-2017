@@ -35,6 +35,11 @@ public class ReservedListAdapter extends BaseAdapter {
     private SharedPreferences sharedPref;
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
     private Boolean isZero = true;
+    private String holder = "";
+
+    public void setHolder(String text){
+        holder = text;
+    }
 
     public void setIsZero(boolean value) {
         isZero = value;
@@ -79,7 +84,7 @@ public class ReservedListAdapter extends BaseAdapter {
         if (isZero) {
             convertView = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
                     inflate(R.layout.item_empty, null);
-            ((TextView) convertView.findViewById(R.id.item_empty_text)).setText("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+            ((TextView) convertView.findViewById(R.id.item_empty_text)).setText(holder);
             return convertView;
         } else {
 
