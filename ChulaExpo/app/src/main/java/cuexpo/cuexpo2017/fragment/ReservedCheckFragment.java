@@ -3,6 +3,8 @@ package cuexpo.cuexpo2017.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,8 +112,6 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             e.printStackTrace();
         }
 
-        //String aid = "589b1d9c0028bd37f48906ad";
-
         Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, "start", range);
         callRound.enqueue(callbackRound);
 
@@ -189,6 +189,12 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             Call<ReserveDao> callReserve = HttpManager.getInstance().getService().reserveSelectedRound(aid, rid);
             callReserve.enqueue(callbackReserve);
             getFragmentManager().popBackStack();
+
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.event_detail_overlay, new EventDetailFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         } else if (v == ivClose) {
             getFragmentManager().popBackStack();
         }
