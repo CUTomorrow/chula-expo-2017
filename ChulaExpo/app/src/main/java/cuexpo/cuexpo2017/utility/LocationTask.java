@@ -27,6 +27,10 @@ public class LocationTask extends TimerTask{
 
     @Override
     public void run() {
+        sentLocationRequest();
+    }
+
+    public void sentLocationRequest(){
         int state = wifiManager.getWifiState();
         JSONObject fp = new JSONObject();
         if (state == WifiManager.WIFI_STATE_ENABLED) {
@@ -43,7 +47,7 @@ public class LocationTask extends TimerTask{
                 fp.put("ap", jsonArray);
             }
         }
-        fp.put("user_id", "xxxxxxxx");
+        fp.put("user_id", "EN100F6");
         try {
             Location location = MainApplication.getCurrentLocation();
             fp.put("latitude", location.getLatitude());
@@ -52,21 +56,22 @@ public class LocationTask extends TimerTask{
             localization.execute(fp);
         } catch (NullPointerException e) {
             Log.e("Location Task", e.toString());
+            MainApplication.setCurrentLocationDetail("Please enable your Wi-Fi and GPS");
         }
     }
 
     private OnTaskCompleteListener completeListener = new OnTaskCompleteListener() {
         @Override
         public void onCompleteListerner(JSONObject result) {
-            // TODO clean data
             String location;
             if (result.get("faculty_id") == null) {
                 location = "Please enable your Wi-Fi and GPS";
-            } else if (result.get("faculty_id").equals("-1")) {
+            } else if (result.get("building_id").equals("-1")) {
                 location = "ไม่มีข้อมูลของห้องนี้";
             } else {
-                location = result.get("faculty_id") + " " + result.get("building_id") + " " +
-                        result.get("floor") + " " + result.get("room_number");
+                location = "คณะ " + result.get("faculty_id") + " ตึก " + result.get("building_id");
+                if (!result.get("floor").equals("-1"))
+                    location += " ชั้น " + result.get("floor") + " ห้อง " + result.get("room_number");
             }
             MainApplication.setCurrentLocationDetail(location);
         }
