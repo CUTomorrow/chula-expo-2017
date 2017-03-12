@@ -161,6 +161,7 @@ public class InterestListFragment extends Fragment {
     private AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(getActivity(), "Coming Soon", Toast.LENGTH_SHORT).show();
 //            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 //            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //            fragmentTransaction.add(R.id.container, new TagPageFragment());
