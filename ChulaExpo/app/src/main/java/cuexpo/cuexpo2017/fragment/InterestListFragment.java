@@ -14,8 +14,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.zxing.client.android.Intents;
 
 import org.json.JSONArray;
 import org.json.JSONException;
