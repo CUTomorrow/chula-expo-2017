@@ -121,22 +121,18 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 PlaceItemResultDao dao = response.body().getResults();
                 place = dao.getName().getTh();
                 notifyDataSetChanged();
-
             } else {
                 try {
-                    Log.e("fetch error", response.errorBody().string());
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("EventDetail", "Call Place Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
         }
 
         @Override
         public void onFailure(Call<PlaceItemDao> call, Throwable t) {
-            System.out.println("Place ERROR " + t.toString());
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("EventDetail", "Call Place Fail");
         }
     };
 
@@ -173,7 +169,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 }
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("EventDetail", "Call Round List Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -182,8 +178,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            System.out.println("ERROR " + t.toString());
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("EventDetail", "Call Round List Fail");
         }
     };
 
@@ -214,7 +209,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 }
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("EventDetail", "Call Reserved Round List Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -223,8 +218,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            System.out.println("ERROR 2 " + t.toString());
-            //Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+            Log.e("EventDetail", "Call Reserved Round List Fail ");
         }
     };
 
@@ -376,7 +370,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         }
         FragmentManager fragmentManager = fragment.getFragmentManager();
         int stackCount = fragmentManager.getBackStackEntryCount();
-        for(int i=0; i<stackCount; i++) fragmentManager.popBackStack();
+        for (int i = 0; i < stackCount; i++) fragmentManager.popBackStack();
     }
 
     public int dpToPx(int dp) {
@@ -389,7 +383,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         public void onClick(View v) {
             // TODO for Boom-sama
             if (!access) {
-                error();
+                error("การจอง");
             } else {
                 if (canReserve) {
                     FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
@@ -430,24 +424,25 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         public void onResponse(Call<DeleteResultDao> call, Response<DeleteResultDao> response) {
             if (response.isSuccessful()) {
                 DeleteResultDao dao = response.body();
-                System.out.println("ERROR Delete" + dao.getMessage());
-                Toast.makeText(Contextor.getInstance().getContext(), dao.getSuccess() + dao.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "ยกเลิกการจองสำเร็จ", Toast.LENGTH_LONG).show();
+                Log.e("EventDetail", "Delete Round " + dao.getSuccess() + " " + dao.getMessage());
             } else {
-                //Handle
-                Log.e("HomeActivity", "Load Activities Not Success");
+                Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().toString(), Toast.LENGTH_LONG).show();
+                Log.e("EventDetail", "Delete Round Not Success " + response.errorBody().toString());
             }
         }
 
         @Override
         public void onFailure(Call<DeleteResultDao> call, Throwable t) {
-            Log.e("HomeActivity", "Load Activities Fail");
+            Log.e("EventDetail", "Delete Round Fail");
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
         }
     };
 
-    public void error() {
+    public void error(String errorMsg) {
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("ขออภัย");
-        alert.setMessage("ฟังก์ชันแก้ไขข้อมูลเเปิดให้เฉพาะ Facebook User เท่านั้น!");
+        alert.setMessage("ฟังก์ชัน" + errorMsg + "เปิดให้เฉพาะ Facebook User เท่านั้น!");
         alert.setCancelable(false);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

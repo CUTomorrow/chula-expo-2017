@@ -3,8 +3,6 @@ package cuexpo.cuexpo2017.adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +18,8 @@ import java.util.Date;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
-import cuexpo.cuexpo2017.manager.FavouriteManager;
 import cuexpo.cuexpo2017.utility.Resource;
 import cuexpo.cuexpo2017.view.ActivityListItem;
-import cuexpo.cuexpo2017.view.FavouriteListItem;
 
 /**
  * Created by TEST on 1/11/2017.
@@ -35,6 +31,10 @@ public class FavouriteListAdapter extends BaseAdapter {
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
     private Boolean isZero = true;
     private String holder = "";
+
+    public boolean getIsZero(){
+        return isZero;
+    }
 
     public void setHolder(String text){
         holder = text;

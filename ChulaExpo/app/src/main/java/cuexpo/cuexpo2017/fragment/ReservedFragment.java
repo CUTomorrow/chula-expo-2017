@@ -14,19 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -62,8 +61,11 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
     private MutableInteger lastPositionInteger;
     private ActivityItemCollectionDao dao2 = new ActivityItemCollectionDao();
     private ActivityItemCollectionDao dao3 = new ActivityItemCollectionDao();
-    private RoundDao reserveUpcomingDao;
-    private RoundDao reservePreviousDao;
+    private RoundDao reserveDao = new RoundDao();
+    private RoundDao upComingDao = new RoundDao();
+    private RoundDao previousDao = new RoundDao();
+    private int callBackSize;
+    private int callBackCount = 0;
 
     private SharedPreferences sharedPref;
 
@@ -123,18 +125,26 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         previousEventListView.setAdapter(previousAdapter);
         previousEventListView.setExpanded(true);
         previousEventListView.setFocusable(false);
-        previousEventListView.setOnItemClickListener(lvEventItemClickListener);
+        previousEventListView.setOnItemClickListener(lvEventItemClickListener2);
 
         back.setOnClickListener(this);
+
+        upComingDao.setResults(new ArrayList<RoundResult>());
+        previousDao.setResults(new ArrayList<RoundResult>());
 
         dao2.setResults(new ArrayList<ActivityItemResultDao>());
         dao3.setResults(new ArrayList<ActivityItemResultDao>());
 
-        Call<RoundDao> callUpcomingReservedList = HttpManager.getInstance().getService().loadReservedRounds();
-        callUpcomingReservedList.enqueue(callbackReservedList);
+        upComingAdapter.setHolder("Loading..");
+        previousAdapter.setHolder("Loading..");
+        upComingAdapter.notifyDataSetChanged();
+        previousAdapter.notifyDataSetChanged();
 
-        Call<RoundDao> callPreviousReservedList = HttpManager.getInstance().getService().loadReservedRounds();
-        callPreviousReservedList.enqueue(callbackReservedList2);
+        Call<RoundDao> callReservedList = HttpManager.getInstance().getService().loadReservedRounds();
+        callReservedList.enqueue(callbackReservedList);
+
+        /*Call<RoundDao> callPreviousReservedList = HttpManager.getInstance().getService().loadReservedRounds();
+        callPreviousReservedList.enqueue(callbackReservedList2);*/
     }
 
     public JSONObject getCurrentTime(String operator) {
@@ -156,24 +166,28 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
-                reserveUpcomingDao = response.body();
-                if (reserveUpcomingDao != null) {
-                    if (reserveUpcomingDao.getResults() == null) {
+                reserveDao = response.body();
+                if (reserveDao != null) {
+                    if (reserveDao.getResults() == null) {
+                        upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        upComingAdapter.notifyDataSetChanged();
+                        previousAdapter.notifyDataSetChanged();
+                    } else if (reserveDao.getResults().size() == 0) {
                         upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
                         upComingAdapter.notifyDataSetChanged();
-                    } else if (reserveUpcomingDao.getResults().size() == 0) {
-                        upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
-                        upComingAdapter.notifyDataSetChanged();
+                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.notifyDataSetChanged();
                     } else {
-                        upComingAdapter.setRoundDao(reserveUpcomingDao);
-                        upComingAdapter.notifyDataSetChanged();
 
+                        Log.e("Reseved Fragment", "SIZE = " + reserveDao.getResults().size());
+                        callBackSize = reserveDao.getResults().size();
                         SharedPreferences.Editor editor = sharedPref.edit();
-                        for (int i = 0; i < reserveUpcomingDao.getResults().size(); i++) {
-                            editor.putString(reserveUpcomingDao.getResults().get(i).getActivityId(), "");
+                        for (int i = 0; i < reserveDao.getResults().size(); i++) {
+                            editor.putString(reserveDao.getResults().get(i).getActivityId(), "");
                             Call<ActivityItemDao> callActivity =
                                     HttpManager.getInstance().getService().
-                                            loadActivityItem(reserveUpcomingDao.getResults().get(i).getActivityId());
+                                            loadActivityItem(reserveDao.getResults().get(i).getActivityId());
                             callActivity.enqueue(callbackActivity);
                         }
 
@@ -181,17 +195,16 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                         Map<String, ?> allEntries = sharedPref.getAll();
 
                         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                            Log.e("Reserved List",entry.getKey());
+                            Log.e("Reserved List", entry.getKey());
                         }
                     }
                 } else {
                     Call<RoundDao> callUpcomingReservedList = HttpManager.getInstance().getService().loadReservedRounds();
                     callUpcomingReservedList.enqueue(callbackReservedList);
-
                 }
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("Reserved Fragment", "Call Reserved List Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -200,11 +213,96 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+            Log.e("Reserved Fragment", "Call Reserved List Fail");
         }
     };
 
-    Callback<RoundDao> callbackReservedList2 = new Callback<RoundDao>() {
+    Callback<ActivityItemDao> callbackActivity = new Callback<ActivityItemDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
+            if (response.isSuccessful()) {
+                ActivityItemDao dao = response.body();
+                callBackCount++;
+                int pos;
+                Log.e("Reserved Fragment", "Activity ID = " + dao.getResults().getId());
+                for (int i = 0; i < reserveDao.getResults().size(); i++) {
+                    Log.e("Reserved Fragment", "Reserved Round ID = " + reserveDao.getResults().get(i).getId()
+                            + " " + reserveDao.getResults().get(i).getActivityId());
+                }
+                for (pos = 0; pos < reserveDao.getResults().size(); pos++) {
+                    if (dao.getResults().getId().equals(reserveDao.getResults().get(pos).getActivityId())) {
+                        dao.getResults().setStart(reserveDao.getResults().get(pos).getStart());
+                        dao.getResults().setEnd(reserveDao.getResults().get(pos).getEnd());
+                        Log.e("Reserved Fragment", "POS = " + pos + "& ID = " + reserveDao.getResults().get(pos).getId());
+                        break;
+                    }
+                }
+                if (getCurrentTime().before(setCompareDate(dao.getResults().getStart()))) {
+                    Log.e("Reserved Fragment", "Upcoming " + getCurrentTime().toString()
+                            + " " + setCompareDate(dao.getResults().getStart()));
+                    upComingDao.setSuccess(true);
+                    upComingDao.addResults(reserveDao.getResults().get(pos));
+                    upComingAdapter.setIsZero(false);
+                    upComingAdapter.setRoundDao(upComingDao);
+                    dao2.setSuccess(true);
+                    dao2.addResults(dao.getResults());
+                    upComingAdapter.setActivityDao(dao2);
+                    upComingAdapter.notifyDataSetChanged();
+                } else {
+                    Log.e("Reserved Fragment", "Previous " + getCurrentTime().toString()
+                            + " " + setCompareDate(dao.getResults().getEnd()));
+                    previousDao.setSuccess(true);
+                    previousDao.addResults(reserveDao.getResults().get(pos));
+                    previousAdapter.setIsZero(false);
+                    previousAdapter.setRoundDao(previousDao);
+                    dao3.setSuccess(true);
+                    dao3.addResults(dao.getResults());
+                    previousAdapter.setActivityDao(dao3);
+                    previousAdapter.notifyDataSetChanged();
+                }
+                if(callBackCount==callBackSize){
+                    callBackCount = 0;
+                    if (upComingAdapter.getIsZero()) {
+                        upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        upComingAdapter.notifyDataSetChanged();
+                    }
+                    if (previousAdapter.getIsZero()) {
+                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.notifyDataSetChanged();
+                    }
+                }
+            } else {
+                try {
+                    Log.e("Reserved Fragment", "Call Activity Not Success " + response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ActivityItemDao> call, Throwable t) {
+            Log.e("Reserved Fragment", "Call Activity Fail");
+        }
+    };
+
+    private Date getCurrentTime() {
+        TimeZone tz = TimeZone.getTimeZone("Asia/Bangkok");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        return new Date();
+    }
+
+    private Date setCompareDate(String date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()); // Quoted "Z" to indicate UTC, no timezone offset
+        try {
+            return df.parse(date);
+        } catch (ParseException e) {
+            return new Date();
+        }
+    }
+
+    /*Callback<RoundDao> callbackReservedList2 = new Callback<RoundDao>() {
         @Override
         public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
             if (response.isSuccessful()) {
@@ -233,7 +331,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                 }
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("Reserved Fragment", "Call Reserved List Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -242,43 +340,11 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+            Log.e("Reserved Fragment", "Call Reserved List Fail");
         }
-    };
+    };*/
 
-    Callback<ActivityItemDao> callbackActivity = new Callback<ActivityItemDao>() {
-        @Override
-        public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
-            if (response.isSuccessful()) {
-                ActivityItemDao dao = response.body();
-                upComingAdapter.setIsZero(false);
-                for (int i = 0; i < reserveUpcomingDao.getResults().size(); i++) {
-                    if (dao.getResults().getId().equals(reserveUpcomingDao.getResults().get(i).getActivityId())) {
-                        dao.getResults().setStart(reserveUpcomingDao.getResults().get(i).getStart());
-                        dao.getResults().setEnd(reserveUpcomingDao.getResults().get(i).getEnd());
-                        break;
-                    }
-                }
-                dao2.setSuccess(true);
-                dao2.addResults(dao.getResults());
-                upComingAdapter.setActivityDao(dao2);
-                upComingAdapter.notifyDataSetChanged();
-            } else {
-                try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onFailure(Call<ActivityItemDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
-        }
-    };
-
-    Callback<ActivityItemDao> callbackActivity2 = new Callback<ActivityItemDao>() {
+    /*Callback<ActivityItemDao> callbackActivity2 = new Callback<ActivityItemDao>() {
         @Override
         public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
             if (response.isSuccessful()) {
@@ -297,7 +363,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                 previousAdapter.notifyDataSetChanged();
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("Reserved Fragment", "Call Activity Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -306,14 +372,28 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onFailure(Call<ActivityItemDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+            Log.e("Reserved Fragment", "Call Activity Fail");
         }
-    };
+    };*/
 
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String activityId = upComingAdapter.getItem(position).getId();
+            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+            activitySharedPref.edit().putString("EventID", activityId).apply();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.reserved_acitivity_content_container, new EventDetailFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+    };
+
+    AdapterView.OnItemClickListener lvEventItemClickListener2 = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String activityId = previousAdapter.getItem(position).getId();
             SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
             activitySharedPref.edit().putString("EventID", activityId).apply();
             FragmentManager fragmentManager = getFragmentManager();

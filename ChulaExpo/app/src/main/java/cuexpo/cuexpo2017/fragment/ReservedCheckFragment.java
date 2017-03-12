@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,7 +140,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
                 selectedPos = 0;
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("Reserved Check Fragment", "Call Round Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -148,7 +149,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("Reserved Check Fragment", "Call Round Fail");
         }
     };
 
@@ -203,10 +204,13 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         public void onResponse(Call<ReserveDao> call, Response<ReserveDao> response) {
             if (response.isSuccessful()) {
                 dao2 = response.body();
-                Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() + dao2.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess()?"จองสำเร็จ":"จองไม่สำเร็จ "
+                        + dao2.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e("Reserved Check Fragment", "Reserve Round " + dao2.getSuccess() + " " + dao2.getMessage());
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), dao2.getSuccess() + " " + dao2.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("Reserved Check Fragment", "Reserve Round Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -215,7 +219,8 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onFailure(Call<ReserveDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(),t.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Contextor.getInstance().getContext(),t.toString(), Toast.LENGTH_LONG).show();
+            Log.e("Reserved Check Fragment", "Call Round Fail");
         }
     };
 
