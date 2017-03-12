@@ -571,19 +571,19 @@ public class MapFragment extends Fragment implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-//        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
-//            return;
-//        }
-//
-//        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-//                Manifest.permission.ACCESS_FINE_LOCATION)) {
-//            // Enable the my location layer if the permission has been granted.
-//            enableMyLocation();
-//        } else {
-//            // Display the missing permission error dialog when the fragments resume.
-//            PermissionUtils.PermissionDeniedDialog
-//                    .newInstance(true).show(this.getChildFragmentManager(), "dialog");
-//        }
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Enable the my location layer if the permission has been granted.
+            enableMyLocation();
+        } else {
+            // Display the missing permission error dialog when the fragments resume.
+            PermissionUtils.PermissionDeniedDialog
+                    .newInstance(true).show(this.getChildFragmentManager(), "dialog");
+        }
     }
 
     private void showInfoCard(int icon, String facilityString, String descriptionString, int colorId, int color) {

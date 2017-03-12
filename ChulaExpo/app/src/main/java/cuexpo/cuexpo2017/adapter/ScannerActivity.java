@@ -1,5 +1,6 @@
 package cuexpo.cuexpo2017.adapter;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +9,8 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,10 +18,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+
+import cuexpo.cuexpo2017.utility.PermissionUtils;
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
-public class ScannerActivity extends AppCompatActivity implements ZBarScannerView.ResultHandler {
+public class ScannerActivity extends AppCompatActivity implements
+        ZBarScannerView.ResultHandler {
 
     String TAG = "QRScannerFragment";
     private ZBarScannerView mScannerView;
