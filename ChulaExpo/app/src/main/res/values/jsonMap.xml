@@ -510,7 +510,7 @@
         \"nameEn\": \"Faculty of Nursing\",
         \"nameTh\": \"คณะพยาบาลศาสตร์\",
         \"type\": \"Faculty\",
-        \"color\": \"#ff0000\",
+        \"color\": \"#ed1c24\",
         \"centerPoint\": { \"lat\": 13.73868, \"lng\": 100.53292 },
         \"areaBorder\": [
             { \"lat\": 13.73871, \"lng\": 100.53299 },
@@ -572,7 +572,7 @@
         \"nameEn\": \"The School of Agricultural Resource\",
         \"nameTh\": \"สำนักวิชาทรัพยากรการเกษตร\",
         \"type\": \"Faculty\",
-        \"color\": \"#932b2a\",
+        \"color\": \"#884141\",
         \"centerPoint\": { \"lat\": 13.73481, \"lng\": 100.53139 },
         \"areaBorder\": [
             { \"lat\": 13.73486, \"lng\": 100.53147 },
@@ -587,7 +587,7 @@
         \"nameEn\": \"Residence of Chulalongkorn University\",
         \"nameTh\": \"หอพักนิสิตจุฬาลงกรณ์มหาวิทยาลัย\",
         \"type\": \"Faculty\",
-        \"color\": \"#ff4e9e\",
+        \"color\": \"#ee0678\",
         \"centerPoint\": { \"lat\": 13.73488, \"lng\": 100.53155 },
         \"areaBorder\": [
             { \"lat\": 13.73502, \"lng\": 100.53161 },
@@ -602,7 +602,7 @@
         \"nameEn\": \"Graduate School\",
         \"nameTh\": \"สหสาขาวิชา บัณฑิตวิทยาลัย\",
         \"type\": \"Faculty\",
-        \"color\": \"#e9497f\",
+        \"color\": \"#bb6280\",
         \"centerPoint\": { \"lat\": 13.73484, \"lng\": 100.53119 },
         \"areaBorder\": [
             { \"lat\": 13.73488, \"lng\": 100.53131 },
@@ -632,7 +632,7 @@
         \"nameEn\": \"Police Nursing College\",
         \"nameTh\": \"วิทยาลัยพยาบาลตำรวจ\",
         \"type\": \"Faculty\",
-        \"color\": \"#ff4e9e\",
+        \"color\": \"#990033\",
         \"centerPoint\": { \"lat\": 13.73872, \"lng\": 100.53265 },
         \"areaBorder\": [
             { \"lat\": 13.73874, \"lng\": 100.53274 },
@@ -646,7 +646,7 @@
         \"nameEn\": \"The Thai Red Cross College of Nursing\",
         \"nameTh\": \"วิทยาลัยพยาบาล สภากาชาดไทย\",
         \"type\": \"Faculty\",
-        \"color\": \"#ff4e9e\",
+        \"color\": \"#dc143c\",
         \"centerPoint\": { \"lat\": 13.73875, \"lng\": 100.53241 },
         \"areaBorder\": [
             { \"lat\": 13.73878, \"lng\": 100.53248 },

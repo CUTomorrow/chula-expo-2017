@@ -125,8 +125,8 @@ public class FacultyMapEntity implements IMapEntity {
             case 41: return R.drawable.pin_41;
             case 42: return R.drawable.pin_42;
             case 43: return R.drawable.pin_43;
-            case 44: return R.drawable.pin_43;
-            case 45: return R.drawable.pin_43;
+            case 44: return R.drawable.pin_44;
+            case 45: return R.drawable.pin_45;
             default:
                 throw new IllegalArgumentException("Invalid faculty id : " + facultyId);
         }
