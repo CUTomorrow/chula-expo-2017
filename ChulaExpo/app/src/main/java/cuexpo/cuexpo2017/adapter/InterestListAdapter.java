@@ -29,12 +29,6 @@ public class InterestListAdapter extends BaseAdapter {
     private Context context;
     private int paddingDp = 0;
 
-    public InterestListAdapter(Context context, ArrayList<InterestItem> interestItems) {
-        this.context = context;
-        this.interestItems = interestItems;
-        inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-
     public InterestListAdapter(Context context, ArrayList<InterestItem> interestItems, int paddingDp) {
         this.context = context;
         this.interestItems = interestItems;
@@ -99,10 +93,5 @@ public class InterestListAdapter extends BaseAdapter {
         }
 
         return interestView;
-    }
-
-    public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(dp * ((float) displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }

@@ -43,11 +43,10 @@ public class InterestActivity extends AppCompatActivity {
         initInterestItems();
         adapter = new InterestListAdapter(this, interestItems, 40);
 
-//        LayoutInflater inflater = getLayoutInflater();
-//        View gridViewFooter = inflater.inflate(R.layout.item_interest_footer, null);
-//        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view);
-//        gridView.addFooterView(gridViewFooter);
-        GridView gridView = (GridView) findViewById(R.id.grid_view);
+        LayoutInflater inflater = getLayoutInflater();
+        View gridViewFooter = inflater.inflate(R.layout.item_interest_footer, null);
+        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view);
+        gridView.addFooterView(gridViewFooter);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(onItemClick);
 
