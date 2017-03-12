@@ -28,4 +28,6 @@ public class TagPageFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_tag_page, container, false);
     }
 
+
+
 }
