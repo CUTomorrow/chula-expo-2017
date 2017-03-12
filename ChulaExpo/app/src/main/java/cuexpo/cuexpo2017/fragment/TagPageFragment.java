@@ -44,8 +44,7 @@ public class TagPageFragment extends Fragment {
 
         list = (ListView) rootView.findViewById(R.id.list_view);
         adapter = new TagPageAdapter(getContext());
-
-
+        list.setAdapter(adapter);
 
     }
 

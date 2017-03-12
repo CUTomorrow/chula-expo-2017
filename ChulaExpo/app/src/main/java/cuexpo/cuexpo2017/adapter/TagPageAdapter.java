@@ -1,6 +1,7 @@
 package cuexpo.cuexpo2017.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +24,13 @@ public class TagPageAdapter extends BaseAdapter {
     private static LayoutInflater inflater;
     private List<ActivityItemResultDao> eventList = new ArrayList<>();
     private TextView header, detail;
+    private String title, detailString;
 
     public TagPageAdapter(Context context) {
-
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("TagDetail", Context.MODE_PRIVATE);
+        title = sharedPreferences.getString("title", "");
+        detailString = sharedPreferences.getString("detail", "");
     }
 
     public void setEvent(List<ActivityItemResultDao> eventList) {
@@ -35,7 +39,7 @@ public class TagPageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return eventList.size();
+        return 3+eventList.size();
     }
 
     @Override
@@ -56,10 +60,12 @@ public class TagPageAdapter extends BaseAdapter {
             case 0:
                 convertView = inflater.inflate(R.layout.item_tag_detail_header, null);
                 header = (TextView) convertView.findViewById(R.id.tag_title);
+                header.setText(title);
                 break;
             case 1:
                 convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
                 detail = (TextView) convertView.findViewById(R.id.detail);
+                detail.setText(detailString);
                 break;
             case 2:
                 convertView = inflater.inflate(R.layout.item_list_header, null);
