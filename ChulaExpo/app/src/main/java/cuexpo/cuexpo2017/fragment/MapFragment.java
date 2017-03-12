@@ -3,6 +3,7 @@ package cuexpo.cuexpo2017.fragment;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Application;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -45,6 +46,10 @@ import java.util.List;
 
 import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
+import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
+import cuexpo.cuexpo2017.dao.ActivityItemDao;
+import cuexpo.cuexpo2017.dao.ActivityItemLocationDao;
+import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.dao.FacilityDao;
 import cuexpo.cuexpo2017.dao.FacilityResult;
 import cuexpo.cuexpo2017.manager.HttpManager;
@@ -241,11 +246,42 @@ public class MapFragment extends Fragment implements
         mapFragment.getMapAsync(this);
         initializeMapStaticData();
 
-        Call<FacilityDao> call = HttpManager.getInstance().getService().loadFacilityList();
-        call.enqueue(callbackFacility);
+        Call<FacilityDao> facilityCall = HttpManager.getInstance().getService().loadFacilityList();
+        facilityCall.enqueue(callbackFacility);
+        Call<ActivityItemCollectionDao> rallyCall = HttpManager.getInstance().getService().loadActivityByZone("58b1174858d522497ea7394d");
+        rallyCall.enqueue(callbackRally);
 
         return rootView;
     }
+
+    Callback<ActivityItemCollectionDao> callbackRally = new Callback<ActivityItemCollectionDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
+            if (response.isSuccessful()) {
+                List<ActivityItemResultDao> rallies = response.body().getResults();
+                for (ActivityItemResultDao rally: rallies) {
+                    String name = rally.getName().getTh();
+                    ActivityItemLocationDao activityLocation = rally.getLocation();
+                    cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
+                    location.setLatitude(activityLocation.getLatitude());
+                    location.setLongitude(activityLocation.getLongitude());
+                    rallyPins.add(new NormalPinMapEntity(name, location, "Rally"));
+                }
+                initPins(rallyPins);
+            } else {
+                try {
+                    Log.e("fetch error", response.errorBody().string());
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        @Override
+        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
 
     Callback<FacilityDao> callbackFacility = new Callback<FacilityDao>() {
         @Override
@@ -270,7 +306,6 @@ public class MapFragment extends Fragment implements
                 initPins(regisPins);
                 initPins(infoPins);
                 initPins(toiletPins);
-                initPins(rallyPins);
                 initPins(carParkPins);
                 initPins(emerPins);
                 initPins(prayerPins);
