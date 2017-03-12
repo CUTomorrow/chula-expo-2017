@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
@@ -35,10 +34,6 @@ import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 
 /**
  * Created by nuuneoi on 11/16/2014.
@@ -53,13 +48,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private LinearLayout btnSetting2;
     private LinearLayout btnFaq;
     private LinearLayout btnAbout;
-    private Button btnLogout;
+    private LinearLayout btnLogout;
     private TextView tvName;
     private TextView tvEmail;
     private TextView tvAge;
     private TextView tvGender;
     private TextView tvDescription;
     private TextView tvPlace;
+    private TextView tvLogout;
     private ImageView ivQR;
     private ImageView ivProfile;
     private SharedPreferences sharedPref;
@@ -120,7 +116,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             /*if (sharedPref.getInt("age", 20) > 0) {
                 setAge(sharedPref.getInt("age", 20) + "");
             } else {*/
-                setAge("-");
+            setAge("-");
             //}
 
             if (sharedPref.getString("type", "").equals("Academic")) {
@@ -136,6 +132,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     .error(R.drawable.iv_profile_temp)
                     .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .into(ivProfile);
+        } else {
+            tvLogout.setText("กลับไปหน้า Login");
         }
 
         return rootView;
@@ -157,13 +155,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnSetting2 = (LinearLayout) rootView.findViewById(R.id.profile_setting2_btn);
         btnFaq = (LinearLayout) rootView.findViewById(R.id.profile_faq_btn);
         btnAbout = (LinearLayout) rootView.findViewById(R.id.profile_about_btn);
-        btnLogout = (Button) rootView.findViewById(R.id.profile_logout_btn);
+        btnLogout = (LinearLayout) rootView.findViewById(R.id.profile_logout_btn);
         tvName = (TextView) rootView.findViewById(R.id.profile_name);
         tvEmail = (TextView) rootView.findViewById(R.id.profile_email);
         tvAge = (TextView) rootView.findViewById(R.id.profile_age);
         tvGender = (TextView) rootView.findViewById(R.id.profile_gender);
         tvDescription = (TextView) rootView.findViewById(R.id.profile_description);
         tvPlace = (TextView) rootView.findViewById(R.id.profile_place);
+        tvLogout = (TextView) rootView.findViewById(R.id.profile_logout_tv);
     }
 
     @Override
@@ -195,24 +194,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         access = savedInstanceState.getBoolean("access");
     }
 
-    Callback<DeleteResultDao> callbackDelete = new Callback<DeleteResultDao>() {
-        @Override
-        public void onResponse(Call<DeleteResultDao> call, Response<DeleteResultDao> response) {
-            if (response.isSuccessful()) {
-                DeleteResultDao dao = response.body();
-                Toast.makeText(Contextor.getInstance().getContext(),dao.getSuccess() + dao.getMessage(), Toast.LENGTH_SHORT).show();
-            } else {
-                //Handle
-                Log.e("HomeActivity", "Load Activities Not Success");
-            }
-        }
-
-        @Override
-        public void onFailure(Call<DeleteResultDao> call, Throwable t) {
-            Log.e("HomeActivity", "Load Activities Fail");
-        }
-    };
-
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
@@ -227,34 +208,31 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.commit();
             //}
         } else if (v == btnFavourite) {
-            if (!access) {
-                error();
-            } else {
-                Intent intent = new Intent(getActivity(), FavouriteActivity.class);
-                getContext().startActivity(intent);
-            }
+            Intent intent = new Intent(getActivity(), FavouriteActivity.class);
+            getContext().startActivity(intent);
+
         } else if (v == btnReserved) {
             if (!access) {
-                error();
+                error("ดูการจอง Event ทั้งหมด");
             } else {
                 Intent intent = new Intent(getActivity(), ReservedActivity.class);
                 getContext().startActivity(intent);
             }
         } else if (v == btnEdit) {
             if (!access) {
-                error();
+                error("แก้ไขข้อมูล");
             } else {
                 comingSoon();
             }
         } else if (v == btnSetting) {
             if (!access) {
-                error();
+                error("แก้ไขเนื้อหาที่สนใจ");
             } else {
                 comingSoon();
             }
         } else if (v == btnSetting2) {
             if (!access) {
-                error();
+                error("แก้ไขคณะที่สนใจ");
             } else {
                 comingSoon();
             }
@@ -278,7 +256,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             String facebookId = sharedPref.getString("id", "");
             editor.putString("fbToken", "");
             editor.putString("apiToken", "");
-            editor.putString("id","");
+            editor.putString("id", "");
             editor.putString("name", "");
             editor.putString("email", "");
             editor.putString("gender", "");
@@ -347,10 +325,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         alert2.show();
     }
 
-    public void error() {
+    public void error(String errorMsg) {
         final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle("ขออภัย");
-        alert.setMessage("ฟังก์ชันแก้ไขข้อมูลเเปิดให้เฉพาะ Facebook User เท่านั้น!");
+        alert.setMessage("ฟังก์ชัน" + errorMsg + "เปิดให้เฉพาะ Facebook User เท่านั้น!");
         alert.setCancelable(false);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
