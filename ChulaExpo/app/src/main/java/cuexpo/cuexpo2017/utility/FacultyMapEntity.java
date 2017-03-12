@@ -99,7 +99,7 @@ public class FacultyMapEntity implements IMapEntity {
             case 10: return R.drawable.pin_10;
             case 11: return R.drawable.pin_11;
             case 12: return R.drawable.pin_12;
-            case 13: return R.drawable.pin_12;
+            case 13: return R.drawable.pin_13;
             // Faculty
             case 21: return R.drawable.pin_21;
             case 22: return R.drawable.pin_22;

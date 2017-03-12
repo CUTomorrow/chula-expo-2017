@@ -205,7 +205,7 @@ public class ZoneMainPageFragment extends Fragment {
             JSONObject range = new JSONObject();
             try {
                 String startString = "2017-03-" + 15 + "T00:00:00.000Z";
-                String endString = "2017-03-" + 15 + "T23:59:00.000Z";
+                String endString = "2017-03-" + 20 + "T23:59:00.000Z";
                 range.put("gte", startString);
                 range.put("lte", endString);
             } catch (JSONException e) {
