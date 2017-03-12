@@ -132,7 +132,7 @@ public class MapFragment extends Fragment implements
                 cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
                 location.setLatitude(cuTourStationData.getDouble("lat"));
                 location.setLongitude(cuTourStationData.getDouble("lng"));
-                popBusStationPins.add(new NormalPinMapEntity(cuTourStationData.getString("nameTh"), location, "BusStop"));
+                popBusStationPins.add(new NormalPinMapEntity(cuTourStationData.getString("nameTh"), location, "Bus Stop"));
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
@@ -296,9 +296,9 @@ public class MapFragment extends Fragment implements
                     else if(type.equals("Registration")) regisPins.add(new NormalPinMapEntity(name, location, type));
                     else if(type.equals("Information")) infoPins.add(new NormalPinMapEntity(name, location, type));
                     else if(type.equals("Toilet")) toiletPins.add(new NormalPinMapEntity(name, location, type));
-                    else if(type.equals("Carpark")) carParkPins.add(new NormalPinMapEntity(name, location, type));
-                    else if(type.equals("Emergency")) emerPins.add(new NormalPinMapEntity(name, location, type));
-                    else if(type.equals("Prayer")) prayerPins.add(new NormalPinMapEntity(name, location, type));
+                    else if(type.equals("Carpark")) carParkPins.add(new NormalPinMapEntity(name, location, "Car Park"));
+                    else if(type.equals("Emergency")) emerPins.add(new NormalPinMapEntity(name, location, "First Aid"));
+                    else if(type.equals("Prayer")) prayerPins.add(new NormalPinMapEntity(name, location, "Prayer Room"));
                 }
                 initPins(canteenPins);
                 initPins(regisPins);
@@ -571,19 +571,19 @@ public class MapFragment extends Fragment implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-//        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
-//            return;
-//        }
-//
-//        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-//                Manifest.permission.ACCESS_FINE_LOCATION)) {
-//            // Enable the my location layer if the permission has been granted.
-//            enableMyLocation();
-//        } else {
-//            // Display the missing permission error dialog when the fragments resume.
-//            PermissionUtils.PermissionDeniedDialog
-//                    .newInstance(true).show(this.getChildFragmentManager(), "dialog");
-//        }
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Enable the my location layer if the permission has been granted.
+            enableMyLocation();
+        } else {
+            // Display the missing permission error dialog when the fragments resume.
+            PermissionUtils.PermissionDeniedDialog
+                    .newInstance(true).show(this.getChildFragmentManager(), "dialog");
+        }
     }
 
     private void showInfoCard(int icon, String facilityString, String descriptionString, int colorId, int color) {
@@ -724,6 +724,7 @@ public class MapFragment extends Fragment implements
     }
 
     public boolean setPinOnClick(NormalPinMapEntity entry, Marker marker) {
+        if (entry == null) return false;
         if (entry.getMarker() == null) return false;
         if (entry.getMarker().equals(marker)) {
             showInfoCard(entry.getMarkerIconDrawableResource(),

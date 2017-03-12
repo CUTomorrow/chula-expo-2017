@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="จุฬาฯ เอ็กซ์โป\nจุฬาฯ 100 ปี นวัตกรรมคิดทำเพื่อสังคม"
+                android:text="จุฬาฯ เอ็กซ์โป\nจุฬาฯ 100 ปี นวัตกรรม คิดทำเพื่อสังคม"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:text="Chula Expo\nCU@100 toward greater\ninnovation for the society"
+                android:text="Chula Expo\nCU@100 Toward Greater\nInnovation for Society"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:text="แนวคิดหลักในการจัดงาน"
+                android:text="แนวคิดหลักของงาน"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Innovation   Social responsibility   Sustainability"
+                android:text="Innovation   Social Responsibility   Sustainability"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="18dp" />
@@ -83,11 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="CU Family : ครอบครัวจุฬาฯหมายถึง นิสิตปัจจุบัน นิสิตเก่า\nคณาจารย์และเจ้าหน้าที่ ที่มีความเกี่ยวข้องกับจุฬาฯ โดยตรง\nรวมทั้งนักเรียนที่มีความมุ่งหมายจะเข้ามาเป็นส่วนหนึ่งของ\nจุฬาลงกรณ์มหาวิทยาลัย"
+                android:text="CU Family: ครอบครัวจุฬาฯหมายถึง นิสิตปัจจุบัน นิสิตเก่า\nคณาจารย์ และเจ้าหน้าที่ ที่มีความเกี่ยวข้องกับจุฬาฯ โดยตรง\nรวมทั้งนักเรียนที่มีความมุ่งหมายจะเข้ามาเป็นส่วนหนึ่งของ\nจุฬาลงกรณ์มหาวิทยาลัย"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
