@@ -112,7 +112,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             e.printStackTrace();
         }
 
-        Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, "start", range);
+        Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, range, "start");
         callRound.enqueue(callbackRound);
 
     }
@@ -184,7 +184,6 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         if (v == btnSave) {
             String aid = dao.getResults().get(selectedPos).getActivityId();
             String rid = dao.getResults().get(selectedPos).getId();
-            Toast.makeText(Contextor.getInstance().getContext(), aid + " " + rid, Toast.LENGTH_SHORT).show();
 
             Call<ReserveDao> callReserve = HttpManager.getInstance().getService().reserveSelectedRound(aid, rid);
             callReserve.enqueue(callbackReserve);
@@ -193,7 +192,6 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.event_detail_overlay, new EventDetailFragment());
-            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (v == ivClose) {
             getFragmentManager().popBackStack();
@@ -217,7 +215,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onFailure(Call<ReserveDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Contextor.getInstance().getContext(),t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
 

@@ -1,36 +1,46 @@
 package cuexpo.cuexpo2017.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.datatype.InterestItem;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
- * Created by APTX-4869 (LOCAL) on 1/9/2017.
+ * Created by Administrator on 2/15/2017.
  */
 
-public class InterestListAdapter extends BaseAdapter{
+public class InterestListAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private ArrayList<InterestItem> interestItems;
     private Context context;
+    private int paddingDp = 0;
 
-    public InterestListAdapter(Context context, ArrayList<InterestItem> interestItems){
-        this.interestItems = interestItems;
+    public InterestListAdapter(Context context, ArrayList<InterestItem> interestItems) {
         this.context = context;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.interestItems = interestItems;
+        inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public InterestListAdapter(Context context, ArrayList<InterestItem> interestItems, int paddingDp) {
+        this.context = context;
+        this.interestItems = interestItems;
+        this.paddingDp = paddingDp;
+        inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
     @Override
     public int getCount() {
@@ -47,35 +57,56 @@ public class InterestListAdapter extends BaseAdapter{
         return position;
     }
 
-    private class InterestViewHolder {
+    public class InterestViewHolder {
         TextView titleTxt;
         ImageView interestImage;
         ImageView checkImage;
+        ImageView iconImage;
+        TextView titleEngTxt;
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        InterestViewHolder interestViewHolder = new InterestViewHolder();
+        InterestViewHolder holder = new InterestViewHolder();
         View interestView;
-        InterestItem interestItem = interestItems.get(position);
+        InterestItem interestItem = (InterestItem) this.getItem(position);
+        int size = (parent.getWidth()-dpToPx(paddingDp))/3;
+        GridView.LayoutParams layoutParams = new GridView.LayoutParams(size, size);
 
-        if(convertView!=null)
+        if (convertView != null) {
             interestView = convertView;
-        else
-            interestView = inflater.inflate(R.layout.item_interest, null);
-        interestViewHolder.interestImage = (ImageView) interestView.findViewById(R.id.interest_image);
-        interestViewHolder.titleTxt = (TextView) interestView.findViewById(R.id.interest_title);
-        interestViewHolder.checkImage = (ImageView) interestView.findViewById(R.id.check_image);
+            if (interestView.getWidth() == 0) interestView.setLayoutParams(layoutParams);
+        } else {
+            interestView = inflater.inflate(R.layout.item_interest_v2, null);
+            interestView.setLayoutParams(layoutParams);
+        }
 
-        Glide.with(context)
-                .load(interestItem.getImageUrl())
-                .placeholder(R.drawable.cir_mock)
-                .bitmapTransform(new CropCircleTransformation(context))
-                .into(interestViewHolder.interestImage);
-        if(interestItem.isInterest()) interestViewHolder.checkImage.setVisibility(View.VISIBLE);
-        else interestViewHolder.checkImage.setVisibility(View.INVISIBLE);
-        interestViewHolder.titleTxt.setText(interestItem.getTitle());
+        holder.titleTxt = (TextView) interestView.findViewById(R.id.interest_title);
+        holder.titleEngTxt = (TextView) interestView.findViewById(R.id.interest_title_eng);
+        holder.interestImage = (ImageView) interestView.findViewById(R.id.interest_image);
+        holder.checkImage = (ImageView) interestView.findViewById(R.id.interest_check);
+        holder.iconImage = (ImageView) interestView.findViewById(R.id.interest_icon);
+        holder.interestImage.setImageResource(interestItem.getImageSrc());
+        holder.iconImage.setImageResource(interestItem.getIconSrc());
+        holder.titleTxt.setText(interestItem.getName());
+        holder.titleEngTxt.setText(interestItem.getNameEng());
+
+        if(interestItem.isInterest()) {
+            holder.checkImage.setVisibility(View.VISIBLE);
+            holder.titleTxt.setTextColor(context.getResources().getColor(R.color.green));
+            holder.titleEngTxt.setTextColor(context.getResources().getColor(R.color.green));
+        }
+        else {
+            holder.checkImage.setVisibility(View.INVISIBLE);
+            holder.titleTxt.setTextColor(context.getResources().getColor(R.color.white));
+            holder.titleEngTxt.setTextColor(context.getResources().getColor(R.color.white));
+        }
+
         return interestView;
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * ((float) displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }

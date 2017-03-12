@@ -53,14 +53,6 @@ public class StageListAdapter extends BaseExpandableListAdapter {
             item.setLineStatus(0);
         }
 
-        StageListItem item2 = (StageListItem) getGroup(groupPosition);
-
-        if (item.getSelected()) {
-            item2.setNameHighlight(1);
-        } else {
-            item2.setNameHighlight(0);
-        }
-
         return item;
     }
 

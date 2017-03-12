@@ -5,42 +5,41 @@ package cuexpo.cuexpo2017.datatype;
  */
 
 public class InterestItem {
-    private String title;
-    private String imageUrl;
-    private boolean interest;
-    private String titleEng;
-    private String iconUrl;
+    private int id;
+    private String name;
+    private String nameEng;
     private int imageSrc;
     private int iconSrc;
+    private boolean interest;
 
-    public InterestItem(String title, String imageUrl, boolean interest) {
-        this.title = title;
-        this.imageUrl = imageUrl;
-        this.interest = interest;
+    public InterestItem(int id, String name, String nameEng) {
+        this.id = id;
+        this.name = name;
+        this.nameEng = nameEng;
     }
 
-    public InterestItem(String title, String titleEng, int imageSrc, int iconSrc, boolean interest) {
-        this.title = title;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public InterestItem(String name, String nameEng, int imageSrc, int iconSrc, boolean interest) {
+        this.name = name;
         this.imageSrc = imageSrc;
         this.interest = interest;
-        this.titleEng = titleEng;
+        this.nameEng = nameEng;
         this.iconSrc = iconSrc;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isInterest() {
@@ -51,13 +50,9 @@ public class InterestItem {
         this.interest = interest;
     }
 
-    public String getTitleEng() { return titleEng;}
+    public String getNameEng() { return nameEng;}
 
-    public void setTitleEng(String titleEng) { this.titleEng = titleEng;}
-
-    public String getIconUrl() { return iconUrl;}
-
-    public void setIconUrl(String iconUrl) { this.iconUrl = iconUrl;}
+    public void setNameEng(String nameEng) { this.nameEng = nameEng;}
 
     public int getImageSrc() {return imageSrc;}
 

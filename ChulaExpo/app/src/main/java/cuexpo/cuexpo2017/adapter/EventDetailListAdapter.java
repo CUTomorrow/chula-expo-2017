@@ -3,10 +3,11 @@ package cuexpo.cuexpo2017.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.location.Location;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -14,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,13 +40,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import cuexpo.cuexpo2017.R;
-import cuexpo.cuexpo2017.dao.ActivityItemDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
 import cuexpo.cuexpo2017.fragment.ReservedCheckFragment;
-import cuexpo.cuexpo2017.manager.DateConversionManager;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.IGoToMapable;
 import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
@@ -66,10 +64,14 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private String[] imageUrls;
     private boolean canReserve = true;
     private boolean isReserve = false;
+    private boolean isFavourite = false;
     private Fragment fragment;
     private RoundDao activityDao;
     private RoundDao myReserveDao;
     private String reserveId;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
+    private boolean access;
 
     public EventDetailListAdapter(Fragment fragment, Context context, String id, String place,
                                   String contact, String time, String description,
@@ -87,6 +89,12 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         this.imageUrls = imageUrls;
         this.title = title;
 
+        SharedPreferences sharedPref2 = context.getSharedPreferences("FacebookInfo", context.MODE_PRIVATE);
+        access = !sharedPref2.getString("fbToken", "").equals("");
+
+        sharedPref = context.getSharedPreferences("favouriteActivity", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+
         Call<PlaceItemDao> call = HttpManager.getInstance().getService().loadPlaceItem(place);
         call.enqueue(callbackPlace);
 
@@ -102,7 +110,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
             e.printStackTrace();
         }
 
-        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id, "start", range);
+        Call<RoundDao> roundCall = HttpManager.getInstance().getService().loadRoundsById(id, range, "start");
         roundCall.enqueue(callbackRound);
     }
 
@@ -127,6 +135,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<PlaceItemDao> call, Throwable t) {
+            System.out.println("Place ERROR " + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
@@ -138,8 +147,17 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 activityDao = response.body();
                 if (activityDao.getResults().size() == 0) {
                     canReserve = false;
+                    isReserve = false;
+                    if (sharedPref.contains(id))
+                        isFavourite = true;
+                    else
+                        isFavourite = false;
+                    notifyDataSetChanged();
                 } else if (activityDao.getResults().get(0).getSeats().getFullCapacity() == 0) {
                     canReserve = false;
+                    isReserve = false;
+                    isFavourite = false;
+                    notifyDataSetChanged();
                 } else {
                     JSONObject range = new JSONObject();
                     try {
@@ -150,7 +168,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Call<RoundDao> callReservedList = HttpManager.getInstance().getService().loadReservedRounds(range);
+                    Call<RoundDao> callReservedList = HttpManager.getInstance().getService().loadReservedRounds();
                     callReservedList.enqueue(callbackReservedList);
                 }
             } else {
@@ -164,6 +182,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
+            System.out.println("ERROR " + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
         }
     };
@@ -204,7 +223,8 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+            System.out.println("ERROR 2 " + t.toString());
+            //Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
         }
     };
 
@@ -244,16 +264,46 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 if (canReserve) {
                     ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง EVENT");
                     ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้ต้องทำการจองเพื่อเข้าร่วม");
-                    ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
+                    ((TextView) convertView.findViewById(R.id.button_title)).
+                            setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                    ((TextView) convertView.findViewById(R.id.button_detail)).
+                            setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                    convertView.findViewById(R.id.reserve_button).
+                            setBackgroundResource(R.drawable.shape_round_rec_pink_stroke);
+                    ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_pink);
                 } else {
                     if (isReserve) {
-                        ((TextView) convertView.findViewById(R.id.button_title)).setText("ยกเลิกการจอง Event");
-                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถยกเลิกได้");
-                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
+                        ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง Event แล้ว");
+                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("กดเพื่อยกเลิกการสนใจ Event");
+                        ((TextView) convertView.findViewById(R.id.button_title)).
+                                setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
+                        ((TextView) convertView.findViewById(R.id.button_detail)).
+                                setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
+                        convertView.findViewById(R.id.reserve_button).
+                                setBackgroundResource(R.drawable.shape_round_rec_pink);
+                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket);
                     } else {
-                        ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event");
-                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถเข้าร่วมได้โดยไม่ต้องจอง");
-                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_black);
+                        if (!isFavourite) {
+                            ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event");
+                            ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถเข้าร่วมได้โดยไม่ต้องจอง");
+                            ((TextView) convertView.findViewById(R.id.button_title)).
+                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                            ((TextView) convertView.findViewById(R.id.button_detail)).
+                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                            convertView.findViewById(R.id.reserve_button).
+                                    setBackgroundResource(R.drawable.shape_round_rec_pink_stroke);
+                            ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_small_star_pink);
+                        } else {
+                            ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event แล้ว");
+                            ((TextView) convertView.findViewById(R.id.button_detail)).setText("กดเพื่อยกเลิกการสนใจ Event");
+                            ((TextView) convertView.findViewById(R.id.button_title)).
+                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
+                            ((TextView) convertView.findViewById(R.id.button_detail)).
+                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
+                            convertView.findViewById(R.id.reserve_button).
+                                    setBackgroundResource(R.drawable.shape_round_rec_pink);
+                            ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_small_star);
+                        }
                     }
                 }
                 break;
@@ -270,7 +320,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                             dpToPx(44), dpToPx(44));
                     image.setLayoutParams(imageParam);
                     Glide.with(context)
-                            .load("https://staff.chulaexpo.com" + imageUrl)
+                            .load("https://api.chulaexpo.com" + imageUrl)
                             .placeholder(R.drawable.thumb)
                             .centerCrop()
                             .into(image);
@@ -336,22 +386,38 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         @Override
         public void onClick(View v) {
             // TODO for Boom-sama
-            if (canReserve) {
-                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id, title));
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+            if (!access) {
+                error();
             } else {
-                if (isReserve) {
-                    System.out.println("Already Reserved");
-                    Call<DeleteResultDao> callDelete = HttpManager.getInstance().getService().removeRound(reserveId);
-                    callDelete.enqueue(callbackDelete);
-                    canReserve = true;
-                    notifyDataSetChanged();
+                if (canReserve) {
+                    FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id, title));
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 } else {
-                    System.out.println("Let's Love");
+                    if (isReserve) {
+                        System.out.println("Already Reserved");
+                        Call<DeleteResultDao> callDelete = HttpManager.getInstance().getService().removeRound(reserveId);
+                        callDelete.enqueue(callbackDelete);
+                        canReserve = true;
+                        notifyDataSetChanged();
+                    } else {
+                        if (!isFavourite) {
+                            editor.putString(id, "");
+                            editor.commit();
+                            isFavourite = true;
+                            System.out.println("LET's LOVE");
+                            notifyDataSetChanged();
+                        } else {
+                            isFavourite = false;
+                            editor.remove(id);
+                            editor.commit();
+                            System.out.println("LET's NOT LOVE");
+                            notifyDataSetChanged();
+                        }
+                    }
                 }
             }
         }
@@ -362,6 +428,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         public void onResponse(Call<DeleteResultDao> call, Response<DeleteResultDao> response) {
             if (response.isSuccessful()) {
                 DeleteResultDao dao = response.body();
+                System.out.println("ERROR Delete" + dao.getMessage());
                 Toast.makeText(Contextor.getInstance().getContext(), dao.getSuccess() + dao.getMessage(), Toast.LENGTH_SHORT).show();
             } else {
                 //Handle
@@ -374,4 +441,18 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
             Log.e("HomeActivity", "Load Activities Fail");
         }
     };
+
+    public void error() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("ขออภัย");
+        alert.setMessage("ฟังก์ชันแก้ไขข้อมูลเเปิดให้เฉพาะ Facebook User เท่านั้น!");
+        alert.setCancelable(false);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert2 = alert.create();
+        alert2.show();
+    }
 }

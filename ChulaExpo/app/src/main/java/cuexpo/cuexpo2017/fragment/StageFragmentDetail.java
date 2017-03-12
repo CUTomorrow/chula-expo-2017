@@ -110,7 +110,7 @@ public class StageFragmentDetail extends Fragment {
 
                     head.add(item);
 
-                    StageInsideListItem item2 = new StageInsideListItem(getContext(),item);
+                    StageInsideListItem item2 = new StageInsideListItem(getContext());
                     item2.setDescription(dao.getResults().get(i).getDescription().getTh());
                     item2.setId(dao.getResults().get(i).getId());
                     tail.put(head.get(i), item2);
