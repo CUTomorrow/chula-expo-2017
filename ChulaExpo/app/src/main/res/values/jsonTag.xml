@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name = "jsonTag">
+{
+	\"tags\": [
+		{
+			\"title\": {
+				\"th\": \"พลังงาน\",
+				\"en\": \"energy\"
+			},
+			\"description\": {
+				\"th\": \"นวัตกรรมในการผลิตพลังงานและการพัฒนาพลังงานทดแทน\nแนวทางในการการอนุรักษ์พลังงาน และการใช้ การจัดการพลังงานอย่างยั่งยืน\",
+				\"en\": \"Innovation to produce and develop alternative energy\nThe way to conserve and manage sustainably energy\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"สังคมผู้สูงอายุ\",
+				\"en\": \"Ageing Society\"
+			},
+			\"description\": {
+				\"th\": \"นวัตกรรมเพื่อการช่วยเหลือและการดูแลผู้สูงอายุ\nการสร้างความรับรู้และความเข้าใจ รวมถึงแนวทางในการรับมือสังคมผู้สูงอายุ \",
+				\"en\": \"Innovation to help and concern the ageing society\nTo notice and understand including the way to handle the ageing society\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"ร่างกาย\",
+				\"en\": \"Body\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาสุขภาวะทางด้านร่างกาย และการทำงานของร่างกาย\nการรับรู้และความเข้าใจที่ถูกต้องในการออกกำลังกาย โภชนาการ การพักผ่อนที่เกี่ยวข้องกับร่างกาย\nแนวทางในการรักษาและการป้องกันภาวะความผิดปกติของสุขภาพทางด้านร่างกาย\nผลงานและสิ่งประดิษฐ์ที่เกี่ยวข้องกับสุขภาวะทางกาย\",
+				\"en\": \"The study of physical body and physical operation\nPerception and apprehension in exercise, nutrition, and restive body\nThe way to heal and prevent the abnormality of physical health\nPieces of workings and invention involved in physical body\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"จิตใจ\",
+				\"en\": \"Mind\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาสุขภาวะทางด้านจิตใจและอารมณ์\nการศึกษาและการวิจัยเชิงจิตวิทยาและพฤติกรรมในด้านต่างๆ\nแนวทางในการรักษาและการป้องกันรวมถึงการจัดการภาวะความผิดปกติของอารมณ์และจิตใจ\",
+				\"en\": \"The study of mental emotion\nThe study and research about mentality and behavior in different fields\nThe way to heal and prevent abnormality of the mental emotion\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"ปัญหาสังคม\",
+				\"en\": \"Social Issues\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาสภาวะและเหตุการณ์ที่มีผลกระทบต่อกลุ่มคนส่วนใหญ่ในสังคม\nแนวทางและวิธีการแก้ไขประเด็นที่สังคมรับรู้ว่าเป็นปัญหาที่ต้องการการแก้ไข\nโครงงานที่เกี่ยวข้องกับการช่วยเหลือสังคมของจุฬาฯ เช่น ค่ายอาสา การพัฒนาชุมชน\",
+				\"en\": \"The study of events that impact of the majority of the society\nThe way to amend our society problems that need to be handled\nProject involved in aiding Chula society such as a rural development\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"สิ่งประดิษฐ์\",
+				\"en\": \"Invention\"
+			},
+			\"description\": {
+				\"th\": \"นวัตกรรมและสิ่งประดิษฐ์ที่ “จับต้องได้” คิดค้นขึ้นเพื่อตอบสนองความต้องการของมนุษย์\",
+				\"en\": \"Tangible innovation and invention that respond to the need of humanity\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"คุณภาพชีวิต \",
+				\"en\": \"Quality of Life\"
+			},
+			\"description\": {
+				\"th\": \"นวัตกรรมที่พัฒนาความเป็นอยู่ที่ดีของตนเอง และสังคมโดยรวม\nแนวทางในการแก้ไขปัญหาที่เกิดขึ้นและการพัฒนาชีวิตให้มีความปลอดภัย สะดวกสบาย และสามารถดำรงอยู่ในสังคมยุคปัจจุบันได้อย่างมีความสุข\",
+				\"en\": \"The innovation that develop the quality of life of oneself and society\nThe way to amend the problems and develop safeness, convenience and maintain the livings in the modern society.\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"อาหารและการเกษตร\",
+				\"en\": \"Food &amp; Agriculture\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาเกี่ยวกับตำรับอาหารและโภชนาการในด้านต่างๆ\nนวัตกรรมด้านการเกษตร และอุตสาหกรรมอาหารต่างๆ\nการแก้ไขปัญหา และการจัดการการเกษตรอย่างมีประสิทธิภาพ\",
+				\"en\": \"The study of cuisine and nutrition in different ways\nInnovation in agriculture and food industry\nThe way to solving agricultural problem and to manage plantation efficiently\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"ชุมชน\",
+				\"en\": \"Community\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาความสัมพันธ์ของคนในชุมชนและสังคมในแง่มุมต่างๆ\nองค์ความรู้ด้านสังคมวิทยา และมานุษวิทยา\nบทบาทขององค์กรภาคประชาสังคม และภาครัฐในประเทศไทย\nบทบาทของประเทศไทยกับความสัมพันธ์ระหว่างประเทศ\",
+				\"en\": \"The study of connecting with people in a community and society in many aspects\nThe acknowledgement in sociology and anthropology\nThe role of civil society and public government of Thailand\nThe role of Thailand and international relations  \"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"ศิลปวัฒนธรรม\",
+				\"en\": \"Art &amp; Culture\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาและการสร้างสรรค์ผลงานศิลปะด้านต่างๆ เช่น จิตรกรรม วรรณกรรม ดนตรี สถาปัตยกรรม\nการศึกษาวัฒนธรรมและวัฒนธรรมย่อยในประเด็นต่างๆ\",
+				\"en\": \"The study and creation of art in different field such as drawing, literature, music, architecture and sculpture\nThe study of culture and subculture in different topics\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"การแพทย์\",
+				\"en\": \"Medication\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาและกรณีศึกษาความผิดปกติของร่างกายหรือจิตใจในเชิงการแพทย์ \nนวัตกรรมในการวินิจฉัยและการรักษาความผิดปกติที่เกิดขึ้นในร่างกายหรือจิตใจ\nยา การผลิตยา และเภสัชกรรม\nประเด็นด้านสาธารณสุขและสุขอนามัยที่เกี่ยวข้องกับคนในสังคมโดยรวม\",
+				\"en\": \"The study of abnormality of mentality and physicality in terms of medical care\nInnovation of investigation and healings the abnormality in physical body and mentality\nMedicine, medicine production and pharmacy\nThe point of public health involved in people in society\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"เศรษฐกิจ\",
+				\"en\": \"Economy\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาในประเด็นเกี่ยวกับเศรษฐกิจไทย และเศรษฐกิจโลก\nองค์ความรู้ ประเด็นปัญหา และการแก้ไขปัญหาเชิงเศรษฐศาสตร์ทั้งจุลภาค และมหภาค\nการวางแผน และการบริหารจัดการทางธุรกิจ การตลาด การเงิน การจัดการโลจิสติกส์\nการศึกษาเศรษฐกิจพอเพียงเพื่อประยุกต์ใช้ในชีวิตประจำวัน\",
+				\"en\": \"The study of Thai and global economics\nKnowledge, problems and solving in terms of microeconomics and macroeconomics\nPlanning and management in the business, marketing, finance and logistics\nThe study of efficiency economy for the application in daily life\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"การขนส่ง\",
+				\"en\": \"Transportation\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาในประเด็นต่างๆ ด้านการคมนาคมทางบก ทางน้ำ และทางอากาศ\nนวัตกรรมในการจัดการและแก้ปัญหาทางด้านการขนส่งและโลจิสติกส์\",
+				\"en\": \"The study of land, water, and air transportation\nThe innovation that manage and amend the problems in transportation and logistics\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"เทคโนโลยี\",
+				\"en\": \"Technology\"
+			},
+			\"description\": {
+				\"th\": \"นวัตกรรมทางด้าน Application และ Software ที่จัดทำขึ้นเพื่อแก้ไขปัญหา และตอบสนองความต้องการของมนุษย์\nเทคโนโลยีต่างๆ เช่น AI IoT AR VR MR \",
+				\"en\": \"The innovation of Application and Software which the purpose is to solve the problem and response the need of humanity\nOther technologies such as AI, IoT, AR, VR, and MR\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"สิ่งแวดล้อม \",
+				\"en\": \"Environment\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาในประเด็นด้านสิ่งแวดล้อมต่างๆ\nแนวทางในการแก้ไขปัญหาทางด้านสิ่งแวดล้อมที่เกิดขึ้น รวมถึงการพัฒนาในเรื่องของสิ่งแวดล้อมอย่างยั่งยืน\n นวัตกรรมที่เป็นมิตรต่อสิ่งแวดล้อม หรือสร้างขึ้นเพื่อแก้ไขปัญหาสิ่งแวดล้อม\",
+				\"en\": \"The study of the matter of environment\n The innovation and solvings in an environment problem occured and sustainably developing an environment\n The innovation that is friendly to environment or creation of solvings environmental problems\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"ภูมิปัญญาไทย\",
+				\"en\": \"Thai Wisdom\"
+			},
+			\"description\": {
+				\"th\": \"องค์ความรู้และสิ่งประดิษฐ์ของแต่ละท้องถิ่นที่ปฏิบัติสืบทอดต่อกันมาช้านานในด้านต่างๆ เช่น ภูมิปัญญาด้านการแพทย์ หัตถกรรม สถาปัตยกรรม \n โครงงานต่างๆที่เกิดขึ้นในประเทศไทย\",
+				\"en\": \"Knowledge and invention of local the pass through many generations such as medical care, handicraft, and architecture. \n Project about Thai wisdom in Thailand\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"การออกแบบ\",
+				\"en\": \"Design \"
+			},
+			\"description\": {
+				\"th\": \"แนวคิดในการออกแบบเพื่อแก้ไขปัญหาและตอบสนองความต้องการของมนุษย์\",
+				\"en\": \"The idea of the design for problem solving and response to the need of the humanity\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"กฎหมาย\",
+				\"en\": \"Law\"
+			},
+			\"description\": {
+				\"th\": \"ประเด็นศึกษาด้านสิทธิและเสรีภาพที่เกิดขึ้นทั้งในไทย และต่างประเทศ\n จริยศาสตร์ในด้านต่างๆ เช่น จริยธรรม ศีลธรรม ยุติธรรม\n ปัญหาและแนวทางในการแก้ไขเกี่ยวกับกฎหมาย กระบวนการนิติบัญญัติ และกระบวนการยุติธรรม\n การศึกษาและทำความเข้าใจในด้านอาชญาวิทยา\",
+				\"en\": \"The study of Rights and Freedom in Thailand and international countries. \n The study of morality, ethics and justice. \n Problems and the ways to amend the problems about the laws, process of legislation and process of justice\n The study of criminology.\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"การศึกษา\",
+				\"en\": \"Education\"
+			},
+			\"description\": {
+				\"th\": \"องค์ความรู้ในเรื่องที่เกี่ยวข้องกับการศึกษา \nเรื่องที่เกี่ยวข้องกับการศึกษาและการบริหารการศึกษาตั้งแต่ระดับประถมศึกษา มัธยมศึกษา และอุดมศึกษา\",
+				\"en\": \"Knowledge involved with the education\nThe involvement with the education and management from elementary and secondary school to university education\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"พระราชกรณียกิจ\",
+				\"en\": \"Royal Duties\"
+			},
+			\"description\": {
+				\"th\": \"พระราชกรณียกิจของพระบาทสมเด็จพระเจ้าอยู่หัวรัชกาลที่ 9 และพระบรมวงศานุวงศ์\nโครงงาน และกิจกรรมที่เกี่ยวเนื่องกับพระบาทสมเด็จพระเจ้าอยู่หัวรัชกาลที่ 9 และพระบรมวงศานุวงศ์\",
+				\"en\": \"The royal duties of King Rama VIIII and the royal families\nThe project and activity connected to the King Rama VIIII and the royal family\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"ความงาม\",
+				\"en\": \"Beauty\"
+			},
+			\"description\": {
+				\"th\": \"ผลงานและองค์ความรู้ที่เกี่ยวข้องกับเวชสำอางต่างๆ เช่น เครื่องสำอาง ผลิตภัณฑ์บำรุงผิว\nการศึกษาในแฟชั่นด้านต่างๆ เช่น เสื้อผ้า การแต่งหน้า การทำผม เครื่องประดับ\nการศึกษาเกี่ยวกับสุนทรีศาสตร์ด้านต่างๆ ที่เกี่ยวข้องกับความงาม\",
+				\"en\": \"Workings and knowledge involved with cosmetics such as skin care product\nThe study of fashions such as clothes, makeups, hairing and accessories\nThe study of aesthetics involved in the beauty\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"สัตว์และพันธุ์พืช\",
+				\"en\": \"Life\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาและองค์ความรู้ในด้านต่างๆ ที่เกี่ยวกับสัตว์และพันธุ์พืช\n การรักษา และการอนุรักษ์สัตว์และพันธุ์พืช\",
+				\"en\": \"The study and knowledge about animals and plants\n Recovery and conservation of animals and plants\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"การสื่อสาร\",
+				\"en\": \"Communication\"
+			},
+			\"description\": {
+				\"th\": \"นวัตกรรมและเทคโนโลยีด้านการสื่อสารต่างๆ\n ความรู้ด้านการสื่อสารมวลชน การประชาสัมพันธ์ และการเท่าทันสื่อ\n ผลงานที่เกี่ยวข้องกับการสื่อสาร\n องค์ความรู้ทางภาษาที่เกี่ยวข้องกับการสื่อสาร ทั้งวจนภาษา และอวจนภาษา\",
+				\"en\": \"Innovation and technology in Communication\n Knowledge of mass communication, public relation, and new\n Workings associated in a communication\n The knowledge of linguistics involved in communication in both verbal language and non-verbal language\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"กีฬา\",
+				\"en\": \"Sport\"
+			},
+			\"description\": {
+				\"th\": \"นวัตกรรมหรือองค์ความรู้ที่สอดคล้องกับกีฬา ในด้านต่างๆ\",
+				\"en\": \"The innovation and knowledge associated in sports\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"วิทยาศาสตร์\",
+				\"en\": \"Science\"
+			},
+			\"description\": {
+				\"th\": \"องค์ความรู้ด้านวิทยาศาสตร์บริสุทธิ์ และวิทยาศาสตร์ประยุกต์\nความรู้ทั่วไปเกี่ยวกับวิทยาศาสตร์ในชีวิตประจำวัน\nผลงานทางวิทยาศาสตร์ที่ช่วยแก้ไขปัญหาด้านต่างๆ\",
+				\"en\": \"Knowledge on pure science and applied science\nGeneral scientific knowledge in daily life\nScientific Project that solve problems\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"บันเทิง\",
+				\"en\": \"Entertainment\"
+			},
+			\"description\": {
+				\"th\": \"ผลงาน หรือการแสดงเพื่อความบันเทิงพักผ่อนหย่อนใจ\nการแสดงต่างๆ เช่น ละคร การเต้นรำ การร้องเพลง\",
+				\"en\": \"Project or show for entertaining purpose\nShows such as play, dancing or singing\"
+			}
+		},
+		{
+			\"title\": {
+				\"th\": \"ต่างประเทศ\",
+				\"en\": \"International Issue\"
+			},
+			\"description\": {
+				\"th\": \"การศึกษาหรือการวิจัยของจุฬาฯในระดับนานาชาติ\nผลงานที่เกี่ยวข้องกับต่างประเทศ\nการศึกษา หรือประเด็นปัญหาในต่างประเทศ\nกิจกรรมที่เกี่ยวข้องกับนักเรียนแลกเปลี่ยน หรือชาวต่างชาติ\",
+				\"en\": \"The study or research of Chulalongkorn University in global level\nProject related to international countries\nThe study or issue in another nations\nActivity involving exchange student or foreigner\"
+			}
+		}
+	]
+}
+    </string>
+</resources>

@@ -82,6 +82,7 @@ public class FacultyListAdapter extends BaseAdapter {
         String nameLowerCase = nameUpperCase.toLowerCase();
         String facultyTag = nameUpperCase;
         if (nameUpperCase.equals("COMMARTS")) facultyTag = "C-ARTS";
+        if (nameUpperCase.equals("NUR")) { facultyTag = "FON"; nameLowerCase = "fon"; }
         InterestItem facultyItem = faculties.get(position);
         String name = facultyItem.getName();
         switch ((int) getItemId(position)) {
