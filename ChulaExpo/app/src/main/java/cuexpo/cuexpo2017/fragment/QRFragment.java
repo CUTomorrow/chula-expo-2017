@@ -138,8 +138,8 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
                 fragmentTransaction.commit();
             } else {
                 new AlertDialog.Builder(getContext())
-                        .setTitle("QR Code ไม่ถูกต้อง")
-                        .setMessage(qrValue + "ไม่ใช่ URL ของ Chula Expo Event")
+                        .setTitle("Message")
+                        .setMessage(qrValue)
                         .setNeutralButton("ตกลง", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
