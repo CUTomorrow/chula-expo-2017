@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 import cuexpo.cuexpo2017.R;
@@ -90,7 +92,6 @@ public class InterestListFragment extends Fragment {
         };
 
         int[] backgroundUrl = {
-                //MOCK ONLY
                 R.drawable.energy_bg, R.drawable.aging_society_bg, R.drawable.body_bg, R.drawable.mind_bg, R.drawable.social_bg,
                 R.drawable.invention_bg, R.drawable.qlt_of_life_bg, R.drawable.food_agriculture_bg, R.drawable.community_bg,
                 R.drawable.art_cult_bg, R.drawable.med_interest_bg, R.drawable.economy_bg, R.drawable.transport_bg, R.drawable.technology_bg,
@@ -126,7 +127,6 @@ public class InterestListFragment extends Fragment {
             InterestItem interest = new InterestItem(title[i], titleEng[i], backgroundUrl[i], iconUrl[i], isInterest[i]);
             interestItems.add(interest);
         }
-
 
 
     }
