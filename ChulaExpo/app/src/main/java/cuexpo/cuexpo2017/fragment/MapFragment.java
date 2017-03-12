@@ -8,6 +8,8 @@ import android.app.Application;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -27,6 +29,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.indoorlocalization.Localization;
+import com.example.indoorlocalization.OnTaskCompleteListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -55,6 +59,7 @@ import cuexpo.cuexpo2017.dao.FacilityResult;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.FacultyMapEntity;
 import cuexpo.cuexpo2017.utility.IMapEntity;
+import cuexpo.cuexpo2017.utility.LocationTask;
 import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
 import cuexpo.cuexpo2017.utility.PermissionUtils;
 import cuexpo.cuexpo2017.utility.PopbusRouteMapEntity;
@@ -78,6 +83,7 @@ public class MapFragment extends Fragment implements
             showBusLine1, showBusLine2, showBusLine3, showBusLine4, closeInfoCard, pinIcon;
     private TextView facility, description;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    public static WifiManager wifiManager;
 
 //    private Application mainApp = getActivity().getApplication();
     HashMap<String, PopbusRouteMapEntity> popbusRoutes = new HashMap<>();
@@ -346,6 +352,8 @@ public class MapFragment extends Fragment implements
     private View.OnClickListener showCurrentLocation = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            LocationTask locationTask = new LocationTask();
+            locationTask.sentLocationRequest();
             hidePinList();
             enableMyLocation();
             showInfoCard(-1, "Current Location", MainApplication.getCurrentLocationDetail(), R.color.header_background, -1);
@@ -553,14 +561,14 @@ public class MapFragment extends Fragment implements
         } else if (googleMap != null) {
             try {
                 googleMap.setMyLocationEnabled(true);
-
+                googleMap.getUiSettings().setMyLocationButtonEnabled(false);
                 Location location = MainApplication.getCurrentLocation();
                 if (location != null) {
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                             new LatLng(location.getLatitude(), location.getLongitude()),
                             17
                     ), 1000, null);
-                    Snackbar.make(rootView, "Showing your current location...", Snackbar.LENGTH_SHORT).show();
+//                    Snackbar.make(rootView, "Showing your current location...", Snackbar.LENGTH_SHORT).show();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

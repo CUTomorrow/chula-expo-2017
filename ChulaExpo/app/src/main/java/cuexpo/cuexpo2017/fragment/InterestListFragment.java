@@ -12,7 +12,11 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -127,7 +131,17 @@ public class InterestListFragment extends Fragment {
             InterestItem interest = new InterestItem(title[i], titleEng[i], backgroundUrl[i], iconUrl[i], isInterest[i]);
             interestItems.add(interest);
         }
+        try {
+            JSONArray tagList = new JSONArray(
+                    getContext().getResources().getString(R.string.jsonInterestTag)
+            );
+            for (int i = 0; i < tagList.length(); i++) {
+                JSONObject tagData = tagList.getJSONObject(i);
 
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
 
     }
 
