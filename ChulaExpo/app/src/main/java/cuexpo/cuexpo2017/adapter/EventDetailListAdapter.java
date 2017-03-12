@@ -1,15 +1,22 @@
 package cuexpo.cuexpo2017.adapter;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
@@ -46,8 +54,10 @@ import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
 import cuexpo.cuexpo2017.fragment.ReservedCheckFragment;
 import cuexpo.cuexpo2017.manager.HttpManager;
+import cuexpo.cuexpo2017.utility.DateUtil;
 import cuexpo.cuexpo2017.utility.IGoToMapable;
 import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
+import cuexpo.cuexpo2017.utility.NotificationReceiver;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,9 +83,17 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private SharedPreferences.Editor editor;
     private boolean access;
 
-    public EventDetailListAdapter(Fragment fragment, Context context, String id, String place,
-                                  String contact, String time, String description,
-                                  double lat, double lng, String[] imageUrls, String title) {
+    private String startTimeISO;
+    private String endTimeISO;
+    private HashMap<String, Integer> NotificationIDMapping;
+    public static int notiID = 0;
+
+    public EventDetailListAdapter(
+        Fragment fragment, Context context, String id, String place,
+        String contact, String time, String startTimeISO, String endTimeISO, String description,
+        double lat, double lng, String[] imageUrls, String title
+    ) {
+
         this.fragment = fragment;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
@@ -88,6 +106,11 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         this.lng = lng;
         this.imageUrls = imageUrls;
         this.title = title;
+
+        this.startTimeISO = startTimeISO;
+        this.endTimeISO = endTimeISO;
+
+        NotificationIDMapping = new HashMap<>();
 
         SharedPreferences sharedPref2 = context.getSharedPreferences("FacebookInfo", context.MODE_PRIVATE);
         access = !sharedPref2.getString("fbToken", "").equals("");
@@ -384,6 +407,52 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         return Math.round(dp * ((float) displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
+    public void scheduleNotification() {
+
+        if(!DateUtil.isSameDay(this.startTimeISO, this.endTimeISO)) {
+            // Don't show notification if the duration of event isn't the same day.
+            return ;
+        }
+
+        String notiDesc = this.time + "\n" + this.description;
+        if(notiDesc.length() > 140) {
+            notiDesc = notiDesc.subSequence(0, 140) + "...";
+        }
+
+        NotificationCompat.Builder notiBuilder =
+            new NotificationCompat.Builder(this.context)
+                .setSmallIcon(R.drawable.noti_logo)
+                .setContentTitle("Chula Expo : " + this.place)
+                .setContentText(this.time)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(notiDesc))
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setAutoCancel(true);
+
+        int curNotiID = 0;
+        if(NotificationIDMapping.containsKey(this.id)) {
+            curNotiID = NotificationIDMapping.get(this.id);
+        } else {
+            curNotiID = notiID++;
+            NotificationIDMapping.put(this.id, curNotiID);
+        }
+
+        long notificationTimestamp = DateUtil.convertToMillisecond(this.startTimeISO);
+        notificationTimestamp -= 15 * 60 * 1000; // Show noti before 15 minutes
+
+        long currentTimestamp = System.currentTimeMillis();
+
+        if(currentTimestamp < notificationTimestamp) {
+            Intent notificationIntent = new Intent(this.context, NotificationReceiver.class);
+            notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notiBuilder.build());
+            notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, curNotiID);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, curNotiID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            long futureInMillis = SystemClock.elapsedRealtime() + notificationTimestamp - currentTimestamp;
+            AlarmManager alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        }
+    }
+
     private View.OnClickListener reserveOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -411,6 +480,10 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                             editor.commit();
                             isFavourite = true;
                             System.out.println("LET's LOVE");
+
+                            // Add alert notification when time arrive
+                            scheduleNotification();
+
                             notifyDataSetChanged();
                         } else {
                             isFavourite = false;

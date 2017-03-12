@@ -51,4 +51,31 @@ public class DateUtil {
         if (sDay == eDay) return String.format("%s %s", sDay, MONTHS_FULL[month]);
         return String.format("%s-%s %s", sDay, eDay, MONTHS_FULL[month]);
     }
+
+    public static boolean isSameDay(String strDate, String endDate) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        int sDay=0, eDay=0;
+        try {
+            Date sDate = df.parse(strDate);
+            Calendar c = Calendar.getInstance();
+            c.setTime(sDate);
+            sDay = c.get(Calendar.DATE);
+            Date eDate = df.parse(endDate);
+            c = Calendar.getInstance();
+            c.setTime(eDate);
+            eDay = c.get(Calendar.DATE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return sDay == eDay;
+    }
+
+    public static long convertToMillisecond(String date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        try {
+            return df.parse(date).getTime();
+        } catch (ParseException e) {
+            return 0;
+        }
+    }
 }
