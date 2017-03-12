@@ -43,7 +43,7 @@ public class InterestActivity extends AppCompatActivity {
         initInterestItems();
         adapter = new InterestListAdapter(this, interestItems, 40);
 
-        LayoutInflater inflater = getLayoutInflater();
+//        LayoutInflater inflater = getLayoutInflater();
 //        View gridViewFooter = inflater.inflate(R.layout.item_interest_footer, null);
 //        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view);
 //        gridView.addFooterView(gridViewFooter);
@@ -70,6 +70,21 @@ public class InterestActivity extends AppCompatActivity {
                         Resource.getTagIcon(id),
                         false)
                 );
+            }
+            JSONArray facultyTagJSON = new JSONArray(
+                    getResources().getString(R.string.jsonFacultyMap)
+            );
+            for (int i = 0; i < facultyTagJSON.length(); i++) {
+                JSONObject tagData = facultyTagJSON.getJSONObject(i);
+                int id = tagData.getInt("id");
+                if (id != 41 && id >= 21 && id <= 42)
+                    interestItems.add(new InterestItem(
+                            Resource.getFacultyTagDisplayName(id, tagData.getString("nameTh")),
+                            tagData.getString("nameEn"),
+                            Resource.getFaculltyTagBg(id),
+                            Resource.getFaculltyTagIcon(id),
+                            false)
+                    );
             }
         } catch (JSONException ex) {
             ex.printStackTrace();

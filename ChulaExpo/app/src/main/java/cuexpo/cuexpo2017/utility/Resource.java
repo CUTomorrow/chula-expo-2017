@@ -3,6 +3,7 @@ package cuexpo.cuexpo2017.utility;
 import android.graphics.Color;
 
 import cuexpo.cuexpo2017.R;
+import cuexpo.cuexpo2017.datatype.InterestItem;
 
 /**
  * Created by APTX-4869 (LOCAL) on 2/17/2017.
@@ -58,5 +59,50 @@ public class Resource {
 
     public static int getTagIcon(int id){
         return tagIcons[id-1];
+    }
+
+    public static String getFacultyShortName(int id) {
+        switch(id) {
+            case 21: return "ENG";
+            case 22: return "ARTS";
+            case 23: return "SCI";
+            case 24: return "POLSCI";
+            case 25: return "ARCH";
+            case 26: return "BANSHI";
+            case 27: return "EDU";
+            case 28: return "COMMARTS";
+            case 29: return "ECON";
+            case 30: return "MED";
+            case 31: return "VET";
+            case 32: return "DENT";
+            case 33: return "PHARM";
+            case 34: return "LAW";
+            case 35: return "FAA";
+            case 36: return "NUR";
+            case 37: return "AHS";
+            case 38: return "PSY";
+            case 39: return "SPSC";
+            case 40: return "SAR";
+            case 42: return "GRAD";
+        }
+        return "-";
+    }
+
+    public static int getFaculltyTagIcon(int id){
+        String facultyShortName = getFacultyShortName(id).toLowerCase();
+        return Resource.getDrawable(facultyShortName);
+    }
+
+    public static int getFaculltyTagBg(int id){
+        String facultyShortName = getFacultyShortName(id).toLowerCase();
+        return Resource.getDrawable(facultyShortName + "_bg");
+    }
+
+    public static String getFacultyTagDisplayName(int id, String name) {
+        switch (id) {
+            case 40: return  "ทรัพยากรการเกษตร";
+            case 42: return  "บัณฑิตวิทยาลัย";
+            default: return  name.substring(3);
+        }
     }
 }
