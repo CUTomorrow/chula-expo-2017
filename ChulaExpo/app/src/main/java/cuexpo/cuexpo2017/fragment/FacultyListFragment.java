@@ -42,7 +42,7 @@ public class FacultyListFragment extends Fragment {
             for (int i = 0; i < facultiesJSON.length(); i++) {
                 JSONObject facData = facultiesJSON.getJSONObject(i);
                 int id = facData.getInt("id");
-                if (id!=41 && id>=21 && id<=42)
+                if (id>=21 && id<=45 && id != 43)
                     facultyData.add(new InterestItem(
                             facData.getInt("id"),
                             facData.getString("nameTh"),
