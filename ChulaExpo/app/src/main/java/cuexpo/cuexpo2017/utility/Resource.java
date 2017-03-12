@@ -78,12 +78,15 @@ public class Resource {
             case 33: return "PHARM";
             case 34: return "LAW";
             case 35: return "FAA";
-            case 36: return "NUR";
+            case 36: return "FON";
             case 37: return "AHS";
             case 38: return "PSY";
             case 39: return "SPSC";
             case 40: return "SAR";
+            case 41: return "RCU";
             case 42: return "GRAD";
+            case 44: return "PNC";
+            case 45: return "TRCN";
         }
         return "-";
     }
