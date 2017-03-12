@@ -52,15 +52,15 @@ public class ActivityListItem extends BaseCustomViewGroup {
     }
 
     private void initInflate() {
-        inflate(getContext(), R.layout.list_item_activity, this);
+        inflate(getContext(), R.layout.item_event, this);
     }
 
     private void initInstances() {
         // findViewById here
-        tvActivityTitle = (TextView)findViewById(R.id.tvActivityTitle);
-        ivActivity = (ImageView)findViewById(R.id.ivActivity);
-        tvActivityTime = (TextView) findViewById(R.id.tvActivityTime);
-        tvActivityFaculty = (TextView) findViewById(R.id.tvActivityFaculty);
+        tvActivityTitle = (TextView)findViewById(R.id.title);
+        ivActivity = (ImageView)findViewById(R.id.event_image);
+        tvActivityTime = (TextView) findViewById(R.id.time);
+        tvActivityFaculty = (TextView) findViewById(R.id.event_tag);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
