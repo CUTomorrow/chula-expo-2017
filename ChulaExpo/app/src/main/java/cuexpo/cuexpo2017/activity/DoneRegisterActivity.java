@@ -22,7 +22,7 @@ public class DoneRegisterActivity extends AppCompatActivity {
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    String email, name, gender, profile, type, tags, academicLevel, academicYear, academicSchool, workerJob;
+    String email, name, gender, profile, type, tags, academicLevel, academicYear, academicSchool, workerJob, facebook;
     int age;
     Token token;
 
@@ -45,6 +45,7 @@ public class DoneRegisterActivity extends AppCompatActivity {
         token.setAccessToken(sharedPref.getString("fbToken",""));
         token.setKind("facebook");
         Token[] tokens = {token};
+        facebook = sharedPref.getString("id","");
         email = sharedPref.getString("email","");
         name = sharedPref.getString("name","");
         gender = sharedPref.getString("gender","");
@@ -58,8 +59,8 @@ public class DoneRegisterActivity extends AppCompatActivity {
         age = sharedPref.getInt("age",0);
         tags = sharedPref.getString("tags", "");
 
-        UserProfile userProfile = new UserProfile(email,tokens,name,gender,age,profile,
-                type,tags,academicLevel,academicYear,academicSchool,workerJob);
+        final UserProfile userProfile = new UserProfile(email,tokens,name,gender,age,profile,
+                type,tags,academicLevel,academicYear,academicSchool,workerJob, facebook);
         Call<LoginDao> callRegister = HttpManager.getInstance().getService().registerUser(userProfile);
         callRegister.enqueue(new Callback<LoginDao>() {
             @Override
@@ -67,9 +68,11 @@ public class DoneRegisterActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     LoginDao dao = response.body();
                     if(dao.getSuccess()){
+                        Log.e("signup","signup success" + userProfile.getName() + ": " + userProfile.getFacebook() +">" + userProfile.getTokens()[0]);
                         sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                         editor = sharedPref.edit();
                         editor.putString("apiToken",dao.getResults().getToken());
+                        //Log.e("signup","apitoken: "+ dao.getResults().getToken());
                         editor.apply();
                     }
                 } else {

@@ -196,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("apiToken",dao.getResults().getToken());
-                                Log.e("LoginFB","apiToken = " + dao.getResults().getToken());
+                                //Log.e("LoginFB","apiToken = " + dao.getResults().getToken());
                                 editor.apply();
 
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -215,6 +215,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             try {
                                 Log.e("LoginFB","facebook login not success " + response.errorBody().string());
+                                facebookLogin.setClickable(true);
                                 //Toast.makeText(Contextor.getInstance().getContext(),errorDao.getErrors().getMessage(),Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();

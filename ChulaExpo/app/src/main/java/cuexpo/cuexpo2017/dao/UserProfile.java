@@ -17,8 +17,9 @@ public class UserProfile {
     private String academicYear;
     private String academicSchool;
     private String workerJob;
+    private String facebook;
 
-    public UserProfile(String email, Token[] tokens, String name, String gender, int age, String profile, String type, String tag, String academicLevel, String academicYear, String academicSchool, String workerJob) {
+    public UserProfile(String email, Token[] tokens, String name, String gender, int age, String profile, String type, String tag, String academicLevel, String academicYear, String academicSchool, String workerJob, String facebook) {
         this.email = email;
         this.tokens = tokens;
         this.name = name;
@@ -31,6 +32,7 @@ public class UserProfile {
         this.academicYear = academicYear;
         this.academicSchool = academicSchool;
         this.workerJob = workerJob;
+        this.facebook = facebook;
     }
 
     public String getEmail() {
@@ -127,5 +129,13 @@ public class UserProfile {
 
     public void setWorkerJob(String workerJob) {
         this.workerJob = workerJob;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
     }
 }
