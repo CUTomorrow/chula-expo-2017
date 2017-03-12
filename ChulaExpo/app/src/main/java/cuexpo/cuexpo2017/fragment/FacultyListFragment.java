@@ -74,6 +74,7 @@ public class FacultyListFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Zone", Context.MODE_PRIVATE);
         activitySharedPref.edit().putString("ZoneName", (String) adapter.getItem(position)).apply();
+        activitySharedPref.edit().putInt("FacultyId", (int) adapter.getItemId(position)).apply();
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

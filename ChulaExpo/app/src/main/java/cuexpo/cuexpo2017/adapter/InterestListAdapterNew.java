@@ -1,20 +1,14 @@
 package cuexpo.cuexpo2017.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -25,13 +19,19 @@ import cuexpo.cuexpo2017.datatype.InterestItem;
  * Created by Administrator on 2/15/2017.
  */
 
-public class InterestListAdapter extends BaseAdapter {
+public class InterestListAdapterNew extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private ArrayList<InterestItem> interestItems;
     private Context context;
     private int paddingDp = 0;
 
-    public InterestListAdapter(Context context, ArrayList<InterestItem> interestItems, int paddingDp) {
+    public InterestListAdapterNew(Context context, ArrayList<InterestItem> interestItems) {
+        this.context = context;
+        this.interestItems = interestItems;
+        inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public InterestListAdapterNew(Context context, ArrayList<InterestItem> interestItems, int paddingDp) {
         this.context = context;
         this.interestItems = interestItems;
         this.paddingDp = paddingDp;
@@ -66,11 +66,15 @@ public class InterestListAdapter extends BaseAdapter {
         InterestViewHolder holder = new InterestViewHolder();
         View interestView;
         InterestItem interestItem = (InterestItem) this.getItem(position);
+        int size = (parent.getWidth()-dpToPx(paddingDp))/3;
+        GridView.LayoutParams layoutParams = new GridView.LayoutParams(size, size);
 
         if (convertView != null) {
             interestView = convertView;
+            if (interestView.getWidth() == 0) interestView.setLayoutParams(layoutParams);
         } else {
-            interestView = inflater.inflate(R.layout.item_interest, null);
+            interestView = inflater.inflate(R.layout.item_interest_v2, null);
+            interestView.setLayoutParams(layoutParams);
         }
 
         holder.titleTxt = (TextView) interestView.findViewById(R.id.interest_title);
@@ -95,5 +99,10 @@ public class InterestListAdapter extends BaseAdapter {
         }
 
         return interestView;
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * ((float) displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }

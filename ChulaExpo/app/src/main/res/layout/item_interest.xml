@@ -1,35 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="4dp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            app:srcCompat="@drawable/cir_mock"
-            android:id="@+id/interest_image"
-            android:layout_height="match_parent"
-            android:padding="1dp" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/interest_check"
-            android:id="@+id/check_image" />
-    </RelativeLayout>
-
-    <TextView
+        android:id="@+id/interest_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Technology"
-        android:id="@+id/interest_title"
-        android:gravity="center_horizontal" />
+        android:layout_height="90dp">
 
-</LinearLayout>
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/interest_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="0dp"
+            android:padding="1dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/eng_bg"
+            app:riv_corner_radius="4dp"
+            app:riv_mutate_background="true"
+            app:riv_oval="false" />
+
+        <ImageView
+            android:id="@+id/interest_check"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_rounded_rectangle_stroke_green" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/interest_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/eng" />
+
+            <TextView
+                android:id="@+id/interest_title"
+                fontPath="@string/font_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/interest_icon"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="2dp"
+                android:text="วิศวกรรมศาสตร์"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/interest_title_eng"
+                fontPath="@string/font_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/interest_title"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="0dp"
+                android:text="Faculty of Engineering"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>

@@ -53,7 +53,7 @@ public class HighlightListAdapter extends PagerAdapter {
         final ActivityItemResultDao result = dao.getResults().get(position);
         item.setNameText(result.getName().getTh());
         item.setDescriptionText(result.getShortDescription().getTh());
-        item.setImageUrl("https://staff.chulaexpo.com" + result.getBanner());
+        item.setImageUrl("https://api.chulaexpo.com" + result.getBanner());
 
         //LayoutInflater inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView ivHighlight = item.getIvHighlight();

@@ -140,7 +140,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void goToMap(int facultyId) {
-
+        viewPager.setCurrentItem(1); // Go to map
+        MapFragment mapFragment = (MapFragment) getSupportFragmentManager()
+                .findFragmentByTag("android:switcher:" + R.id.pager + ":" + 1);
+        mapFragment.goToMap(facultyId);
     }
 
     @Override

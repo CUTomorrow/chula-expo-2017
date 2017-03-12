@@ -3,6 +3,7 @@ package cuexpo.cuexpo2017.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -44,10 +45,9 @@ public class InterestActivity extends AppCompatActivity {
         adapter = new InterestListAdapter(this, interestItems, 40);
 
         LayoutInflater inflater = getLayoutInflater();
-//        View gridViewFooter = inflater.inflate(R.layout.item_interest_footer, null);
-//        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view);
-//        gridView.addFooterView(gridViewFooter);
-        GridView gridView = (GridView) findViewById(R.id.grid_view);
+        View gridViewFooter = inflater.inflate(R.layout.item_interest_footer, null);
+        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view);
+        gridView.addFooterView(gridViewFooter);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(onItemClick);
 
@@ -71,6 +71,21 @@ public class InterestActivity extends AppCompatActivity {
                         false)
                 );
             }
+            JSONArray facultyTagJSON = new JSONArray(
+                    getResources().getString(R.string.jsonFacultyMap)
+            );
+            for (int i = 0; i < facultyTagJSON.length(); i++) {
+                JSONObject tagData = facultyTagJSON.getJSONObject(i);
+                int id = tagData.getInt("id");
+                if (id != 41 && id >= 21 && id <= 42)
+                    interestItems.add(new InterestItem(
+                            Resource.getFacultyTagDisplayName(id, tagData.getString("nameTh")),
+                            tagData.getString("nameEn"),
+                            Resource.getFaculltyTagBg(id),
+                            Resource.getFaculltyTagIcon(id),
+                            false)
+                    );
+            }
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
@@ -79,6 +94,21 @@ public class InterestActivity extends AppCompatActivity {
     private View.OnClickListener doneListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            String tags = "";
+            boolean isFirstTag = true;
+            for(InterestItem interestItem: interestItems) {
+                if(interestItem.isInterest()){
+                    if(isFirstTag){
+                        isFirstTag = false;
+                        tags += interestItem.getNameEng();
+                    } else {
+                        tags += ", " + interestItem.getNameEng();
+                    }
+                }
+            }
+            Log.d("tags", tags);
+            SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
+            sharedPref.edit().putString("tags", tags).apply();
             Intent intent = new Intent(activity, DoneRegisterActivity.class);
             startActivity(intent);
         }

@@ -374,7 +374,9 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         if (act instanceof IGoToMapable) {
             ((IGoToMapable) act).goToMap(new NormalPinMapEntity(title, location, "Event"));
         }
-        fragment.getFragmentManager().popBackStack();
+        FragmentManager fragmentManager = fragment.getFragmentManager();
+        int stackCount = fragmentManager.getBackStackEntryCount();
+        for(int i=0; i<stackCount; i++) fragmentManager.popBackStack();
     }
 
     public int dpToPx(int dp) {
