@@ -3,6 +3,7 @@ package cuexpo.cuexpo2017.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -93,6 +94,21 @@ public class InterestActivity extends AppCompatActivity {
     private View.OnClickListener doneListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            String tags = "";
+            boolean isFirstTag = true;
+            for(InterestItem interestItem: interestItems) {
+                if(interestItem.isInterest()){
+                    if(isFirstTag){
+                        isFirstTag = false;
+                        tags += interestItem.getNameEng();
+                    } else {
+                        tags += ", " + interestItem.getNameEng();
+                    }
+                }
+            }
+            Log.d("tags", tags);
+            SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
+            sharedPref.edit().putString("tags", tags).apply();
             Intent intent = new Intent(activity, DoneRegisterActivity.class);
             startActivity(intent);
         }
