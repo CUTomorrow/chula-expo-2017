@@ -81,7 +81,7 @@ public class QRFragment extends Fragment implements View.OnClickListener {
 
         if (requestCode == REQUEST_QR && resultCode == MainActivity.RESULT_OK) {
             String qrValue = data.getExtras().getString("QR_VALUE", "something went wrong");
-            if (qrValue.contains("staff.chulaexpo.com/api/activities/")) {
+            if (qrValue.contains("chulaexpo.com/api/activities/")) {
                 int startIndex = qrValue.indexOf("activities/") + 11;
                 int endIndex = qrValue.indexOf('/', startIndex);
                 String eventId = qrValue.substring(startIndex, endIndex);
@@ -146,11 +146,13 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         //if(type.equals("Academic")) tvQRPersonalInfo.setText("Year"+year+" • "+school);
         if(type.equals("Academic")) tvQRPersonalInfo.setText(school);
         else if(type.equals("Worker")) tvQRPersonalInfo.setText(workerJob);
-        else tvQRPersonalInfo.setText("Guest");
+        else if(type.equals("Staff")) tvQRPersonalInfo.setText("Staff");
+        else tvQRPersonalInfo.setText("");
 
         try {
             Bitmap qrBm = QRCode.from((String) tvQRName.getText()).bitmap();
             ivQR.setImageBitmap(qrBm);
+
         } catch (Exception e){
 
         }
@@ -161,5 +163,9 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         if(v==ivClear){
             getFragmentManager().popBackStack();
         }
+    }
+
+    private BufferedImage generateQR(String id){
+
     }
 }
