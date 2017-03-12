@@ -55,6 +55,9 @@ public interface ApiService {
                                                        @Query("start") String range,
                                                        @Query("sort") String sort);
 
+    @GET("/api/activities")
+    Call<ActivityItemCollectionDao> loadActivityByZone(@Query("zone") String zone);
+
     @GET("/api/activities/{aid}")
     Call<ActivityItemDao> loadActivityItem(@Path("aid") String aid);
 
