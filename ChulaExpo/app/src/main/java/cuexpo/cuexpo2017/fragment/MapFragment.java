@@ -1,12 +1,20 @@
 package cuexpo.cuexpo2017.fragment;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.app.Application;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -38,12 +46,17 @@ import java.util.List;
 
 import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
+import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
+import cuexpo.cuexpo2017.dao.ActivityItemDao;
+import cuexpo.cuexpo2017.dao.ActivityItemLocationDao;
+import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.dao.FacilityDao;
 import cuexpo.cuexpo2017.dao.FacilityResult;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.FacultyMapEntity;
 import cuexpo.cuexpo2017.utility.IMapEntity;
 import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
+import cuexpo.cuexpo2017.utility.PermissionUtils;
 import cuexpo.cuexpo2017.utility.PopbusRouteMapEntity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,6 +77,7 @@ public class MapFragment extends Fragment implements
             showRally, showCarPark, showEmer, showPrayer, showBusStop,
             showBusLine1, showBusLine2, showBusLine3, showBusLine4, closeInfoCard, pinIcon;
     private TextView facility, description;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
 //    private Application mainApp = getActivity().getApplication();
     HashMap<String, PopbusRouteMapEntity> popbusRoutes = new HashMap<>();
@@ -129,6 +143,18 @@ public class MapFragment extends Fragment implements
         initializeFaculties();
         initializePopbusRoutes();
         initializePopBusStation();
+    }
+
+    public void goToMap(int facultyId) {
+        setAllFacultiesVisibility(true);
+        FacultyMapEntity entity = faculties.get(facultyId);
+        if (MapFragment.googleMap != null) {
+            MapFragment.googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(entity.getMarker().getPosition(), 18.5f)
+                    , 1500, null
+            );
+        }
+        showInfoCard(entity.getMarkerIconDrawableResource(), entity.getType(), entity.getNameTh(), -1, entity.getColor());
     }
 
     public void goToMap(NormalPinMapEntity entity){
@@ -220,11 +246,42 @@ public class MapFragment extends Fragment implements
         mapFragment.getMapAsync(this);
         initializeMapStaticData();
 
-        Call<FacilityDao> call = HttpManager.getInstance().getService().loadFacilityList();
-        call.enqueue(callbackFacility);
+        Call<FacilityDao> facilityCall = HttpManager.getInstance().getService().loadFacilityList();
+        facilityCall.enqueue(callbackFacility);
+        Call<ActivityItemCollectionDao> rallyCall = HttpManager.getInstance().getService().loadActivityByZone("58b1174858d522497ea7394d");
+        rallyCall.enqueue(callbackRally);
 
         return rootView;
     }
+
+    Callback<ActivityItemCollectionDao> callbackRally = new Callback<ActivityItemCollectionDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
+            if (response.isSuccessful()) {
+                List<ActivityItemResultDao> rallies = response.body().getResults();
+                for (ActivityItemResultDao rally: rallies) {
+                    String name = rally.getName().getTh();
+                    ActivityItemLocationDao activityLocation = rally.getLocation();
+                    cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
+                    location.setLatitude(activityLocation.getLatitude());
+                    location.setLongitude(activityLocation.getLongitude());
+                    rallyPins.add(new NormalPinMapEntity(name, location, "Rally"));
+                }
+                initPins(rallyPins);
+            } else {
+                try {
+                    Log.e("fetch error", response.errorBody().string());
+                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        @Override
+        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
 
     Callback<FacilityDao> callbackFacility = new Callback<FacilityDao>() {
         @Override
@@ -234,7 +291,6 @@ public class MapFragment extends Fragment implements
                 for (FacilityResult facility: facilities) {
                     String type = facility.getType();
                     String name = facility.getName().getTh();
-                    Log.d("facility type", type);
                     cuexpo.cuexpo2017.dao.Location location = facility.getLocation();
                     if(type.equals("Canteen") || type.equals("Souvenir")) canteenPins.add(new NormalPinMapEntity(name, location, type));
                     else if(type.equals("Registration")) regisPins.add(new NormalPinMapEntity(name, location, type));
@@ -243,13 +299,11 @@ public class MapFragment extends Fragment implements
                     else if(type.equals("Carpark")) carParkPins.add(new NormalPinMapEntity(name, location, type));
                     else if(type.equals("Emergency")) emerPins.add(new NormalPinMapEntity(name, location, type));
                     else if(type.equals("Prayer")) prayerPins.add(new NormalPinMapEntity(name, location, type));
-                    // No rally(place in zone rally) and bus stop
                 }
                 initPins(canteenPins);
                 initPins(regisPins);
                 initPins(infoPins);
                 initPins(toiletPins);
-                initPins(rallyPins);
                 initPins(carParkPins);
                 initPins(emerPins);
                 initPins(prayerPins);
@@ -293,7 +347,7 @@ public class MapFragment extends Fragment implements
         @Override
         public void onClick(View v) {
             hidePinList();
-            Log.d("current location", "true");
+            enableMyLocation();
             showInfoCard(-1, "Current Location", MainApplication.getCurrentLocationDetail(), R.color.header_background, -1);
         }
     };
@@ -310,7 +364,6 @@ public class MapFragment extends Fragment implements
         }
     }
 
-    // TODO OnClickListener
     private View.OnClickListener showFacultyOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -491,42 +544,28 @@ public class MapFragment extends Fragment implements
         }
     };
 
-//    private void enableMyLocation() {
-//        if (ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            // Permission to access the location is missing.
-//            PermissionUtils.requestPermission((AppCompatActivity) this.getActivity(), LOCATION_PERMISSION_REQUEST_CODE,
-//                    Manifest.permission.ACCESS_FINE_LOCATION, true);
-//        } else if (googleMap != null) {
-//            try {
-//                googleMap.setMyLocationEnabled(true);
-//
-//                if (locationSource == null) {
-//                    locationSource = new MyLocationSource(this.getContext());
-//                    googleMap.setLocationSource(locationSource);
-//                }
-//
-//                Location location = locationSource.getLastKnownLocation();
-//                if (location != null) {
-//                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-//                            new LatLng(location.getLatitude(), location.getLongitude()),
-//                            17
-//                    ), 1000, null);
-//                    Snackbar.make(rootView, "Showing your current location...", Snackbar.LENGTH_SHORT).show();
-//                }
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//    }
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission((AppCompatActivity) this.getActivity(), LOCATION_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        } else if (googleMap != null) {
+            try {
+                googleMap.setMyLocationEnabled(true);
 
-    private View.OnClickListener myLocationListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                enableMyLocation();
+                Location location = MainApplication.getCurrentLocation();
+                if (location != null) {
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(location.getLatitude(), location.getLongitude()),
+                            17
+                    ), 1000, null);
+                    Snackbar.make(rootView, "Showing your current location...", Snackbar.LENGTH_SHORT).show();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-        };
+        }
     }
 
     @Override
@@ -685,6 +724,7 @@ public class MapFragment extends Fragment implements
     }
 
     public boolean setPinOnClick(NormalPinMapEntity entry, Marker marker) {
+        if (entry.getMarker() == null) return false;
         if (entry.getMarker().equals(marker)) {
             showInfoCard(entry.getMarkerIconDrawableResource(),
                     entry.getType(),

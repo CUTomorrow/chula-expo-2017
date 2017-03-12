@@ -81,7 +81,7 @@ public class QRFragment extends Fragment implements View.OnClickListener {
 
         if (requestCode == REQUEST_QR && resultCode == MainActivity.RESULT_OK) {
             String qrValue = data.getExtras().getString("QR_VALUE", "something went wrong");
-            if (qrValue.contains("staff.chulaexpo.com/api/activities/")) {
+            if (qrValue.contains("api.chulaexpo.com/api/activities/")) {
                 int startIndex = qrValue.indexOf("activities/") + 11;
                 int endIndex = qrValue.indexOf('/', startIndex);
                 String eventId = qrValue.substring(startIndex, endIndex);

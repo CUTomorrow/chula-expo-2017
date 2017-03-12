@@ -36,30 +36,40 @@
 
     </LinearLayout>
 
-    <GridView
+    <in.srain.cube.views.GridViewWithHeaderAndFooter
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/button"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginTop="70dp"
         android:listSelector="#00000000"
-        android:numColumns="3"
+        android:numColumns="2"
+        android:overScrollMode="never"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:scrollbarAlwaysDrawVerticalTrack="false"
-        android:scrollbarStyle="outsideOverlay"
-        android:overScrollMode="never" />
+        android:scrollbarStyle="outsideOverlay" />
 
     <ImageView
         android:id="@+id/white_gradient"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_above="@+id/button"
         android:layout_alignParentBottom="false"
+        android:layout_marginBottom="20dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/white_gradient" />
+        app:srcCompat="@drawable/shape_gradient_grey" />
+
+    <ImageView
+        android:id="@+id/help_text"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_above="@+id/button"
+        android:paddingBottom="10dp"
+        app:srcCompat="@drawable/help_text_interest" />
 
     <LinearLayout
         android:id="@+id/button"
@@ -86,8 +96,7 @@
         <ImageView
             android:id="@+id/dot"
             android:layout_width="70dp"
-            android:layout_height="26dp"
-            app:srcCompat="@drawable/dot3" />
+            android:layout_height="26dp" />
     </LinearLayout>
 
 </RelativeLayout>

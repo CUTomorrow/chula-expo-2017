@@ -34,7 +34,7 @@ public interface ApiService {
                                                      @Query("sort") String sort);
 
     @GET("/api/activities/recommend")
-    Call<ActivityItemCollectionDao> loadRecommendedActivityList(@Header("authorization") String authorization);
+    Call<ActivityItemCollectionDao> loadRecommendedActivityList(@Header("Authorization") String authorization);
 
 
      @GET("/api/activities")
@@ -54,6 +54,9 @@ public interface ApiService {
     Call<ActivityItemCollectionDao> loadActivityByZone(@Query("zone") String zone,
                                                        @Query("start") String range,
                                                        @Query("sort") String sort);
+
+    @GET("/api/activities")
+    Call<ActivityItemCollectionDao> loadActivityByZone(@Query("zone") String zone);
 
     @GET("/api/activities/{aid}")
     Call<ActivityItemDao> loadActivityItem(@Path("aid") String aid);

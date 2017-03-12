@@ -16,7 +16,7 @@
     <!-- Register -->
     <color name="dark_blue">#323846</color>
     <!-- Interest -->
-    <color name="green">#60CC08</color>
+    <color name="green">#90E60B</color>
     <!-- Event item -->
     <color name="time">#313131</color>
     <!-- Home -->
@@ -77,7 +77,7 @@
     <color name="VET">#46baba</color>
     <color name="DENT">#4c3973</color>
     <color name="PHARM">#79b12a</color>
-    <color name="LAW">#8b8b8b</color> <!-- white -->
+    <color name="LAW">#ffffff</color> <!-- white -->
     <color name="FAA">#c35050</color>
     <color name="FON">#ed1c24</color>
     <color name="AHS">#cc99ff</color>

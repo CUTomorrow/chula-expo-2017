@@ -54,7 +54,6 @@ public class EventDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_event_detail, container, false);
-
         fragment = this;
         listView = (ListView) rootView.findViewById(R.id.list_view);
 
@@ -84,7 +83,7 @@ public class EventDetailFragment extends Fragment {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
                 Glide.with(fragment)
-                        .load("https://api.chulaexpo.com" + dao.getBanner())
+                        .load("https://api.chulaexpo.com"+dao.getBanner())
                         .placeholder(R.drawable.banner)
                         .centerCrop()
                         .into((ImageView) eventImageView);
@@ -113,7 +112,6 @@ public class EventDetailFragment extends Fragment {
                 }
             }
         }
-
         @Override
         public void onFailure(Call<ActivityItemDao> call, Throwable t) {
             System.out.println("ERROR Fragment" + t.toString());

@@ -1,9 +1,12 @@
 package cuexpo.cuexpo2017.adapter;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -28,20 +32,26 @@ import java.util.List;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.utility.DateUtil;
+import cuexpo.cuexpo2017.utility.IGoToMapable;
+import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
 import cuexpo.cuexpo2017.utility.Resource;
 
 public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCallback {
     private static LayoutInflater inflater;
     private Context context;
+    private Fragment fragment;
     private String id, type, website, description;
     private List<ActivityItemResultDao> eventList = new ArrayList<>();
     public double lat, lng;
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
+    private int facultyId = 1;
 
-    public ZoneDetailListAdapter(Context context, String id, String type, String website,
+    public ZoneDetailListAdapter(Fragment fragment, Context context, int facultyId, String id, String type, String website,
                                  String description, double lat, double lng) {
+        this.fragment = fragment;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
+        this.facultyId = facultyId;
         this.id = id;
         this.type = type;
         this.website = website;
@@ -128,8 +138,6 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
-//        googleMap.setOnMarkerClickListener(this);
-//        googleMap.setOnMapClickListener(this);
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition.Builder()
                         .target(new LatLng(lat, lng))
@@ -139,7 +147,26 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
         googleMap.addMarker(
                 new MarkerOptions()
                         .position(new LatLng(lat, lng))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.fav))
+                        .icon(BitmapDescriptorFactory.fromResource(Resource.getDrawable("pin_"+facultyId)))
         );
+        googleMap.setOnMarkerClickListener(mapOCL);
+    }
+
+    private GoogleMap.OnMarkerClickListener mapOCL = new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            goToBiggerMap();
+            return true;
+        }
+    };
+
+    private void goToBiggerMap() {
+        Activity act = fragment.getActivity();
+        if (act instanceof IGoToMapable) {
+            ((IGoToMapable) act).goToMap(facultyId);
+        }
+        FragmentManager fragmentManager = fragment.getFragmentManager();
+        int stackCount = fragmentManager.getBackStackEntryCount();
+        for(int i=0; i<stackCount; i++) fragmentManager.popBackStack();
     }
 }

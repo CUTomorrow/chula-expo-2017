@@ -33,33 +33,7 @@ public class FacultyListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        switch((int) getItemId(position)) {
-            case 21: return "ENG";
-            case 22: return "ARTS";
-            case 23: return "SCI";
-            case 24: return "POLSCI";
-            case 25: return "ARCH";
-            case 26: return "BANSHI";
-            case 27: return "EDU";
-            case 28: return "COMMARTS";
-            case 29: return "ECON";
-            case 30: return "MED";
-            case 31: return "VET";
-            case 32: return "DENT";
-            case 33: return "PHARM";
-            case 34: return "LAW";
-            case 35: return "FAA";
-            case 36: return "FON";
-            case 37: return "AHS";
-            case 38: return "PSY";
-            case 39: return "SPSC";
-            case 40: return "SAR";
-            case 41: return "RCU";
-            case 42: return "GRAD";
-            case 44: return "PNC";
-            case 45: return "TRCN";
-        }
-        return null;
+        return Resource.getFacultyShortName((int) getItemId(position));
     }
 
     @Override

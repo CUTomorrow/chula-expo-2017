@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.adapter.InterestListAdapter;
+import cuexpo.cuexpo2017.adapter.InterestListAdapterNew;
 import cuexpo.cuexpo2017.datatype.InterestItem;
 
 
@@ -23,7 +24,7 @@ public class InterestListFragment extends Fragment {
 
     private ArrayList<InterestItem> interestItems;
     private GridView interestGrid;
-    private InterestListAdapter interestListAdapter;
+    private InterestListAdapterNew interestListAdapter;
 
     public InterestListFragment() {
         super();
@@ -65,7 +66,7 @@ public class InterestListFragment extends Fragment {
         setItem();
 
         interestGrid = (GridView) rootView.findViewById(R.id.interest_grid);
-        interestListAdapter = new InterestListAdapter(getActivity(), interestItems);
+        interestListAdapter = new InterestListAdapterNew(getActivity(), interestItems);
         interestGrid.setAdapter(interestListAdapter);
         interestGrid.setOnItemClickListener(onItemClick);
 
