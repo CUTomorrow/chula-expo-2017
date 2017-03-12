@@ -68,10 +68,10 @@ public class FacultyListAdapter extends BaseAdapter {
         String name = facultyItem.getName();
         switch ((int) getItemId(position)) {
             case 40: name = "ทรัพยากรการเกษตร"; break;
-            case 41: name = "พยาบาลกาชาด"; break;
-            case 42: name = "พยาบาลตำรวจ"; break;
-            case 44: name = "บัณฑิตวิทยาลัย"; break;
-            case 45: name = "หอพักนิสิตฯ"; break;
+            case 41: name = "หอพักนิสิตฯ"; break;
+            case 42: name = "บัณฑิตวิทยาลัย"; break;
+            case 44: name = "พยาบาลตำรวจ"; break;
+            case 45: name = "พยาบาลกาชาด"; break;
             default: name = name.substring(3); break;
         }
 
