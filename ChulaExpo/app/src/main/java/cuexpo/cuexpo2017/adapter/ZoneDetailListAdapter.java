@@ -95,7 +95,7 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
                 break;
             case 1:
                 convertView = inflater.inflate(R.layout.item_list_header, null);
-                ((TextView) convertView.findViewById(R.id.title)).setText("RELATED EVENT");
+                ((TextView) convertView.findViewById(R.id.title)).setText("RELATED EVENTS");
                 ((TextView) convertView.findViewById(R.id.description)).setText("Event ที่เกี่ยวข้องทั้งหมด");
                 ((ImageView) convertView.findViewById(R.id.icon)).setImageResource(R.drawable.ic_event);
                 break;
