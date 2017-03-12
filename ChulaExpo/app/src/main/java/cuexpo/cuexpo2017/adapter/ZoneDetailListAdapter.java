@@ -109,7 +109,7 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
                 }
 
                 Glide.with(context)
-                        .load("http://staff.chulaexpo.com"+event.getBanner())
+                        .load("https://api.chulaexpo.com"+event.getBanner())
                         .placeholder(R.drawable.banner)
                         .centerCrop()
                         .into((ImageView) convertView.findViewById(R.id.event_image));

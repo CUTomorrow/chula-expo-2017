@@ -27,7 +27,6 @@ public class StageListItem extends BaseCustomViewGroup {
     private ImageView ivDrop;
     private ImageView ivUpper;
     private ImageView ivLower;
-    private boolean selected;
     private int day;
 
     public StageListItem(Context context) {
