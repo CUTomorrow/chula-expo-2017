@@ -291,7 +291,6 @@ public class MapFragment extends Fragment implements
                 for (FacilityResult facility: facilities) {
                     String type = facility.getType();
                     String name = facility.getName().getTh();
-                    Log.d("facility type", type);
                     cuexpo.cuexpo2017.dao.Location location = facility.getLocation();
                     if(type.equals("Canteen") || type.equals("Souvenir")) canteenPins.add(new NormalPinMapEntity(name, location, type));
                     else if(type.equals("Registration")) regisPins.add(new NormalPinMapEntity(name, location, type));
@@ -300,7 +299,6 @@ public class MapFragment extends Fragment implements
                     else if(type.equals("Carpark")) carParkPins.add(new NormalPinMapEntity(name, location, type));
                     else if(type.equals("Emergency")) emerPins.add(new NormalPinMapEntity(name, location, type));
                     else if(type.equals("Prayer")) prayerPins.add(new NormalPinMapEntity(name, location, type));
-                    // No rally(place in zone rally) and bus stop
                 }
                 initPins(canteenPins);
                 initPins(regisPins);
@@ -366,7 +364,6 @@ public class MapFragment extends Fragment implements
         }
     }
 
-    // TODO OnClickListener
     private View.OnClickListener showFacultyOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
