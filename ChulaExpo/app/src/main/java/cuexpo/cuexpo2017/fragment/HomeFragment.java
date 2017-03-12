@@ -63,6 +63,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     SharedPreferences.Editor editor;
     Vector<String> stageObjId;
     boolean firstStage;
+    String apiToken;
+
 
 
     @Override
@@ -138,8 +140,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
         //Fetch Data From Server
-        Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService()
+        sharedPref = getActivity().getSharedPreferences("FacebookInfo", Context.MODE_PRIVATE);
+        apiToken = sharedPref.getString("apiToken", "");
+        Call<ActivityItemCollectionDao> call;
+        if(!apiToken.equals("")){
+            call = HttpManager.getInstance().getService()
+                    .loadRecommendedActivityList(apiToken);
+        } else {
+            call = HttpManager.getInstance().getService()
                 .loadActivityList("name,thumbnail,start,end,zone", 20, "start");
+        }
         call.enqueue(callbackActivity);
         Call<ZoneDao> callZone = HttpManager.getInstance().getService().loadZoneList();
         callZone.enqueue(callbackZone);
