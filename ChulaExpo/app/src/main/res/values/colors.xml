@@ -16,7 +16,7 @@
     <!-- Register -->
     <color name="dark_blue">#323846</color>
     <!-- Interest -->
-    <color name="green">#60CC08</color>
+    <color name="green">#90E60B</color>
     <!-- Event item -->
     <color name="time">#313131</color>
     <!-- Home -->
@@ -65,24 +65,30 @@
     <color name="f39">#ffa500</color>
 
     <color name="ENG">#8b0000</color>
-    <color name="ARTS">#808080</color>
-    <color name="SCI">#ffff00</color>
+    <color name="ARTS">#898989</color>
+    <color name="SCI">#ffde00</color>
     <color name="POLSCI">#000000</color>
-    <color name="ARCH">#a52a2a</color>
-    <color name="BANSHI">#00bfff</color>
-    <color name="EDU">#ff4500</color>
-    <color name="COMMARTS">#00008b</color>
-    <color name="ECON">#ffd700</color>
-    <color name="MED">#006400</color>
-    <color name="VET">#87cefa</color>
-    <color name="DENT">#d8bfd8</color>
-    <color name="PHARM">#6b8e23</color>
-    <color name="LAW">#dcdcdc</color> <!-- white -->
-    <color name="FAA">#ff0000</color>
-    <color name="NUR">#c20808</color>
-    <color name="AHS">#4b0082</color>
-    <color name="PSY">#0000cd</color>
-    <color name="SPSC">#ffa500</color>
+    <color name="ARCH">#704733</color>
+    <color name="BANSHI">#258faa</color>
+    <color name="EDU">#ff3300</color>
+    <color name="COMMARTS">#2c2c61</color>
+    <color name="ECON">#af9532</color>
+    <color name="MED">#006600</color>
+    <color name="VET">#46baba</color>
+    <color name="DENT">#4c3973</color>
+    <color name="PHARM">#79b12a</color>
+    <color name="LAW">#ffffff</color> <!-- white -->
+    <color name="FAA">#c35050</color>
+    <color name="FON">#ed1c24</color>
+    <color name="AHS">#cc99ff</color>
+    <color name="PSY">#635cbb</color>
+    <color name="SPSC">#ff6600</color>
+    <color name="SAR">#884141</color>
+    <color name="TRCN">#dc143c</color>
+    <color name="PNC">#990033</color>
+    <color name="GRAD">#bb6280</color>
+    <color name="RCU">#ee0678</color>
+
     <color name="DEFAULT">#606060</color>
 
     <!-- Map -->

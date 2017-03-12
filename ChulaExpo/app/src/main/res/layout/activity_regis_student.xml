@@ -328,7 +328,7 @@
     <LinearLayout
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -350,8 +350,7 @@
         <ImageView
             android:id="@+id/dot"
             android:layout_width="70dp"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/dot2" />
+            android:layout_height="26dp" />
     </LinearLayout>
 
 </RelativeLayout>

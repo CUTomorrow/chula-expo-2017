@@ -103,24 +103,31 @@ public class CityListFragment extends Fragment {
             switch(position) {
                 case 0:
                     activitySharedPref.edit().putString("ZoneName", "SMART").apply();
+                    activitySharedPref.edit().putInt("FacultyId", 12).apply();
                     break;
                 case 1:
                     activitySharedPref.edit().putString("ZoneName", "HEALTH").apply();
+                    activitySharedPref.edit().putInt("FacultyId", 11).apply();
                     break;
                 case 2:
                     activitySharedPref.edit().putString("ZoneName", "HUMAN").apply();
+                    activitySharedPref.edit().putInt("FacultyId", 10).apply();
                     break;
                 case 3:
                     activitySharedPref.edit().putString("ZoneName", "HALL").apply();
+                    activitySharedPref.edit().putInt("FacultyId", 1).apply();
                     break;
                 case 4:
                     activitySharedPref.edit().putString("ZoneName", "SALA").apply();
+                    activitySharedPref.edit().putInt("FacultyId", 2).apply();
                     break;
                 case 5:
                     activitySharedPref.edit().putString("ZoneName", "ART").apply();
+                    activitySharedPref.edit().putInt("FacultyId", 4).apply();
                     break;
                 case 6:
                     activitySharedPref.edit().putString("ZoneName", "INTERFORUM").apply();
+                    activitySharedPref.edit().putInt("FacultyId", 3).apply();
                     break;
             }
 

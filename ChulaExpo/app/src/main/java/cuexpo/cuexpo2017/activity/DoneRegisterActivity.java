@@ -57,6 +57,7 @@ public class DoneRegisterActivity extends AppCompatActivity {
         workerJob = sharedPref.getString("workerJob","");
         academicSchool = sharedPref.getString("academicSchool","");
         age = sharedPref.getInt("age",0);
+        tags = sharedPref.getString("tags", "");
 
         final UserProfile userProfile = new UserProfile(email,tokens,name,gender,age,profile,
                 type,tags,academicLevel,academicYear,academicSchool,workerJob, facebook);

@@ -42,7 +42,7 @@ public class FacultyListFragment extends Fragment {
             for (int i = 0; i < facultiesJSON.length(); i++) {
                 JSONObject facData = facultiesJSON.getJSONObject(i);
                 int id = facData.getInt("id");
-                if (id!=41 && id>=21 && id<=42)
+                if (id>=21 && id<=45 && id != 43)
                     facultyData.add(new InterestItem(
                             facData.getInt("id"),
                             facData.getString("nameTh"),
@@ -74,6 +74,7 @@ public class FacultyListFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Zone", Context.MODE_PRIVATE);
         activitySharedPref.edit().putString("ZoneName", (String) adapter.getItem(position)).apply();
+        activitySharedPref.edit().putInt("FacultyId", (int) adapter.getItemId(position)).apply();
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

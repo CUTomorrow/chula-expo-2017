@@ -8,5 +8,5 @@
         android:layout_width="match_parent"
         app:srcCompat="@drawable/cir_invisible"
         android:id="@+id/imageView"
-        android:layout_height="90dp" />
+        android:layout_height="20dp" />
 </LinearLayout>

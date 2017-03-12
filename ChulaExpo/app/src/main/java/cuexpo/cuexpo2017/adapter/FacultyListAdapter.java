@@ -33,36 +33,18 @@ public class FacultyListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        switch((int) getItemId(position)) {
-            case 21: return "ENG";
-            case 22: return "ARTS";
-            case 23: return "SCI";
-            case 24: return "POLSCI";
-            case 25: return "ARCH";
-            case 26: return "BANSHI";
-            case 27: return "EDU";
-            case 28: return "COMMARTS";
-            case 29: return "ECON";
-            case 30: return "MED";
-            case 31: return "VET";
-            case 32: return "DENT";
-            case 33: return "PHARM";
-            case 34: return "LAW";
-            case 35: return "FAA";
-            case 36: return "NUR";
-            case 37: return "AHS";
-            case 38: return "PSY";
-            case 39: return "SPSC";
-            case 40: return "SAR";
-            case 42: return "GRAD";
-        }
-        return null;
+        return Resource.getFacultyShortName((int) getItemId(position));
     }
 
     @Override
     public long getItemId(int position) {
         long id = position + 21;
-        if (id == 41) return 42;
+        switch(position+21) {
+            case 41: id = 45; break;
+            case 42: id = 44; break;
+            case 43: id = 42; break;
+            case 44: id = 41; break;
+        }
         return id;
     }
 
@@ -86,7 +68,10 @@ public class FacultyListAdapter extends BaseAdapter {
         String name = facultyItem.getName();
         switch ((int) getItemId(position)) {
             case 40: name = "ทรัพยากรการเกษตร"; break;
-            case 42: name = "บัณฑิตวิทยาลัย"; break;
+            case 41: name = "พยาบาลกาชาด"; break;
+            case 42: name = "พยาบาลตำรวจ"; break;
+            case 44: name = "บัณฑิตวิทยาลัย"; break;
+            case 45: name = "หอพักนิสิตฯ"; break;
             default: name = name.substring(3); break;
         }
 

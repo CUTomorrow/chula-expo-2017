@@ -152,7 +152,6 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         try {
             Bitmap qrBm = QRCode.from((String) tvQRName.getText()).bitmap();
             ivQR.setImageBitmap(qrBm);
-
         } catch (Exception e){
 
         }
@@ -163,9 +162,5 @@ public class QRFragment extends Fragment implements View.OnClickListener {
         if(v==ivClear){
             getFragmentManager().popBackStack();
         }
-    }
-
-    private BufferedImage generateQR(String id){
-
     }
 }
