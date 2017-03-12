@@ -95,4 +95,12 @@ public class StageManager {
         }
     }
 
+    public boolean setColor(boolean isExpanded){
+        if(isExpanded){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
 }

@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content" />
 
             <LinearLayout
+                android:gravity="center"
                 android:layout_marginBottom="5dp"
                 android:paddingTop="5dp"
                 android:paddingRight="10dp"
@@ -55,48 +56,12 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_weight="0.49"
-                    android:gravity="center"
-                    android:id="@+id/stage_inside_btn_favourite"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:background="@drawable/selector_stage_button"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp">
-                    <TextView
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textSize="18sp"
-                        android:text="★"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/stage_inside_tv_star"/>
-                    <TextView
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_gravity="center"
-                        android:paddingLeft="3dp"
-                        android:text="FAVOURITE"
-                        android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/stage_inside_tv_favourite" />
-                </LinearLayout>
-                <View
-                    android:layout_weight="0.02"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"/>
-
-                <LinearLayout
-                    android:layout_weight="0.49"
                     android:gravity="center"
                     android:id="@+id/stage_inside_btn_info"
                     android:orientation="horizontal"
                     android:padding="5dp"
                     android:background="@drawable/selector_stage_button"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp">
                     <ImageView
                         android:paddingTop="3dp"

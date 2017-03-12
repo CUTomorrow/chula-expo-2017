@@ -33,7 +33,7 @@ public class StageListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosititon) {
+    public StageInsideListItem getChild(int groupPosition, int childPosititon) {
         return listDataChild.get(getGroup(groupPosition));
     }
 
@@ -45,7 +45,7 @@ public class StageListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        StageInsideListItem item = (StageInsideListItem) getChild(groupPosition, childPosition);
+        StageInsideListItem item = getChild(groupPosition, childPosition);
 
         if (groupPosition != getGroupCount() - 1) {
             item.setLineStatus(1);
@@ -62,7 +62,7 @@ public class StageListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
+    public StageListItem getGroup(int groupPosition) {
         return listDataHeader.get(groupPosition);
     }
 
@@ -79,7 +79,7 @@ public class StageListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        StageListItem item = (StageListItem) getGroup(groupPosition);
+        StageListItem item = getGroup(groupPosition);
         StageManager manager = StageManager.getInstance();
 
         item.setStatus(manager.setCircle(item.getStartTime(), item.getEndTime(), item.getDay()));
