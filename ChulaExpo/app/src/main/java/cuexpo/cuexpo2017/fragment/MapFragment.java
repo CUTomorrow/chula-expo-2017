@@ -140,6 +140,18 @@ public class MapFragment extends Fragment implements
         initializePopBusStation();
     }
 
+    public void goToMap(int facultyId) {
+        setAllFacultiesVisibility(true);
+        FacultyMapEntity entity = faculties.get(facultyId);
+        if (MapFragment.googleMap != null) {
+            MapFragment.googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(entity.getMarker().getPosition(), 18.5f)
+                    , 1500, null
+            );
+        }
+        showInfoCard(entity.getMarkerIconDrawableResource(), entity.getType(), entity.getNameTh(), -1, entity.getColor());
+    }
+
     public void goToMap(NormalPinMapEntity entity){
         if(tempEventPin != null) tempEventPin.clearMarker();
         tempEventPin = entity;

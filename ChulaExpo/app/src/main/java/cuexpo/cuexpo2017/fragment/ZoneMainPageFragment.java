@@ -58,6 +58,7 @@ public class ZoneMainPageFragment extends Fragment {
     private String zoneId;
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
     private ZoneDetailListAdapter adapter;
+    private int facultyId = 1;
     List<ActivityItemResultDao> activities = new ArrayList<>();
 
     @Override
@@ -185,8 +186,13 @@ public class ZoneMainPageFragment extends Fragment {
             listView.addHeaderView(listHeader);
             listView.setOnScrollListener(onScrollListener);
             listView.setOnItemClickListener(itemOCL);
+
+            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Zone", Context.MODE_PRIVATE);
+            facultyId = activitySharedPref.getInt("FacultyId", 1);
             adapter = new ZoneDetailListAdapter(
+                    fragment,
                     getActivity(),
+                    facultyId,
                     dao.getId(),
                     dao.getType(),
                     dao.getWebsite(),
