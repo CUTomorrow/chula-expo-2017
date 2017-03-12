@@ -539,7 +539,7 @@
                             android:layout_alignStart="@+id/emer_th"
                             android:layout_below="@+id/emer_th"
                             android:layout_marginTop="-7dp"
-                            android:text="Emergency"
+                            android:text="First Aid"
                             android:textColor="@color/black"
                             android:textSize="15sp" />
                     </RelativeLayout>
@@ -580,7 +580,7 @@
                             android:layout_alignStart="@+id/prayer_th"
                             android:layout_below="@+id/prayer_th"
                             android:layout_marginTop="-7dp"
-                            android:text="Prayer"
+                            android:text="Prayer Room"
                             android:textColor="@color/black"
                             android:textSize="15sp" />
                     </RelativeLayout>

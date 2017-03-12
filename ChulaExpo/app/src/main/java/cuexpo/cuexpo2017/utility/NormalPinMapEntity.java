@@ -103,19 +103,19 @@ public class NormalPinMapEntity implements IMapEntity {
                 markerIconDrawableResource = R.drawable.rally;
                 color = Color.parseColor("#5c4083");
                 break;
-            case "Carpark":
+            case "Car Park":
                 markerIconDrawableResource = R.drawable.park;
                 color = Color.parseColor("#3e6b94");
                 break;
-            case "Emergency":
+            case "First Aid":
                 markerIconDrawableResource = R.drawable.emer;
                 color = Color.parseColor("#cc0d1f");
                 break;
-            case "Prayer":
+            case "Prayer Room":
                 markerIconDrawableResource = R.drawable.pray;
                 color = Color.parseColor("#786043");
                 break;
-            case "BusStop":
+            case "Bus Stop":
                 markerIconDrawableResource = R.drawable.bus;
                 color = Color.parseColor("#ff2977");
                 break;

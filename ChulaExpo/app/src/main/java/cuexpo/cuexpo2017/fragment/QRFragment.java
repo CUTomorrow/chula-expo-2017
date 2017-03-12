@@ -1,16 +1,24 @@
 package cuexpo.cuexpo2017.fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +26,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
 
 import net.glxn.qrgen.android.QRCode;
 
+import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.activity.MainActivity;
 import cuexpo.cuexpo2017.adapter.ScannerActivity;
+import cuexpo.cuexpo2017.utility.PermissionUtils;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 
@@ -31,7 +43,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * Created by James on 20/01/2017.
  */
 
-public class QRFragment extends Fragment implements View.OnClickListener {
+public class QRFragment extends Fragment implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     ImageView ivQRProfile,ivQR, ivClear;
     TextView tvQRName, tvQRPersonalInfo;
@@ -42,6 +54,37 @@ public class QRFragment extends Fragment implements View.OnClickListener {
 
     public QRFragment() {
         super();
+    }
+
+    private void enableCamera() {
+        if (ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission((AppCompatActivity) this.getActivity(), 1,
+                    Manifest.permission.CAMERA, true);
+        } else {
+            Intent intent = new Intent(getActivity(), ScannerActivity.class);
+            startActivityForResult(intent, REQUEST_QR);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode != 1) {
+            return;
+        }
+
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+                Manifest.permission.CAMERA)) {
+            Intent intent = new Intent(getActivity(), ScannerActivity.class);
+            startActivityForResult(intent, REQUEST_QR);
+//            enableCamera();
+        } else {
+            // Display the missing permission error dialog when the fragments resume.
+            PermissionUtils.PermissionDeniedDialog
+                    .newInstance(true).show(this.getFragmentManager(), "dialog");
+        }
     }
 
     @SuppressWarnings("unused")
@@ -70,8 +113,7 @@ public class QRFragment extends Fragment implements View.OnClickListener {
     private View.OnClickListener scanQrOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), ScannerActivity.class);
-            startActivityForResult(intent, REQUEST_QR);
+            enableCamera();
         }
     };
 
@@ -96,8 +138,8 @@ public class QRFragment extends Fragment implements View.OnClickListener {
                 fragmentTransaction.commit();
             } else {
                 new AlertDialog.Builder(getContext())
-                        .setTitle("QR Code ไม่ถูกต้อง")
-                        .setMessage(qrValue + "ไม่ใช่ URL ของ Chula Expo Event")
+                        .setTitle("Message")
+                        .setMessage(qrValue)
                         .setNeutralButton("ตกลง", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
