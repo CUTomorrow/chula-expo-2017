@@ -39,7 +39,12 @@ public class FacultyListAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         long id = position + 21;
-        if (id == 41) return 42;
+        switch(position+21) {
+            case 41: id = 45; break;
+            case 42: id = 44; break;
+            case 43: id = 42; break;
+            case 44: id = 41; break;
+        }
         return id;
     }
 
@@ -59,12 +64,14 @@ public class FacultyListAdapter extends BaseAdapter {
         String nameLowerCase = nameUpperCase.toLowerCase();
         String facultyTag = nameUpperCase;
         if (nameUpperCase.equals("COMMARTS")) facultyTag = "C-ARTS";
-        if (nameUpperCase.equals("NUR")) { facultyTag = "FON"; nameLowerCase = "fon"; }
         InterestItem facultyItem = faculties.get(position);
         String name = facultyItem.getName();
         switch ((int) getItemId(position)) {
             case 40: name = "ทรัพยากรการเกษตร"; break;
-            case 42: name = "บัณฑิตวิทยาลัย"; break;
+            case 41: name = "พยาบาลกาชาด"; break;
+            case 42: name = "พยาบาลตำรวจ"; break;
+            case 44: name = "บัณฑิตวิทยาลัย"; break;
+            case 45: name = "หอพักนิสิตฯ"; break;
             default: name = name.substring(3); break;
         }
 
