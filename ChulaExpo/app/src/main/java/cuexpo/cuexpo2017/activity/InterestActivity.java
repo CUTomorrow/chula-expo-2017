@@ -104,7 +104,7 @@ public class InterestActivity extends AppCompatActivity {
                         isFirstTag = false;
                         tags += interestItem.getNameEng();
                     } else {
-                        tags += ", " + interestItem.getNameEng();
+                        tags += "," + interestItem.getNameEng();
                     }
                 }
             }
