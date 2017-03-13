@@ -278,6 +278,15 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
             } else {
                 try {
                     Log.e("Reserved Fragment", "Call Activity Not Success " + response.errorBody().string());
+                    callBackCount++;
+                    if (upComingAdapter.getIsZero()) {
+                        upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        upComingAdapter.notifyDataSetChanged();
+                    }
+                    if (previousAdapter.getIsZero()) {
+                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.notifyDataSetChanged();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -305,80 +314,6 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
             return new Date();
         }
     }
-
-    /*Callback<RoundDao> callbackReservedList2 = new Callback<RoundDao>() {
-        @Override
-        public void onResponse(Call<RoundDao> call, Response<RoundDao> response) {
-            if (response.isSuccessful()) {
-                reservePreviousDao = response.body();
-                if (reserveUpcomingDao != null) {
-                    if (reserveUpcomingDao.getResults() == null) {
-                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
-                        previousAdapter.notifyDataSetChanged();
-                    } else if (reserveUpcomingDao.getResults().size() == 0) {
-                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
-                        previousAdapter.notifyDataSetChanged();
-                    } else {
-                        previousAdapter.setRoundDao(reservePreviousDao);
-                        previousAdapter.notifyDataSetChanged();
-
-                        for (int i = 0; i < reservePreviousDao.getResults().size(); i++) {
-                            Call<ActivityItemDao> callActivity =
-                                    HttpManager.getInstance().getService().
-                                            loadActivityItem(reservePreviousDao.getResults().get(i).getActivityId());
-                            callActivity.enqueue(callbackActivity2);
-                        }
-                    }
-                } else {
-                    Call<RoundDao> callPreviousReservedList = HttpManager.getInstance().getService().loadReservedRounds();
-                    callPreviousReservedList.enqueue(callbackReservedList2);
-                }
-            } else {
-                try {
-                    Log.e("Reserved Fragment", "Call Reserved List Not Success " + response.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onFailure(Call<RoundDao> call, Throwable t) {
-            Log.e("Reserved Fragment", "Call Reserved List Fail");
-        }
-    };*/
-
-    /*Callback<ActivityItemDao> callbackActivity2 = new Callback<ActivityItemDao>() {
-        @Override
-        public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
-            if (response.isSuccessful()) {
-                ActivityItemDao dao = response.body();
-                previousAdapter.setIsZero(false);
-                for (int i = 0; i < reservePreviousDao.getResults().size(); i++) {
-                    if (dao.getResults().getId().equals(reservePreviousDao.getResults().get(i).getActivityId())) {
-                        dao.getResults().setStart(reservePreviousDao.getResults().get(i).getStart());
-                        dao.getResults().setEnd(reservePreviousDao.getResults().get(i).getEnd());
-                        break;
-                    }
-                }
-                dao3.setSuccess(true);
-                dao3.addResults(dao.getResults());
-                previousAdapter.setActivityDao(dao3);
-                previousAdapter.notifyDataSetChanged();
-            } else {
-                try {
-                    Log.e("Reserved Fragment", "Call Activity Not Success " + response.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onFailure(Call<ActivityItemDao> call, Throwable t) {
-            Log.e("Reserved Fragment", "Call Activity Fail");
-        }
-    };*/
 
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override

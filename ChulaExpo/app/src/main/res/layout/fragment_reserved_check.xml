@@ -7,13 +7,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_gravity="center"
         android:background="@color/blackHigherOverlay"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -32,15 +32,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="คุณต้องการจอง Event"
+                android:text="@string/reserved_check_prompt"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="22dp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 
 
         <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/reserved_check_name"
             fontPath="@string/font_bold"
             android:layout_width="wrap_content"
@@ -49,7 +51,7 @@
             android:layout_marginTop="30dp"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="22dp" />
+            android:textSize="22sp" />
 
 
         <Spinner
@@ -85,10 +87,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="จอง EVENT นี้"
+                android:text="@string/reserved_check_reserve"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="22dp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 
@@ -99,10 +101,10 @@
             android:layout_marginTop="40dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:text="แอพลิเคชันจะแจ้งเตือนก่อน Event เริ่มล่วงหน้า 15 นาที"
+            android:text="@string/reserved_check_line1"
             android:textAlignment="center"
             android:textColor="@color/normal_grey"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,10 +113,10 @@
             android:layout_marginTop="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:text="คุณสามารถตรวจสอบ Event ที่สนใจทั้งหมดได้ใน"
+            android:text="@string/reserved_check_line2"
             android:textAlignment="center"
             android:textColor="@color/normal_grey"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -125,12 +127,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingLeft="15dp"
+                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="เมนู"
+                android:text="@string/reserved_check_line3"
                 android:textAlignment="center"
                 android:textColor="@color/normal_grey"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -142,11 +144,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:paddingLeft="10dp"
-                android:paddingRight="15dp"
-                android:text="> Event ที่สนใจทั้งหมด"
+                android:paddingRight="10dp"
+                android:text="@string/reserved_check_line4"
                 android:textAlignment="center"
                 android:textColor="@color/normal_grey"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -154,6 +156,7 @@
         android:id="@+id/reserved_check_close"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:alpha="0.5"
         android:padding="15dp"

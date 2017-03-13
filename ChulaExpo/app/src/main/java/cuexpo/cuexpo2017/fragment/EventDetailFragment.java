@@ -1,8 +1,10 @@
 package cuexpo.cuexpo2017.fragment;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -83,7 +85,7 @@ public class EventDetailFragment extends Fragment {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
                 Glide.with(fragment)
-                        .load("https://api.chulaexpo.com"+dao.getBanner())
+                        .load("https://api.chulaexpo.com" + dao.getBanner())
                         .placeholder(R.drawable.banner)
                         .centerCrop()
                         .into((ImageView) eventImageView);
@@ -112,6 +114,7 @@ public class EventDetailFragment extends Fragment {
                 }
             }
         }
+
         @Override
         public void onFailure(Call<ActivityItemDao> call, Throwable t) {
             System.out.println("ERROR Fragment" + t.toString());
@@ -166,10 +169,18 @@ public class EventDetailFragment extends Fragment {
                     dao.getName().getTh()
             );
             listView.setAdapter(adapter);
-
-            headerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            removeOnGlobalLayoutListener(headerView, this);
         }
     };
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public static void removeOnGlobalLayoutListener(View v, ViewTreeObserver.OnGlobalLayoutListener listener) {
+        if (Build.VERSION.SDK_INT < 16) {
+            v.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+        } else {
+            v.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
+        }
+    }
 
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();

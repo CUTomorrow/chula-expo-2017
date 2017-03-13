@@ -156,24 +156,26 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
                 ActivityItemDao dao = response.body();
                 callBackCount++;
                 Log.e("Favourite Fragment", "CallBackCount = " + callBackCount);
-                if (getCurrentTime().before(setCompareDate(dao.getResults().getStart()))) {
-                    Log.e("Favourite Fragment", "Upcoming " + getCurrentTime().toString()
-                            + " " + setCompareDate(dao.getResults().getStart()));
-                    upComingAdapter.setIsZero(false);
-                    upComingEventListView.setEnabled(true);
-                    dao2.setSuccess(true);
-                    dao2.addResults(dao.getResults());
-                    upComingAdapter.setActivityDao(dao2);
-                    upComingAdapter.notifyDataSetChanged();
-                } else {
-                    Log.e("Favourite Fragment", "Previous " + getCurrentTime().toString()
-                            + " " + setCompareDate(dao.getResults().getEnd()));
-                    previousAdapter.setIsZero(false);
-                    previousEventListView.setEnabled(true);
-                    dao3.setSuccess(true);
-                    dao3.addResults(dao.getResults());
-                    previousAdapter.setActivityDao(dao3);
-                    previousAdapter.notifyDataSetChanged();
+                if (dao.getSuccess()) {
+                    if (getCurrentTime().before(setCompareDate(dao.getResults().getStart()))) {
+                        Log.e("Favourite Fragment", "Upcoming " + getCurrentTime().toString()
+                                + " " + setCompareDate(dao.getResults().getStart()));
+                        upComingAdapter.setIsZero(false);
+                        upComingEventListView.setEnabled(true);
+                        dao2.setSuccess(true);
+                        dao2.addResults(dao.getResults());
+                        upComingAdapter.setActivityDao(dao2);
+                        upComingAdapter.notifyDataSetChanged();
+                    } else {
+                        Log.e("Favourite Fragment", "Previous " + getCurrentTime().toString()
+                                + " " + setCompareDate(dao.getResults().getEnd()));
+                        previousAdapter.setIsZero(false);
+                        previousEventListView.setEnabled(true);
+                        dao3.setSuccess(true);
+                        dao3.addResults(dao.getResults());
+                        previousAdapter.setActivityDao(dao3);
+                        previousAdapter.notifyDataSetChanged();
+                    }
                 }
                 if (callBackCount == callBackSize) {
                     callBackCount = 0;
@@ -189,6 +191,15 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
             } else {
                 try {
                     Log.e("Favourite Fragment", "Call Activity Not Success " + response.errorBody().string());
+                    callBackCount++;
+                    if (upComingAdapter.getIsZero()) {
+                        upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        upComingAdapter.notifyDataSetChanged();
+                    }
+                    if (previousAdapter.getIsZero()) {
+                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.notifyDataSetChanged();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
