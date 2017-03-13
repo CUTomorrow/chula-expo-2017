@@ -189,9 +189,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 UserDao dao = response.body();
                 Log.e("Profile Fragment", "MY NAME " + dao.getResults().getName());
                 Log.e("Profile Fragment", "MY ACADEMIC " + dao.getResults().getAcademic());
-                Log.e("Profile Fragment", "MY ACADEMIC YEAR " + dao.getResults().getAcademicYear());
-                Log.e("Profile Fragment", "MY ACADEMIC LEVEL " + dao.getResults().getAcademicLevel());
-                Log.e("Profile Fragment", "MY ACADEMIC SCHOOL " + dao.getResults().getAcademicSchool());
+                Log.e("Profile Fragment", "MY ACADEMIC YEAR " + dao.getResults().getAcademic().getAcademicLevel());
+                Log.e("Profile Fragment", "MY ACADEMIC LEVEL " + dao.getResults().getAcademic().getAcademicLevel());
+                Log.e("Profile Fragment", "MY ACADEMIC SCHOOL " + dao.getResults().getAcademic().getAcademicSchool());
                 Log.e("Profile Fragment", "MY TYPE " + dao.getResults().getType());
                 Log.e("Profile Fragment", "MY WORKER " + dao.getResults().getWorker());
                 Log.e("Profile Fragment", "MY EMAIL " + dao.getResults().getEmail());

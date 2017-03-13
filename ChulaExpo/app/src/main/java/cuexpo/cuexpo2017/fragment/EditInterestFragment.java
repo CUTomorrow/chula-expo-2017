@@ -179,7 +179,7 @@ public class EditInterestFragment extends Fragment {
         }
 
         String TagsStr = sharedPref.getString("tags", "");
-        String[] tags = TagsStr.split(", ");
+        String[] tags = TagsStr.split(",");
         for(String tag: tags) interestItemHashMap.get(tag).setInterest(true);
     }
 
