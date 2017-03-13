@@ -71,11 +71,11 @@ public class NormalPinMapEntity implements IMapEntity {
                 markerIconDrawableResource = R.drawable.pin_event;
                 color = Color.parseColor("#e40434");
                 break;
-            case "FavoriteEvent":
+            case "Favorite Event":
                 markerIconDrawableResource = R.drawable.fav;
                 color = Color.parseColor("#e40434");
                 break;
-            case "ReservedEvent":
+            case "Reserved Event":
                 markerIconDrawableResource = R.drawable.res;
                 color = Color.parseColor("#e40434");
                 break;

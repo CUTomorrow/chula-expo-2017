@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -47,7 +48,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import bolts.Capture;
 import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
@@ -145,10 +148,40 @@ public class MapFragment extends Fragment implements
         }
     }
 
+    private void initializeFavoriteEvent() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("FavouritePlaces", getContext().MODE_PRIVATE);
+        Map<String, ?> events = sharedPreferences.getAll();
+        for (Map.Entry<String, ?> event: events.entrySet()) {
+            String eventInfo = (String) event.getValue();
+            Log.d("eventInfo", eventInfo);
+            String[] info = eventInfo.split(",");
+            cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
+            location.setLatitude(Double.parseDouble(info[1]));
+            location.setLongitude(Double.parseDouble(info[2]));
+            popBusStationPins.add(new NormalPinMapEntity(info[0], location, "Favorite Event"));
+        }
+    }
+
+    private void initializeReservedEvent() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("ReservedPlaces", getContext().MODE_PRIVATE);
+        Map<String, ?> events = sharedPreferences.getAll();
+        for (Map.Entry<String, ?> event: events.entrySet()) {
+            String eventInfo = (String) event.getValue();
+            Log.d("eventInfo", eventInfo);
+            String[] info = eventInfo.split(",");
+            cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
+            location.setLatitude(Double.parseDouble(info[1]));
+            location.setLongitude(Double.parseDouble(info[2]));
+            popBusStationPins.add(new NormalPinMapEntity(info[0], location, "Reserved Event"));
+        }
+    }
+
     private void initializeMapStaticData() {
         initializeFaculties();
         initializePopbusRoutes();
         initializePopBusStation();
+        initializeFavoriteEvent();
+        initializeReservedEvent();
     }
 
     public void goToMap(int facultyId) {
@@ -568,7 +601,6 @@ public class MapFragment extends Fragment implements
                             new LatLng(location.getLatitude(), location.getLongitude()),
                             17
                     ), 1000, null);
-//                    Snackbar.make(rootView, "Showing your current location...", Snackbar.LENGTH_SHORT).show();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
