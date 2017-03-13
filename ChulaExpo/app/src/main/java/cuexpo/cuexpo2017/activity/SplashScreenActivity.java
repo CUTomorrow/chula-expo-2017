@@ -30,7 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     SplashScreenActivity.this.finish();
                 }
                 else {
-                    Intent intent = new Intent(SplashScreenActivity.this, RegisStudentActivity.class);
+                    Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                     SplashScreenActivity.this.startActivity(intent);
                     SplashScreenActivity.this.finish();
                 }
