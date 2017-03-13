@@ -21,7 +21,7 @@
             android:id="@+id/step"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            app:srcCompat="@drawable/step3" />
+            app:srcCompat="@drawable/edit_interest" />
 
         <TextView
             android:id="@+id/role_toolbar_title"
