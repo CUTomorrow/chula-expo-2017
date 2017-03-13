@@ -86,6 +86,9 @@ public interface ApiService {
     @DELETE("/api/me/reserved_rounds/{rid}")
     Call<DeleteResultDao> removeRound(@Path("rid") String rid);
 
+    @GET("/api/me")
+    Call<UserDao> getUserInfo(@Query("fields") String fields);
+
     @GET("/api/places/{pid}")
     Call<PlaceItemDao> loadPlaceItem(@Path("pid") String pid);
 

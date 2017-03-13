@@ -1,15 +1,22 @@
 package cuexpo.cuexpo2017.adapter;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
@@ -46,8 +54,10 @@ import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
 import cuexpo.cuexpo2017.fragment.ReservedCheckFragment;
 import cuexpo.cuexpo2017.manager.HttpManager;
+import cuexpo.cuexpo2017.utility.DateUtil;
 import cuexpo.cuexpo2017.utility.IGoToMapable;
 import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
+import cuexpo.cuexpo2017.utility.NotificationReceiver;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,9 +83,17 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private SharedPreferences.Editor editor;
     private boolean access;
 
-    public EventDetailListAdapter(Fragment fragment, Context context, String id, String place,
-                                  String contact, String time, String description,
-                                  double lat, double lng, String[] imageUrls, String title) {
+    private String startTimeISO;
+    private String endTimeISO;
+    private HashMap<String, Integer> NotificationIDMapping;
+    public static int notiID = 0;
+
+    public EventDetailListAdapter(
+        Fragment fragment, Context context, String id, String place,
+        String contact, String time, String startTimeISO, String endTimeISO, String description,
+        double lat, double lng, String[] imageUrls, String title
+    ) {
+
         this.fragment = fragment;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
@@ -88,6 +106,11 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         this.lng = lng;
         this.imageUrls = imageUrls;
         this.title = title;
+
+        this.startTimeISO = startTimeISO;
+        this.endTimeISO = endTimeISO;
+
+        NotificationIDMapping = new HashMap<>();
 
         SharedPreferences sharedPref2 = context.getSharedPreferences("FacebookInfo", context.MODE_PRIVATE);
         access = !sharedPref2.getString("fbToken", "").equals("");
@@ -121,22 +144,18 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 PlaceItemResultDao dao = response.body().getResults();
                 place = dao.getName().getTh();
                 notifyDataSetChanged();
-
             } else {
                 try {
-                    Log.e("fetch error", response.errorBody().string());
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("EventDetail", "Call Place Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
         }
 
         @Override
         public void onFailure(Call<PlaceItemDao> call, Throwable t) {
-            System.out.println("Place ERROR " + t.toString());
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("EventDetail", "Call Place Fail");
         }
     };
 
@@ -173,7 +192,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 }
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("EventDetail", "Call Round List Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -182,8 +201,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            System.out.println("ERROR " + t.toString());
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("EventDetail", "Call Round List Fail");
         }
     };
 
@@ -214,7 +232,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 }
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("EventDetail", "Call Reserved Round List Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -223,8 +241,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
-            System.out.println("ERROR 2 " + t.toString());
-            //Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+            Log.e("EventDetail", "Call Reserved Round List Fail ");
         }
     };
 
@@ -376,7 +393,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         }
         FragmentManager fragmentManager = fragment.getFragmentManager();
         int stackCount = fragmentManager.getBackStackEntryCount();
-        for(int i=0; i<stackCount; i++) fragmentManager.popBackStack();
+        for (int i = 0; i < stackCount; i++) fragmentManager.popBackStack();
     }
 
     public int dpToPx(int dp) {
@@ -384,12 +401,58 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         return Math.round(dp * ((float) displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
+    public void scheduleNotification() {
+
+        if(!DateUtil.isSameDay(this.startTimeISO, this.endTimeISO)) {
+            // Don't show notification if the duration of event isn't the same day.
+            return ;
+        }
+
+        String notiDesc = this.time + "\n" + this.description;
+        if(notiDesc.length() > 140) {
+            notiDesc = notiDesc.subSequence(0, 140) + "...";
+        }
+
+        NotificationCompat.Builder notiBuilder =
+            new NotificationCompat.Builder(this.context)
+                .setSmallIcon(R.drawable.noti_logo)
+                .setContentTitle("Chula Expo : " + this.place)
+                .setContentText(this.time)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(notiDesc))
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setAutoCancel(true);
+
+        int curNotiID = 0;
+        if(NotificationIDMapping.containsKey(this.id)) {
+            curNotiID = NotificationIDMapping.get(this.id);
+        } else {
+            curNotiID = notiID++;
+            NotificationIDMapping.put(this.id, curNotiID);
+        }
+
+        long notificationTimestamp = DateUtil.convertToMillisecond(this.startTimeISO);
+        notificationTimestamp -= 15 * 60 * 1000; // Show noti before 15 minutes
+
+        long currentTimestamp = System.currentTimeMillis();
+
+        if(currentTimestamp < notificationTimestamp) {
+            Intent notificationIntent = new Intent(this.context, NotificationReceiver.class);
+            notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notiBuilder.build());
+            notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, curNotiID);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, curNotiID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            long futureInMillis = SystemClock.elapsedRealtime() + notificationTimestamp - currentTimestamp;
+            AlarmManager alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        }
+    }
+
     private View.OnClickListener reserveOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             // TODO for Boom-sama
             if (!access) {
-                error();
+                error("การจอง");
             } else {
                 if (canReserve) {
                     FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
@@ -411,6 +474,10 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                             editor.commit();
                             isFavourite = true;
                             System.out.println("LET's LOVE");
+
+                            // Add alert notification when time arrive
+                            scheduleNotification();
+
                             notifyDataSetChanged();
                         } else {
                             isFavourite = false;
@@ -430,24 +497,25 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         public void onResponse(Call<DeleteResultDao> call, Response<DeleteResultDao> response) {
             if (response.isSuccessful()) {
                 DeleteResultDao dao = response.body();
-                System.out.println("ERROR Delete" + dao.getMessage());
-                Toast.makeText(Contextor.getInstance().getContext(), dao.getSuccess() + dao.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "ยกเลิกการจองสำเร็จ", Toast.LENGTH_LONG).show();
+                Log.e("EventDetail", "Delete Round " + dao.getSuccess() + " " + dao.getMessage());
             } else {
-                //Handle
-                Log.e("HomeActivity", "Load Activities Not Success");
+                Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().toString(), Toast.LENGTH_LONG).show();
+                Log.e("EventDetail", "Delete Round Not Success " + response.errorBody().toString());
             }
         }
 
         @Override
         public void onFailure(Call<DeleteResultDao> call, Throwable t) {
-            Log.e("HomeActivity", "Load Activities Fail");
+            Log.e("EventDetail", "Delete Round Fail");
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
         }
     };
 
-    public void error() {
+    public void error(String errorMsg) {
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("ขออภัย");
-        alert.setMessage("ฟังก์ชันแก้ไขข้อมูลเเปิดให้เฉพาะ Facebook User เท่านั้น!");
+        alert.setMessage("ฟังก์ชัน" + errorMsg + "เปิดให้เฉพาะ Facebook User เท่านั้น!");
         alert.setCancelable(false);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

@@ -13,11 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
@@ -27,18 +27,23 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
+import java.io.IOException;
+
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.activity.FavouriteActivity;
 import cuexpo.cuexpo2017.activity.LoginActivity;
 import cuexpo.cuexpo2017.activity.ReservedActivity;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
+import cuexpo.cuexpo2017.dao.RoundDao;
+import cuexpo.cuexpo2017.dao.UserDao;
+import cuexpo.cuexpo2017.dao.UserResult;
+import cuexpo.cuexpo2017.manager.DateConversionManager;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 /**
  * Created by nuuneoi on 11/16/2014.
@@ -53,13 +58,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private LinearLayout btnSetting2;
     private LinearLayout btnFaq;
     private LinearLayout btnAbout;
-    private Button btnLogout;
+    private LinearLayout btnLogout;
     private TextView tvName;
     private TextView tvEmail;
     private TextView tvAge;
     private TextView tvGender;
     private TextView tvDescription;
     private TextView tvPlace;
+    private TextView tvLogout;
     private ImageView ivQR;
     private ImageView ivProfile;
     private SharedPreferences sharedPref;
@@ -108,34 +114,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (access) {
             setName(sharedPref.getString("name", ""));
             setEmail(sharedPref.getString("email", ""));
-            if (sharedPref.getString("gender", "").equals("Male")) {
-                setGender("ชาย");
-            } else if (sharedPref.getString("gender", "").equals("Female")) {
-                setGender("เหญิง");
-            } else if (sharedPref.getString("gender", "").equals("Other")) {
-                setGender("เอื่นๆ");
-            } else {
-                setGender("-");
-            }
-            /*if (sharedPref.getInt("age", 20) > 0) {
-                setAge(sharedPref.getInt("age", 20) + "");
-            } else {*/
-                setAge("-");
-            //}
-
-            if (sharedPref.getString("type", "").equals("Academic")) {
-                setStudentDescription(sharedPref.getString("academicLevel", ""),
-                        sharedPref.getString("academicYear", ""));
-                setPlace(sharedPref.getString("academicSchool", ""));
-            } else if (sharedPref.getString("type", "").equals("Worker")) {
-                setAdultDescription(sharedPref.getString("wokerJob", ""));
-            }
             Glide.with(this)
                     .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
                     .placeholder(R.drawable.iv_profile_temp)
                     .error(R.drawable.iv_profile_temp)
                     .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .into(ivProfile);
+        } else {
+            tvLogout.setText("กลับไปหน้า Login");
         }
 
         return rootView;
@@ -157,13 +143,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnSetting2 = (LinearLayout) rootView.findViewById(R.id.profile_setting2_btn);
         btnFaq = (LinearLayout) rootView.findViewById(R.id.profile_faq_btn);
         btnAbout = (LinearLayout) rootView.findViewById(R.id.profile_about_btn);
-        btnLogout = (Button) rootView.findViewById(R.id.profile_logout_btn);
+        btnLogout = (LinearLayout) rootView.findViewById(R.id.profile_logout_btn);
         tvName = (TextView) rootView.findViewById(R.id.profile_name);
         tvEmail = (TextView) rootView.findViewById(R.id.profile_email);
         tvAge = (TextView) rootView.findViewById(R.id.profile_age);
         tvGender = (TextView) rootView.findViewById(R.id.profile_gender);
         tvDescription = (TextView) rootView.findViewById(R.id.profile_description);
         tvPlace = (TextView) rootView.findViewById(R.id.profile_place);
+        tvLogout = (TextView) rootView.findViewById(R.id.profile_logout_tv);
     }
 
     @Override
@@ -195,21 +182,54 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         access = savedInstanceState.getBoolean("access");
     }
 
-    Callback<DeleteResultDao> callbackDelete = new Callback<DeleteResultDao>() {
+    Callback<UserDao> callBackUserInfo = new Callback<UserDao>() {
         @Override
-        public void onResponse(Call<DeleteResultDao> call, Response<DeleteResultDao> response) {
+        public void onResponse(Call<UserDao> call, Response<UserDao> response) {
             if (response.isSuccessful()) {
-                DeleteResultDao dao = response.body();
-                Toast.makeText(Contextor.getInstance().getContext(),dao.getSuccess() + dao.getMessage(), Toast.LENGTH_SHORT).show();
+                UserDao dao = response.body();
+                Log.e("Profile Fragment", "MY NAME " + dao.getResults().getName());
+                Log.e("Profile Fragment", "MY ACADEMIC " + dao.getResults().getAcademic());
+                Log.e("Profile Fragment", "MY ACADEMIC YEAR " + dao.getResults().getAcademicYear());
+                Log.e("Profile Fragment", "MY ACADEMIC LEVEL " + dao.getResults().getAcademicLevel());
+                Log.e("Profile Fragment", "MY ACADEMIC SCHOOL " + dao.getResults().getAcademicSchool());
+                Log.e("Profile Fragment", "MY TYPE " + dao.getResults().getType());
+                Log.e("Profile Fragment", "MY WORKER " + dao.getResults().getWorker());
+                Log.e("Profile Fragment", "MY EMAIL " + dao.getResults().getEmail());
+                Log.e("Profile Fragment", "MY GENDER " + dao.getResults().getGender());
+                Log.e("Profile Fragment", "MY AGE " + dao.getResults().getAge());
+                if (dao.getResults().getType().equals("Academic")) {
+                    setStudentDescription(sharedPref.getString("academicLevel", ""),
+                            sharedPref.getString("academicYear", ""));
+                    setPlace(sharedPref.getString("academicSchool", ""));
+                } else if (dao.getResults().getType().equals("Worker")) {
+                    setAdultDescription(sharedPref.getString("wokerJob", ""));
+                }
+                if (dao.getResults().getGender().equals("Male")) {
+                    setGender("ชาย");
+                } else if (dao.getResults().getGender().equals("Female")) {
+                    setGender("เหญิง");
+                } else if (dao.getResults().getGender().equals("Other")) {
+                    setGender("เอื่นๆ");
+                } else {
+                    setGender("-");
+                }
+                if (dao.getResults().getAge() > 0) {
+                    setAge(dao.getResults().getAge() + "");
+                } else {
+                    setAge("-");
+                }
             } else {
-                //Handle
-                Log.e("HomeActivity", "Load Activities Not Success");
+                try {
+                    Log.e("Profile Fragment", "Call Me Not Success " + response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
         @Override
-        public void onFailure(Call<DeleteResultDao> call, Throwable t) {
-            Log.e("HomeActivity", "Load Activities Fail");
+        public void onFailure(Call<UserDao> call, Throwable t) {
+            Log.e("Profile Fragment", "Call Me Fail");
         }
     };
 
@@ -227,34 +247,35 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.commit();
             //}
         } else if (v == btnFavourite) {
-            if (!access) {
-                error();
-            } else {
-                Intent intent = new Intent(getActivity(), FavouriteActivity.class);
-                getContext().startActivity(intent);
-            }
+            Intent intent = new Intent(getActivity(), FavouriteActivity.class);
+            getContext().startActivity(intent);
+
         } else if (v == btnReserved) {
             if (!access) {
-                error();
+                error("ดูการจอง Event ทั้งหมด");
             } else {
                 Intent intent = new Intent(getActivity(), ReservedActivity.class);
                 getContext().startActivity(intent);
             }
         } else if (v == btnEdit) {
             if (!access) {
-                error();
+                error("แก้ไขข้อมูล");
             } else {
-                comingSoon();
+                Call<UserDao> callUserInfo = HttpManager.
+                        getInstance().getService().getUserInfo
+                        ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool");
+                callUserInfo.enqueue(callBackUserInfo);
+                //comingSoon();
             }
         } else if (v == btnSetting) {
             if (!access) {
-                error();
+                error("แก้ไขเนื้อหาที่สนใจ");
             } else {
                 comingSoon();
             }
         } else if (v == btnSetting2) {
             if (!access) {
-                error();
+                error("แก้ไขคณะที่สนใจ");
             } else {
                 comingSoon();
             }
@@ -278,7 +299,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             String facebookId = sharedPref.getString("id", "");
             editor.putString("fbToken", "");
             editor.putString("apiToken", "");
-            editor.putString("id","");
+            editor.putString("id", "");
             editor.putString("name", "");
             editor.putString("email", "");
             editor.putString("gender", "");
@@ -347,10 +368,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         alert2.show();
     }
 
-    public void error() {
+    public void error(String errorMsg) {
         final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle("ขออภัย");
-        alert.setMessage("ฟังก์ชันแก้ไขข้อมูลเเปิดให้เฉพาะ Facebook User เท่านั้น!");
+        alert.setMessage("ฟังก์ชัน" + errorMsg + "เปิดให้เฉพาะ Facebook User เท่านั้น!");
         alert.setCancelable(false);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

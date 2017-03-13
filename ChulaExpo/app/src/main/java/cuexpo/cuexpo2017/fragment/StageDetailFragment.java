@@ -3,13 +3,12 @@ package cuexpo.cuexpo2017.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
-
-import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,22 +33,23 @@ import retrofit2.Response;
  * Created by nuuneoi on 11/16/2014.
  */
 @SuppressWarnings("unused")
-public class StageFragmentDetail extends Fragment {
+public class StageDetailFragment extends Fragment {
 
-    ExpandableListView expandableListView;
-    StageListAdapter listAdapter;
+    private ExpandableListView expandableListView;
+    private StageListAdapter listAdapter;
+    private TextView tvLoading;
 
     int previousGroup = -1;
     int day;
     String stageId;
 
-    public StageFragmentDetail() {
+    public StageDetailFragment() {
         super();
     }
 
     @SuppressWarnings("unused")
-    public static StageFragmentDetail newInstance() {
-        StageFragmentDetail fragment = new StageFragmentDetail();
+    public static StageDetailFragment newInstance() {
+        StageDetailFragment fragment = new StageDetailFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -97,32 +97,34 @@ public class StageFragmentDetail extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 ActivityItemCollectionDao dao = response.body();
+                if (dao.getResults().size() == 0) {
+                    tvLoading.setText("ไม่มีกิจกรรม");
+                } else {
+                    List<StageListItem> head = new ArrayList<>();
+                    HashMap<StageListItem, StageInsideListItem> tail = new HashMap<>();
 
-                List<StageListItem> head = new ArrayList<>();
-                HashMap<StageListItem, StageInsideListItem> tail = new HashMap<>();
+                    for (int i = 0; i < dao.getResults().size(); i++) {
+                        StageListItem item = new StageListItem(getContext());
+                        item.setTime(dao.getResults().get(i).getStart().substring(11, 16)
+                                , dao.getResults().get(i).getEnd().substring(11, 16));
+                        item.setName(dao.getResults().get(i).getName().getTh());
+                        item.setDay(day);
 
-                for (int i = 0; i < dao.getResults().size(); i++) {
-                    StageListItem item = new StageListItem(getContext());
-                    item.setTime(dao.getResults().get(i).getStart().substring(11, 16)
-                            , dao.getResults().get(i).getEnd().substring(11, 16));
-                    item.setName(dao.getResults().get(i).getName().getTh());
-                    item.setDay(day);
+                        head.add(item);
 
-                    head.add(item);
-
-                    StageInsideListItem item2 = new StageInsideListItem(getContext());
-                    item2.setDescription(dao.getResults().get(i).getDescription().getTh());
-                    item2.setId(dao.getResults().get(i).getId());
-                    tail.put(head.get(i), item2);
+                        StageInsideListItem item2 = new StageInsideListItem(getContext());
+                        item2.setDescription(dao.getResults().get(i).getDescription().getTh());
+                        item2.setId(dao.getResults().get(i).getId());
+                        tail.put(head.get(i), item2);
+                    }
+                    listAdapter = new StageListAdapter(head, tail);
+                    listAdapter.setDao(dao);
+                    expandableListView.setAdapter(listAdapter);
+                    tvLoading.setVisibility(View.GONE);
                 }
-
-                listAdapter = new StageListAdapter(head, tail);
-                listAdapter.setDao(dao);
-                expandableListView.setAdapter(listAdapter);
-
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("Stage Detail Fragment", "Call Stage Activity List Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -131,7 +133,7 @@ public class StageFragmentDetail extends Fragment {
 
         @Override
         public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("Stage Detail Fragment", "Call Stage Activity List Fail");
         }
     };
 
@@ -143,6 +145,7 @@ public class StageFragmentDetail extends Fragment {
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.stage_content_container);
+        tvLoading = (TextView) rootView.findViewById(R.id.stage_loading_text);
         // Listview Group click listener
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
@@ -158,8 +161,9 @@ public class StageFragmentDetail extends Fragment {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-                if (groupPosition != previousGroup)
+                if (groupPosition != previousGroup) {
                     expandableListView.collapseGroup(previousGroup);
+                }
                 previousGroup = groupPosition;
             }
         });
@@ -169,7 +173,6 @@ public class StageFragmentDetail extends Fragment {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-
             }
         });*/
 

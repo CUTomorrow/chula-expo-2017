@@ -65,6 +65,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAY84UvXm-fLC6xkNN6tq9I30XAhKrQ124" />
 
+        <receiver android:name=".utility.NotificationReceiver" />
     </application>
 
 </manifest>

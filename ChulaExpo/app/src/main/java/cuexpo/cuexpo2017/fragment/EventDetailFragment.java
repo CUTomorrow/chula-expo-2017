@@ -153,11 +153,12 @@ public class EventDetailFragment extends Fragment {
             listView.setOnScrollListener(onScrollListener);
 
             String strDate = dao.getStart();
-            String endDaye = dao.getEnd();
+            String endDate = dao.getEnd();
             EventDetailListAdapter adapter = new EventDetailListAdapter(fragment, getActivity(), dao.getId(),
                     dao.getLocation().getPlace(),
                     dao.getContact(),
-                    DateUtil.getDateRangeThai(strDate, endDaye) + " \u2022 " + strDate.substring(11, 16) + "-" + endDaye.substring(11, 16),
+                    DateUtil.getDateRangeThai(strDate, endDate) + " \u2022 " + strDate.substring(11, 16) + "-" + endDate.substring(11, 16),
+                    strDate, endDate,
                     dao.getDescription().getTh(),
                     dao.getLocation().getLatitude(),
                     dao.getLocation().getLongitude(),

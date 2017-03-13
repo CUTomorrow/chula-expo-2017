@@ -111,7 +111,7 @@ public class StageListItem extends BaseCustomViewGroup {
     public int[] getStartTime() {
         String time = tvStartTime.getText().toString();
         int param[] = new int[2];
-        if (time.indexOf(".") != -1) {
+        if (time.contains(".")) {
             param[0] = Integer.parseInt(time.substring(0, time.indexOf(".")));
             param[1] = Integer.parseInt(time.substring(time.indexOf(".") + 1));
         } else {
@@ -124,7 +124,7 @@ public class StageListItem extends BaseCustomViewGroup {
     public int[] getEndTime() {
         String time = tvEndTime.getText().toString();
         int param[] = new int[2];
-        if (time.indexOf(".") != -1) {
+        if (time.contains(".")) {
             param[0] = Integer.parseInt(time.substring(0, time.indexOf(".")));
             param[1] = Integer.parseInt(time.substring(time.indexOf(".") + 1));
         } else {
@@ -159,21 +159,11 @@ public class StageListItem extends BaseCustomViewGroup {
         tvName.setText(name);
     }
 
-    public void setNameHighlight(int state) {
-        if (state == 1) {
-            tvName.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
-            String text = tvName.getText().toString();
-            if (text.indexOf("★") == -1) {
-                text += " ★";
-                tvName.setText(text);
-            }
+    public void setNameHighlight(boolean isHighlight) {
+        if (isHighlight) {
+            tvName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         } else {
             tvName.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-            String text = tvName.getText().toString();
-            if (text.indexOf("★") != -1) {
-                text = text.substring(0, text.indexOf("★") - 1);
-                tvName.setText(text);
-            }
         }
     }
 
@@ -191,10 +181,10 @@ public class StageListItem extends BaseCustomViewGroup {
         } else if (state == 2) {
             ivUpper.setImageResource(R.color.transparent);
             ivLower.setImageResource(R.color.white);
-        } else if (state == 3){
+        } else if (state == 3) {
             ivUpper.setImageResource(R.color.white);
             ivLower.setImageResource(R.color.transparent);
-        } else{
+        } else {
             ivUpper.setImageResource(R.color.transparent);
             ivLower.setImageResource(R.color.transparent);
         }

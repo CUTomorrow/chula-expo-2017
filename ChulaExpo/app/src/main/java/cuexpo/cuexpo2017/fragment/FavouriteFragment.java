@@ -13,18 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -58,9 +57,10 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
     private MutableInteger lastPositionInteger;
     private ActivityItemCollectionDao dao2 = new ActivityItemCollectionDao();
     private ActivityItemCollectionDao dao3 = new ActivityItemCollectionDao();
+    private int callBackSize;
+    private int callBackCount = 0;
 
     private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
 
     public FavouriteFragment() {
         super();
@@ -115,7 +115,10 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
         previousEventListView.setAdapter(previousAdapter);
         previousEventListView.setExpanded(true);
         previousEventListView.setFocusable(false);
-        previousEventListView.setOnItemClickListener(lvEventItemClickListener);
+        previousEventListView.setOnItemClickListener(lvEventItemClickListener2);
+
+        upComingEventListView.setEnabled(false);
+        previousEventListView.setEnabled(false);
 
         back.setOnClickListener(this);
 
@@ -123,16 +126,21 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
         dao3.setResults(new ArrayList<ActivityItemResultDao>());
 
         sharedPref = getContext().getSharedPreferences("favouriteActivity", Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
 
         Map<String, ?> allEntries = sharedPref.getAll();
 
-        if(allEntries.size()==0){
+        if (allEntries.size() == 0) {
             upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
             previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+            upComingAdapter.notifyDataSetChanged();
+            previousAdapter.notifyDataSetChanged();
         } else {
+            upComingAdapter.setHolder("Loading..");
+            previousAdapter.setHolder("Loading..");
+            callBackSize = allEntries.size();
+            Log.e("Favourite Fragment", "CallBackSize = " + callBackSize);
             for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                Log.e("Favourite List",entry.getKey());
+                Log.e("Favourite List", entry.getKey());
                 Call<ActivityItemDao> callActivity =
                         HttpManager.getInstance().getService().
                                 loadActivityItem(entry.getKey());
@@ -146,22 +154,41 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
         public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
             if (response.isSuccessful()) {
                 ActivityItemDao dao = response.body();
-                System.out.println(dao.getResults().getId());
-                upComingAdapter.setIsZero(false);
-                /*for (int i = 0; i < reserveUpcomingDao.getResults().size(); i++) {
-                    if (dao.getResults().getId().equals(reserveUpcomingDao.getResults().get(i).getActivityId())) {
-                        dao.getResults().setStart(reserveUpcomingDao.getResults().get(i).getStart());
-                        dao.getResults().setEnd(reserveUpcomingDao.getResults().get(i).getEnd());
-                        break;
+                callBackCount++;
+                Log.e("Favourite Fragment", "CallBackCount = " + callBackCount);
+                if (getCurrentTime().before(setCompareDate(dao.getResults().getStart()))) {
+                    Log.e("Favourite Fragment", "Upcoming " + getCurrentTime().toString()
+                            + " " + setCompareDate(dao.getResults().getStart()));
+                    upComingAdapter.setIsZero(false);
+                    upComingEventListView.setEnabled(true);
+                    dao2.setSuccess(true);
+                    dao2.addResults(dao.getResults());
+                    upComingAdapter.setActivityDao(dao2);
+                    upComingAdapter.notifyDataSetChanged();
+                } else {
+                    Log.e("Favourite Fragment", "Previous " + getCurrentTime().toString()
+                            + " " + setCompareDate(dao.getResults().getEnd()));
+                    previousAdapter.setIsZero(false);
+                    previousEventListView.setEnabled(true);
+                    dao3.setSuccess(true);
+                    dao3.addResults(dao.getResults());
+                    previousAdapter.setActivityDao(dao3);
+                    previousAdapter.notifyDataSetChanged();
+                }
+                if (callBackCount == callBackSize) {
+                    callBackCount = 0;
+                    if (upComingAdapter.getIsZero()) {
+                        upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        upComingAdapter.notifyDataSetChanged();
                     }
-                }*/
-                dao2.setSuccess(true);
-                dao2.addResults(dao.getResults());
-                upComingAdapter.setActivityDao(dao2);
-                upComingAdapter.notifyDataSetChanged();
+                    if (previousAdapter.getIsZero()) {
+                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.notifyDataSetChanged();
+                    }
+                }
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    Log.e("Favourite Fragment", "Call Activity Not Success " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -170,36 +197,57 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
 
         @Override
         public void onFailure(Call<ActivityItemDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+            Log.e("Favourite Fragment", "Call Activity Fail");
         }
     };
 
-    public JSONObject getCurrentTime(String operator) {
+    private Date getCurrentTime() {
         TimeZone tz = TimeZone.getTimeZone("Asia/Bangkok");
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
-        String currentTime = df.format(new Date());
-        System.out.println("NOW " + currentTime);
-        JSONObject range = new JSONObject();
+        return new Date();
+    }
+
+    private Date setCompareDate(String date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()); // Quoted "Z" to indicate UTC, no timezone offset
         try {
-            range.put(operator, currentTime);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            return df.parse(date);
+        } catch (ParseException e) {
+            return new Date();
         }
-        return range;
     }
 
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String activityId = upComingAdapter.getItem(position).getId();
-            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
-            activitySharedPref.edit().putString("EventID", activityId).apply();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.favourite_acitivity_content_container, new EventDetailFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            if (!upComingAdapter.getIsZero()) {
+                upComingEventListView.setEnabled(true);
+                String activityId = upComingAdapter.getItem(position).getId();
+                SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+                activitySharedPref.edit().putString("EventID", activityId).apply();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.favourite_acitivity_content_container, new EventDetailFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            } else upComingEventListView.setEnabled(false);
+        }
+    };
+
+    AdapterView.OnItemClickListener lvEventItemClickListener2 = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (!previousAdapter.getIsZero()) {
+                previousEventListView.setEnabled(true);
+                String activityId = previousAdapter.getItem(position).getId();
+                SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+                activitySharedPref.edit().putString("EventID", activityId).apply();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.favourite_acitivity_content_container, new EventDetailFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            } else previousEventListView.setEnabled(false);
         }
     };
 

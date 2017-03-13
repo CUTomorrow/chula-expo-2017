@@ -1,5 +1,7 @@
 package cuexpo.cuexpo2017.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,13 +14,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.adapter.InterestListAdapter;
@@ -31,6 +33,7 @@ public class InterestListFragment extends Fragment {
     private ArrayList<InterestItem> interestItems;
     private GridView interestGrid;
     private InterestListAdapterNew interestListAdapter;
+    private List<JSONObject> tagJsonObjects = new ArrayList<>();
 
     public InterestListFragment() {
         super();
@@ -137,7 +140,7 @@ public class InterestListFragment extends Fragment {
             );
             for (int i = 0; i < tagList.length(); i++) {
                 JSONObject tagData = tagList.getJSONObject(i);
-
+                tagJsonObjects.add(tagData);
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
@@ -176,12 +179,22 @@ public class InterestListFragment extends Fragment {
     private AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getActivity(), "Coming Soon", Toast.LENGTH_SHORT).show();
-//            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.add(R.id.container, new TagPageFragment());
-//            fragmentTransaction.addToBackStack(null);
-//            fragmentTransaction.commit();
+//            Toast.makeText(getActivity(), "Coming Soon", Toast.LENGTH_SHORT).show();
+            try {
+                String title = tagJsonObjects.get(position).getString("nameTh");
+                String title_eng = tagJsonObjects.get(position).getString("nameEn");
+                String detail = tagJsonObjects.get(position).getString("desTh");
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("TagDetail", Context.MODE_PRIVATE);
+                sharedPreferences.edit().putString("title", title + " - " + title_eng).apply();
+                sharedPreferences.edit().putString("detail", detail).apply();
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new TagPageFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     };
 
