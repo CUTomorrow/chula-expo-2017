@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,14 +27,23 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
+import java.io.IOException;
+
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.activity.FavouriteActivity;
 import cuexpo.cuexpo2017.activity.LoginActivity;
 import cuexpo.cuexpo2017.activity.ReservedActivity;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
+import cuexpo.cuexpo2017.dao.RoundDao;
+import cuexpo.cuexpo2017.dao.UserDao;
+import cuexpo.cuexpo2017.dao.UserResult;
+import cuexpo.cuexpo2017.manager.DateConversionManager;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by nuuneoi on 11/16/2014.
@@ -104,28 +114,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (access) {
             setName(sharedPref.getString("name", ""));
             setEmail(sharedPref.getString("email", ""));
-            if (sharedPref.getString("gender", "").equals("Male")) {
-                setGender("ชาย");
-            } else if (sharedPref.getString("gender", "").equals("Female")) {
-                setGender("เหญิง");
-            } else if (sharedPref.getString("gender", "").equals("Other")) {
-                setGender("เอื่นๆ");
-            } else {
-                setGender("-");
-            }
-            /*if (sharedPref.getInt("age", 20) > 0) {
-                setAge(sharedPref.getInt("age", 20) + "");
-            } else {*/
-            setAge("-");
-            //}
-
-            if (sharedPref.getString("type", "").equals("Academic")) {
-                setStudentDescription(sharedPref.getString("academicLevel", ""),
-                        sharedPref.getString("academicYear", ""));
-                setPlace(sharedPref.getString("academicSchool", ""));
-            } else if (sharedPref.getString("type", "").equals("Worker")) {
-                setAdultDescription(sharedPref.getString("wokerJob", ""));
-            }
             Glide.with(this)
                     .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
                     .placeholder(R.drawable.iv_profile_temp)
@@ -194,6 +182,57 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         access = savedInstanceState.getBoolean("access");
     }
 
+    Callback<UserDao> callBackUserInfo = new Callback<UserDao>() {
+        @Override
+        public void onResponse(Call<UserDao> call, Response<UserDao> response) {
+            if (response.isSuccessful()) {
+                UserDao dao = response.body();
+                Log.e("Profile Fragment", "MY NAME " + dao.getResults().getName());
+                Log.e("Profile Fragment", "MY ACADEMIC " + dao.getResults().getAcademic());
+                Log.e("Profile Fragment", "MY ACADEMIC YEAR " + dao.getResults().getAcademicYear());
+                Log.e("Profile Fragment", "MY ACADEMIC LEVEL " + dao.getResults().getAcademicLevel());
+                Log.e("Profile Fragment", "MY ACADEMIC SCHOOL " + dao.getResults().getAcademicSchool());
+                Log.e("Profile Fragment", "MY TYPE " + dao.getResults().getType());
+                Log.e("Profile Fragment", "MY WORKER " + dao.getResults().getWorker());
+                Log.e("Profile Fragment", "MY EMAIL " + dao.getResults().getEmail());
+                Log.e("Profile Fragment", "MY GENDER " + dao.getResults().getGender());
+                Log.e("Profile Fragment", "MY AGE " + dao.getResults().getAge());
+                if (dao.getResults().getType().equals("Academic")) {
+                    setStudentDescription(sharedPref.getString("academicLevel", ""),
+                            sharedPref.getString("academicYear", ""));
+                    setPlace(sharedPref.getString("academicSchool", ""));
+                } else if (dao.getResults().getType().equals("Worker")) {
+                    setAdultDescription(sharedPref.getString("wokerJob", ""));
+                }
+                if (dao.getResults().getGender().equals("Male")) {
+                    setGender("ชาย");
+                } else if (dao.getResults().getGender().equals("Female")) {
+                    setGender("เหญิง");
+                } else if (dao.getResults().getGender().equals("Other")) {
+                    setGender("เอื่นๆ");
+                } else {
+                    setGender("-");
+                }
+                if (dao.getResults().getAge() > 0) {
+                    setAge(dao.getResults().getAge() + "");
+                } else {
+                    setAge("-");
+                }
+            } else {
+                try {
+                    Log.e("Profile Fragment", "Call Me Not Success " + response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<UserDao> call, Throwable t) {
+            Log.e("Profile Fragment", "Call Me Fail");
+        }
+    };
+
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
@@ -222,7 +261,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (!access) {
                 error("แก้ไขข้อมูล");
             } else {
-                comingSoon();
+                Call<UserDao> callUserInfo = HttpManager.
+                        getInstance().getService().getUserInfo
+                        ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool");
+                callUserInfo.enqueue(callBackUserInfo);
+                //comingSoon();
             }
         } else if (v == btnSetting) {
             if (!access) {
