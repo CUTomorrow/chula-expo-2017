@@ -74,6 +74,7 @@
 
                     <ImageView
                         android:id="@+id/ic_photo"
+                        android:visibility="gone"
                         android:layout_width="37dp"
                         android:layout_height="37dp"
                         android:layout_alignParentBottom="true"
