@@ -7,10 +7,10 @@
     <string name="login_fb">LOGIN WITH FACEBOOK</string>
     <string name="login_wo_fb">LOGIN WITHOUT FACEBOOK</string>
 
-    <string name="app_name">ChulaExpo</string>
-    <string name="tab_1">ChulaExpo</string>
-    <string name="tab_2">ChulaExpo</string>
-    <string name="tab_3">ChulaExpo</string>
+    <string name="app_name">Chula Expo</string>
+    <string name="tab_1">Chula Expo</string>
+    <string name="tab_2">Chula Expo</string>
+    <string name="tab_3">Chula Expo</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
