@@ -274,8 +274,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             } else {
 
                 Call<UserDao> callUserInfo = HttpManager.
-                        getInstance().getService().getUserInfo
-                        ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool");
+                        getInstance().getService().getUserInfo("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool");
                 callUserInfo.enqueue(callBackUserInfo);
                 //comingSoon();
 
