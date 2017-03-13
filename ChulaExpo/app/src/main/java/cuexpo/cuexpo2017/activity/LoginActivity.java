@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,8 +38,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import cuexpo.cuexpo2017.R;
-import cuexpo.cuexpo2017.dao.ErrorResponse;
-import cuexpo.cuexpo2017.dao.Errors;
 import cuexpo.cuexpo2017.dao.LoginDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import retrofit2.Call;
@@ -58,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
     private int countClick = 0;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         activity = this;
 
         facebookLogin = (RelativeLayout) findViewById(R.id.login_fb);
+        RelativeLayout userLogin = (RelativeLayout) findViewById(R.id.login_user);
         TextView guestLogin = (TextView) findViewById(R.id.login_guest);
         container = (FrameLayout) findViewById(R.id.containerLogin);
         progress = (ProgressBar) findViewById(R.id.progress);
@@ -75,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
         facebookLogin.setOnClickListener(facebookLoginOnClick);
         guestLogin.setOnClickListener(guestLoginOnClick);
+        userLogin.setOnClickListener(userLoginClick);
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -118,6 +121,13 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener userLoginClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(LoginActivity.this, LoginUserActivity.class);
+            LoginActivity.this.startActivity(intent);
+        }
+    };
 
     private FacebookCallback facebookCallback =  new FacebookCallback<LoginResult>() {
         @Override
@@ -199,6 +209,8 @@ public class LoginActivity extends AppCompatActivity {
                                 //Log.e("LoginFB","apiToken = " + dao.getResults().getToken());
                                 editor.apply();
 
+                                progress.setVisibility(View.VISIBLE);
+
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 LoginActivity.this.startActivity(intent);
                                 LoginActivity.this.finish();
@@ -245,11 +257,27 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener guestLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            container.setClickable(true);
-            progress.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            LoginActivity.this.startActivity(intent);
-            LoginActivity.this.finish();
+
+            new AsyncTask<Void, Void, Void>() {
+
+                @Override
+                protected void onPreExecute() {
+                    container.setClickable(true);
+                    progress.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        Thread.sleep(500);
+                    } catch(Exception e) {}
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    LoginActivity.this.startActivity(intent);
+                    LoginActivity.this.finish();
+                    return null;
+                }
+
+            }.execute();
         }
     };
 
