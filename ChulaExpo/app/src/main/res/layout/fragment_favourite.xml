@@ -80,6 +80,7 @@
             </LinearLayout>
 
             <cuexpo.cuexpo2017.view.ExpandableHeightListView
+                android:divider="@color/transparent"
                 android:id="@+id/favourite_content_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -129,6 +130,7 @@
             </LinearLayout>
 
             <cuexpo.cuexpo2017.view.ExpandableHeightListView
+                android:divider="@color/transparent"
                 android:id="@+id/favourite_content_container2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

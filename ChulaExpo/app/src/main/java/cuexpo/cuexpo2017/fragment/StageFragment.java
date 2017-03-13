@@ -100,11 +100,11 @@ public class StageFragment extends Fragment implements View.OnClickListener {
 
         pagerItemAdapter = new FragmentPagerItemAdapter(
                 this.getChildFragmentManager(), FragmentPagerItems.with(getActivity())
-                .add("15\nMAR", StageFragmentDetail.class, date15)
-                .add("16\nMAR", StageFragmentDetail.class, date16)
-                .add("17\nMAR", StageFragmentDetail.class, date17)
-                .add("18\nMAR", StageFragmentDetail.class, date18)
-                .add("19\nMAR", StageFragmentDetail.class, date19)
+                .add("15\nMAR", StageDetailFragment.class, date15)
+                .add("16\nMAR", StageDetailFragment.class, date16)
+                .add("17\nMAR", StageDetailFragment.class, date17)
+                .add("18\nMAR", StageDetailFragment.class, date18)
+                .add("19\nMAR", StageDetailFragment.class, date19)
                 .create());
 
 

@@ -37,6 +37,10 @@ public class ReservedListAdapter extends BaseAdapter {
     private Boolean isZero = true;
     private String holder = "";
 
+    public boolean getIsZero(){
+        return isZero;
+    }
+
     public void setHolder(String text){
         holder = text;
     }

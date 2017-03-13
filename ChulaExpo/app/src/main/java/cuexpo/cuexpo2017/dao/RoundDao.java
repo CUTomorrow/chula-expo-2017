@@ -29,4 +29,7 @@ public class RoundDao {
         this.results = results;
     }
 
+    public void addResults(RoundResult resultDao){
+        this.results.add(resultDao);
+    }
 }

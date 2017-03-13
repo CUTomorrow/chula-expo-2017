@@ -28,12 +28,9 @@ import cuexpo.cuexpo2017.fragment.EventDetailFragment;
 public class StageInsideListItem extends BaseCustomViewGroup implements View.OnClickListener {
 
     private TextView tvDescription;
-    //private TextView tvFavourite;
-    //private TextView tvStar;
     private ImageView ivLine;
     private View vBottomDivider;
     private LinearLayout btnView;
-    //private LinearLayout btnFavourite;
     private String id;
 
 
@@ -72,16 +69,10 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnC
     private void initInstances() {
         // findViewById here
         tvDescription = (TextView) findViewById(R.id.stage_inside_tv_description);
-        //tvFavourite = (TextView) findViewById(R.id.stage_inside_tv_favourite);
-        //tvStar = (TextView) findViewById(R.id.stage_inside_tv_star);
         vBottomDivider = findViewById(R.id.stage_inside_bottom_divider);
         ivLine = (ImageView) findViewById(R.id.stage_inside_iv_line);
         btnView = (LinearLayout) findViewById(R.id.stage_inside_btn_info);
-        //btnFavourite = (LinearLayout) findViewById(R.id.stage_inside_btn_favourite);
         btnView.setOnClickListener(this);
-        //btnFavourite.setOnClickListener(this);
-        /*btnView.setOnTouchListener(this);
-        btnFavourite.setOnTouchListener(this);*/
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -158,16 +149,6 @@ public class StageInsideListItem extends BaseCustomViewGroup implements View.OnC
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-        } /*else if (v == btnFavourite){
-            if (!selected) {
-                tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
-                tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.highlightPinkColor));
-
-            } else {
-                tvFavourite.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-                tvStar.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-            }
-            selected = !selected;
-        }*/
+        }
     }
 }

@@ -23,7 +23,7 @@
             android:text="08.00"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/stage_tv_end_time"
@@ -33,7 +33,7 @@
             android:text="08.30"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="17sp" />
     </LinearLayout>
 
     <RelativeLayout
