@@ -11,6 +11,7 @@ import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.ReserveDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
 
+import cuexpo.cuexpo2017.dao.UserDao;
 import cuexpo.cuexpo2017.dao.UserProfile;
 import cuexpo.cuexpo2017.dao.ZoneDao;
 import cuexpo.cuexpo2017.dao.ZoneItemDao;
@@ -84,6 +85,9 @@ public interface ApiService {
 
     @DELETE("/api/me/reserved_rounds/{rid}")
     Call<DeleteResultDao> removeRound(@Path("rid") String rid);
+
+    @GET("/api/me")
+    Call<UserDao> getUserInfo(@Query("fields") String fields);
 
     @GET("/api/places/{pid}")
     Call<PlaceItemDao> loadPlaceItem(@Path("pid") String pid);
