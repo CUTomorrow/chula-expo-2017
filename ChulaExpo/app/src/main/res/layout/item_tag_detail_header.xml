@@ -13,12 +13,16 @@
         app:cardCornerRadius="4dp"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="6dp">
 
         <TextView
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="7dp"
             android:id="@+id/tag_title"
             android:text="loading. . ."
-            android:textSize="25sp"
+            android:textSize="22sp"
             fontPath="fonts/ThaiSansNeue-SemiBold.ttf"
             android:textColor="@android:color/black"
             android:layout_width="match_parent"

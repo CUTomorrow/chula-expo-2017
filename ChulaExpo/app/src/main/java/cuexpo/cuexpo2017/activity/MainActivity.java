@@ -115,22 +115,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
-        if (position == 3) {
-            sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
-            if (sharedPref.getString("id", "").equals("")) {
-                final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setTitle("ขออภัย");
-                alert.setMessage("ฟังก์ชันแก้ไขข้อมูลเเปิดให้เฉพาะ Facebook User เท่านั้น!");
-                alert.setCancelable(false);
-                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog alert2 = alert.create();
-                alert2.show();
-            }
-        }
     }
 
     @Override
