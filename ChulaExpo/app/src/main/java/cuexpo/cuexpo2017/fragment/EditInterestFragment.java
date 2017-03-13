@@ -181,8 +181,10 @@ public class EditInterestFragment extends Fragment {
         String TagsStr = sharedPref.getString("tags", "");
         String[] tags = TagsStr.split(",");
         for(String tag: tags) {
-            Log.d("tag", tag);
-            interestItemHashMap.get(tag.trim()).setInterest(true);
+            Log.d("tags", tag);
+            InterestItem item = interestItemHashMap.get(tag.trim());
+            if(item != null) item.setInterest(true);
+            else Log.e("tags not found", tag);
         }
     }
 

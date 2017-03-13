@@ -105,7 +105,7 @@ public abstract class PermissionUtils {
             if (mFinishActivity) {
                 Toast.makeText(getActivity(), "จำเป็นต้องได้รับอนุญาตในการเข้าถึงข้อมูลตำแหน่งของคุณ",
                         Toast.LENGTH_SHORT).show();
-                getActivity().finish();
+//                getActivity().finish();
             }
         }
     }
@@ -178,7 +178,7 @@ public abstract class PermissionUtils {
                         "จำเป็นต้องได้รับอนุญาตในการเข้าถึงข้อมูลตำแหน่งของคุณ",
                         Toast.LENGTH_SHORT)
                         .show();
-                getActivity().finish();
+//                getActivity().finish();
             }
         }
     }
