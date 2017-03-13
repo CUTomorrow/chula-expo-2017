@@ -185,8 +185,8 @@ public class InterestListFragment extends Fragment {
                 String title_eng = tagJsonObjects.get(position).getString("nameEn");
                 String detail = tagJsonObjects.get(position).getString("desTh");
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("TagDetail", Context.MODE_PRIVATE);
-                sharedPreferences.edit().putString("titleTH", title).apply();
-                sharedPreferences.edit().putString("titleENG", title_eng).apply();
+                sharedPreferences.edit().putString("title", title + " - " + title_eng).apply();
+                sharedPreferences.edit().putString("tagEnName", title_eng).apply();
                 sharedPreferences.edit().putString("detail", detail).apply();
             } catch (JSONException ex) {
                 ex.printStackTrace();

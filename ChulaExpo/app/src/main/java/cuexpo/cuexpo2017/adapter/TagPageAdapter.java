@@ -29,16 +29,15 @@ public class TagPageAdapter extends BaseAdapter {
     private static LayoutInflater inflater;
     private List<ActivityItemResultDao> eventList = new ArrayList<>();
     private TextView header, detail;
-    private String titleTH, titleENG, detailString;
-    private Context context;
+    private String title, detailString;
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
+    private Context context;
 
     public TagPageAdapter(Context context) {
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         SharedPreferences sharedPreferences = context.getSharedPreferences("TagDetail", Context.MODE_PRIVATE);
-        titleTH = sharedPreferences.getString("titleTH", "");
-        titleENG = sharedPreferences.getString("titleENG", "");
+        title = sharedPreferences.getString("title", "");
         detailString = sharedPreferences.getString("detail", "");
     }
 
@@ -48,7 +47,8 @@ public class TagPageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 3+eventList.size();
+        if(eventList.size()==0) return 2;
+        return 3 + eventList.size();
     }
 
     @Override
@@ -65,11 +65,11 @@ public class TagPageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View TagDetailView;
 
-        switch(position) {
+        switch (position) {
             case 0:
                 convertView = inflater.inflate(R.layout.item_tag_detail_header, null);
                 header = (TextView) convertView.findViewById(R.id.tag_title);
-                header.setText(titleTH + " - " + titleENG);
+                header.setText(title);
                 break;
             case 1:
                 convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
@@ -82,9 +82,9 @@ public class TagPageAdapter extends BaseAdapter {
                 ((TextView) convertView.findViewById(R.id.description)).setText("Event ที่เกี่ยวข้องทั้งหมด");
                 ((ImageView) convertView.findViewById(R.id.icon)).setImageResource(R.drawable.ic_event);
                 break;
-            default :
+            default:
                 convertView = inflater.inflate(R.layout.item_event, null);
-                ActivityItemResultDao event = eventList.get(position-3);
+                ActivityItemResultDao event = eventList.get(position - 3);
                 ((TextView) convertView.findViewById(R.id.title)).setText(event.getName().getTh());
                 String time = DateUtil.getDateThai(event.getStart());
                 ((TextView) convertView.findViewById(R.id.time)).setText(time);
@@ -94,15 +94,14 @@ public class TagPageAdapter extends BaseAdapter {
                 TextView eventTag = (TextView) convertView.findViewById(R.id.event_tag);
                 eventTag.setText(zoneShortName);
                 eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
-//                for(int i=0;i<lightZone.length-1;i++){
-//                    if(zoneShortName.equals(lightZone[i])) {
-//                        eventTag.setTextColor(Color.BLACK);
-//                        break;
-//                    }
-//                }
-
+                for (int i = 0; i < lightZone.length - 1; i++) {
+                    if (zoneShortName.equals(lightZone[i])) {
+                        eventTag.setTextColor(Color.BLACK);
+                        break;
+                    }
+                }
                 Glide.with(context)
-                        .load("https://api.chulaexpo.com"+event.getThumbnail())
+                        .load("https://api.chulaexpo.com" + event.getThumbnail())
                         .placeholder(R.drawable.banner)
                         .centerCrop()
                         .into((ImageView) convertView.findViewById(R.id.event_image));
