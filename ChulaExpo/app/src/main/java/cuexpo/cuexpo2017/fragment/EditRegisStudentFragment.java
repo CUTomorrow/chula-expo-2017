@@ -220,6 +220,7 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
         public void onClick(View v) {
             //TODO
             sharedPref = getActivity().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
+            editor = sharedPref.edit();
             name = etRegisName.getText().toString();
             try {
                 age = Integer.parseInt(etBirth.getText().toString());
@@ -228,6 +229,22 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
             }
             academicSchool = etSchool.getText().toString();
 
+            //Save to sharedPref
+            editor.putString("name",etRegisName.getText().toString());
+            Log.d("regis","Name: "+etRegisName.getText().toString());
+            editor.putString("email",etEmail.getText().toString());
+            try {
+                editor.putInt("age", Integer.parseInt(etBirth.getText().toString()));
+            } catch (NumberFormatException exception){
+                editor.putInt("age", 0);
+            }
+            editor.putString("gender",gender);
+            editor.putString("academicSchool",etSchool.getText().toString());
+            editor.putString("academicYear",academicYear);
+            editor.putString("academicLevel",academicLevel);
+            editor.commit();
+
+            //PUT API
             EditStudentUser editStudentUser = new EditStudentUser(name,age,gender,academicLevel,academicYear,academicSchool);
             Call<UserDao> callUserInfo = HttpManager.getInstance().getService().editStudentUserInfo(editStudentUser);
             callUserInfo.enqueue(callbackUserInfo);
