@@ -64,7 +64,7 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
     TextView tvQRName, tvQRPersonalInfo;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    String id,name,year,school,workerJob,type;
+    String uid,name,year,school,level,workerJob,type, profile;
     private final static int REQUEST_QR = 0;
 
     private static Bitmap QRCache = null;
@@ -174,12 +174,15 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
         //get SharedPref
         sharedPref = this.getActivity().getSharedPreferences("FacebookInfo", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
-        id = sharedPref.getString("id","");
+        uid = sharedPref.getString("uid","");
+        profile = sharedPref.getString("profile","");
         name = sharedPref.getString("name","");
-        type = sharedPref.getString("type","Guest");
+        type = sharedPref.getString("type","");
         if(type.equals("Academic")){
             year = sharedPref.getString("academicYear","");
             school = sharedPref.getString("academicSchool","");
+            level = sharedPref.getString("academicLevel","");
+
         } else if(type.equals("Worker")) {
             workerJob = sharedPref.getString("workerJob","");
         }
@@ -195,7 +198,7 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
         ivClear.setOnClickListener(this);
 
         Glide.with(getContext())
-                .load("http://graph.facebook.com/"+id+"/picture?type=large")
+                .load(profile)
                 .placeholder(R.drawable.iv_profile_temp)
                 .error(R.drawable.iv_profile_temp)
                 .bitmapTransform(new CropCircleTransformation(getContext()))
@@ -203,7 +206,7 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
 
         tvQRName.setText(name);
         //if(type.equals("Academic")) tvQRPersonalInfo.setText("Year"+year+" • "+school);
-        if(type.equals("Academic")) tvQRPersonalInfo.setText(school);
+        if(type.equals("Academic")) tvQRPersonalInfo.setText(level+" "+year+" "+school);
         else if(type.equals("Worker")) tvQRPersonalInfo.setText(workerJob);
         else if(type.equals("Staff")) tvQRPersonalInfo.setText("Staff");
         else tvQRPersonalInfo.setText("");
@@ -215,7 +218,7 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
             String charset = "UTF-8";
             Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-            String qrCodeData = tvQRName.getText().toString();
+            String qrCodeData = uid;
             int width =300;
             int height = 300;
             int smallestDimension = width < height ? width : height;
