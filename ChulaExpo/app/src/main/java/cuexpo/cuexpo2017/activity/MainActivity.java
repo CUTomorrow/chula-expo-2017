@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
         if(!sharedPref.getString("apiToken","").equals("")){
             HttpManager.getInstance().setAPIKey(sharedPref.getString("apiToken",""));
+            /*
             Call<UserDao> callUser = HttpManager.getInstance().getService().loadUserInfo();
             callUser.enqueue(new Callback<UserDao>() {
                 @Override
@@ -124,7 +125,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
                 }
             });
+            */
         }
+
 
     }
 
