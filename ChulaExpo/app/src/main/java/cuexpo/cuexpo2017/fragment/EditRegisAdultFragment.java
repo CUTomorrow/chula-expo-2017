@@ -55,7 +55,7 @@ public class EditRegisAdultFragment extends Fragment implements TextWatcher {
     Spinner spGender;
     View btnNext;
     ImageView ivRegisProfile;
-    String id,name,email,gender,birthday,profile, workerJob;
+    String id,name,email,gender,profile, workerJob, career;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
     String[] genderList;
@@ -79,7 +79,7 @@ public class EditRegisAdultFragment extends Fragment implements TextWatcher {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_regis_adult_edit, container, false);
-
+        initInstances();
         rootView.findViewById(R.id.btnCancel).setOnClickListener(cancelOCL);
         rootView.findViewById(R.id.btnSave).setOnClickListener(saveOCL);
 
@@ -90,13 +90,15 @@ public class EditRegisAdultFragment extends Fragment implements TextWatcher {
         email = sharedPref.getString("email", "");
         gender = sharedPref.getString("gender", "Male");
         age = sharedPref.getInt("age",0);
+        career = sharedPref.getString("workerJob","");
         //birthday = sharedPref.getString("birthday", "");
         //editor.putString("type","Worker");
         //editor.putString("profile","http://graph.facebook.com/"+id+"/picture?type=large");
 
         etRegisName.setText(name);
         etEmail.setText(email);
-        etBirth.setText(age);
+        etBirth.setText(age+"");
+        etCareer.setText(career);
 
         etRegisName.addTextChangedListener(this);
         //etEmail.addTextChangedListener(this);
@@ -132,7 +134,6 @@ public class EditRegisAdultFragment extends Fragment implements TextWatcher {
         etCareer = (EditText) rootView.findViewById(R.id.etCareer);
         spGender = (Spinner) rootView.findViewById(R.id.spGender);
         ivRegisProfile = (ImageView) rootView.findViewById(R.id.ivRegisProfile);
-        btnNext = rootView.findViewById(R.id.btnNext);
         spGender.setOnItemSelectedListener(spGenderlistener);
     }
 

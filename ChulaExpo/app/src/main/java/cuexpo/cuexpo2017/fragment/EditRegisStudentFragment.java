@@ -68,7 +68,7 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_regis_student_edit, container, false);
-
+        initInstances();
         rootView.findViewById(R.id.btnCancel).setOnClickListener(cancelOCL);
         rootView.findViewById(R.id.btnSave).setOnClickListener(saveOCL);
 
@@ -89,7 +89,7 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
 
         etRegisName.setText(name);
         etEmail.setText(email);
-        etBirth.setText(age);
+        etBirth.setText(age+"");
 
 
         etRegisName.addTextChangedListener(this);
@@ -201,7 +201,6 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
         spAcademicLevel = (Spinner) rootView.findViewById(R.id.spAcademicLevel);
         spAcademicYear = (Spinner) rootView.findViewById(R.id.spAcademicYear);
         ivRegisProfile = (ImageView) rootView.findViewById(R.id.ivRegisProfile);
-        btnNext = rootView.findViewById(R.id.btnNext);
         spGender.setOnItemSelectedListener(spGenderlistener);
         spAcademicLevel.setOnItemSelectedListener(spAcademicLevelListener);
         spAcademicYear.setOnItemSelectedListener(spAcademicYearListener);
