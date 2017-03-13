@@ -13,16 +13,12 @@ public class UserProfile {
     private int age;
     private String profile;
     private String type;
-    private String tag;
+    private String tags;
     private String academicLevel;
     private String academicYear;
     private String academicSchool;
     private String workerJob;
     private String facebook;
-
-    public UserProfile(){
-
-    }
 
     public UserProfile(String email, Token[] tokens, String name, String gender, int age, String profile, String type, String tag, String academicLevel, String academicYear, String academicSchool, String workerJob, String facebook) {
         this.email = email;
@@ -32,7 +28,7 @@ public class UserProfile {
         this.age = age;
         this.profile = profile;
         this.type = type;
-        this.tag = tag;
+        this.tags = tag;
         this.academicLevel = academicLevel;
         this.academicYear = academicYear;
         this.academicSchool = academicSchool;
@@ -97,11 +93,11 @@ public class UserProfile {
     }
 
     public String getTag() {
-        return tag;
+        return tags;
     }
 
     public void setTag(String tag) {
-        this.tag = tag;
+        this.tags = tag;
     }
 
     public String getAcademicLevel() {

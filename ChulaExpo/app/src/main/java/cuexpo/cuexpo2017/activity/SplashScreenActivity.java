@@ -23,14 +23,14 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SharedPreferences sharedPreferences = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
-                String id = sharedPreferences.getString("id", "");
-                if(id.equals("")){
+                String token = sharedPreferences.getString("apiToken", "");
+                if(token.equals("")){
                     Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                     SplashScreenActivity.this.startActivity(intent);
                     SplashScreenActivity.this.finish();
                 }
                 else {
-                    Intent intent = new Intent(SplashScreenActivity.this, RegisStudentActivity.class);
+                    Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                     SplashScreenActivity.this.startActivity(intent);
                     SplashScreenActivity.this.finish();
                 }
