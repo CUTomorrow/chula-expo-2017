@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
@@ -37,6 +38,8 @@ import cuexpo.cuexpo2017.activity.LoginActivity;
 import cuexpo.cuexpo2017.activity.ReservedActivity;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
+import cuexpo.cuexpo2017.dao.EditAdultUser;
+import cuexpo.cuexpo2017.dao.EditStudentUser;
 import cuexpo.cuexpo2017.dao.RoundDao;
 import cuexpo.cuexpo2017.dao.UserDao;
 import cuexpo.cuexpo2017.dao.UserResult;
@@ -116,28 +119,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (access) {
             setName(sharedPref.getString("name", ""));
             setEmail(sharedPref.getString("email", ""));
-            String type = sharedPref.getString("type", "");
-            String gender = sharedPref.getString("gender", "");
-            int age = sharedPref.getInt("age", 0);
-            if (gender.equals("Male"))
-                setGender("ชาย");
-            else if (gender.equals("Female"))
-                setGender("หญิง");
-            else if (gender.equals("Other"))
-                setGender("อื่นๆ");
-            else
-                setGender("-");
-            if (age > 0)
-                setAge(age + "");
-            else
-                setAge("-");
-            /*if (type.equals("Academic")) {
-                setStudentDescription(sharedPref.getString("academicLevel", ""),
-                        sharedPref.getString("academicYear", ""));
-                setPlace(sharedPref.getString("academicSchool", ""));
-            } else if (type.equals("Worker")) {
-                setAdultDescription(sharedPref.getString("workerJob", ""));
-            }*/
             Glide.with(this)
                     .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
                     .placeholder(R.drawable.iv_profile_temp)
@@ -206,6 +187,63 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         access = savedInstanceState.getBoolean("access");
     }
 
+    Callback<UserDao> callBackUserInfo = new Callback<UserDao>() {
+        @Override
+        public void onResponse(Call<UserDao> call, Response<UserDao> response) {
+            if (response.isSuccessful()) {
+                UserDao dao = response.body();
+                /*
+                Log.e("Profile Fragment", "MY NAME " + dao.getResults().getName());
+                if(sharedPref.getString("type","").equals("Academic")) {
+                    Log.e("Profile Fragment", "MY ACADEMIC " + dao.getResults().getAcademic());
+                    Log.e("Profile Fragment", "MY ACADEMIC YEAR " + dao.getResults().getAcademic().getAcademicYear());
+                    Log.e("Profile Fragment", "MY ACADEMIC LEVEL " + dao.getResults().getAcademic().getAcademicLevel());
+                    Log.e("Profile Fragment", "MY ACADEMIC SCHOOL " + dao.getResults().getAcademic().getAcademicSchool());
+                }
+                Log.e("Profile Fragment", "MY TYPE " + dao.getResults().getType());
+                if(sharedPref.getString("type","").equals("Worker")){
+                    Log.e("Profile Fragment", "MY WORKER " + dao.getResults().getWorker());
+                }
+                Log.e("Profile Fragment", "MY EMAIL " + dao.getResults().getEmail());
+                Log.e("Profile Fragment", "MY GENDER " + dao.getResults().getGender());
+                Log.e("Profile Fragment", "MY AGE " + dao.getResults().getAge());
+                */
+                if (dao.getResults().getType().equals("Academic")) {
+                    setStudentDescription(sharedPref.getString("academicLevel", ""),
+                            sharedPref.getString("academicYear", ""));
+                    setPlace(sharedPref.getString("academicSchool", ""));
+                } else if (dao.getResults().getType().equals("Worker")) {
+                    setAdultDescription(sharedPref.getString("wokerJob", ""));
+                }
+                if (dao.getResults().getGender().equals("Male")) {
+                    setGender("ชาย");
+                } else if (dao.getResults().getGender().equals("Female")) {
+                    setGender("หญิง");
+                } else if (dao.getResults().getGender().equals("Other")) {
+                    setGender("อื่นๆ");
+                } else {
+                    setGender("-");
+                }
+                if (dao.getResults().getAge() > 0) {
+                    setAge(dao.getResults().getAge() + "");
+                } else {
+                    setAge("-");
+                }
+            } else {
+                try {
+                    Log.e("Profile Fragment", "Call Me Not Success " + response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<UserDao> call, Throwable t) {
+            Log.e("Profile Fragment", "Call Me Fail");
+        }
+    };
+
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
@@ -234,7 +272,31 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (!access) {
                 error("แก้ไขข้อมูล");
             } else {
+
+                Call<UserDao> callUserInfo = HttpManager.
+                        getInstance().getService().getUserInfo
+                        ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool");
+                callUserInfo.enqueue(callBackUserInfo);
                 //comingSoon();
+
+                String type = sharedPref.getString("type","");
+                if(type.equals("Academic")){
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.main_overlay, new EditRegisStudentFragment());
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                } else if(type.equals("Worker")){
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.main_overlay, new EditRegisAdultFragment());
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();;
+                } else {
+                    Toast.makeText(Contextor.getInstance().getContext(), "Staff กรุณาแก้ไขข้อมูลทางเว็บ", Toast.LENGTH_SHORT).show();
+                }
             }
         } else if (v == btnSetting) {
             if (!access) {
