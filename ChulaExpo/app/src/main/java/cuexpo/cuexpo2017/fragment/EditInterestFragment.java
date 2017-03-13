@@ -108,12 +108,6 @@ public class EditInterestFragment extends Fragment {
                 }
             }
 
-//            UserProfile userProfile = new UserProfile(null, null, null, null, null, null, null,
-//                    tags, null, null, null, null, null);
-
-//            UserProfile userProfile = new UserProfile();
-//            userProfile.setTag(tags);
-
             Call<UserDao> callUserInfo = HttpManager.getInstance().getService().editUserInfo(new TagWrapper(tags));
             callUserInfo.enqueue(callbackUserInfo);
 
