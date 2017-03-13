@@ -124,9 +124,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                                 editor.putInt("age", 0);
                             }
                             if(dao.getResults().getType().equals("Academic")) {
-                                editor.putString("academicSchool", dao.getResults().getAcademic().getAcademicSchool());
-                                editor.putString("academicYear", dao.getResults().getAcademic().getAcademicYear());
-                                editor.putString("academicLevel", dao.getResults().getAcademic().getAcademicLevel());
+                                if(dao.getResults().getAcademic() != null) {
+                                    editor.putString("academicSchool", dao.getResults().getAcademic().getAcademicSchool());
+                                    editor.putString("academicYear", dao.getResults().getAcademic().getAcademicYear());
+                                    editor.putString("academicLevel", dao.getResults().getAcademic().getAcademicLevel());
+                                }
                             } else if(dao.getResults().getType().equals("Worker")){
                                 editor.putString("workerJob",dao.getResults().getWorker().getJob());
                             }
