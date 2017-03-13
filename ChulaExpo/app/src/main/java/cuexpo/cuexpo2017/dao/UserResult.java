@@ -31,25 +31,16 @@ public class UserResult {
     private String type;
     @SerializedName("academic")
     @Expose
-    private String academic;
-    @SerializedName("worker")
-    @Expose
-    private String worker;
+    private Academic academic;
     @SerializedName("staff")
     @Expose
     private String staff;
-    @SerializedName("academicLevel")
+    @SerializedName("worker")
     @Expose
-    private String academicLevel;
-    @SerializedName("academicYear")
+    private Worker worker;
+    @SerializedName("tags")
     @Expose
-    private String academicYear;
-    @SerializedName("academicSchool")
-    @Expose
-    private String academicSchool;
-    @SerializedName("workerJob")
-    @Expose
-    private String workerJob;
+    private List<Object> tags = null;
 
     public String getId() {
         return id;
@@ -58,7 +49,6 @@ public class UserResult {
     public void setId(String id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -108,20 +98,12 @@ public class UserResult {
         this.type = type;
     }
 
-    public String getAcademic() {
+    public Academic getAcademic() {
         return academic;
     }
 
-    public void setAcademic(String academic) {
+    public void setAcademic(Academic academic) {
         this.academic = academic;
-    }
-
-    public String getWorker() {
-        return worker;
-    }
-
-    public void setWorker(String worker) {
-        this.worker = worker;
     }
 
     public String getStaff() {
@@ -132,35 +114,19 @@ public class UserResult {
         this.staff = staff;
     }
 
-    public String getAcademicLevel() {
-        return academicLevel;
+    public Worker getWorker() {
+        return worker;
     }
 
-    public void setAcademicLevel(String academicLevel) {
-        this.academicLevel = academicLevel;
+    public void setWorker(Worker worker) {
+        this.worker = worker;
     }
 
-    public String getAcademicYear() {
-        return academicYear;
+    public List<Object> getTags() {
+        return tags;
     }
 
-    public void setAcademicYear(String academicYear) {
-        this.academicYear = academicYear;
-    }
-
-    public String getAcademicSchool() {
-        return academicSchool;
-    }
-
-    public void setAcademicSchool(String academicSchool) {
-        this.academicSchool = academicSchool;
-    }
-
-    public String getWorkerJob() {
-        return workerJob;
-    }
-
-    public void setWorkerJob(String workerJob) {
-        this.workerJob = workerJob;
+    public void setTags(List<Object> tags) {
+        this.tags = tags;
     }
 }
