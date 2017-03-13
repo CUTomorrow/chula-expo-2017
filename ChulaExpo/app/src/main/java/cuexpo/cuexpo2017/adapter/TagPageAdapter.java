@@ -34,11 +34,11 @@ public class TagPageAdapter extends BaseAdapter {
     private Context context;
 
     public TagPageAdapter(Context context) {
+        this.context = context;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         SharedPreferences sharedPreferences = context.getSharedPreferences("TagDetail", Context.MODE_PRIVATE);
         title = sharedPreferences.getString("title", "");
         detailString = sharedPreferences.getString("detail", "");
-        this.context = context;
     }
 
     public void setEvent(List<ActivityItemResultDao> eventList) {
@@ -101,7 +101,7 @@ public class TagPageAdapter extends BaseAdapter {
                     }
                 }
                 Glide.with(context)
-                        .load("https://api.chulaexpo.com" + event.getBanner())
+                        .load("https://api.chulaexpo.com" + event.getThumbnail())
                         .placeholder(R.drawable.banner)
                         .centerCrop()
                         .into((ImageView) convertView.findViewById(R.id.event_image));

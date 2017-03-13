@@ -24,14 +24,14 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/login_fb"
         android:layout_width="match_parent"
-        android:layout_marginBottom="55dp"
-        android:layout_marginLeft="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="30dp"
         android:layout_height="56dp"
-        android:background="@color/blue_fb"
-        android:id="@+id/login_fb">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/blue_fb">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -40,48 +40,92 @@
             android:layout_centerVertical="true">
 
             <TextView
-                android:text="@string/login_fb"
+                android:id="@+id/textView3"
                 fontPath="fonts/ThaiSansNeue-Bold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:id="@+id/textView3"
-                android:textColor="@android:color/white"
-                android:layout_toRightOf="@+id/imageView3"
                 android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@+id/imageView3"
                 android:gravity="center_vertical"
+                android:text="@string/login_fb"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/font_14" />
 
             <ImageView
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_fb_logo"
                 android:id="@+id/imageView3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:elevation="0dp"
-                android:layout_width="24dp" />
+                app:srcCompat="@drawable/ic_fb_logo" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_user"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="55dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/blue_dark"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/textView3"
+                fontPath="fonts/ThaiSansNeue-Bold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@+id/imageView3"
+                android:gravity="center_vertical"
+                android:text="@string/login_user"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_14" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:elevation="0dp"
+                app:srcCompat="@drawable/login_ic_password_white" />
         </RelativeLayout>
     </RelativeLayout>
 
     <TextView
-        android:text="@string/login_wo_fb"
+        android:id="@+id/login_guest"
         fontPath="fonts/ThaiSansNeue-Bold.ttf"
         android:layout_width="310dp"
-        android:id="@+id/login_guest"
         android:layout_height="40dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_13"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/login_guest"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_13" />
     <FrameLayout
         android:id="@+id/containerLogin"
         android:clickable="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/progress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></FrameLayout>
+
     <ProgressBar
         android:id="@+id/progress"
-        style="@android:style/Widget.Holo.ProgressBar.Large"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_anchorGravity="center_vertical|center_horizontal" />
+
 </RelativeLayout>

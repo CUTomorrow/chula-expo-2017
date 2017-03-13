@@ -5,7 +5,6 @@
     <string name="fb_login_protocol_scheme">fb252924075145357</string>
     <!-- login -->
     <string name="login_fb">LOGIN WITH FACEBOOK</string>
-    <string name="login_wo_fb">LOGIN WITHOUT FACEBOOK</string>
 
     <string name="app_name">Chula Expo</string>
     <string name="tab_1">Chula Expo</string>
@@ -73,6 +72,7 @@
     <string name="home_activity_header_desc">แนะนำกิจกรรมที่คุณอาจสนใจ</string>
 
     <!--FONT-->
+    <string name="font">fonts/ThaiSansNeue.ttf</string>
     <string name="font_bold">fonts/ThaiSansNeue-Bold.ttf</string>
 
     <!-- Map -->
@@ -112,6 +112,8 @@
     <!--Zone ID-->
     <!--Faculty-->
     <string name="ID_eng_faculty">5899a98a5eeecd3698f6cfc6</string>
+    <string name="login_user">LOGIN WITH USERNAME</string>
+    <string name="login_guest">GUEST MODE</string>
     <!--City-->
     <!--Favourite&Reserved-->
     <string name="reserved_events">Reserved Events</string>

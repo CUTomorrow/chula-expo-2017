@@ -11,6 +11,7 @@ import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.ReserveDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
 
+import cuexpo.cuexpo2017.dao.TagWrapper;
 import cuexpo.cuexpo2017.dao.UserDao;
 import cuexpo.cuexpo2017.dao.UserProfile;
 import cuexpo.cuexpo2017.dao.ZoneDao;
@@ -21,6 +22,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -38,7 +40,7 @@ public interface ApiService {
     Call<ActivityItemCollectionDao> loadRecommendedActivityList(@Header("Authorization") String Authorization);
 
 
-     @GET("/api/activities")
+    @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadIncomingActivityOnStage(@Query("zone") String zone,
                                                                 @Query("fields") String fields,
                                                                 @Query("end") JSONObject end,
@@ -106,5 +108,8 @@ public interface ApiService {
 
     @GET("/api/me")
     Call<UserDao> loadUserInfo();
+
+    @PUT("/api/me")
+    Call<UserDao> editUserInfo(@Body TagWrapper tagWrapper);
 
 }

@@ -348,7 +348,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void error(String errorMsg) {
         final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle("ขออภัย");
-        alert.setMessage("ฟังก์ชัน" + errorMsg + "เปิดให้เฉพาะ Facebook User เท่านั้น!");
+        alert.setMessage("ฟังก์ชัน" + errorMsg + "เปิดให้เฉพาะ User ที่ login เท่านั้น!");
         alert.setCancelable(false);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
