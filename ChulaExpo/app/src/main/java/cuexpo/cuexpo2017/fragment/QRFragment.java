@@ -50,7 +50,8 @@ import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.activity.MainActivity;
 import cuexpo.cuexpo2017.adapter.ScannerActivity;
-import cuexpo.cuexpo2017.utility.PermissionUtils;
+import cuexpo.cuexpo2017.utility.CameraPermissionUtils;
+import cuexpo.cuexpo2017.utility.CameraPermissionUtils;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 
@@ -77,7 +78,7 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
         if (ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
-            PermissionUtils.requestPermission((AppCompatActivity) this.getActivity(), 1,
+            CameraPermissionUtils.requestPermission((AppCompatActivity) this.getActivity(), 1,
                     Manifest.permission.CAMERA, true);
         } else {
             Intent intent = new Intent(getActivity(), ScannerActivity.class);
@@ -92,14 +93,14 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
             return;
         }
 
-        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+        if (CameraPermissionUtils.isPermissionGranted(permissions, grantResults,
                 Manifest.permission.CAMERA)) {
             Intent intent = new Intent(getActivity(), ScannerActivity.class);
             startActivityForResult(intent, REQUEST_QR);
 //            enableCamera();
         } else {
             // Display the missing permission error dialog when the fragments resume.
-            PermissionUtils.PermissionDeniedDialog
+            CameraPermissionUtils.PermissionDeniedDialog
                     .newInstance(true).show(this.getFragmentManager(), "dialog");
         }
     }

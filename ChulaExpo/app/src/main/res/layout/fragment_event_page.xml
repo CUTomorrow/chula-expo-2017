@@ -14,11 +14,12 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white">
+
             <ImageView
                 android:id="@+id/event_Page_toolbar_qr"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/iv_qr_black_icon" />
             <TextView

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.adapter.InterestListAdapterNew;
 import cuexpo.cuexpo2017.adapter.TagPageAdapter;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
+import cuexpo.cuexpo2017.adapter.ZoneDetailListAdapter;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import retrofit2.Call;
@@ -37,6 +39,8 @@ public class TagPageFragment extends Fragment {
     private ListView list;
     private TagPageAdapter adapter;
     private List<ActivityItemResultDao> eventList;
+    private ImageView backButton;
+    protected int limit;
 
     public TagPageFragment() {
         // Required empty public constructor
@@ -103,7 +107,8 @@ public class TagPageFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
-
+        backButton = (ImageView) rootView.findViewById(R.id.toolbar_back);
+        backButton.setOnClickListener(backButtonOnclickListener);
         list = (ListView) rootView.findViewById(R.id.list_view);
         adapter = new TagPageAdapter(getContext());
         list.setAdapter(adapter);
@@ -111,4 +116,11 @@ public class TagPageFragment extends Fragment {
 
     }
 
+    private View.OnClickListener backButtonOnclickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    };
 }

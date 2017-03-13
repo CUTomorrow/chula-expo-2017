@@ -35,7 +35,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="95dp"
         android:layout_marginTop="61dp">
 
         <LinearLayout
@@ -105,34 +104,5 @@
 
         </LinearLayout>
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="95dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/next"
-            fontPath="fonts/ThaiSansNeue-Bold.ttf"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/shape_round_rec_regis_dark_blue"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="ต่อไป"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:visibility="invisible" />
-
-        <ImageView
-            android:id="@+id/dot"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/dot1" />
-    </LinearLayout>
 
 </RelativeLayout>

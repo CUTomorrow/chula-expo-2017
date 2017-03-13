@@ -16,11 +16,11 @@
             android:background="@color/white"
             android:id="@+id/toolbar">
             <ImageView
-                android:id="@+id/toolbar_qr"
+                android:id="@+id/toolbar_back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="5dp"
-                android:src="@drawable/iv_qr_black_icon"
+                android:src="@drawable/ic_arrow_back"
                 android:scaleType="centerInside"/>
             <TextView
                 android:id="@+id/tag_toolbar_title"
@@ -44,11 +44,6 @@
             />
 
     </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/event_page_containerQR"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 
 </FrameLayout>
