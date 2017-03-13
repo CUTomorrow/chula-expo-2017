@@ -163,7 +163,7 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
             } catch (NumberFormatException exception){
                 editor.putInt("age", 0);
             }
-            editor.putString("school", etSchool.getText().toString());
+            editor.putString("academicSchool", etSchool.getText().toString());
             //editor.putString("year", etYear.getText().toString());
             editor.commit();
         }
