@@ -96,7 +96,6 @@ public class EditInterestFragment extends Fragment {
     View.OnClickListener saveOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            String tags = TextUtils.join(",", );
             String tags = "";
             boolean isFirstTag = true;
             for(InterestItem interestItem: interestItems) {
@@ -181,8 +180,9 @@ public class EditInterestFragment extends Fragment {
         String TagsStr = sharedPref.getString("tags", "");
         String[] tags = TagsStr.split(",");
         for(String tag: tags) {
-            Log.d("tag", tag);
-            interestItemHashMap.get(tag.trim()).setInterest(true);
+            InterestItem item = interestItemHashMap.get(tag.trim());
+            if(item != null) item.setInterest(true);
+            else Log.e("tags not found", tag);
         }
     }
 
