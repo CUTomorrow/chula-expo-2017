@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -65,6 +66,8 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
     SharedPreferences.Editor editor;
     String id,name,year,school,workerJob,type;
     private final static int REQUEST_QR = 0;
+
+    private static Bitmap QRCache = null;
 
     public QRFragment() {
         super();
@@ -210,7 +213,7 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
             //ivQR.setImageBitmap(qrBm);
 
             String charset = "UTF-8";
-            Map<EncodeHintType, ErrorCorrectionLevel> hintMap =new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+            Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
             String qrCodeData = tvQRName.getText().toString();
             int width =300;
@@ -229,25 +232,34 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
         }
     }
 
-    public  void CreateQRCode(String qrCodeData, String charset, Map hintMap, int qrCodeheight, int qrCodewidth){
-
+    public void CreateQRCode(String qrCodeData, String charset, Map hintMap, int qrCodeheight, int qrCodewidth){
 
         try {
             //generating qr code in bitmatrix type
-            BitMatrix matrix = new MultiFormatWriter().encode(new String(qrCodeData.getBytes(charset), charset),
-                    BarcodeFormat.QR_CODE, qrCodewidth, qrCodeheight, hintMap);
+
+            if(QRCache != null) {
+                ivQR.setImageBitmap(QRCache);
+                return ;
+            }
+
+            BitMatrix matrix = new MultiFormatWriter().encode(
+                new String(qrCodeData.getBytes(charset), charset),
+                BarcodeFormat.QR_CODE, qrCodewidth, qrCodeheight, hintMap
+            );
             //converting bitmatrix to bitmap
 
             int width = matrix.getWidth();
             int height = matrix.getHeight();
+
             int[] pixels = new int[width * height];
             // All are 0, or black, by default
+            Resources resources = getResources();
             for (int y = 0; y < height; y++) {
                 int offset = y * width;
                 for (int x = 0; x < width; x++) {
                     //pixels[offset + x] = matrix.get(x, y) ? BLACK : WHITE;
                     pixels[offset + x] = matrix.get(x, y) ?
-                            ResourcesCompat.getColor(getResources(),R.color.black,null) :  ResourcesCompat.getColor(getResources(),R.color.white,null);
+                            ResourcesCompat.getColor(resources,R.color.black,null) :  ResourcesCompat.getColor(resources,R.color.white,null);
                 }
             }
 
@@ -256,8 +268,9 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
             //setting bitmap to image view
 
             Bitmap overlay = BitmapFactory.decodeResource(getResources(), R.drawable.iv_qr_icon);
-
-            ivQR.setImageBitmap(mergeBitmaps(overlay,bitmap));
+            overlay = Bitmap.createScaledBitmap(overlay, 40, 40, true);
+            QRCache = mergeBitmaps(overlay, bitmap);
+            ivQR.setImageBitmap(QRCache);
 
         }catch (Exception er){
             Log.e("QrGenerate",er.getMessage());
