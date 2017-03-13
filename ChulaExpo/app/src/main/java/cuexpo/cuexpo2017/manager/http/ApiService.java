@@ -72,7 +72,7 @@ public interface ApiService {
                                           @Path("rid") String rid);
 
     @GET("/api/zones")
-    Call<ZoneDao> loadZoneList();
+    Call<ZoneDao> loadZoneList(@Query("sort") String sort);
 
     @GET("/api/zones/{zid}")
     Call<ZoneItemDao> loadZoneById(@Path("zid") String zid);
