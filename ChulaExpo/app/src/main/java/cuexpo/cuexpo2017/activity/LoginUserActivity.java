@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cuexpo.cuexpo2017.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kosate on 13/02/2017.
@@ -55,6 +56,11 @@ public class LoginUserActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public void onStart() {

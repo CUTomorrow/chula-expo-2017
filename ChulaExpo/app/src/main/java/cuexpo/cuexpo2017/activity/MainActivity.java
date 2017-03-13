@@ -3,6 +3,7 @@ package cuexpo.cuexpo2017.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
@@ -44,15 +45,22 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private ViewPager viewPager;
     private SmartTabLayout viewPagerTab;
 
+    private MainActivity thisAcitivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        thisAcitivity = this;
+
         setContentView(R.layout.activity_main);
-        rootView = this.findViewById(android.R.id.content);
+        rootView = thisAcitivity.findViewById(android.R.id.content);
+
         initTab();
     }
 
     private void initTab() {
+
         viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         final LayoutInflater inflater = LayoutInflater.from(viewPagerTab.getContext());
         final Context viewPagerContext = viewPagerTab.getContext();
@@ -80,19 +88,30 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             }
         });
 
-        FragmentPagerAdapter adapter = new FragmentPagerItemAdapter(
-                getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add("1", HomeFragment.class)
-                .add("2", MapFragment.class)
-                .add("3", EventPageFragment.class)
-                .add("4", ProfileFragment.class)
-                .create());
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(this);
-        viewPager.setOffscreenPageLimit(3);
-        viewPagerTab.setViewPager(viewPager);
+        runOnUiThread (new Thread(new Runnable() {
+            public void run() {
+
+                FragmentPagerAdapter adapter = new FragmentPagerItemAdapter(
+                        getSupportFragmentManager(), FragmentPagerItems.with(thisAcitivity)
+                        .add("1", HomeFragment.class)
+                        .add("2", MapFragment.class)
+                        .add("3", EventPageFragment.class)
+                        .add("4", ProfileFragment.class)
+                        .create());
+
+                viewPager = (ViewPager) findViewById(R.id.pager);
+                viewPager.setAdapter(adapter);
+                viewPager.addOnPageChangeListener(thisAcitivity);
+                viewPager.setOffscreenPageLimit(3);
+                viewPagerTab.setViewPager(viewPager);
+
+                getTabInfo();
+            }
+        }));
+    }
+
+    private void getTabInfo() {
 
         sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
         if(!sharedPref.getString("apiToken","").equals("")){

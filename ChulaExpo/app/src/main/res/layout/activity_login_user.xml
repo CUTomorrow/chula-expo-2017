@@ -121,7 +121,6 @@
 
                 <Button
                     android:id="@+id/login_user_submit"
-                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -129,7 +128,8 @@
                     android:background="@color/blue_dark"
                     android:text="เข้าสู่ระบบ"
                     android:textColor="#FFFFFF"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    fontPath="fonts/ThaiSansNeue-Bold.ttf" />
 
             </LinearLayout>
 
@@ -155,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="สามารถลงทะเบียนเพื่อรับ ผู้ใช้ และ รหัสผ่านได้ที่หน้างาน สำหรับผู้ใช้ที่ไม่มี Facebook"
-                    fontPath="fonts/ThaiSansNeue-Bold.ttf" />
+                    fontPath="fonts/ThaiSansNeue.ttf" />
             </LinearLayout>
 
         </LinearLayout>

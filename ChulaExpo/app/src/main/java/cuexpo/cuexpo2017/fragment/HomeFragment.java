@@ -262,6 +262,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 ActivityItemCollectionDao dao = response.body();
                 highlightListAdapter.setDao(dao);
                 highlightListAdapter.notifyDataSetChanged();
+                getView().findViewById(R.id.layoutStageHeader).setVisibility(View.VISIBLE);
+                getView().findViewById(R.id.home_loading_txt).setVisibility(View.GONE);
             } else {
                 try {
                     Log.e("HomeHighlight", "Load Highlight Not Success\n" + response.errorBody().string());
