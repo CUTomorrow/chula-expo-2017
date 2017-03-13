@@ -137,6 +137,8 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
         upComingAdapter.setHolder("Loading..");
         previousAdapter.setHolder("Loading..");
+        upComingEventListView.setEnabled(false);
+        previousEventListView.setEnabled(false);
         upComingAdapter.notifyDataSetChanged();
         previousAdapter.notifyDataSetChanged();
 
@@ -233,7 +235,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                     if (dao.getResults().getId().equals(reserveDao.getResults().get(pos).getActivityId())) {
                         dao.getResults().setStart(reserveDao.getResults().get(pos).getStart());
                         dao.getResults().setEnd(reserveDao.getResults().get(pos).getEnd());
-                        Log.e("Reserved Fragment", "POS = " + pos + "& ID = " + reserveDao.getResults().get(pos).getId());
+                        Log.e("Reserved Fragment", "POS = " + pos + " & ID = " + reserveDao.getResults().get(pos).getId());
                         break;
                     }
                 }
@@ -243,6 +245,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                     upComingDao.setSuccess(true);
                     upComingDao.addResults(reserveDao.getResults().get(pos));
                     upComingAdapter.setIsZero(false);
+                    upComingEventListView.setEnabled(true);
                     upComingAdapter.setRoundDao(upComingDao);
                     dao2.setSuccess(true);
                     dao2.addResults(dao.getResults());
@@ -254,6 +257,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                     previousDao.setSuccess(true);
                     previousDao.addResults(reserveDao.getResults().get(pos));
                     previousAdapter.setIsZero(false);
+                    previousEventListView.setEnabled(true);
                     previousAdapter.setRoundDao(previousDao);
                     dao3.setSuccess(true);
                     dao3.addResults(dao.getResults());
@@ -379,28 +383,34 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String activityId = upComingAdapter.getItem(position).getId();
-            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
-            activitySharedPref.edit().putString("EventID", activityId).apply();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.reserved_acitivity_content_container, new EventDetailFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            if(!upComingAdapter.getIsZero()) {
+                upComingEventListView.setEnabled(true);
+                String activityId = upComingAdapter.getItem(position).getId();
+                SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+                activitySharedPref.edit().putString("EventID", activityId).apply();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.reserved_acitivity_content_container, new EventDetailFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            } else upComingEventListView.setEnabled(false);
         }
     };
 
     AdapterView.OnItemClickListener lvEventItemClickListener2 = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String activityId = previousAdapter.getItem(position).getId();
-            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
-            activitySharedPref.edit().putString("EventID", activityId).apply();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.reserved_acitivity_content_container, new EventDetailFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            if(!previousAdapter.getIsZero()) {
+                previousEventListView.setEnabled(true);
+                String activityId = previousAdapter.getItem(position).getId();
+                SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+                activitySharedPref.edit().putString("EventID", activityId).apply();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.reserved_acitivity_content_container, new EventDetailFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            } else  previousEventListView.setEnabled(false);
         }
     };
 

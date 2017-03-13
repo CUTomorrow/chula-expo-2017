@@ -117,6 +117,9 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
         previousEventListView.setFocusable(false);
         previousEventListView.setOnItemClickListener(lvEventItemClickListener2);
 
+        upComingEventListView.setEnabled(false);
+        previousEventListView.setEnabled(false);
+
         back.setOnClickListener(this);
 
         dao2.setResults(new ArrayList<ActivityItemResultDao>());
@@ -157,6 +160,7 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
                     Log.e("Favourite Fragment", "Upcoming " + getCurrentTime().toString()
                             + " " + setCompareDate(dao.getResults().getStart()));
                     upComingAdapter.setIsZero(false);
+                    upComingEventListView.setEnabled(true);
                     dao2.setSuccess(true);
                     dao2.addResults(dao.getResults());
                     upComingAdapter.setActivityDao(dao2);
@@ -165,6 +169,7 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
                     Log.e("Favourite Fragment", "Previous " + getCurrentTime().toString()
                             + " " + setCompareDate(dao.getResults().getEnd()));
                     previousAdapter.setIsZero(false);
+                    previousEventListView.setEnabled(true);
                     dao3.setSuccess(true);
                     dao3.addResults(dao.getResults());
                     previousAdapter.setActivityDao(dao3);
@@ -215,28 +220,34 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
     AdapterView.OnItemClickListener lvEventItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String activityId = upComingAdapter.getItem(position).getId();
-            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
-            activitySharedPref.edit().putString("EventID", activityId).apply();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.favourite_acitivity_content_container, new EventDetailFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            if (!upComingAdapter.getIsZero()) {
+                upComingEventListView.setEnabled(true);
+                String activityId = upComingAdapter.getItem(position).getId();
+                SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+                activitySharedPref.edit().putString("EventID", activityId).apply();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.favourite_acitivity_content_container, new EventDetailFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            } else upComingEventListView.setEnabled(false);
         }
     };
 
     AdapterView.OnItemClickListener lvEventItemClickListener2 = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String activityId = previousAdapter.getItem(position).getId();
-            SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
-            activitySharedPref.edit().putString("EventID", activityId).apply();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.favourite_acitivity_content_container, new EventDetailFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            if (!previousAdapter.getIsZero()) {
+                previousEventListView.setEnabled(true);
+                String activityId = previousAdapter.getItem(position).getId();
+                SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
+                activitySharedPref.edit().putString("EventID", activityId).apply();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.favourite_acitivity_content_container, new EventDetailFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            } else previousEventListView.setEnabled(false);
         }
     };
 
