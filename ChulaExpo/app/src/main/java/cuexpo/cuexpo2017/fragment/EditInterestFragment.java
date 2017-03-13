@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,6 +96,7 @@ public class EditInterestFragment extends Fragment {
     View.OnClickListener saveOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+//            String tags = TextUtils.join(",", );
             String tags = "";
             boolean isFirstTag = true;
             for(InterestItem interestItem: interestItems) {
@@ -103,7 +105,7 @@ public class EditInterestFragment extends Fragment {
                         isFirstTag = false;
                         tags += interestItem.getNameEng();
                     } else {
-                        tags += ", " + interestItem.getNameEng();
+                        tags += "," + interestItem.getNameEng();
                     }
                 }
             }
@@ -125,21 +127,15 @@ public class EditInterestFragment extends Fragment {
                 UserDao dao2 = response.body();
                 Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() ? "Saved" : "Fail"
                         , Toast.LENGTH_LONG).show();
-//                Log.e("Reserved Check Fragment", "Reserve Round " + dao2.getSuccess() + " " + dao2.getMessage());
             } else {
-                try {
-                    Toast.makeText(Contextor.getInstance().getContext(), "จองไม่สำเร็จ", Toast.LENGTH_LONG).show();
-                    Log.e("Reserved Check Fragment", "Reserve Round Not Success " + response.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Toast.makeText(Contextor.getInstance().getContext(), "Cannot save. Please try again.", Toast.LENGTH_LONG).show();
             }
         }
 
         @Override
         public void onFailure(Call<UserDao> call, Throwable t) {
-            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
-            Log.e("Reserved Check Fragment", t.toString());
+            Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
+            Log.e("EditInterest", t.toString());
         }
     };
 
