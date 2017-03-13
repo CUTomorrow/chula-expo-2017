@@ -137,7 +137,7 @@ public class RegisStudentActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         if(v == btnNext){
 //            Intent intent = new Intent(this, InterestActivity.class);
-            Intent intent = new Intent(this, DoneRegisterActivity.class);
+            Intent intent = new Intent(this, InterestActivity.class);
             startActivity(intent);
         }
     }

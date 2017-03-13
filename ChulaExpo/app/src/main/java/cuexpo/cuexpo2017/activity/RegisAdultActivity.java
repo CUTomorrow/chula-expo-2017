@@ -103,7 +103,7 @@ public class RegisAdultActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         if(v == btnNext){
 //            Intent intent = new Intent(this, InterestActivity.class);
-            Intent intent = new Intent(this, DoneRegisterActivity.class);
+            Intent intent = new Intent(this, InterestActivity.class);
             startActivity(intent);
         }
     }

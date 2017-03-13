@@ -49,7 +49,9 @@
         <activity android:name="cuexpo.cuexpo2017.activity.RegisStudentActivity" android:screenOrientation="portrait"/>
         <activity android:name="cuexpo.cuexpo2017.activity.InterestActivity" android:screenOrientation="portrait"/>
         <activity android:name="cuexpo.cuexpo2017.activity.DoneRegisterActivity" android:screenOrientation="portrait"/>
-        <activity android:name="cuexpo.cuexpo2017.activity.MainActivity" android:screenOrientation="portrait">
+        <activity android:name="cuexpo.cuexpo2017.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:finishOnTaskLaunch="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

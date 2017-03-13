@@ -52,6 +52,7 @@ public class DoneRegisterActivity extends AppCompatActivity {
         profile = sharedPref.getString("profile","");
         type = sharedPref.getString("type","");
         tags = sharedPref.getString("tags","");
+        Log.d("tagsDone", tags);
         academicLevel = sharedPref.getString("academicLevel","");
         academicYear = sharedPref.getString("academicYear","");
         workerJob = sharedPref.getString("workerJob","");
