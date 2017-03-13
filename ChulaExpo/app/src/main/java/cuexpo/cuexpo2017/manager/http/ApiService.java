@@ -11,6 +11,7 @@ import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.ReserveDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
 
+import cuexpo.cuexpo2017.dao.UserDao;
 import cuexpo.cuexpo2017.dao.UserProfile;
 import cuexpo.cuexpo2017.dao.ZoneDao;
 import cuexpo.cuexpo2017.dao.ZoneItemDao;
@@ -99,5 +100,8 @@ public interface ApiService {
 
     @POST("/api/signup")
     Call<LoginDao> registerUser(@Body UserProfile userProfile);
+
+    @GET("/api/me")
+    Call<UserDao> loadUserInfo();
 
 }
