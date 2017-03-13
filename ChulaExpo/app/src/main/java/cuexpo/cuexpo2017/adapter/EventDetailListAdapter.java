@@ -450,7 +450,6 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private View.OnClickListener reserveOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // TODO for Boom-sama
             if (!access) {
                 error("การจอง");
             } else {
