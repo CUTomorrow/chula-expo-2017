@@ -2,6 +2,7 @@ package cuexpo.cuexpo2017.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
+import cuexpo.cuexpo2017.utility.DateUtil;
+import cuexpo.cuexpo2017.utility.Resource;
 
 /**
  * Created by Administrator on 3/12/2017.
@@ -24,12 +29,16 @@ public class TagPageAdapter extends BaseAdapter {
     private static LayoutInflater inflater;
     private List<ActivityItemResultDao> eventList = new ArrayList<>();
     private TextView header, detail;
-    private String title, detailString;
+    private String titleTH, titleENG, detailString;
+    private Context context;
+    private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
 
     public TagPageAdapter(Context context) {
+        this.context = context;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         SharedPreferences sharedPreferences = context.getSharedPreferences("TagDetail", Context.MODE_PRIVATE);
-        title = sharedPreferences.getString("title", "");
+        titleTH = sharedPreferences.getString("titleTH", "");
+        titleENG = sharedPreferences.getString("titleENG", "");
         detailString = sharedPreferences.getString("detail", "");
     }
 
@@ -60,7 +69,7 @@ public class TagPageAdapter extends BaseAdapter {
             case 0:
                 convertView = inflater.inflate(R.layout.item_tag_detail_header, null);
                 header = (TextView) convertView.findViewById(R.id.tag_title);
-                header.setText(title);
+                header.setText(titleTH + " - " + titleENG);
                 break;
             case 1:
                 convertView = inflater.inflate(R.layout.item_event_detail_detail, null);
@@ -74,6 +83,29 @@ public class TagPageAdapter extends BaseAdapter {
                 ((ImageView) convertView.findViewById(R.id.icon)).setImageResource(R.drawable.ic_event);
                 break;
             default :
+                convertView = inflater.inflate(R.layout.item_event, null);
+                ActivityItemResultDao event = eventList.get(position-3);
+                ((TextView) convertView.findViewById(R.id.title)).setText(event.getName().getTh());
+                String time = DateUtil.getDateThai(event.getStart());
+                ((TextView) convertView.findViewById(R.id.time)).setText(time);
+
+                SharedPreferences sharedPref = context.getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
+                String zoneShortName = sharedPref.getString(event.getZone(), "");
+                TextView eventTag = (TextView) convertView.findViewById(R.id.event_tag);
+                eventTag.setText(zoneShortName);
+                eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
+//                for(int i=0;i<lightZone.length-1;i++){
+//                    if(zoneShortName.equals(lightZone[i])) {
+//                        eventTag.setTextColor(Color.BLACK);
+//                        break;
+//                    }
+//                }
+
+                Glide.with(context)
+                        .load("https://api.chulaexpo.com"+event.getThumbnail())
+                        .placeholder(R.drawable.banner)
+                        .centerCrop()
+                        .into((ImageView) convertView.findViewById(R.id.event_image));
                 break;
         }
         TagDetailView = convertView;
