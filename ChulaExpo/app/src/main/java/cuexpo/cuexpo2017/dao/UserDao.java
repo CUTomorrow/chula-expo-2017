@@ -4,6 +4,8 @@ package cuexpo.cuexpo2017.dao;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class UserDao {
 
     @SerializedName("success")
@@ -11,7 +13,7 @@ public class UserDao {
     private Boolean success;
     @SerializedName("results")
     @Expose
-    private UserResults results;
+    private UserResult result = null;
 
     public Boolean getSuccess() {
         return success;
@@ -21,12 +23,12 @@ public class UserDao {
         this.success = success;
     }
 
-    public UserResults getResults() {
-        return results;
+    public UserResult getResults() {
+        return result;
     }
 
-    public void setResults(UserResults results) {
-        this.results = results;
+    public void setResults(UserResult result) {
+        this.result = result;
     }
 
 }
