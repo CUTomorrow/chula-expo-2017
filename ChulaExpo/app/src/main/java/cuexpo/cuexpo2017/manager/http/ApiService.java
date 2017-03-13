@@ -104,4 +104,7 @@ public interface ApiService {
     @POST("/api/signup")
     Call<LoginDao> registerUser(@Body UserProfile userProfile);
 
+    @GET("/api/me")
+    Call<UserDao> loadUserInfo();
+
 }

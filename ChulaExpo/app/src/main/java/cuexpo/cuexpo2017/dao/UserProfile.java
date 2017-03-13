@@ -5,6 +5,7 @@ package cuexpo.cuexpo2017.dao;
  */
 
 public class UserProfile {
+    private String _id;
     private String email;
     private Token[] tokens;
     private String name;
