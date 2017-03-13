@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#ececec"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/reserved_toolbar"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white">
-
+        android:layout_height="?attr/actionBarSize">
         <ImageView
             android:id="@+id/reserved_back"
             android:layout_width="30dp"
@@ -18,14 +17,13 @@
             android:padding="5dp"
             android:scaleType="centerInside"
             android:src="@drawable/back_black" />
-
         <TextView
             android:id="@+id/favourite_toolbar_title"
             fontPath="@string/font_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Reserved Events"
+            android:text="@string/reserved_events"
             android:textColor="@color/black"
             android:textSize="@dimen/title_toolbar_size" />
 
@@ -38,7 +36,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -60,21 +58,19 @@
                         style="@style/tvHighlightHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:lineSpacingExtra="-4sp"
                         android:paddingLeft="10dp"
-                        android:text="UPCOMING EVENT"
-                        android:textStyle="bold" />
+                        android:text="@string/upcoming_events"
+                        fontPath="@string/font_bold" />
 
                     <TextView
                         android:id="@+id/reserved_ue_desc"
                         style="@style/tvHeaderDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:paddingLeft="10dp"
                         android:paddingTop="-3dp"
-                        android:text="Events ที่กำลังจะเกิดขึ้น"
+                        android:text="@string/upcoming_event_desc"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -91,7 +87,7 @@
                 android:id="@+id/reserved_content_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8sp"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
+                android:layout_marginTop="8sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,24 +108,21 @@
                         style="@style/tvHighlightHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:lineSpacingExtra="-4sp"
                         android:paddingLeft="10dp"
-                        android:text="PREVIOUS EVENT"
-                        android:textStyle="bold" />
+                        android:text="@string/previous_events"
+                        fontPath="@string/font_bold"/>
 
                     <TextView
                         android:id="@+id/reserved_pe_desc"
                         style="@style/tvHeaderDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:paddingLeft="10dp"
                         android:paddingTop="-3dp"
-                        android:text="Events ที่เริ่มไปแล้ว"
+                        android:text="@string/previous_event_desc"
                         android:textColor="@color/white" />
                 </LinearLayout>
-
 
                 <ImageView
                     android:layout_width="25dp"
@@ -143,7 +136,7 @@
                 android:id="@+id/reserved_content_container2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8sp"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
+                android:layout_marginTop="8sp"/>
 
         </LinearLayout>
 

@@ -115,4 +115,12 @@
     <string name="login_user">LOGIN WITH USERNAME</string>
     <string name="login_guest">GUEST MODE</string>
     <!--City-->
+    <!--Favourite&Reserved-->
+    <string name="reserved_events">Reserved Events</string>
+    <string name="favourite_events">Favourite Events</string>
+    <string name="previous_events">PREVIOUS EVENTS</string>
+    <string name="upcoming_events">UPCOMING EVENTS</string>
+    <string name="previous_event_desc">Event ที่เริ่มไปแล้ว</string>
+    <string name="upcoming_event_desc">Event ที่กำลังจะเกิดขึ้น</string>
+
 </resources>

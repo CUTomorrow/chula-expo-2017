@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 .loadActivityList("name,thumbnail,start,end,zone", 20, "start");
         }
         call.enqueue(callbackActivity);
-        Call<ZoneDao> callZone = HttpManager.getInstance().getService().loadZoneList();
+        Call<ZoneDao> callZone = HttpManager.getInstance().getService().loadZoneList("name_EN");
         callZone.enqueue(callbackZone);
         Call<ActivityItemCollectionDao> callHighlight = HttpManager.getInstance().getService().loadHighlightActivity(true,
                 "banner,name,shortDescription", getCurrentTime("gte"), 6);
@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
-            Log.e("HomeActivity", "Load Activities Fail");
+            Log.e("HomeActivity", "Load Activities Fail " + t.toString());
             activityListAdapter.notifyDataSetChanged();
         }
     };

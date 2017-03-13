@@ -59,6 +59,9 @@ public interface ApiService {
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadActivityByZone(@Query("zone") String zone);
 
+    @GET("/api/activities")
+    Call<ActivityItemCollectionDao> loadActivityByTags(@Query("tags") String tags);
+
     @GET("/api/activities/{aid}")
     Call<ActivityItemDao> loadActivityItem(@Path("aid") String aid);
 
@@ -72,7 +75,7 @@ public interface ApiService {
                                           @Path("rid") String rid);
 
     @GET("/api/zones")
-    Call<ZoneDao> loadZoneList();
+    Call<ZoneDao> loadZoneList(@Query("sort") String sort);
 
     @GET("/api/zones/{zid}")
     Call<ZoneItemDao> loadZoneById(@Path("zid") String zid);
