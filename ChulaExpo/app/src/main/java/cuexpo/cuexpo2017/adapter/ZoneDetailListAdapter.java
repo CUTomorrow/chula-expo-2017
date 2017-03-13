@@ -101,7 +101,7 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
                 break;
             default:
                 convertView = inflater.inflate(R.layout.item_event, null);
-                ActivityItemResultDao event = eventList.get(position-2);
+                ActivityItemResultDao event = eventList.get(position - 2);
                 ((TextView) convertView.findViewById(R.id.title)).setText(event.getName().getTh());
                 String time = DateUtil.getDateThai(event.getStart());
                 ((TextView) convertView.findViewById(R.id.time)).setText(time);
@@ -111,15 +111,15 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
                 TextView eventTag = (TextView) convertView.findViewById(R.id.event_tag);
                 eventTag.setText(zoneShortName);
                 eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
-                for(int i=0;i<lightZone.length-1;i++){
-                    if(zoneShortName.equals(lightZone[i])) {
+                for (int i = 0; i < lightZone.length - 1; i++) {
+                    if (zoneShortName.equals(lightZone[i])) {
                         eventTag.setTextColor(Color.BLACK);
                         break;
                     }
                 }
 
                 Glide.with(context)
-                        .load("https://api.chulaexpo.com"+event.getBanner())
+                        .load("https://api.chulaexpo.com" + event.getBanner())
                         .placeholder(R.drawable.banner)
                         .centerCrop()
                         .into((ImageView) convertView.findViewById(R.id.event_image));
@@ -131,7 +131,7 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
 
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(dp * ((float)displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+        return Math.round(dp * ((float) displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
     @Override
@@ -147,7 +147,7 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
         googleMap.addMarker(
                 new MarkerOptions()
                         .position(new LatLng(lat, lng))
-                        .icon(BitmapDescriptorFactory.fromResource(Resource.getDrawable("pin_"+facultyId)))
+                        .icon(BitmapDescriptorFactory.fromResource(Resource.getDrawable("pin_" + facultyId)))
         );
         googleMap.setOnMarkerClickListener(mapOCL);
     }
@@ -167,6 +167,6 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
         }
         FragmentManager fragmentManager = fragment.getFragmentManager();
         int stackCount = fragmentManager.getBackStackEntryCount();
-        for(int i=0; i<stackCount; i++) fragmentManager.popBackStack();
+        for (int i = 0; i < stackCount; i++) fragmentManager.popBackStack();
     }
 }
