@@ -20,6 +20,10 @@ public class UserProfile {
     private String workerJob;
     private String facebook;
 
+    public UserProfile(){
+
+    }
+
     public UserProfile(String email, Token[] tokens, String name, String gender, int age, String profile, String type, String tag, String academicLevel, String academicYear, String academicSchool, String workerJob, String facebook) {
         this.email = email;
         this.tokens = tokens;

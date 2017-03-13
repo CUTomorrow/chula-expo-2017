@@ -11,6 +11,7 @@ import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.ReserveDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
 
+import cuexpo.cuexpo2017.dao.TagWrapper;
 import cuexpo.cuexpo2017.dao.UserDao;
 import cuexpo.cuexpo2017.dao.UserProfile;
 import cuexpo.cuexpo2017.dao.ZoneDao;
@@ -109,6 +110,6 @@ public interface ApiService {
     Call<UserDao> loadUserInfo();
 
     @PUT("/api/me")
-    Call<UserDao> editUserInfo();
+    Call<UserDao> editUserInfo(@Body TagWrapper tagWrapper);
 
 }

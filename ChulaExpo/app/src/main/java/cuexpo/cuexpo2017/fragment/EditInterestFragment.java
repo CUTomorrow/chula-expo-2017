@@ -11,21 +11,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
+
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import cuexpo.cuexpo2017.R;
-import cuexpo.cuexpo2017.activity.DoneRegisterActivity;
 import cuexpo.cuexpo2017.adapter.InterestListAdapter;
-import cuexpo.cuexpo2017.dao.Location;
+import cuexpo.cuexpo2017.dao.TagWrapper;
+import cuexpo.cuexpo2017.dao.Token;
+import cuexpo.cuexpo2017.dao.UserDao;
+import cuexpo.cuexpo2017.dao.UserProfile;
 import cuexpo.cuexpo2017.datatype.InterestItem;
+import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.Resource;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by APTX-4869 (LOCAL) on 3/13/2017.
@@ -97,10 +107,45 @@ public class EditInterestFragment extends Fragment {
                     }
                 }
             }
+
+//            UserProfile userProfile = new UserProfile(null, null, null, null, null, null, null,
+//                    tags, null, null, null, null, null);
+
+//            UserProfile userProfile = new UserProfile();
+//            userProfile.setTag(tags);
+
+            Call<UserDao> callUserInfo = HttpManager.getInstance().getService().editUserInfo(new TagWrapper(tags));
+            callUserInfo.enqueue(callbackUserInfo);
+
             sharedPref.edit().putString("tags", tags).apply();
 
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    };
+
+    Callback<UserDao> callbackUserInfo = new Callback<UserDao>() {
+        @Override
+        public void onResponse(Call<UserDao> call, Response<UserDao> response) {
+            if (response.isSuccessful()) {
+                UserDao dao2 = response.body();
+                Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() ? "Saved" : "Fail"
+                        , Toast.LENGTH_LONG).show();
+//                Log.e("Reserved Check Fragment", "Reserve Round " + dao2.getSuccess() + " " + dao2.getMessage());
+            } else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(), "จองไม่สำเร็จ", Toast.LENGTH_LONG).show();
+                    Log.e("Reserved Check Fragment", "Reserve Round Not Success " + response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<UserDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
+            Log.e("Reserved Check Fragment", t.toString());
         }
     };
 
