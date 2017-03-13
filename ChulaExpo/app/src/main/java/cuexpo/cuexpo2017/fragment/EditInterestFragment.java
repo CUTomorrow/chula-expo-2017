@@ -1,19 +1,16 @@
-package cuexpo.cuexpo2017.activity;
+package cuexpo.cuexpo2017.fragment;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,40 +19,87 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cuexpo.cuexpo2017.R;
+import cuexpo.cuexpo2017.activity.DoneRegisterActivity;
 import cuexpo.cuexpo2017.adapter.InterestListAdapter;
 import cuexpo.cuexpo2017.datatype.InterestItem;
 import cuexpo.cuexpo2017.utility.Resource;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+/**
+ * Created by APTX-4869 (LOCAL) on 3/13/2017.
+ */
 
-public class InterestActivity extends AppCompatActivity {
-    private Activity activity;
+public class EditInterestFragment extends Fragment {
+
+    private static EditInterestFragment instance;
     private ArrayList<InterestItem> interestItems = new ArrayList<>();
     private InterestListAdapter adapter;
+    private View rootView;
+    private SharedPreferences sharedPref;
+
+    public static EditInterestFragment newInstance() {
+        instance = new EditInterestFragment();
+        Bundle args = new Bundle();
+        instance.setArguments(args);
+        return instance;
+    }
+
+    public static EditInterestFragment getInstance(){
+        if(instance == null) return newInstance();
+        return instance;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_interest);
-
-        activity = this;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_edit_interest, container, false);
+        rootView.findViewById(R.id.btnCancel).setOnClickListener(cancelOCL);
+        rootView.findViewById(R.id.btnSave).setOnClickListener(saveOCL);
 
         initInterestItems();
-        adapter = new InterestListAdapter(this, interestItems, 40);
+        adapter = new InterestListAdapter(getActivity(), interestItems, 40);
 
-        LayoutInflater inflater = getLayoutInflater();
         View gridViewFooter = inflater.inflate(R.layout.item_interest_footer, null);
-        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view);
+        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) rootView.findViewById(R.id.grid_view);
         gridView.addFooterView(gridViewFooter);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(onItemClick);
 
-        View doneBtn = findViewById(R.id.btnNext);
-        doneBtn.setOnClickListener(doneListener);
+        sharedPref = getActivity().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
+
+        return rootView;
     }
 
+    View.OnClickListener cancelOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    };
+
+    View.OnClickListener saveOCL = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String tags = "";
+            boolean isFirstTag = true;
+            for(InterestItem interestItem: interestItems) {
+                if(interestItem.isInterest()){
+                    if(isFirstTag){
+                        isFirstTag = false;
+                        tags += interestItem.getNameEng();
+                    } else {
+                        tags += ", " + interestItem.getNameEng();
+                    }
+                }
+            }
+            Log.d("tags", tags);
+            sharedPref.edit().putString("tags", tags).apply();
+        }
+    };
+
     private void initInterestItems(){
+
         try {
             JSONArray interestTagJSON = new JSONArray(
                     getResources().getString(R.string.jsonInterestTag)
@@ -93,29 +137,6 @@ public class InterestActivity extends AppCompatActivity {
         }
     }
 
-    private View.OnClickListener doneListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String tags = "";
-            boolean isFirstTag = true;
-            for(InterestItem interestItem: interestItems) {
-                if(interestItem.isInterest()){
-                    if(isFirstTag){
-                        isFirstTag = false;
-                        tags += interestItem.getNameEng();
-                    } else {
-                        tags += ", " + interestItem.getNameEng();
-                    }
-                }
-            }
-            Log.d("tags", tags);
-            SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
-            sharedPref.edit().putString("tags", tags).apply();
-            Intent intent = new Intent(activity, DoneRegisterActivity.class);
-            startActivity(intent);
-        }
-    };
-
     private AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener(){
         @Override
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -131,8 +152,9 @@ public class InterestActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    public void onDestroy(){
+        Log.d("Destroy EditInterest", "done");
+        instance = null;
+        super.onDestroy();
     }
 }
-

@@ -103,8 +103,11 @@ public class Resource {
 
     public static String getFacultyTagDisplayName(int id, String name) {
         switch (id) {
-            case 40: return  "ทรัพยากรการเกษตร";
-            case 42: return  "บัณฑิตวิทยาลัย";
+            case 40: return "ทรัพยากรการเกษตร";
+            case 42: return "บัณฑิตวิทยาลัย";
+            case 41: return "หอพักนิสิตฯ";
+            case 44: return "พยาบาลตำรวจ";
+            case 45: return "พยาบาลกาชาด";
             default: return  name.substring(3);
         }
     }
