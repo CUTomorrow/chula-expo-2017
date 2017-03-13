@@ -17,10 +17,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.activity.DoneRegisterActivity;
 import cuexpo.cuexpo2017.adapter.InterestListAdapter;
+import cuexpo.cuexpo2017.dao.Location;
 import cuexpo.cuexpo2017.datatype.InterestItem;
 import cuexpo.cuexpo2017.utility.Resource;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
@@ -36,6 +38,7 @@ public class EditInterestFragment extends Fragment {
     private InterestListAdapter adapter;
     private View rootView;
     private SharedPreferences sharedPref;
+    private HashMap<String, InterestItem> interestItemHashMap = new HashMap<>();
 
     public static EditInterestFragment newInstance() {
         instance = new EditInterestFragment();
@@ -52,7 +55,10 @@ public class EditInterestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         rootView = inflater.inflate(R.layout.fragment_edit_interest, container, false);
+
+        sharedPref = getActivity().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
         rootView.findViewById(R.id.btnCancel).setOnClickListener(cancelOCL);
         rootView.findViewById(R.id.btnSave).setOnClickListener(saveOCL);
 
@@ -64,8 +70,6 @@ public class EditInterestFragment extends Fragment {
         gridView.addFooterView(gridViewFooter);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(onItemClick);
-
-        sharedPref = getActivity().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
 
         return rootView;
     }
@@ -93,13 +97,14 @@ public class EditInterestFragment extends Fragment {
                     }
                 }
             }
-            Log.d("tags", tags);
             sharedPref.edit().putString("tags", tags).apply();
+
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };
 
     private void initInterestItems(){
-
         try {
             JSONArray interestTagJSON = new JSONArray(
                     getResources().getString(R.string.jsonInterestTag)
@@ -107,13 +112,14 @@ public class EditInterestFragment extends Fragment {
             for (int i = 0; i < interestTagJSON.length(); i++) {
                 JSONObject tagData = interestTagJSON.getJSONObject(i);
                 int id = tagData.getInt("id");
-                interestItems.add(new InterestItem(
-                        tagData.getString("nameTh"),
-                        tagData.getString("nameEn"),
-                        Resource.getTagBg(id),
-                        Resource.getTagIcon(id),
-                        false)
-                );
+                InterestItem interestItem = new InterestItem(
+                                tagData.getString("nameTh"),
+                                tagData.getString("nameEn"),
+                                Resource.getTagBg(id),
+                                Resource.getTagIcon(id),
+                                false);
+                interestItems.add(interestItem);
+                interestItemHashMap.put(tagData.getString("nameEn"), interestItem);
             }
             JSONArray facultyTagJSON = new JSONArray(
                     getResources().getString(R.string.jsonFacultyMap)
@@ -123,18 +129,23 @@ public class EditInterestFragment extends Fragment {
                 int id = tagData.getInt("id");
                 if (id>=21 && id<=45 && id != 43) {
                     String name = tagData.getString("nameTh");
-                    interestItems.add(new InterestItem(
+                    InterestItem interestItem = new InterestItem(
                             Resource.getFacultyTagDisplayName(id, name),
                             tagData.getString("nameEn"),
                             Resource.getFaculltyTagBg(id),
                             Resource.getFaculltyTagIcon(id),
-                            false)
-                    );
+                            false);
+                    interestItems.add(interestItem);
+                    interestItemHashMap.put(tagData.getString("nameEn"), interestItem);
                 }
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
+
+        String TagsStr = sharedPref.getString("tags", "");
+        String[] tags = TagsStr.split(", ");
+        for(String tag: tags) interestItemHashMap.get(tag).setInterest(true);
     }
 
     private AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener(){
