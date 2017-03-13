@@ -40,6 +40,7 @@ public class RoleActivity extends AppCompatActivity implements View.OnClickListe
         else if(v == btnAdult){
             Intent intent = new Intent(this, RegisAdultActivity.class);
             startActivity(intent);
+            RoleActivity.this.finish();
         }
     }
 

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_interest"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/register_bg"
+    tools:context="cuexpo.cuexpo2017.activity.InterestActivity">
+
+    <LinearLayout
+        android:id="@+id/home_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:background="@color/bgPrimary"
+        android:orientation="horizontal"
+        android:paddingLeft="26dp"
+        android:paddingTop="26dp">
+
+        <ImageView
+            android:id="@+id/step"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/step3" />
+
+        <TextView
+            android:id="@+id/role_toolbar_title"
+            fontPath="fonts/ThaiSansNeue-Bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:text="แก้ไขเนื้อหาที่สนใจ"
+            android:textColor="@color/dark_blue"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+    <in.srain.cube.views.GridViewWithHeaderAndFooter
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="70dp"
+        android:listSelector="#00000000"
+        android:numColumns="2"
+        android:overScrollMode="never"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbarStyle="outsideOverlay" />
+
+    <ImageView
+        android:id="@+id/white_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@+id/button"
+        android:layout_alignParentBottom="false"
+        android:layout_marginBottom="20dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/shape_gradient_grey" />
+
+    <TextView
+        android:id="@+id/help_text"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_above="@+id/button"
+        android:gravity="center_horizontal"
+        android:text="ระบบจะทำการแนะนำ Event ตามเนื้อหาที่คุณเลือกไว้"
+        android:textSize="17sp" />
+
+    <LinearLayout
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnCancel"
+                fontPath="fonts/ThaiSansNeue-Bold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_round_rec_regis_dark_blue"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="ยกเลิก"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/btnSave"
+                fontPath="fonts/ThaiSansNeue-Bold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_round_rec_regis_dark_blue"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="บันทึก"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/dot"
+            android:layout_width="70dp"
+            android:layout_height="26dp" />
+    </LinearLayout>
+
+</RelativeLayout>

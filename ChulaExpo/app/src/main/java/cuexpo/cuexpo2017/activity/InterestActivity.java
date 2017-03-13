@@ -77,14 +77,16 @@ public class InterestActivity extends AppCompatActivity {
             for (int i = 0; i < facultyTagJSON.length(); i++) {
                 JSONObject tagData = facultyTagJSON.getJSONObject(i);
                 int id = tagData.getInt("id");
-                if (id != 41 && id >= 21 && id <= 42)
+                if (id>=21 && id<=45 && id != 43) {
+                    String name = tagData.getString("nameTh");
                     interestItems.add(new InterestItem(
-                            Resource.getFacultyTagDisplayName(id, tagData.getString("nameTh")),
+                            Resource.getFacultyTagDisplayName(id, name),
                             tagData.getString("nameEn"),
                             Resource.getFaculltyTagBg(id),
                             Resource.getFaculltyTagIcon(id),
                             false)
                     );
+                }
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
