@@ -99,5 +99,6 @@
     <color name="facility_canteen">#94D102</color>
     <color name="facility_toilet">#3891DF</color>
     <color name="facility_bus_stop">#FD679F</color>
+    <color name="blue_dark">#2b313f</color>
 
 </resources>

@@ -53,6 +53,7 @@
         <activity android:name="cuexpo.cuexpo2017.activity.StageActivity" android:screenOrientation="portrait"/>
         <activity android:name="cuexpo.cuexpo2017.activity.FavouriteActivity" android:screenOrientation="portrait"/>
         <activity android:name="cuexpo.cuexpo2017.activity.ReservedActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cuexpo.cuexpo2017.activity.LoginUserActivity" android:screenOrientation="portrait"/>
         <activity android:name="cuexpo.cuexpo2017.adapter.ScannerActivity" android:screenOrientation="portrait"/>
 
         <meta-data
