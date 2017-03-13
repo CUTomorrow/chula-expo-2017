@@ -3,16 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cuexpo.cuexpo2017.fragment.HomeFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#ececec">
+        android:background="#ececec"
+        android:orientation="vertical">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/home_toolbar"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
+
             <ImageView
                 android:id="@+id/home_toolbar_qr"
                 android:layout_width="30dp"
@@ -20,145 +23,170 @@
                 android:padding="5dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/iv_qr_black_icon" />
+
             <TextView
                 android:id="@+id/home_toolbar_title"
-                android:text="@string/home_title"
-                android:textSize="@dimen/title_toolbar_size"
+                fontPath="@string/font_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/home_title"
                 android:textColor="@android:color/black"
-                fontPath="@string/font_bold"
-                android:layout_gravity="center" />
-         </android.support.v7.widget.Toolbar>
+                android:textSize="@dimen/title_toolbar_size" />
+        </android.support.v7.widget.Toolbar>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/ivVPHighlight"
                         android:layout_width="match_parent"
                         android:layout_height="210dp" />
+
                     <android.support.v4.view.ViewPager
                         android:id="@+id/vpHighlight"
                         android:layout_width="match_parent"
-                        android:layout_height="210dp">
-                    </android.support.v4.view.ViewPager>
+                        android:layout_height="210dp"></android.support.v4.view.ViewPager>
+
                     <me.relex.circleindicator.CircleIndicator
                         android:id="@+id/indicatorHighlight"
                         android:layout_width="match_parent"
-                        android:layout_alignBottom="@id/vpHighlight"
-                        android:layout_height="26dp"/>
+                        android:layout_height="26dp"
+                        android:layout_alignBottom="@id/vpHighlight" />
                 </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/layoutStageHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_margin="8dp"
-            android:background="@color/header_background">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvStageHeaderTitle"
-                    android:text="@string/home_stage_header_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textStyle="bold"
-                    android:paddingLeft="10dp"
-                    android:lineSpacingExtra="-4sp"
-                    style="@style/tvHighlightHeader" />
-                <TextView
-                    android:id="@+id/tvStageHeaderDesc"
-                    android:text="@string/home_stage_header_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="3dp"
-                    style="@style/tvHeaderDesc"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_play_arrow_white_24dp"/>
 
-        </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
-            <cuexpo.cuexpo2017.view.ExpandableHeightListView
-                android:id="@+id/lvStage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:divider="@color/transparent"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
-        </LinearLayout>
                 <RelativeLayout
-                    android:id="@+id/layoutActivityHeader"
+                    android:id="@+id/layoutStageHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_margin="8dp"
-                    android:background="@color/header_background">
+                    android:background="@color/header_background"
+                    android:padding="4dp">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvStageHeaderTitle"
+                            style="@style/tvHighlightHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20sp"
+                            android:layout_centerVertical="true"
+                            android:lineSpacingExtra="-8sp"
+                            android:paddingLeft="10dp"
+                            android:text="@string/home_stage_header_title"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvStageHeaderDesc"
+                            style="@style/tvHeaderDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="0dp"
+                            android:text="@string/home_stage_header_desc"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_play_arrow_white_24dp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
+
+                    <cuexpo.cuexpo2017.view.ExpandableHeightListView
+                        android:id="@+id/lvStage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:divider="@color/transparent"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layoutActivityHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/header_background"
+                    android:padding="4dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/tvActivityHeaderTitle"
-                            android:text="@string/home_activity_header_title"
+                            style="@style/tvHighlightHeader"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="20sp"
                             android:layout_centerVertical="true"
-                            android:textStyle="bold"
                             android:paddingLeft="10dp"
-                            android:lineSpacingExtra="-4sp"
-                            style="@style/tvHighlightHeader" />
+                            android:text="@string/home_activity_header_title"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/tvActivityHeaderDesc"
-                            android:text="@string/home_activity_header_desc"
+                            style="@style/tvHeaderDesc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:paddingLeft="10dp"
-                            android:paddingTop="3dp"
-                            style="@style/tvHeaderDesc" />
+                            android:paddingTop="0dp"
+                            android:text="@string/home_activity_header_desc" />
                     </LinearLayout>
+
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_favorite_white_24dp"/>
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_favorite_white_24dp" />
 
                 </RelativeLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <cuexpo.cuexpo2017.view.ExpandableHeightListView
-                    android:id="@+id/lvActivity"
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:divider="@color/transparent"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
+
+                    <cuexpo.cuexpo2017.view.ExpandableHeightListView
+                        android:id="@+id/lvActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@color/transparent"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

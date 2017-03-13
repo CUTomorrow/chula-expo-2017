@@ -36,39 +36,42 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
-                android:weightSum="1"
-                android:padding="8dp"
-                android:layout_margin="8dp"
-                android:background="@color/header_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@color/header_background"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:weightSum="1">
+
                 <LinearLayout
-                    android:layout_weight="0.98"
-                    android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.98"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/favourite_ue_header"
-                        android:text="UPCOMING EVENT"
+                        style="@style/tvHighlightHeader"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20sp"
                         android:layout_centerVertical="true"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
                         android:lineSpacingExtra="-4sp"
-                        style="@style/tvHighlightHeader" />
+                        android:paddingLeft="10dp"
+                        android:text="UPCOMING EVENT"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/favourite_ue_desc"
-                        android:text="Events ที่กำลังจะเกิดขึ้น"
+                        style="@style/tvHeaderDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dp"
                         android:paddingTop="-3dp"
-                        style="@style/tvHeaderDesc"
-                        android:textColor="@color/white"/>
+                        android:text="Events ที่กำลังจะเกิดขึ้น"
+                        android:textColor="@color/white" />
                 </LinearLayout>
 
 
@@ -76,63 +79,67 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_event"/>
+                    android:layout_marginRight="8sp"
+                    android:src="@drawable/ic_event" />
             </LinearLayout>
 
             <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:id="@+id/favourite_content_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </cuexpo.cuexpo2017.view.ExpandableHeightListView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8sp"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
 
 
             <LinearLayout
-                android:weightSum="1"
-                android:padding="8dp"
-                android:layout_margin="8dp"
-                android:background="@color/header_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@color/header_background"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:weightSum="1">
+
                 <LinearLayout
-                    android:layout_weight="0.98"
-                    android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.98"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/favourite_pe_header"
-                        android:text="PREVIOUS EVENT"
+                        style="@style/tvHighlightHeader"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20sp"
                         android:layout_centerVertical="true"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
                         android:lineSpacingExtra="-4sp"
-                        style="@style/tvHighlightHeader" />
+                        android:paddingLeft="10dp"
+                        android:text="PREVIOUS EVENT"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/favourite_pe_desc"
-                        android:text="Events ที่เริ่มไปแล้ว"
+                        style="@style/tvHeaderDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dp"
                         android:paddingTop="-3dp"
-                        style="@style/tvHeaderDesc"
-                        android:textColor="@color/white"/>
+                        android:text="Events ที่เริ่มไปแล้ว"
+                        android:textColor="@color/white" />
                 </LinearLayout>
 
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_event"/>
+                    android:layout_marginRight="8sp"
+                    android:src="@drawable/ic_event" />
             </LinearLayout>
 
             <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:id="@+id/favourite_content_container2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </cuexpo.cuexpo2017.view.ExpandableHeightListView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8sp"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
 
         </LinearLayout>
     </ScrollView>

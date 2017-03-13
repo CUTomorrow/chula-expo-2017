@@ -47,7 +47,6 @@
                 android:background="@color/header_background"
                 android:orientation="horizontal"
                 android:padding="8dp"
-                android:layout_margin="8dp"
                 android:weightSum="1">
 
                 <LinearLayout
@@ -66,6 +65,7 @@
                         android:paddingLeft="10dp"
                         android:text="UPCOMING EVENT"
                         android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/reserved_ue_desc"
                         style="@style/tvHeaderDesc"
@@ -89,8 +89,8 @@
             <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:id="@+id/reserved_content_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </cuexpo.cuexpo2017.view.ExpandableHeightListView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8sp"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,7 +98,6 @@
                 android:background="@color/header_background"
                 android:orientation="horizontal"
                 android:padding="8dp"
-                android:layout_margin="8dp"
                 android:weightSum="1">
 
                 <LinearLayout
@@ -141,8 +140,8 @@
             <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:id="@+id/reserved_content_container2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </cuexpo.cuexpo2017.view.ExpandableHeightListView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8sp"></cuexpo.cuexpo2017.view.ExpandableHeightListView>
 
         </LinearLayout>
 

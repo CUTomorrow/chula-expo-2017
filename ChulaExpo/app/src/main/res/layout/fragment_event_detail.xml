@@ -8,50 +8,54 @@
     android:background="@color/light_grey">
 
     <ImageView
-        android:layout_width="match_parent"
-        app:srcCompat="@drawable/login_bg"
         android:id="@+id/event_image"
-        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@drawable/login_bg"
+        android:layout_margin="0dp"
         android:clickable="false"
-        android:contextClickable="false" />
+        android:contextClickable="false"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/login_bg"
+        app:srcCompat="@drawable/login_bg" />
 
     <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_view"
-        android:scrollbars="none"
-        android:divider="@color/light_grey" />
+        android:divider="@color/light_grey"
+        android:scrollbars="none" />
 
     <FrameLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/header"
-        android:elevation="1dp">
+        android:layout_marginBottom="6dp"
+        android:elevation="2dp">
 
         <ImageView
+            android:id="@+id/imageView5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcCompat="@color/light_grey"
-            android:id="@+id/imageView5"
-            android:layout_marginBottom="6dp" />
+            android:layout_marginBottom="6dp"
+            app:srcCompat="@color/light_grey" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="4dp"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
-            android:layout_marginTop="6dp">
+            android:layout_marginTop="6dp"
+            app:cardCornerRadius="4dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#F8F8F8"
+                android:paddingBottom="9dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="9dp">
+                android:paddingTop="4dp">
 
                 <TextView
                     android:id="@+id/title"
@@ -70,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title"
-                    android:background="@color/booking_full"
+                    android:background="@color/bgPrimary"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
                     android:text="..."
@@ -83,12 +87,12 @@
 
     <ImageView
         android:id="@+id/close_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="true"
         android:padding="15dp"
-        android:src="@drawable/close_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:src="@drawable/close_button" />
 
     <FrameLayout
         android:layout_width="match_parent"
