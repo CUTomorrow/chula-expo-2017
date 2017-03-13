@@ -110,12 +110,14 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                             //keep token
                             SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("id", dao.getResults().getId());
+                            editor.putString("uid", dao.getResults().getId());
                             editor.putString("type", dao.getResults().getType());
                             editor.putString("profile", dao.getResults().getProfile());
                             editor.putString("gender", dao.getResults().getGender());
                             editor.putString("name",dao.getResults().getName());
                             editor.putString("emails",dao.getResults().getEmail());
+                            editor.putString("tags", TextUtils.join(",", dao.getResults().getTags()));
+                            Log.e("UserInfo", TextUtils.join(",", dao.getResults().getTags()));
                             try {
                                 editor.putInt("age", dao.getResults().getAge());
                             } catch (Exception e){
