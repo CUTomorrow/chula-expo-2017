@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import cuexpo.cuexpo2017.R;
+import cuexpo.cuexpo2017.activity.MainActivity;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
@@ -413,11 +414,15 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
             notiDesc = notiDesc.subSequence(0, 140) + "...";
         }
 
+        Intent notiIntentOpenApp = new Intent(context, MainActivity.class);
+        PendingIntent openAppIntent = PendingIntent.getActivity(context, 0, notiIntentOpenApp, 0);
+
         NotificationCompat.Builder notiBuilder =
             new NotificationCompat.Builder(this.context)
                 .setSmallIcon(R.drawable.noti_logo)
                 .setContentTitle("Chula Expo : " + this.place)
                 .setContentText(this.time)
+                .setContentIntent(openAppIntent)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(notiDesc))
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
@@ -442,6 +447,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, curNotiID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             long futureInMillis = SystemClock.elapsedRealtime() + notificationTimestamp - currentTimestamp;
+//            long futureInMillis = SystemClock.elapsedRealtime() + 5000;
             AlarmManager alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
         }
