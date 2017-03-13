@@ -1,5 +1,6 @@
 package cuexpo.cuexpo2017.fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,6 +116,28 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (access) {
             setName(sharedPref.getString("name", ""));
             setEmail(sharedPref.getString("email", ""));
+            String type = sharedPref.getString("type", "");
+            String gender = sharedPref.getString("gender", "");
+            int age = sharedPref.getInt("age", 0);
+            if (gender.equals("Male"))
+                setGender("ชาย");
+            else if (gender.equals("Female"))
+                setGender("หญิง");
+            else if (gender.equals("Other"))
+                setGender("อื่นๆ");
+            else
+                setGender("-");
+            if (age > 0)
+                setAge(age + "");
+            else
+                setAge("-");
+            /*if (type.equals("Academic")) {
+                setStudentDescription(sharedPref.getString("academicLevel", ""),
+                        sharedPref.getString("academicYear", ""));
+                setPlace(sharedPref.getString("academicSchool", ""));
+            } else if (type.equals("Worker")) {
+                setAdultDescription(sharedPref.getString("workerJob", ""));
+            }*/
             Glide.with(this)
                     .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
                     .placeholder(R.drawable.iv_profile_temp)
@@ -182,57 +206,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         access = savedInstanceState.getBoolean("access");
     }
 
-    Callback<UserDao> callBackUserInfo = new Callback<UserDao>() {
-        @Override
-        public void onResponse(Call<UserDao> call, Response<UserDao> response) {
-            if (response.isSuccessful()) {
-                UserDao dao = response.body();
-                Log.e("Profile Fragment", "MY NAME " + dao.getResults().getName());
-                Log.e("Profile Fragment", "MY ACADEMIC " + dao.getResults().getAcademic());
-                Log.e("Profile Fragment", "MY ACADEMIC YEAR " + dao.getResults().getAcademic().getAcademicYear());
-                Log.e("Profile Fragment", "MY ACADEMIC LEVEL " + dao.getResults().getAcademic().getAcademicLevel());
-                Log.e("Profile Fragment", "MY ACADEMIC SCHOOL " + dao.getResults().getAcademic().getAcademicSchool());
-                Log.e("Profile Fragment", "MY TYPE " + dao.getResults().getType());
-                Log.e("Profile Fragment", "MY WORKER " + dao.getResults().getWorker());
-                Log.e("Profile Fragment", "MY EMAIL " + dao.getResults().getEmail());
-                Log.e("Profile Fragment", "MY GENDER " + dao.getResults().getGender());
-                Log.e("Profile Fragment", "MY AGE " + dao.getResults().getAge());
-                if (dao.getResults().getType().equals("Academic")) {
-                    setStudentDescription(sharedPref.getString("academicLevel", ""),
-                            sharedPref.getString("academicYear", ""));
-                    setPlace(sharedPref.getString("academicSchool", ""));
-                } else if (dao.getResults().getType().equals("Worker")) {
-                    setAdultDescription(sharedPref.getString("wokerJob", ""));
-                }
-                if (dao.getResults().getGender().equals("Male")) {
-                    setGender("ชาย");
-                } else if (dao.getResults().getGender().equals("Female")) {
-                    setGender("เหญิง");
-                } else if (dao.getResults().getGender().equals("Other")) {
-                    setGender("เอื่นๆ");
-                } else {
-                    setGender("-");
-                }
-                if (dao.getResults().getAge() > 0) {
-                    setAge(dao.getResults().getAge() + "");
-                } else {
-                    setAge("-");
-                }
-            } else {
-                try {
-                    Log.e("Profile Fragment", "Call Me Not Success " + response.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onFailure(Call<UserDao> call, Throwable t) {
-            Log.e("Profile Fragment", "Call Me Fail");
-        }
-    };
-
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
@@ -261,17 +234,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (!access) {
                 error("แก้ไขข้อมูล");
             } else {
-                Call<UserDao> callUserInfo = HttpManager.
-                        getInstance().getService().getUserInfo
-                        ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool");
-                callUserInfo.enqueue(callBackUserInfo);
                 //comingSoon();
             }
         } else if (v == btnSetting) {
             if (!access) {
                 error("แก้ไขเนื้อหาที่สนใจ");
             } else {
-                if(sharedPref.getString("apiToken", "").equals("")) error("แก้ไขเนื้อหาที่สนใจ");
+                if (sharedPref.getString("apiToken", "").equals("")) error("แก้ไขเนื้อหาที่สนใจ");
                 else {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -311,7 +280,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             editor.putString("name", "");
             editor.putString("email", "");
             editor.putString("gender", "");
-            editor.putString("age", "");
+            editor.putInt("age", 0);
             editor.putString("academicYear", "");
             editor.putString("academicSchool", "");
             editor.putString("academicLevel", "");
