@@ -38,7 +38,10 @@
             android:layout_below="@id/toolbar"
             android:id="@+id/list_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:divider="@color/light_grey"
+            />
 
     </RelativeLayout>
 
