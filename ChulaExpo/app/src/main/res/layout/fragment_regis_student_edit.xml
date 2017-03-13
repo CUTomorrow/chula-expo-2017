@@ -136,6 +136,8 @@
                         android:id="@+id/etEmail"
                         style="@style/etRegis"
                         android:inputType="none"
+                        android:enabled="false"
+                        android:focusable="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
