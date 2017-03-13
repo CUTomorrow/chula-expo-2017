@@ -8,42 +8,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
-        <TextView
-            android:id="@+id/tvHighlightLabel"
-            android:text="EXPO HIGHLIGHT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="20dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="7dp"
-            android:paddingRight="7dp"
-            style="@style/tvHighlightHeader"
-            android:background="@drawable/shape_rounded_rectangle_pink"/>
+
+    <TextView
+        android:id="@+id/tvHighlightLabel"
+        style="@style/tvHighlightHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_rounded_rectangle_pink"
+        android:paddingBottom="0dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="0dp"
+        android:text="HIGHLIGHT"
+        android:textAlignment="center" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/highlight_title_padding"
-        android:background="#80000000">
+        android:background="#5A000000"
+        android:orientation="vertical"
+        android:padding="6dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="12dp">
+
             <TextView
                 android:id="@+id/tvHighlightTitle"
+                fontPath="@string/font_bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/highlight_title"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="Vidva Highlight"
                 android:textColor="@color/highlight_tab_text"
                 android:textSize="@dimen/highlight_title"
-                fontPath="@string/font_bold"
-                android:maxLines="1"
-                android:textStyle="bold"
-                android:ellipsize="end"/>
+                android:textStyle="bold" />
             <!--
             <TextView
                 android:id="@+id/tvHighlightTime"
@@ -56,16 +60,18 @@
                 android:layout_alignParentRight="true" />
                 -->
         </RelativeLayout>
+
         <TextView
             android:id="@+id/tvHighlightDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="12dp"
             android:text="นิทรรศการวิชาการทางวิศวกรรมครั้งที่ 17 (Nitad 17)"
             android:textColor="@color/highlight_tab_text"
-            android:paddingLeft="12dp"
-            android:textSize="@dimen/highlight_desc"
-            android:maxLines="1"
-            android:ellipsize="end"/>
+            android:textSize="@dimen/highlight_desc" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="14dp"></LinearLayout>
