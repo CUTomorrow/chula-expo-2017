@@ -123,7 +123,6 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="ไม่พบข้อมูลผู้ใช้"
                                 android:textColor="@color/white"
                                 android:textSize="24sp" />
                         </LinearLayout>
@@ -137,7 +136,6 @@
                             android:layout_marginTop="-5dp"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="โปรดเข้าสู่ระบบอีกครั้ง"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 

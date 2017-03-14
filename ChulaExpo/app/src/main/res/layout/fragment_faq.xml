@@ -43,9 +43,9 @@
                 android:layout_height="match_parent">
 
                 <cuexpo.cuexpo2017.view.ExpandableHeightListView
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:divider="@null"
                     android:dividerHeight="0dp"

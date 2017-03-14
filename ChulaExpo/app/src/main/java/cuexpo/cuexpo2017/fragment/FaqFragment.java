@@ -63,7 +63,7 @@ public class FaqFragment extends Fragment implements View.OnClickListener {
         ivClose = (ImageView) rootView.findViewById(R.id.faq_back);
 
         ivClose.setOnClickListener(this);
-        adapter = new FaqListAdapter();
+        adapter = new FaqListAdapter(getActivity());
         listView.setAdapter(adapter);
         listView.setExpanded(true);
         listView.setFocusable(false);

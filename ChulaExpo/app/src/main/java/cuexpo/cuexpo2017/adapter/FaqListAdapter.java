@@ -1,9 +1,12 @@
 package cuexpo.cuexpo2017.adapter;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.view.FaqListItem;
 
 /**
@@ -12,21 +15,25 @@ import cuexpo.cuexpo2017.view.FaqListItem;
 
 public class FaqListAdapter extends BaseAdapter{
 
+    private String[] question;
+    private String[] answer;
+    private Context context;
+
+    public FaqListAdapter (Context ctx){
+        this.context = ctx;
+        question = context.getResources().getStringArray(R.array.question);
+        answer = context.getResources().getStringArray(R.array.answer);
+    }
+
     @Override
     public int getCount() {
-        return 10;
-        /*
-        if(cuexpo.chulaexpo.dao == null) return  0;
-        if(cuexpo.chulaexpo.dao.getData() == null) return 0;
-        return cuexpo.chulaexpo.dao.getData().size();
-        */
+        return question.length;
     }
 
     @Override
     public Object getItem(int position)
     {
         return null;
-        // return cuexpo.chulaexpo.dao.getData().get(position);
     }
 
     @Override
@@ -43,18 +50,9 @@ public class FaqListAdapter extends BaseAdapter{
         else
             item = new FaqListItem(parent.getContext());
 
-        //Mock
-        if(position%3==0){
-            item.setQuestion("Vidva Highlight");
-            item.setAnswer("15 Mar 09.40 - 10.40");
-        }
-        else if(position%3==1){
-            item.setQuestion("The Accountant นักบัญชีในตำนาน");
-            item.setAnswer("15 Mar 11.40 - 12.40");
-        } else {
-            item.setQuestion("Psyxcho Highlight");
-            item.setAnswer("15 Mar 13.00 - 15.00");
-        }
+        item.setQuestion(question[position]);
+        item.setAnswer(answer[position]);
+
         return item;
     }
 }
