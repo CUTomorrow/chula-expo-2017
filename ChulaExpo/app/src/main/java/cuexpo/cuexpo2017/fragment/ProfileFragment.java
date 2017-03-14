@@ -361,16 +361,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             editor.putString("workerJob", "");
             editor.putString("type", "");
             editor.apply();
+            Log.d("facebookId", facebookId);
 
-            new GraphRequest(AccessToken.getCurrentAccessToken(), "/" + facebookId + "/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
-                @Override
-                public void onCompleted(GraphResponse graphResponse) {
-                    LoginManager.getInstance().logOut();
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
-            }).executeAsync();
+            if(!facebookId.equals("")) {
+                new GraphRequest(AccessToken.getCurrentAccessToken(), "/" + facebookId + "/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
+                    @Override
+                    public void onCompleted(GraphResponse graphResponse) {
+                        LoginManager.getInstance().logOut();
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                }).executeAsync();
+            }
         }
     }
 
