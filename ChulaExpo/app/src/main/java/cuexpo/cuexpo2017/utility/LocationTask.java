@@ -101,8 +101,9 @@ public class LocationTask extends TimerTask{
 
     private void callWhereAmI(){
         Location loc = MainApplication.getCurrentLocation();
+        Log.d("whereAmI call", loc.getLatitude()+", "+loc.getLongitude());
         Call<WhereDao> callWhere = HttpManager.getInstance().getService().getLocationInfo(
-                new MyLocation(loc.getLatitude(), loc.getLongitude()));
+                loc.getLatitude(), loc.getLongitude());
         callWhere.enqueue(callbackWhere);
     }
 
@@ -114,7 +115,7 @@ public class LocationTask extends TimerTask{
                 MainApplication.setCurrentLocationDetail(dao.getResults().getText().getTh());
                 Log.d("whereAmI success", dao.getResults().getText().getTh());
             } else {
-                Log.e("whereAmI not success", "TToTT");
+                Log.e("whereAmI not success", response.errorBody().toString());
             }
         }
 

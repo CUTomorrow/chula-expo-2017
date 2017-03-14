@@ -122,7 +122,7 @@ public interface ApiService {
     @PUT("/api/me")
     Call<UserDao> editStudentUserInfo(@Body EditStudentUser editStudentUser);
 
-    @POST("/api/me/where")
-    Call<WhereDao> getLocationInfo(@Body MyLocation myLocation);
+    @GET("/api/me/where")
+    Call<WhereDao> getLocationInfo(@Query("latitude") double latitude, @Query("longitude") double longitude);
 
 }
