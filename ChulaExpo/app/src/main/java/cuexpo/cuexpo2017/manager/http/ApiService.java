@@ -9,6 +9,8 @@ import cuexpo.cuexpo2017.dao.EditAdultUser;
 import cuexpo.cuexpo2017.dao.EditStudentUser;
 import cuexpo.cuexpo2017.dao.FacilityDao;
 import cuexpo.cuexpo2017.dao.LoginDao;
+import cuexpo.cuexpo2017.dao.LoginUser;
+import cuexpo.cuexpo2017.dao.MyLocation;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.ReserveDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
@@ -16,6 +18,7 @@ import cuexpo.cuexpo2017.dao.RoundDao;
 import cuexpo.cuexpo2017.dao.TagWrapper;
 import cuexpo.cuexpo2017.dao.UserDao;
 import cuexpo.cuexpo2017.dao.UserProfile;
+import cuexpo.cuexpo2017.dao.WhereDao;
 import cuexpo.cuexpo2017.dao.ZoneDao;
 import cuexpo.cuexpo2017.dao.ZoneItemDao;
 import retrofit2.Call;
@@ -33,6 +36,10 @@ import retrofit2.http.Query;
  */
 
 public interface ApiService {
+
+    @POST("/api/login")
+    Call<LoginDao> loadLoginStatus(@Body LoginUser loginUser);
+
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadActivityList(@Query("fields") String fields,
                                                      @Query("limit") int limit,
@@ -119,5 +126,27 @@ public interface ApiService {
 
     @PUT("/api/me")
     Call<UserDao> editStudentUserInfo(@Body EditStudentUser editStudentUser);
+
+    @GET("/api/activities/search")
+    Call<ActivityItemCollectionDao> searchActivities(@Query("u") String user,
+                                           @Query("lat") double lat,
+                                           @Query("lng") double lng,
+                                           @Query("cutoff") int distance,
+                                           @Query("q") String queryString);
+
+    @GET("/api/activities/search")
+    Call<ActivityItemCollectionDao> searchActivities(@Query("u") String user,
+                                                     @Query("q") String queryString);
+
+    @GET("/api/activities/nearby")
+    Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("lat") double lat,
+                                                         @Query("lng") double lng);
+
+    @GET("/api/activities/nearby")
+    Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("u") String user,
+                                                         @Query("lat") double lat,
+                                                         @Query("lng") double lng);
+    @GET("/api/me/where")
+    Call<WhereDao> getLocationInfo(@Query("latitude") double latitude, @Query("longitude") double longitude);
 
 }

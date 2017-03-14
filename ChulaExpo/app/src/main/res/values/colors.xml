@@ -89,6 +89,15 @@
     <color name="GRAD">#bb6280</color>
     <color name="RCU">#ee0678</color>
 
+    <color name="SMART">#ff7201</color>
+    <color name="HEALTH">#4ba983</color>
+    <color name="HUMAN">#4a338b</color>
+    <color name="HALL">#ff4e9e</color>
+    <color name="หอประชุม">#ff4e9e</color>
+    <color name="SALA">#ff4e9e</color>
+    <color name="ART">#ff4e9e</color>
+    <color name="INTERFORUM">#ff4e9e</color>
+
     <color name="DEFAULT">#606060</color>
 
     <!-- Map -->

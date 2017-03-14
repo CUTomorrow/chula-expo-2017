@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -99,42 +100,57 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-        initInstances(rootView, savedInstanceState);
-        ivQR.setOnClickListener(this);
-        btnFavourite.setOnClickListener(this);
-        btnReserved.setOnClickListener(this);
-        btnEdit.setOnClickListener(this);
-        btnSetting.setOnClickListener(this);
-        btnFaq.setOnClickListener(this);
-        btnAbout.setOnClickListener(this);
-        btnAboutApp.setOnClickListener(this);
-        btnLogout.setOnClickListener(this);
+                             final Bundle savedInstanceState) {
 
-        sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
+        final View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        access = !sharedPref.getString("fbToken", "").equals("");
+        new AsyncTask<Void,Void,Void>() {
 
-        if (access) {
-            setName(sharedPref.getString("name", ""));
-            setEmail(sharedPref.getString("email", ""));
-            setGender(sharedPref.getString("gender", ""));
-            Call<UserDao> callUserInfo = HttpManager.
-                    getInstance().getService().getUserInfo
-                    ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool,workerJob");
-            callUserInfo.enqueue(callBackUserInfo);
-            Glide.with(this)
-                    .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
-                    .placeholder(R.drawable.iv_profile_temp)
-                    .error(R.drawable.iv_profile_temp)
-                    .bitmapTransform(new CropCircleTransformation(getActivity()))
-                    .into(ivProfile);
-        } else {
-            setName("ไม่พบข้อมูลผู้ใช้");
-            setEmail("โปรดเข้าสู่ระบบอีกครั้ง");
-            tvLogout.setText("กลับไปหน้า Login");
-        }
+            @Override
+            protected Void doInBackground(Void... params) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initInstances(rootView, savedInstanceState);
+                        ivQR.setOnClickListener(ProfileFragment.this);
+                        btnFavourite.setOnClickListener(ProfileFragment.this);
+                        btnReserved.setOnClickListener(ProfileFragment.this);
+                        btnEdit.setOnClickListener(ProfileFragment.this);
+                        btnSetting.setOnClickListener(ProfileFragment.this);
+                        btnFaq.setOnClickListener(ProfileFragment.this);
+                        btnAbout.setOnClickListener(ProfileFragment.this);
+                        btnAboutApp.setOnClickListener(ProfileFragment.this);
+                        btnLogout.setOnClickListener(ProfileFragment.this);
+
+                        sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
+
+                        access = !sharedPref.getString("fbToken", "").equals("") || !sharedPref.getString("type", "").equals("");
+
+                        if (access) {
+                            setName(sharedPref.getString("name", ""));
+                            setEmail(sharedPref.getString("email", ""));
+                            setGender(sharedPref.getString("gender", ""));
+                            Call<UserDao> callUserInfo = HttpManager.
+                                    getInstance().getService().getUserInfo
+                                    ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool,workerJob");
+                            callUserInfo.enqueue(callBackUserInfo);
+                            Glide.with(ProfileFragment.this)
+                                    .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
+                                    .placeholder(R.drawable.iv_profile_temp)
+                                    .error(R.drawable.iv_profile_temp)
+                                    .bitmapTransform(new CropCircleTransformation(getActivity()))
+                                    .into(ivProfile);
+                        } else {
+                            setName("ไม่พบข้อมูลผู้ใช้");
+                            setEmail("โปรดเข้าสู่ระบบอีกครั้ง");
+                            tvLogout.setText("กลับไปหน้า Login");
+                        }
+                    }
+                });
+                return null;
+            }
+        }.execute();
+
 
         return rootView;
     }
@@ -346,6 +362,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (v == btnLogout) {
+
             SharedPreferences.Editor editor = sharedPref.edit();
             String facebookId = sharedPref.getString("id", "");
             editor.putString("fbToken", "");
@@ -373,6 +390,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                         getActivity().finish();
                     }
                 }).executeAsync();
+            } else {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         }
     }

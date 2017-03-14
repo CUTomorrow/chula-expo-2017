@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -226,78 +227,93 @@ public class MapFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         try {
             rootView = inflater.inflate(R.layout.fragment_map, container, false);
         } catch (InflateException e) {
             /* map is already there, just return view as it is */
         }
 
-        // Get View
-        pinList = (CardView) rootView.findViewById(R.id.pin_list);
-        infoCard = (RelativeLayout) rootView.findViewById(R.id.info_card);
-        closeInfoCard = (ImageView) rootView.findViewById(R.id.close_info);
+        new AsyncTask<Void,Void,Void>() {
 
-        showFaculty = (ImageView) rootView.findViewById(R.id.show_faculty_city);
-        showInterest = (ImageView) rootView.findViewById(R.id.show_interest);
-        showCanteen = (ImageView) rootView.findViewById(R.id.show_canteen);
-        showRegis = (ImageView) rootView.findViewById(R.id.show_regis);
-        showInfo = (ImageView) rootView.findViewById(R.id.show_info);
-        showToilet = (ImageView) rootView.findViewById(R.id.show_toilet);
-        showRally = (ImageView) rootView.findViewById(R.id.show_rally);
-        showCarPark = (ImageView) rootView.findViewById(R.id.show_car_park);
-        showEmer = (ImageView) rootView.findViewById(R.id.show_emer);
-        showPrayer = (ImageView) rootView.findViewById(R.id.show_prayer);
-        showBusStop = (ImageView) rootView.findViewById(R.id.show_bus_stop);
+            @Override
+            protected Void doInBackground(Void... params) {
 
-        showBusLine1 = (ImageView) rootView.findViewById(R.id.show_bus_line_1);
-        showBusLine2 = (ImageView) rootView.findViewById(R.id.show_bus_line_2);
-        showBusLine3 = (ImageView) rootView.findViewById(R.id.show_bus_line_3);
-        showBusLine4 = (ImageView) rootView.findViewById(R.id.show_bus_line_4);
+                getActivity().runOnUiThread(new Thread(new Runnable() {
+                    public void run() {
+                        // Get View
+                        pinList = (CardView) rootView.findViewById(R.id.pin_list);
+                        infoCard = (RelativeLayout) rootView.findViewById(R.id.info_card);
+                        closeInfoCard = (ImageView) rootView.findViewById(R.id.close_info);
 
-        // Get Card Content
-        pinIcon = (ImageView) rootView.findViewById(R.id.pin_icon);
-        facility = (TextView) rootView.findViewById(R.id.facility);
-        description = (TextView) rootView.findViewById(R.id.description);
+                        showFaculty = (ImageView) rootView.findViewById(R.id.show_faculty_city);
+                        showInterest = (ImageView) rootView.findViewById(R.id.show_interest);
+                        showCanteen = (ImageView) rootView.findViewById(R.id.show_canteen);
+                        showRegis = (ImageView) rootView.findViewById(R.id.show_regis);
+                        showInfo = (ImageView) rootView.findViewById(R.id.show_info);
+                        showToilet = (ImageView) rootView.findViewById(R.id.show_toilet);
+                        showRally = (ImageView) rootView.findViewById(R.id.show_rally);
+                        showCarPark = (ImageView) rootView.findViewById(R.id.show_car_park);
+                        showEmer = (ImageView) rootView.findViewById(R.id.show_emer);
+                        showPrayer = (ImageView) rootView.findViewById(R.id.show_prayer);
+                        showBusStop = (ImageView) rootView.findViewById(R.id.show_bus_stop);
 
-        // Set OnClickListener
-        rootView.findViewById(R.id.show_hide_pin).setOnClickListener(showPinListOnClick);
-        rootView.findViewById(R.id.show_current_location).setOnClickListener(showCurrentLocation);
-        pinList.setOnClickListener(focusOCL);
-        rootView.findViewById(R.id.info_card).setOnClickListener(focusOCL);
-        closeInfoCard.setOnClickListener(closeOCL);
+                        showBusLine1 = (ImageView) rootView.findViewById(R.id.show_bus_line_1);
+                        showBusLine2 = (ImageView) rootView.findViewById(R.id.show_bus_line_2);
+                        showBusLine3 = (ImageView) rootView.findViewById(R.id.show_bus_line_3);
+                        showBusLine4 = (ImageView) rootView.findViewById(R.id.show_bus_line_4);
 
-        rootView.findViewById(R.id.faculty_city).setOnClickListener(showFacultyOCL);
-        rootView.findViewById(R.id.interest).setOnClickListener(showInterestOCL);
-        rootView.findViewById(R.id.canteen).setOnClickListener(showCanteenOCL);
-        rootView.findViewById(R.id.regis).setOnClickListener(showRegisOCL);
-        rootView.findViewById(R.id.info).setOnClickListener(showInfoOCL);
-        rootView.findViewById(R.id.toilet).setOnClickListener(showToiletOCL);
-        rootView.findViewById(R.id.rally).setOnClickListener(showRallyOCL);
-        rootView.findViewById(R.id.car_park).setOnClickListener(showCarParkOCL);
-        rootView.findViewById(R.id.emer).setOnClickListener(showEmerOCL);
-        rootView.findViewById(R.id.prayer).setOnClickListener(showPrayerOCL);
-        rootView.findViewById(R.id.bus_stop).setOnClickListener(showBusStopOCL);
+                        // Get Card Content
+                        pinIcon = (ImageView) rootView.findViewById(R.id.pin_icon);
+                        facility = (TextView) rootView.findViewById(R.id.facility);
+                        description = (TextView) rootView.findViewById(R.id.description);
 
-        showBusLine1.setOnClickListener(showBusLine1OCL);
-        showBusLine2.setOnClickListener(showBusLine2OCL);
-        showBusLine3.setOnClickListener(showBusLine3OCL);
-        showBusLine4.setOnClickListener(showBusLine4OCL);
+                        // Set OnClickListener
+                        rootView.findViewById(R.id.show_hide_pin).setOnClickListener(showPinListOnClick);
+                        rootView.findViewById(R.id.show_current_location).setOnClickListener(showCurrentLocation);
+                        pinList.setOnClickListener(focusOCL);
+                        rootView.findViewById(R.id.info_card).setOnClickListener(focusOCL);
+                        closeInfoCard.setOnClickListener(closeOCL);
 
-        // Set visibility
-        showFaculty.setSelected(true);
-        showBusLine1.setSelected(true);
-        showBusLine2.setSelected(true);
-        showBusLine3.setSelected(true);
-        showBusLine4.setSelected(true);
+                        rootView.findViewById(R.id.faculty_city).setOnClickListener(showFacultyOCL);
+                        rootView.findViewById(R.id.interest).setOnClickListener(showInterestOCL);
+                        rootView.findViewById(R.id.canteen).setOnClickListener(showCanteenOCL);
+                        rootView.findViewById(R.id.regis).setOnClickListener(showRegisOCL);
+                        rootView.findViewById(R.id.info).setOnClickListener(showInfoOCL);
+                        rootView.findViewById(R.id.toilet).setOnClickListener(showToiletOCL);
+                        rootView.findViewById(R.id.rally).setOnClickListener(showRallyOCL);
+                        rootView.findViewById(R.id.car_park).setOnClickListener(showCarParkOCL);
+                        rootView.findViewById(R.id.emer).setOnClickListener(showEmerOCL);
+                        rootView.findViewById(R.id.prayer).setOnClickListener(showPrayerOCL);
+                        rootView.findViewById(R.id.bus_stop).setOnClickListener(showBusStopOCL);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map);
-        mapFragment.getMapAsync(this);
-        initializeMapStaticData();
+                        showBusLine1.setOnClickListener(showBusLine1OCL);
+                        showBusLine2.setOnClickListener(showBusLine2OCL);
+                        showBusLine3.setOnClickListener(showBusLine3OCL);
+                        showBusLine4.setOnClickListener(showBusLine4OCL);
 
-        Call<FacilityDao> facilityCall = HttpManager.getInstance().getService().loadFacilityList();
-        facilityCall.enqueue(callbackFacility);
-        Call<ActivityItemCollectionDao> rallyCall = HttpManager.getInstance().getService().loadActivityByZone("58b1174858d522497ea7394d");
-        rallyCall.enqueue(callbackRally);
+                        // Set visibility
+                        showFaculty.setSelected(true);
+                        showBusLine1.setSelected(true);
+                        showBusLine2.setSelected(true);
+                        showBusLine3.setSelected(true);
+                        showBusLine4.setSelected(true);
+
+                        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map);
+                        mapFragment.getMapAsync(MapFragment.this);
+                        initializeMapStaticData();
+
+                        Call<FacilityDao> facilityCall = HttpManager.getInstance().getService().loadFacilityList();
+                        facilityCall.enqueue(callbackFacility);
+                        Call<ActivityItemCollectionDao> rallyCall = HttpManager.getInstance().getService().loadActivityByZone("58b1174858d522497ea7394d");
+                        rallyCall.enqueue(callbackRally);
+                    }
+                }));
+                return null;
+            }
+        }.execute();
+
+
 
         return rootView;
     }

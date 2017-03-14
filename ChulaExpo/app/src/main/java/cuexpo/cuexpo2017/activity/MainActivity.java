@@ -31,6 +31,7 @@ import cuexpo.cuexpo2017.fragment.EventPageFragment;
 import cuexpo.cuexpo2017.fragment.HomeFragment;
 import cuexpo.cuexpo2017.fragment.MapFragment;
 import cuexpo.cuexpo2017.fragment.ProfileFragment;
+import cuexpo.cuexpo2017.fragment.SearchFragment;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.IGoToMapable;
 import cuexpo.cuexpo2017.utility.NormalPinMapEntity;
@@ -61,10 +62,19 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         if (!sharedPref.getString("apiToken", "").equals(""))
             HttpManager.getInstance().setAPIKey(sharedPref.getString("apiToken", ""));
 
-        initTab();
+        new AsyncTask<Void,Void,Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                initTab();
+                return null;
+            }
+        }.execute();
     }
 
     private void initTab() {
+
+
 
         viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         final LayoutInflater inflater = LayoutInflater.from(viewPagerTab.getContext());
@@ -84,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                         icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_event));
                         break;
                     case 3:
+                        icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_home));
+                        break;
+                    case 4:
                         icon.setImageDrawable(ContextCompat.getDrawable(viewPagerContext, R.drawable.selector_tab_profile));
                         break;
                     default:
@@ -102,13 +115,14 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                         .add("1", HomeFragment.class)
                         .add("2", MapFragment.class)
                         .add("3", EventPageFragment.class)
-                        .add("4", ProfileFragment.class)
+                        .add("4", SearchFragment.class)
+                        .add("5", ProfileFragment.class)
                         .create());
 
                 viewPager = (ViewPager) findViewById(R.id.pager);
                 viewPager.setAdapter(adapter);
                 viewPager.addOnPageChangeListener(thisAcitivity);
-                viewPager.setOffscreenPageLimit(3);
+                viewPager.setOffscreenPageLimit(4);
                 viewPagerTab.setViewPager(viewPager);
 
                 getTabInfo();
