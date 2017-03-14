@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Call<ActivityItemCollectionDao> call;
         if(!apiToken.equals("")){
             call = HttpManager.getInstance().getService()
-                    .loadRecommendedActivityList(apiToken);
+                    .loadRecommendedActivityList();
         } else {
             call = HttpManager.getInstance().getService()
                 .loadActivityList("name,thumbnail,start,end,zone", 20, "start");

@@ -39,7 +39,7 @@ public interface ApiService {
                                                      @Query("sort") String sort);
 
     @GET("/api/activities/recommend")
-    Call<ActivityItemCollectionDao> loadRecommendedActivityList(@Header("Authorization") String Authorization);
+    Call<ActivityItemCollectionDao> loadRecommendedActivityList();
 
 
     @GET("/api/activities")
@@ -92,6 +92,9 @@ public interface ApiService {
 
     @DELETE("/api/me/reserved_rounds/{rid}")
     Call<DeleteResultDao> removeRound(@Path("rid") String rid);
+
+    @GET("/api/me")
+    Call<UserDao> getUserInfo(@Query("fields") String fields);
 
     @GET("/api/places/{pid}")
     Call<PlaceItemDao> loadPlaceItem(@Path("pid") String pid);

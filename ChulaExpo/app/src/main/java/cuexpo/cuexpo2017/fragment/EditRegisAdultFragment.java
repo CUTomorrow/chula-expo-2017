@@ -79,6 +79,7 @@ public class EditRegisAdultFragment extends Fragment implements TextWatcher {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_regis_adult_edit, container, false);
+        rootView.setClickable(true);
         initInstances();
         rootView.findViewById(R.id.btnCancel).setOnClickListener(cancelOCL);
         rootView.findViewById(R.id.btnSave).setOnClickListener(saveOCL);
@@ -178,6 +179,11 @@ public class EditRegisAdultFragment extends Fragment implements TextWatcher {
             callUserInfo.enqueue(callbackUserInfo);
 
             FragmentManager fragmentManager = getFragmentManager();
+            for(Fragment fragment : fragmentManager.getFragments()){
+                if(fragment instanceof ProfileFragment){
+                    ((ProfileFragment) fragment).updateProfile();
+                }
+            }
             fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };

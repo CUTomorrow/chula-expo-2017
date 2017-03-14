@@ -117,42 +117,56 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         access = !sharedPref.getString("fbToken", "").equals("");
 
         if (access) {
-            setName(sharedPref.getString("name", ""));
-            setEmail(sharedPref.getString("email", ""));
-            String type = sharedPref.getString("type", "");
-            String gender = sharedPref.getString("gender", "");
-            int age = sharedPref.getInt("age", 0);
-            if (gender.equals("Male"))
-                setGender("ชาย");
-            else if (gender.equals("Female"))
-                setGender("หญิง");
-            else if (gender.equals("Other"))
-                setGender("อื่นๆ");
-            else
-                setGender("-");
-            if (age > 0)
-                setAge(age + "");
-            else
-                setAge("-");
-            /*if (type.equals("Academic")) {
-                setStudentDescription(sharedPref.getString("academicLevel", ""),
-                        sharedPref.getString("academicYear", ""));
-                setPlace(sharedPref.getString("academicSchool", ""));
-            } else if (type.equals("Worker")) {
-                setAdultDescription(sharedPref.getString("workerJob", ""));
-            }*/
-            Glide.with(this)
-                    .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
-                    .placeholder(R.drawable.iv_profile_temp)
-                    .error(R.drawable.iv_profile_temp)
-                    .bitmapTransform(new CropCircleTransformation(getActivity()))
-                    .into(ivProfile);
+            Call<UserDao> callUserInfo = HttpManager.
+                    getInstance().getService().getUserInfo
+                    ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool,workerJob");
+            callUserInfo.enqueue(callBackUserInfo);
         } else {
             tvLogout.setText("กลับไปหน้า Login");
         }
 
         return rootView;
     }
+
+    public void updateProfile() {
+        setName(sharedPref.getString("name", ""));
+        setEmail(sharedPref.getString("email", ""));
+        String type = sharedPref.getString("type", "");
+        String gender = sharedPref.getString("gender", "");
+        int age = sharedPref.getInt("age", 0);
+        if (gender.equals("Male"))
+            setGender("ชาย");
+        else if (gender.equals("Female"))
+            setGender("หญิง");
+        else if (gender.equals("Other"))
+            setGender("อื่นๆ");
+        else
+            setGender("-");
+        if (age > 0)
+            setAge(age + "");
+        else
+            setAge("-");
+        if (type.equals("Academic")) {
+            if (sharedPref.contains("academicLevel")
+                    && sharedPref.contains("academicYear")
+                    && sharedPref.contains("academicSchool")) {
+                setStudentDescription(sharedPref.getString("academicLevel", ""),
+                        sharedPref.getString("academicYear", ""));
+                setPlace(sharedPref.getString("academicSchool", ""));
+            }
+        } else if (type.equals("Worker")) {
+            if (sharedPref.contains("workerJob"))
+                setAdultDescription(sharedPref.getString("workerJob", ""));
+        }
+        Log.e("Profile Fragment", sharedPref.getString("id", ""));
+        Glide.with(this)
+                .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
+                .placeholder(R.drawable.iv_profile_temp)
+                .error(R.drawable.iv_profile_temp)
+                .bitmapTransform(new CropCircleTransformation(getActivity()))
+                .into(ivProfile);
+    }
+
 
     private void init(Bundle savedInstanceState) {
         // Init Fragment level's variable(s) here
@@ -208,13 +222,57 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         // Restore Instance State here
         access = savedInstanceState.getBoolean("access");
     }
-    
+
+    Callback<UserDao> callBackUserInfo = new Callback<UserDao>() {
+        @Override
+        public void onResponse(Call<UserDao> call, Response<UserDao> response) {
+            if (response.isSuccessful()) {
+                UserDao dao = response.body();
+                setName(dao.getResults().getName());
+                setEmail(dao.getResults().getEmail());
+                String type = dao.getResults().getType();
+                String gender = dao.getResults().getGender();
+                int age = dao.getResults().getAge();
+                if (gender.equals("Male"))
+                    setGender("ชาย");
+                else if (gender.equals("Female"))
+                    setGender("หญิง");
+                else if (gender.equals("Other"))
+                    setGender("อื่นๆ");
+                else
+                    setGender("-");
+                if (age > 0)
+                    setAge(age + "");
+                else
+                    setAge("-");
+                if (type.equals("Academic")) {
+                    if (dao.getResults().getAcademic()!=null){
+                        setStudentDescription(dao.getResults().getAcademic().getAcademicLevel(),
+                                dao.getResults().getAcademic().getAcademicYear());
+                        setPlace(dao.getResults().getAcademic().getAcademicSchool());
+                    }
+                } else if (type.equals("Worker")) {
+                    if (dao.getResults().getWorker()!=null)
+                        setAdultDescription(dao.getResults().getWorker().getJob());
+                }
+            } else {
+                try {
+                    Log.e("Profile Fragment", "Call Me Not Success " + response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<UserDao> call, Throwable t) {
+            Log.e("Profile Fragment", "Call Me Fail");
+        }
+    };
+
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
-            /*if (!access) {
-                error();
-            } else {*/
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.main_overlay, new QRFragment());
@@ -237,35 +295,29 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (!access) {
                 error("แก้ไขข้อมูล");
             } else {
-<<<<<<< HEAD
-                comingSoon();
-=======
-
                 Call<UserDao> callUserInfo = HttpManager.
                         getInstance().getService().getUserInfo
                         ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool");
                 callUserInfo.enqueue(callBackUserInfo);
-                //comingSoon();
 
-                String type = sharedPref.getString("type","");
-                if(type.equals("Academic")){
+                String type = sharedPref.getString("type", "");
+                if (type.equals("Academic")) {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.add(R.id.main_overlay, new EditRegisStudentFragment());
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-                } else if(type.equals("Worker")){
+                } else if (type.equals("Worker")) {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.add(R.id.main_overlay, new EditRegisAdultFragment());
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();;
+                    fragmentTransaction.commit();
                 } else {
                     Toast.makeText(Contextor.getInstance().getContext(), "Staff กรุณาแก้ไขข้อมูลทางเว็บ", Toast.LENGTH_SHORT).show();
                 }
->>>>>>> c9eaeef4d31209cf9f5450c8e588d81c85bb899f
             }
         } else if (v == btnSetting) {
             if (!access) {
