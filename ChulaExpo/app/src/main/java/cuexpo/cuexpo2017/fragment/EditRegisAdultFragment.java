@@ -92,6 +92,7 @@ public class EditRegisAdultFragment extends Fragment implements TextWatcher {
         gender = sharedPref.getString("gender", "Male");
         age = sharedPref.getInt("age",0);
         career = sharedPref.getString("workerJob","");
+        Log.e("UserInfo","career:"+career);
         //birthday = sharedPref.getString("birthday", "");
         //editor.putString("type","Worker");
         //editor.putString("profile","http://graph.facebook.com/"+id+"/picture?type=large");
@@ -193,6 +194,7 @@ public class EditRegisAdultFragment extends Fragment implements TextWatcher {
         public void onResponse(Call<UserDao> call, Response<UserDao> response) {
             if (response.isSuccessful()) {
                 UserDao dao2 = response.body();
+                Log.e("EditUser","worker:"+dao2.getResults().getWorker().getJob());
                 Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() ? "Saved" : "Fail"
                         , Toast.LENGTH_LONG).show();
             } else {

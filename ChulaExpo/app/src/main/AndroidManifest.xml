@@ -17,6 +17,7 @@
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
 
         <meta-data
@@ -49,7 +50,8 @@
         <activity android:name="cuexpo.cuexpo2017.activity.RegisStudentActivity" android:screenOrientation="portrait"/>
         <activity android:name="cuexpo.cuexpo2017.activity.InterestActivity" android:screenOrientation="portrait"/>
         <activity android:name="cuexpo.cuexpo2017.activity.DoneRegisterActivity" android:screenOrientation="portrait"/>
-        <activity android:name="cuexpo.cuexpo2017.activity.MainActivity" android:screenOrientation="portrait" />
+        <activity android:name="cuexpo.cuexpo2017.activity.MainActivity" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name="cuexpo.cuexpo2017.activity.StageActivity" android:screenOrientation="portrait"/>
         <activity android:name="cuexpo.cuexpo2017.activity.FavouriteActivity" android:screenOrientation="portrait"/>
         <activity android:name="cuexpo.cuexpo2017.activity.ReservedActivity" android:screenOrientation="portrait"/>
