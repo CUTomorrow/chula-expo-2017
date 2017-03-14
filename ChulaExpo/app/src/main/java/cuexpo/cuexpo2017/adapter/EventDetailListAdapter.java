@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -53,6 +54,7 @@ import cuexpo.cuexpo2017.dao.DeleteResultDao;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.PlaceItemResultDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
+import cuexpo.cuexpo2017.fragment.EventDetailFragment;
 import cuexpo.cuexpo2017.fragment.ReservedCheckFragment;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.DateUtil;
@@ -90,6 +92,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private String startTimeISO;
     private String endTimeISO;
     private HashMap<String, Integer> NotificationIDMapping;
+    private boolean isLoading = true;
     public static int notiID = 0;
 
     public EventDetailListAdapter(
@@ -172,15 +175,18 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 if (activityDao.getResults().size() == 0) {
                     canReserve = false;
                     isReserve = false;
-                    if (sharedPref.contains(id))
+                    if (sharedPref.contains(id)) {
                         isFavourite = true;
-                    else
+                    } else {
                         isFavourite = false;
+                    }
+                    isLoading = false;
                     notifyDataSetChanged();
                 } else if (activityDao.getResults().get(0).getSeats().getFullCapacity() == 0) {
                     canReserve = false;
                     isReserve = false;
                     isFavourite = false;
+                    isLoading = false;
                     notifyDataSetChanged();
                 } else {
                     JSONObject range = new JSONObject();
@@ -226,7 +232,6 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                                     reserveId = myReserveDao.getResults().get(i).getId();
                                     isReserve = true;
                                     canReserve = false;
-                                    notifyDataSetChanged();
                                     break search;
                                 }
                             } else {
@@ -235,6 +240,8 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                         }
                     }
                 }
+                isLoading = false;
+                notifyDataSetChanged();
             } else {
                 try {
                     Log.e("EventDetail", "Call Reserved Round List Not Success " + response.errorBody().string());
@@ -284,39 +291,23 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 else ((TextView) convertView.findViewById(R.id.location)).setText(place);
                 convertView.findViewById(R.id.reserve_button).setOnClickListener(reserveOCL);
                 if (canReserve) {
-                    ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง EVENT");
-                    ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้ต้องทำการจองเพื่อเข้าร่วม");
-                    ((TextView) convertView.findViewById(R.id.button_title)).
-                            setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
-                    ((TextView) convertView.findViewById(R.id.button_detail)).
-                            setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
-                    convertView.findViewById(R.id.reserve_button).
-                            setBackgroundResource(R.drawable.shape_round_rec_pink_stroke);
-                    ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_pink);
+                    if (!isLoading) {
+                        convertView.findViewById(R.id.event_detail_loading).setVisibility(View.GONE);
+                        ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง EVENT");
+                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้ต้องทำการจองเพื่อเข้าร่วม");
+                        ((TextView) convertView.findViewById(R.id.button_title)).
+                                setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                        ((TextView) convertView.findViewById(R.id.button_detail)).
+                                setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                        convertView.findViewById(R.id.reserve_button).
+                                setBackgroundResource(R.drawable.shape_round_rec_pink_stroke);
+                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket_pink);
+                    }
                 } else {
                     if (isReserve) {
-                        ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง Event แล้ว");
-                        ((TextView) convertView.findViewById(R.id.button_detail)).setText("กดเพื่อยกเลิกการสนใจ Event");
-                        ((TextView) convertView.findViewById(R.id.button_title)).
-                                setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
-                        ((TextView) convertView.findViewById(R.id.button_detail)).
-                                setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
-                        convertView.findViewById(R.id.reserve_button).
-                                setBackgroundResource(R.drawable.shape_round_rec_pink);
-                        ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket);
-                    } else {
-                        if (!isFavourite) {
-                            ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event");
-                            ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถเข้าร่วมได้โดยไม่ต้องจอง");
-                            ((TextView) convertView.findViewById(R.id.button_title)).
-                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
-                            ((TextView) convertView.findViewById(R.id.button_detail)).
-                                    setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
-                            convertView.findViewById(R.id.reserve_button).
-                                    setBackgroundResource(R.drawable.shape_round_rec_pink_stroke);
-                            ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_small_star_pink);
-                        } else {
-                            ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event แล้ว");
+                        if (!isLoading) {
+                            convertView.findViewById(R.id.event_detail_loading).setVisibility(View.GONE);
+                            ((TextView) convertView.findViewById(R.id.button_title)).setText("จอง Event แล้ว");
                             ((TextView) convertView.findViewById(R.id.button_detail)).setText("กดเพื่อยกเลิกการสนใจ Event");
                             ((TextView) convertView.findViewById(R.id.button_title)).
                                     setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
@@ -324,7 +315,35 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                                     setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
                             convertView.findViewById(R.id.reserve_button).
                                     setBackgroundResource(R.drawable.shape_round_rec_pink);
-                            ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_small_star);
+                            ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_ticket);
+                        }
+                    } else {
+                        if (!isFavourite) {
+                            if (!isLoading) {
+                                convertView.findViewById(R.id.event_detail_loading).setVisibility(View.GONE);
+                                ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event");
+                                ((TextView) convertView.findViewById(R.id.button_detail)).setText("Event นี้สามารถเข้าร่วมได้โดยไม่ต้องจอง");
+                                ((TextView) convertView.findViewById(R.id.button_title)).
+                                        setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                                ((TextView) convertView.findViewById(R.id.button_detail)).
+                                        setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
+                                convertView.findViewById(R.id.reserve_button).
+                                        setBackgroundResource(R.drawable.shape_round_rec_pink_stroke);
+                                ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_small_star_pink);
+                            }
+                        } else {
+                            if (!isLoading) {
+                                convertView.findViewById(R.id.event_detail_loading).setVisibility(View.GONE);
+                                ((TextView) convertView.findViewById(R.id.button_title)).setText("สนใจ Event แล้ว");
+                                ((TextView) convertView.findViewById(R.id.button_detail)).setText("กดเพื่อยกเลิกการสนใจ Event");
+                                ((TextView) convertView.findViewById(R.id.button_title)).
+                                        setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
+                                ((TextView) convertView.findViewById(R.id.button_detail)).
+                                        setTextColor(ContextCompat.getColor(parent.getContext(), R.color.white));
+                                convertView.findViewById(R.id.reserve_button).
+                                        setBackgroundResource(R.drawable.shape_round_rec_pink);
+                                ((ImageView) convertView.findViewById(R.id.button_icon)).setImageResource(R.drawable.ic_small_star);
+                            }
                         }
                     }
                 }
@@ -422,14 +441,14 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         PendingIntent openAppIntent = PendingIntent.getActivity(context, 0, notiIntentOpenApp, 0);
 
         NotificationCompat.Builder notiBuilder =
-            new NotificationCompat.Builder(this.context)
-                .setSmallIcon(R.drawable.noti_logo)
-                .setContentTitle("Chula Expo : " + this.place)
-                .setContentText(this.time)
-                .setContentIntent(openAppIntent)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(notiDesc))
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setAutoCancel(true);
+                new NotificationCompat.Builder(this.context)
+                        .setSmallIcon(R.drawable.noti_logo)
+                        .setContentTitle("Chula Expo : " + this.place)
+                        .setContentText(this.time)
+                        .setContentIntent(openAppIntent)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(notiDesc))
+                        .setDefaults(Notification.DEFAULT_ALL)
+                        .setAutoCancel(true);
 
         int curNotiID = 0;
         if (NotificationIDMapping.containsKey(this.id)) {

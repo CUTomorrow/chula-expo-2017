@@ -117,6 +117,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         access = !sharedPref.getString("fbToken", "").equals("");
 
         if (access) {
+            setName(sharedPref.getString("name", ""));
+            setEmail(sharedPref.getString("email", ""));
+            setGender(sharedPref.getString("gender", ""));
             Call<UserDao> callUserInfo = HttpManager.
                     getInstance().getService().getUserInfo
                     ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool,workerJob");
@@ -128,6 +131,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .into(ivProfile);
         } else {
+            setName("ไม่พบข้อมูลผู้ใช้");
+            setEmail("โปรดเข้าสู่ระบบอีกครั้ง");
             tvLogout.setText("กลับไปหน้า Login");
         }
 
@@ -138,20 +143,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         setName(sharedPref.getString("name", ""));
         setEmail(sharedPref.getString("email", ""));
         String type = sharedPref.getString("type", "");
-        String gender = sharedPref.getString("gender", "");
-        int age = sharedPref.getInt("age", 0);
-        if (gender.equals("Male"))
-            setGender("ชาย");
-        else if (gender.equals("Female"))
-            setGender("หญิง");
-        else if (gender.equals("Other"))
-            setGender("อื่นๆ");
-        else
-            setGender("-");
-        if (age > 0)
-            setAge(age + "");
-        else
-            setAge("-");
+        setGender(sharedPref.getString("gender", ""));
+        setAge(sharedPref.getInt("age", 0));
+
         if (type.equals("Academic")) {
             if (sharedPref.contains("academicLevel")
                     && sharedPref.contains("academicYear")
@@ -234,32 +228,22 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         public void onResponse(Call<UserDao> call, Response<UserDao> response) {
             if (response.isSuccessful()) {
                 UserDao dao = response.body();
-                setName(dao.getResults().getName());
-                setEmail(dao.getResults().getEmail());
-                String type = dao.getResults().getType();
-                String gender = dao.getResults().getGender();
-                int age = dao.getResults().getAge();
-                if (gender.equals("Male"))
-                    setGender("ชาย");
-                else if (gender.equals("Female"))
-                    setGender("หญิง");
-                else if (gender.equals("Other"))
-                    setGender("อื่นๆ");
-                else
-                    setGender("-");
-                if (age > 0)
-                    setAge(age + "");
-                else
-                    setAge("-");
-                if (type.equals("Academic")) {
-                    if (dao.getResults().getAcademic()!=null){
-                        setStudentDescription(dao.getResults().getAcademic().getAcademicLevel(),
-                                dao.getResults().getAcademic().getAcademicYear());
-                        setPlace(dao.getResults().getAcademic().getAcademicSchool());
+                if (dao.getSuccess()) {
+                    setName(dao.getResults().getName());
+                    setEmail(dao.getResults().getEmail());
+                    String type = dao.getResults().getType();
+                    setGender(dao.getResults().getGender());
+                    setAge(dao.getResults().getAge());
+                    if (type.equals("Academic")) {
+                        if (dao.getResults().getAcademic() != null) {
+                            setStudentDescription(dao.getResults().getAcademic().getAcademicLevel(),
+                                    dao.getResults().getAcademic().getAcademicYear());
+                            setPlace(dao.getResults().getAcademic().getAcademicSchool());
+                        }
+                    } else if (type.equals("Worker")) {
+                        if (dao.getResults().getWorker() != null)
+                            setAdultDescription(dao.getResults().getWorker().getJob());
                     }
-                } else if (type.equals("Worker")) {
-                    if (dao.getResults().getWorker()!=null)
-                        setAdultDescription(dao.getResults().getWorker().getJob());
                 }
             } else {
                 try {
@@ -398,12 +382,25 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         tvEmail.setText(text);
     }
 
-    public void setAge(String text) {
-        String age = "อายุ " + text;
-        tvAge.setText(age);
+    public void setAge(int age) {
+        String temp;
+        if (age > 0)
+            temp = age + "";
+        else
+            temp = "-";
+        temp = "อายุ " + temp;
+        tvAge.setText(temp);
     }
 
     public void setGender(String text) {
+        if (text.equals("Male"))
+            text = "ชาย";
+        else if (text.equals("Female"))
+            text = "หญิง";
+        else if (text.equals("Other"))
+            text = "อื่นๆ";
+        else
+            text = "-";
         String gender = "เพศ " + text;
         tvGender.setText(gender);
     }

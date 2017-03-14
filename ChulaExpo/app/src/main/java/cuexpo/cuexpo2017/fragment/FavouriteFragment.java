@@ -135,8 +135,8 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
             upComingAdapter.notifyDataSetChanged();
             previousAdapter.notifyDataSetChanged();
         } else {
-            upComingAdapter.setHolder("Loading Data..");
-            previousAdapter.setHolder("Loading Data..");
+            upComingAdapter.setHolder("Loading Data...");
+            previousAdapter.setHolder("Loading Data...");
             callBackSize = allEntries.size();
             Log.e("Favourite Fragment", "CallBackSize = " + callBackSize);
             for (Map.Entry<String, ?> entry : allEntries.entrySet()) {

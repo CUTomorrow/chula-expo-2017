@@ -99,12 +99,20 @@
                 android:padding="7dp">
 
                 <TextView
+                    android:id="@+id/event_detail_loading"
+                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
+                    android:layout_centerInParent="true"
+                    android:text="Loading Data..."
+                    android:textSize="17sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
                     android:id="@+id/button_title"
                     fontPath="fonts/ThaiSansNeue-Bold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/button_icon"
-                    android:text="จอง EVENT"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
@@ -116,7 +124,6 @@
                     android:layout_below="@+id/button_title"
                     android:layout_marginTop="-6dp"
                     android:layout_toRightOf="@+id/button_icon"
-                    android:text="Event นี้ต้องทำการจองเพื่อเข้าร่วม"
                     android:textColor="@color/black"
                     android:textSize="17sp" />
 
@@ -126,8 +133,7 @@
                     android:layout_height="22dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="15dp"
-                    app:srcCompat="@drawable/ic_ticket_black" />
+                    android:layout_marginRight="15dp"/>
             </RelativeLayout>
 
         </RelativeLayout>
