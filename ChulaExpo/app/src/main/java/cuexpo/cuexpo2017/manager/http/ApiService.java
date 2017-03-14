@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
+import cuexpo.cuexpo2017.dao.EditAdultUser;
+import cuexpo.cuexpo2017.dao.EditStudentUser;
 import cuexpo.cuexpo2017.dao.FacilityDao;
 import cuexpo.cuexpo2017.dao.LoginDao;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
@@ -111,5 +113,11 @@ public interface ApiService {
 
     @PUT("/api/me")
     Call<UserDao> editUserInfo(@Body TagWrapper tagWrapper);
+
+    @PUT("/api/me")
+    Call<UserDao> editAdultUserInfo(@Body EditAdultUser editAdultUser);
+
+    @PUT("/api/me")
+    Call<UserDao> editStudentUserInfo(@Body EditStudentUser editStudentUser);
 
 }

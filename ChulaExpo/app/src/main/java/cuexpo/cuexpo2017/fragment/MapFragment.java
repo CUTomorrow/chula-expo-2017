@@ -561,7 +561,7 @@ public class MapFragment extends Fragment implements
         } else if (googleMap != null) {
             try {
                 googleMap.setMyLocationEnabled(true);
-                googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+                googleMap.getUiSettings().setMyLocationButtonEnabled(true);
                 Location location = MainApplication.getCurrentLocation();
                 if (location != null) {
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(

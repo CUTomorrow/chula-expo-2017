@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
@@ -37,6 +38,8 @@ import cuexpo.cuexpo2017.activity.LoginActivity;
 import cuexpo.cuexpo2017.activity.ReservedActivity;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
+import cuexpo.cuexpo2017.dao.EditAdultUser;
+import cuexpo.cuexpo2017.dao.EditStudentUser;
 import cuexpo.cuexpo2017.dao.RoundDao;
 import cuexpo.cuexpo2017.dao.UserDao;
 import cuexpo.cuexpo2017.dao.UserResult;
@@ -205,7 +208,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         // Restore Instance State here
         access = savedInstanceState.getBoolean("access");
     }
-
+    
     @Override
     public void onClick(View v) {
         if (v == ivQR) {
@@ -234,7 +237,35 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (!access) {
                 error("แก้ไขข้อมูล");
             } else {
+<<<<<<< HEAD
                 comingSoon();
+=======
+
+                Call<UserDao> callUserInfo = HttpManager.
+                        getInstance().getService().getUserInfo
+                        ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool");
+                callUserInfo.enqueue(callBackUserInfo);
+                //comingSoon();
+
+                String type = sharedPref.getString("type","");
+                if(type.equals("Academic")){
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.main_overlay, new EditRegisStudentFragment());
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                } else if(type.equals("Worker")){
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.main_overlay, new EditRegisAdultFragment());
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();;
+                } else {
+                    Toast.makeText(Contextor.getInstance().getContext(), "Staff กรุณาแก้ไขข้อมูลทางเว็บ", Toast.LENGTH_SHORT).show();
+                }
+>>>>>>> c9eaeef4d31209cf9f5450c8e588d81c85bb899f
             }
         } else if (v == btnSetting) {
             if (!access) {

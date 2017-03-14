@@ -18,7 +18,7 @@
             android:id="@+id/step"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            app:srcCompat="@drawable/step2" />
+            app:srcCompat="@drawable/ic_edit_profile" />
 
         <TextView
             android:id="@+id/role_toolbar_title"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingLeft="10dp"
-            android:text="ลงทะเบียน"
+            android:text="แก้ไขข้อมูลส่วนตัว"
             android:textColor="@color/dark_blue"
             android:textSize="22sp" />
 
@@ -36,10 +36,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="113dp"
-        android:layout_below="@+id/home_toolbar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_marginBottom="95dp"
+        android:layout_marginTop="61dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -111,7 +109,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:imeOptions="actionNext"
-                        android:text=""
+                        android:text="Mark Zuckerberg"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
                 </LinearLayout>
@@ -139,10 +137,13 @@
                         style="@style/etRegis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:imeOptions="actionNext"
-                        android:hint="chulaexpo@hotmail.com"
+                        android:inputType="none"
+                        android:text="Chula.Expo@hotmail.com"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
                 </LinearLayout>
@@ -182,7 +183,7 @@
                             android:background="@color/transparent"
                             android:backgroundTint="@color/transparent"
                             android:imeOptions="actionNext"
-                            android:hint="20"
+                            android:hint="25"
                             android:inputType="number"
                             android:textColor="@color/dark_blue"
                             android:textColorLink="@color/transparent" />
@@ -217,16 +218,11 @@
                         </Spinner>
                     </LinearLayout>
                 </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:layout_marginBottom="6dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="38dp"
-                    android:layout_weight="6"
+                    android:layout_marginBottom="6dp"
                     android:background="@drawable/shape_round_rec_regis_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -234,51 +230,29 @@
                     android:paddingRight="10dp">
 
                     <TextView
-                        android:id="@+id/tvYear"
+                        android:id="@+id/tvCareer"
                         style="@style/tvRegis"
                         fontPath="fonts/ThaiSansNeue-Bold.ttf"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="-3dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:lineSpacingExtra="-4sp"
-                        android:text="การศึกษา\nปัจจุบัน"
-                        android:textColor="@color/dark_blue"
-                        android:textSize="13sp" />
+                        android:text="อาชีพ"
+                        android:textColor="@color/dark_blue" />
 
-                    <Spinner
-                        android:id="@+id/spAcademicLevel"
+                    <EditText
+                        android:id="@+id/etCareer"
                         style="@style/etRegis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
-                        android:text="ปริญญาตรี"
+                        android:imeOptions="actionNext"
+                        android:hint="นักธุรกิจ"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="38dp"
-                    android:layout_gravity="center_vertical|center_horizontal|center"
-                    android:layout_marginLeft="3dp"
-                    android:layout_weight="4"
-                    android:background="@drawable/shape_round_rec_regis_white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
-
-                    <Spinner
-                        android:id="@+id/spAcademicYear"
-                        style="@style/etRegis"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </Spinner>
-                </LinearLayout>
-            </LinearLayout>
-
+                <!--
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
@@ -289,39 +263,31 @@
                     android:paddingRight="10dp">
 
                     <TextView
-                        android:id="@+id/tvSchool"
+                        android:id="@+id/tvWorkingPlace"
                         style="@style/tvRegis"
                         fontPath="fonts/ThaiSansNeue-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="-3dp"
                         android:lineSpacingExtra="-4sp"
-                        android:text="สถาบัน\nการศึกษา"
-                        android:textColor="@color/dark_blue"
-                        android:textSize="13sp" />
+                        android:text="ที่ทำงาน"
+                        android:textColor="@color/dark_blue" />
 
                     <EditText
-                        android:id="@+id/etSchool"
+                        android:id="@+id/etWorkingPlace"
                         style="@style/etRegis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:imeOptions="actionNext"
-                        android:hint="จุฬาลงกรณ์มหาวิทยาลัย"
+                        android:text="Chulalongkorn University"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
-
                 </LinearLayout>
+                -->
 
 
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </RelativeLayout>
 
 
         </RelativeLayout>
@@ -329,31 +295,42 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="26dp"
         android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_marginBottom="26dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/btnNext"
+            android:id="@+id/btnCancel"
             fontPath="fonts/ThaiSansNeue-Bold.ttf"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginRight="26dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
             android:background="@drawable/shape_round_rec_regis_dark_blue"
             android:gravity="center_vertical|center_horizontal"
-            android:text="ต่อไป"
+            android:text="ยกเลิก"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/dot"
-            android:layout_width="70dp"
-            android:layout_height="26dp" />
+        <TextView
+            android:id="@+id/btnSave"
+            fontPath="fonts/ThaiSansNeue-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_round_rec_regis_dark_blue"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="บันทึก"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="visible" />
+
     </LinearLayout>
 
 </RelativeLayout>

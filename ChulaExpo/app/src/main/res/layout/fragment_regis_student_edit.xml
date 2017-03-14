@@ -18,7 +18,7 @@
             android:id="@+id/step"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            app:srcCompat="@drawable/step2" />
+            app:srcCompat="@drawable/ic_edit_profile" />
 
         <TextView
             android:id="@+id/role_toolbar_title"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingLeft="10dp"
-            android:text="ลงทะเบียน"
+            android:text="แก้ไขข้อมูลส่วนตัว"
             android:textColor="@color/dark_blue"
             android:textSize="22sp" />
 
@@ -36,10 +36,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="113dp"
-        android:layout_below="@+id/home_toolbar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_marginBottom="95dp"
+        android:layout_marginTop="61dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -137,6 +135,9 @@
                     <EditText
                         android:id="@+id/etEmail"
                         style="@style/etRegis"
+                        android:inputType="none"
+                        android:enabled="false"
+                        android:focusable="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
@@ -329,31 +330,42 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="26dp"
         android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_marginBottom="26dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/btnNext"
+            android:id="@+id/btnCancel"
             fontPath="fonts/ThaiSansNeue-Bold.ttf"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginRight="26dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
             android:background="@drawable/shape_round_rec_regis_dark_blue"
             android:gravity="center_vertical|center_horizontal"
-            android:text="ต่อไป"
+            android:text="ยกเลิก"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/dot"
-            android:layout_width="70dp"
-            android:layout_height="26dp" />
+        <TextView
+            android:id="@+id/btnSave"
+            fontPath="fonts/ThaiSansNeue-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_round_rec_regis_dark_blue"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="บันทึก"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="visible" />
+
     </LinearLayout>
 
 </RelativeLayout>
