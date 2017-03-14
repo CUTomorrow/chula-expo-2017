@@ -8,9 +8,9 @@ public class EventListItem {
     private int id;
     private String title;
     private String time;
-    private String[] tag;
+    private String tag;
 
-    public EventListItem(int id, String title, String time, String[] tag) {
+    public EventListItem(int id, String title, String time, String tag) {
         this.id = id;
         this.title = title;
         this.time = time;
@@ -33,11 +33,11 @@ public class EventListItem {
         this.time = time;
     }
 
-    public String[] getTag() {
+    public String getTag() {
         return tag;
     }
 
-    public void setTag(String[] tag) {
+    public void setTag(String tag) {
         this.tag = tag;
     }
 }
