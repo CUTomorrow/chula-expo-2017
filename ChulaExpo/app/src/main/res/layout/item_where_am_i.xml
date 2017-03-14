@@ -60,37 +60,38 @@
                     android:paddingBottom="13dp" />
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
                     android:id="@+id/suggest_event"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/shape_round_rec_black_stoke"
                     android:layout_centerHorizontal="false"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:layout_height="37dp">
+                    android:background="@drawable/shape_round_rec_black_stoke"
+                    android:visibility="gone">
 
                     <ImageView
-                        android:layout_height="match_parent"
                         android:id="@+id/imageView4"
-                        android:layout_toRightOf="@+id/textView6"
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_arrow_next"
+                        android:layout_toRightOf="@+id/textView6"
                         android:paddingRight="10dp"
-                        android:layout_width="15dp" />
+                        android:src="@drawable/ic_arrow_next" />
 
                     <TextView
-                        android:text="EVENTS ที่แนะนำ"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
                         android:id="@+id/textView6"
                         fontPath="fonts/ThaiSansNeue-Bold.ttf"
-                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerHorizontal="false"
                         android:layout_centerInParent="false"
                         android:gravity="center_vertical"
-                        android:textSize="@dimen/font_13"
                         android:paddingLeft="11dp"
-                        android:paddingRight="6dp" />
+                        android:paddingRight="6dp"
+                        android:text="EVENTS ที่แนะนำ"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_13" />
                 </RelativeLayout>
             </RelativeLayout>
 

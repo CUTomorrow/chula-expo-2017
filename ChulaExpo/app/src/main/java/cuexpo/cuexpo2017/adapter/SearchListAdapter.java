@@ -18,7 +18,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
+import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
+import cuexpo.cuexpo2017.activity.MainActivity;
 import cuexpo.cuexpo2017.fragment.EventDetailFragment;
 import cuexpo.cuexpo2017.view.EventListItem;
 
@@ -154,7 +156,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.mapView.onCreate(null);
         holder.mapView.onResume();
         holder.mapView.getMapAsync(this);
-        holder.location.setText("ห้อง i-Scale 404 ชั้น 4 ตึก 100 ปี คณะวิศวกรรมศาสตร์");
+        holder.location.setText(MainApplication.getCurrentLocationDetail());
     }
 
     private void setHeaderItem(HeaderViewHolder holder, int position) {
@@ -163,8 +165,8 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.description.setText("แนะนำ event จากสถานที่ปัจจุบันของคุณ");
             holder.icon.setImageResource(R.drawable.ic_pin_white);
         } else {
-            holder.title.setText("POPULAR EVENTS");
-            holder.description.setText("Event ที่กำลังได้รับความนิยมในขณะนี้");
+            holder.title.setText("NEARBY EVENTS");
+            holder.description.setText("Event ใกล้ๆตัวคุณ");
             holder.icon.setImageResource(R.drawable.ic_heart_white);
         }
     }
