@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:id="@+id/item_empty_text"
+        fontPath="@string/font_bold"
+        android:id="@+id/item_text"
         android:layout_margin="10dp"
         android:layout_gravity="center"
-        android:text=""
+        android:textColor="@drawable/selector_stage_tab"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
