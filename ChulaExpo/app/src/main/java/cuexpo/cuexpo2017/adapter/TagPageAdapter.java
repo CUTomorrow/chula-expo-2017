@@ -32,6 +32,8 @@ public class TagPageAdapter extends BaseAdapter {
     private String title, detailString;
     private String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
     private Context context;
+    private String holder;
+    private boolean isZero;
 
     public TagPageAdapter(Context context) {
         this.context = context;
@@ -39,6 +41,20 @@ public class TagPageAdapter extends BaseAdapter {
         SharedPreferences sharedPreferences = context.getSharedPreferences("TagDetail", Context.MODE_PRIVATE);
         title = sharedPreferences.getString("title", "");
         detailString = sharedPreferences.getString("detail", "");
+        isZero = true;
+        holder = "Loading Data...";
+    }
+
+    public boolean getIsZero() {
+        return isZero;
+    }
+
+    public void setIsZero(boolean isZero) {
+        this.isZero = isZero;
+    }
+
+    public void setHolder(String holder) {
+        this.holder = holder;
     }
 
     public void setEvent(List<ActivityItemResultDao> eventList) {
@@ -47,7 +63,7 @@ public class TagPageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(eventList.size()==0) return 2;
+        if(eventList.size()==0) return 4;
         return 3 + eventList.size();
     }
 
@@ -83,28 +99,35 @@ public class TagPageAdapter extends BaseAdapter {
                 ((ImageView) convertView.findViewById(R.id.icon)).setImageResource(R.drawable.ic_event);
                 break;
             default:
-                convertView = inflater.inflate(R.layout.item_event, null);
-                ActivityItemResultDao event = eventList.get(position - 3);
-                ((TextView) convertView.findViewById(R.id.title)).setText(event.getName().getTh());
-                String time = DateUtil.getDateThai(event.getStart());
-                ((TextView) convertView.findViewById(R.id.time)).setText(time);
+                if(isZero){
+                    convertView = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
+                            inflate(R.layout.item_empty, null);
+                    ((TextView) convertView.findViewById(R.id.item_empty_text)).setText(holder);
+                    return convertView;
+                }else {
+                    convertView = inflater.inflate(R.layout.item_event, null);
+                    ActivityItemResultDao event = eventList.get(position - 3);
+                    ((TextView) convertView.findViewById(R.id.title)).setText(event.getName().getTh());
+                    String time = DateUtil.getDateThai(event.getStart());
+                    ((TextView) convertView.findViewById(R.id.time)).setText(time);
 
-                SharedPreferences sharedPref = context.getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
-                String zoneShortName = sharedPref.getString(event.getZone(), "");
-                TextView eventTag = (TextView) convertView.findViewById(R.id.event_tag);
-                eventTag.setText(zoneShortName);
-                eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
-                for (int i = 0; i < lightZone.length - 1; i++) {
-                    if (zoneShortName.equals(lightZone[i])) {
-                        eventTag.setTextColor(Color.BLACK);
-                        break;
+                    SharedPreferences sharedPref = context.getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
+                    String zoneShortName = sharedPref.getString(event.getZone(), "");
+                    TextView eventTag = (TextView) convertView.findViewById(R.id.event_tag);
+                    eventTag.setText(zoneShortName);
+                    eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
+                    for (int i = 0; i < lightZone.length - 1; i++) {
+                        if (zoneShortName.equals(lightZone[i])) {
+                            eventTag.setTextColor(Color.BLACK);
+                            break;
+                        }
                     }
+                    Glide.with(context)
+                            .load("https://api.chulaexpo.com" + event.getThumbnail())
+                            .placeholder(R.drawable.banner)
+                            .centerCrop()
+                            .into((ImageView) convertView.findViewById(R.id.event_image));
                 }
-                Glide.with(context)
-                        .load("https://api.chulaexpo.com" + event.getThumbnail())
-                        .placeholder(R.drawable.banner)
-                        .centerCrop()
-                        .into((ImageView) convertView.findViewById(R.id.event_image));
                 break;
         }
         TagDetailView = convertView;

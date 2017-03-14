@@ -29,7 +29,6 @@ import cuexpo.cuexpo2017.view.ActivityListItem;
  */
 public class ReservedListAdapter extends BaseAdapter {
 
-
     private RoundDao roundDao;
     private ActivityItemCollectionDao activityDao;
     private SharedPreferences sharedPref;
