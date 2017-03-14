@@ -58,9 +58,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private LinearLayout btnFavourite;
     private LinearLayout btnReserved;
     private LinearLayout btnSetting;
-    private LinearLayout btnSetting2;
     private LinearLayout btnFaq;
     private LinearLayout btnAbout;
+    private LinearLayout btnAboutApp;
     private LinearLayout btnLogout;
     private TextView tvName;
     private TextView tvEmail;
@@ -105,9 +105,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnReserved.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
         btnSetting.setOnClickListener(this);
-        btnSetting2.setOnClickListener(this);
         btnFaq.setOnClickListener(this);
         btnAbout.setOnClickListener(this);
+        btnAboutApp.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
 
         sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
@@ -143,9 +143,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnFavourite = (LinearLayout) rootView.findViewById(R.id.profile_favourite_btn);
         btnReserved = (LinearLayout) rootView.findViewById(R.id.profile_reserved_btn);
         btnSetting = (LinearLayout) rootView.findViewById(R.id.profile_setting_btn);
-        btnSetting2 = (LinearLayout) rootView.findViewById(R.id.profile_setting2_btn);
         btnFaq = (LinearLayout) rootView.findViewById(R.id.profile_faq_btn);
         btnAbout = (LinearLayout) rootView.findViewById(R.id.profile_about_btn);
+        btnAboutApp = (LinearLayout) rootView.findViewById(R.id.profile_about_app_btn);
         btnLogout = (LinearLayout) rootView.findViewById(R.id.profile_logout_btn);
         tvName = (TextView) rootView.findViewById(R.id.profile_name);
         tvEmail = (TextView) rootView.findViewById(R.id.profile_email);
@@ -310,12 +310,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     fragmentTransaction.commit();
                 }
             }
-        } else if (v == btnSetting2) {
-            if (!access) {
-                error("แก้ไขคณะที่สนใจ");
-            } else {
-                comingSoon();
-            }
         } else if (v == btnFaq) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -328,6 +322,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.main_overlay, AboutFragment.newInstance());
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else if (v == btnAboutApp) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.main_overlay, AboutAppFragment.newInstance());
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();

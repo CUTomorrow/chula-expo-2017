@@ -103,7 +103,7 @@
     <string name="profile_button_4">แก้ไขคณะที่สนใจ</string>
     <string name="profile_button_5">FAQ</string>
     <string name="profile_button_6">เกี่ยวกับ จุฬาฯ Expo</string>
-    <string name="profile_button_7">ออกจากระบบ</string>
+    <string name="profile_button_7">เกี่ยวกับแอพพลิเคชั่น</string>
 
     <!--Zone main page-->
     <string name="related_event_header_text">RELATED EVENTS</string>
@@ -122,5 +122,6 @@
     <string name="upcoming_events">UPCOMING EVENTS</string>
     <string name="previous_event_desc">Event ที่เริ่มไปแล้ว</string>
     <string name="upcoming_event_desc">Event ที่กำลังจะเกิดขึ้น</string>
+    <string name="profile_button_8">ออกจากระบบ</string>
 
 </resources>
