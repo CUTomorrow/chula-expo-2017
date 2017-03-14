@@ -13,8 +13,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.activity.MainActivity;
 import cuexpo.cuexpo2017.fragment.EventDetailFragment;
+import cuexpo.cuexpo2017.utility.Resource;
 import cuexpo.cuexpo2017.view.EventListItem;
 
 /**
@@ -177,18 +180,18 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         googleMap.getUiSettings().setMapToolbarEnabled(false);
 //        googleMap.setOnMarkerClickListener(this);
 //        googleMap.setOnMapClickListener(this);
-        double lat = 13.74010;
-        double lng = 100.53045;
+        double lat = MainApplication.getCurrentLocation().getLatitude();
+        double lng = MainApplication.getCurrentLocation().getLongitude();
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition.Builder()
                         .target(new LatLng(lat, lng))
                         .zoom(18)
                         .build()
         ));
-//        googleMap.addMarker(
-//                new MarkerOptions()
-//                        .position(new LatLng(lat, lng))
-//                        .icon(BitmapDescriptorFactory.fromResource(drawable("pin_" + faculty)))
-//        );
+        googleMap.addMarker(
+                new MarkerOptions()
+                        .position(new LatLng(lat, lng))
+                        .icon(BitmapDescriptorFactory.fromResource(Resource.getDrawable("pin_event")))
+        );
     }
 }
