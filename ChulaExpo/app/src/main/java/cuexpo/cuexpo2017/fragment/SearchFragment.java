@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -80,6 +81,14 @@ public class SearchFragment extends Fragment {
         initEventList();
         return rootView;
     }
+
+    private OnClickListener backOCL = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    };
 
     private View.OnClickListener searchClickListener = new OnClickListener() {
         @Override
