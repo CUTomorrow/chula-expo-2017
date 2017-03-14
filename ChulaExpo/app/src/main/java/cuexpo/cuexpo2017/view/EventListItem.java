@@ -5,12 +5,12 @@ package cuexpo.cuexpo2017.view;
  */
 
 public class EventListItem {
-    private int id;
+    private String id;
     private String title;
     private String time;
     private String tag;
 
-    public EventListItem(int id, String title, String time, String tag) {
+    public EventListItem(String id, String title, String time, String tag) {
         this.id = id;
         this.title = title;
         this.time = time;
