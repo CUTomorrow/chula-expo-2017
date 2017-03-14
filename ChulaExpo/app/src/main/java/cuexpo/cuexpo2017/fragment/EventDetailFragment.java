@@ -106,6 +106,7 @@ public class EventDetailFragment extends Fragment {
                 ViewTreeObserver vto = headerView.getViewTreeObserver();
                 vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
             } else {
+                title.setText("ไม่พบกิจกรรมนี้: กิจกรรมนี้ถูกลบไปแล้ว");
                 try {
                     Log.e("fetch error", response.errorBody().string());
                     Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();

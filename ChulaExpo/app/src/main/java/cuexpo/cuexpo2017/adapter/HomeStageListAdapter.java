@@ -74,6 +74,12 @@ public class HomeStageListAdapter extends BaseAdapter {
         sharedPref2 = parent.getContext().getSharedPreferences("ZoneKeyEn", Context.MODE_PRIVATE);
         String zoneShortName = sharedPref.getString(dao.getZone(), "");
         String zoneShortNameEn = sharedPref2.getString(dao.getZone(), "");
+
+        if(zoneShortName.equals("SALA ST")) {
+            zoneShortName = "ศาลาพระเกี้ยว";
+            zoneShortNameEn = "CU@100";
+        }
+
         item.setTvStageId(zoneShortName);
         item.setTvStageLocation(zoneShortNameEn);
         item.setTvStageTime(dateThai(dao.getStart()) + " \u2022 " + dao.getStart().substring(11, 16) + "-" + dao.getEnd().substring(11, 16));
