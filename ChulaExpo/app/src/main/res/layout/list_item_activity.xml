@@ -20,20 +20,21 @@
         android:paddingBottom="6dp"
         android:paddingRight="16dp"
         android:paddingLeft="16dp">
+
         <TextView
             android:id="@+id/tvActivityTitle"
-            android:layout_width="wrap_content"
+            fontPath="@string/font_bold"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="สาธิตอาจารย์ใหญ่"
             android:textColor="@android:color/primary_text_light"
-            android:textSize="@dimen/activity_title"
-            fontPath="@string/font_bold"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"/>
+            android:textSize="@dimen/activity_title"/>
+
         <TextView
             android:id="@+id/tvActivityTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="15 Mar 09.40 - 10.40"
             android:textColor="@android:color/secondary_text_light"
