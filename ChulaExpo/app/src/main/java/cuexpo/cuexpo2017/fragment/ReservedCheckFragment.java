@@ -216,7 +216,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
                     SharedPreferences reservedPlace =
                             Contextor.getInstance().getContext().getSharedPreferences("ReservedPlaces", Context.MODE_PRIVATE);
                     SharedPreferences.Editor reservedPlaceEditor = reservedPlace.edit();
-                    reservedPlaceEditor.putString(aid, aName + lat + lng);
+                    reservedPlaceEditor.putString(aid, aName +","+ lat +","+ lng);
                     reservedPlaceEditor.apply();
                 }
                 Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() ? "จองสำเร็จ" : "จองไม่สำเร็จ "

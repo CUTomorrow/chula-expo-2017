@@ -154,11 +154,15 @@ public class MapFragment extends Fragment implements
         for (Map.Entry<String, ?> event: events.entrySet()) {
             String eventInfo = (String) event.getValue();
             Log.d("eventInfo", eventInfo);
-            String[] info = eventInfo.split(",");
-            cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
-            location.setLatitude(Double.parseDouble(info[1]));
-            location.setLongitude(Double.parseDouble(info[2]));
-            popBusStationPins.add(new NormalPinMapEntity(info[0], location, "Favorite Event"));
+            try {
+                String[] info = eventInfo.split(",");
+                cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
+                location.setLatitude(Double.parseDouble(info[1]));
+                location.setLongitude(Double.parseDouble(info[2]));
+                eventPins.add(new NormalPinMapEntity(info[0], location, "Favorite Event"));
+            } catch (Exception e) {
+                Log.e("cannot parse eventInfo", e.toString());
+            }
         }
     }
 
@@ -168,11 +172,16 @@ public class MapFragment extends Fragment implements
         for (Map.Entry<String, ?> event: events.entrySet()) {
             String eventInfo = (String) event.getValue();
             Log.d("eventInfo", eventInfo);
-            String[] info = eventInfo.split(",");
-            cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
-            location.setLatitude(Double.parseDouble(info[1]));
-            location.setLongitude(Double.parseDouble(info[2]));
-            popBusStationPins.add(new NormalPinMapEntity(info[0], location, "Reserved Event"));
+            try {
+                String[] info = eventInfo.split(",");
+                cuexpo.cuexpo2017.dao.Location location = new cuexpo.cuexpo2017.dao.Location();
+                location.setLatitude(Double.parseDouble(info[1]));
+                location.setLongitude(Double.parseDouble(info[2]));
+                eventPins.add(new NormalPinMapEntity(info[0], location, "Reserved Event"));
+            } catch (Exception e) {
+                Log.e("cannot parse eventInfo", e.toString());
+            }
+
         }
     }
 
@@ -180,8 +189,8 @@ public class MapFragment extends Fragment implements
         initializeFaculties();
         initializePopbusRoutes();
         initializePopBusStation();
-        initializeFavoriteEvent();
-        initializeReservedEvent();
+//        initializeFavoriteEvent();
+//        initializeReservedEvent();
     }
 
     public void goToMap(int facultyId) {
@@ -780,6 +789,12 @@ public class MapFragment extends Fragment implements
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         return Math.round(dp * ((float)displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    @Override
+    public void onResume(){
+        Log.d("mapOnResume", "resume");
+        super.onResume();
     }
 
 }
