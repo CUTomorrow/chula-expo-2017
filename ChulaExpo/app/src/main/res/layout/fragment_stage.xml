@@ -1,89 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <RelativeLayout
-        android:background="#d9d9d9"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#d9d9d9">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/stage_toolbar"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-            <ImageView
-                android:id="@+id/stage_back"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/back_black" />
-            <TextView
-                fontPath="@string/font_bold"
-                android:id="@+id/stage_toolbar_title"
-                android:text="Stage 1 Schedule"
-                android:textSize="@dimen/title_toolbar_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/stage_back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/back_black" />
+
+                <TextView
+                    android:id="@+id/stage_toolbar_title"
+                    fontPath="@string/font_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:text="Stage 1 Schedule"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_toolbar_size" />
+
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/stage_toolbar_search"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_search" />
+            </RelativeLayout>
+
+
         </android.support.v7.widget.Toolbar>
 
         <com.ogaclejapan.smarttablayout.SmartTabLayout
-            android:layout_below="@id/stage_toolbar"
             android:id="@+id/stage_pager_tab"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_below="@id/stage_toolbar"
             android:background="@color/white"
-            app:stl_indicatorAlwaysInCenter="false"
-            app:stl_indicatorWithoutPadding="false"
-            app:stl_indicatorInFront="false"
-            app:stl_indicatorInterpolation="smart"
-            app:stl_indicatorGravity="bottom"
-            app:stl_indicatorColor="@color/colorAccent"
-            app:stl_indicatorThickness="4dp"
-            app:stl_indicatorWidth="auto"
-            app:stl_indicatorCornerRadius="2dp"
-            app:stl_overlineColor="#4D000000"
-            app:stl_overlineThickness="0.5dp"
-            app:stl_underlineColor="#4D000000"
-            app:stl_underlineThickness="0.5dp"
-            app:stl_dividerColor="#4D000000"
-            app:stl_dividerThickness="0dp"
+            app:stl_clickable="true"
+            app:stl_customTabTextLayoutId="@layout/date_selector"
+            app:stl_customTabTextViewId="@id/date_selector_date"
             app:stl_defaultTabBackground="?attr/selectableItemBackground"
             app:stl_defaultTabTextAllCaps="true"
             app:stl_defaultTabTextColor="#FC000000"
-            app:stl_defaultTabTextSize="12sp"
             app:stl_defaultTabTextHorizontalPadding="16dp"
             app:stl_defaultTabTextMinWidth="0dp"
-            app:stl_customTabTextLayoutId="@layout/date_selector"
-            app:stl_customTabTextViewId="@id/date_selector_date"
+            app:stl_defaultTabTextSize="12sp"
             app:stl_distributeEvenly="true"
-            app:stl_clickable="true"
-            app:stl_titleOffset="24dp"
+            app:stl_dividerColor="#4D000000"
+            app:stl_dividerThickness="0dp"
             app:stl_drawDecorationAfterTab="false"
-            />
+            app:stl_indicatorAlwaysInCenter="false"
+            app:stl_indicatorColor="@color/colorAccent"
+            app:stl_indicatorCornerRadius="2dp"
+            app:stl_indicatorGravity="bottom"
+            app:stl_indicatorInFront="false"
+            app:stl_indicatorInterpolation="smart"
+            app:stl_indicatorThickness="4dp"
+            app:stl_indicatorWidth="auto"
+            app:stl_indicatorWithoutPadding="false"
+            app:stl_overlineColor="#4D000000"
+            app:stl_overlineThickness="0.5dp"
+            app:stl_titleOffset="24dp"
+            app:stl_underlineColor="#4D000000"
+            app:stl_underlineThickness="0.5dp" />
 
         <android.support.v4.view.ViewPager
+            android:id="@+id/stage_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/stage_pager"
-            android:layout_below="@id/stage_pager_tab">
-        </android.support.v4.view.ViewPager>
+            android:layout_below="@id/stage_pager_tab"></android.support.v4.view.ViewPager>
 
     </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/stage_overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
+        android:layout_height="match_parent"></FrameLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
