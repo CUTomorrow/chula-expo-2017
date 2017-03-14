@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
             facebookLogin.setClickable(true);
             if(AccessToken.getCurrentAccessToken() !=  null) Log.e("access token", AccessToken.getCurrentAccessToken().getToken());
             else Log.e("LoginFB", "facebook login error " + e.toString());
-            Toast.makeText(Contextor.getInstance().getContext(),"Weak Connection, please check the Internet and reconnect",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Contextor.getInstance().getContext(),"อินเตอร์เน็ตไม่เสถียร กรุณาเช็คการเชื่อมต่ออินเตอร์เน็ต",Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -208,14 +208,27 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("apiToken",dao.getResults().getToken());
                                 MainApplication.setApiToken(dao.getResults().getToken());
-                                //Log.e("LoginFB","apiToken = " + dao.getResults().getToken());
+//                                Log.e("LoginFB","apiToken = " + dao.getResults().getToken());
                                 editor.apply();
 
                                 progress.setVisibility(View.VISIBLE);
+                                Toast.makeText(Contextor.getInstance().getContext(), "กำลังเข้าหน้าหลัก...", Toast.LENGTH_LONG).show();
 
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                LoginActivity.this.startActivity(intent);
-                                LoginActivity.this.finish();
+                                new AsyncTask<Void, Void, Void>() {
+
+                                    @Override
+                                    protected Void doInBackground(Void... params) {
+                                        try {
+                                            Thread.sleep(250);
+                                        } catch(Exception e) {}
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        LoginActivity.this.startActivity(intent);
+                                        LoginActivity.this.finish();
+                                        return null;
+                                    }
+
+                                }.execute();
+
                             } else {
                                 if(dao.getErrors().getCode() == 2){
                                     Log.e("LoginFB","Account doesn't exist");
@@ -260,6 +273,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+            Toast.makeText(getApplicationContext(),"กำลังเข้าหน้าหลัก...",Toast.LENGTH_LONG).show();
+
             new AsyncTask<Void, Void, Void>() {
 
                 @Override
@@ -271,7 +286,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 protected Void doInBackground(Void... params) {
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(250);
                     } catch(Exception e) {}
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(intent);
