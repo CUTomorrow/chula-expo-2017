@@ -47,9 +47,9 @@ public class EventPageFragment extends Fragment implements View.OnClickListener 
     private void initTab() {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 this.getChildFragmentManager(), FragmentPagerItems.with(getActivity())
-                .add("city", CityListFragment.class)
-                .add("faculty", FacultyListFragment.class)
-                .add("interest", InterestListFragment.class)
+                .add("CITY", CityListFragment.class)
+                .add("FACULTY", FacultyListFragment.class)
+                .add("INTEREST", InterestListFragment.class)
                 .create());
 
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.pager);
