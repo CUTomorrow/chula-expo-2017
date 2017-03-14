@@ -176,6 +176,7 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
         sharedPref = this.getActivity().getSharedPreferences("FacebookInfo", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         uid = sharedPref.getString("uid","");
+        //Log.e("QR","uid: "+uid);
         profile = sharedPref.getString("profile","");
         name = sharedPref.getString("name","");
         type = sharedPref.getString("type","");
@@ -242,6 +243,7 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
             //generating qr code in bitmatrix type
 
             if(QRCache != null) {
+                //Log.e("QR","QRCache");
                 ivQR.setImageBitmap(QRCache);
                 return ;
             }

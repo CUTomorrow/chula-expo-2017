@@ -67,6 +67,7 @@ public class SearchFragment extends Fragment {
         query = ((EditText) rootView.findViewById(R.id.search));
         search = (ImageView) rootView.findViewById(R.id.search_icon_button);
         search.setOnClickListener(searchClickListener);
+        rootView.findViewById(R.id.back).setOnClickListener(backOCL);
 
         searchListAdapter = new SearchListAdapter(eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
