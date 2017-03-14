@@ -272,6 +272,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onFailure(Call<UserDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
             Log.e("Profile Fragment", "Call Me Fail");
         }
     };

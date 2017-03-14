@@ -35,6 +35,7 @@ import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.dao.ActivitySearchItemCollectionDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
+import cuexpo.cuexpo2017.dao.NearbyDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.manager.HttpManagerSpecial;
 import cuexpo.cuexpo2017.utility.DateUtil;
@@ -125,18 +126,18 @@ public class SearchFragment extends Fragment {
 
     private void initEventList() {
         eventList.clear();
-        /*Call<ActivityItemCollectionDao> callNearbyActivities =
-                HttpManager.getInstance().getService().loadNearbyActivities(id, lat, lng);*/
+        Call<NearbyDao> callNearbyActivities =
+                HttpManagerSpecial.getInstance().getService().loadNearbyActivities(13.73826, 100.53272);
+        callNearbyActivities.enqueue(callbackNearbyActivities);
     }
 
-   /* Callback<ActivityItemCollectionDao> callbackNearbyActivities = new Callback<ActivityItemCollectionDao>() {
+   Callback<NearbyDao> callbackNearbyActivities = new Callback<NearbyDao>() {
         @Override
-        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
+        public void onResponse(Call<NearbyDao> call, Response<NearbyDao> response) {
             if (response.isSuccessful()) {
-                dao = response.body().getResults();
-                Log.e("Search Fragment", "SIZE : " + dao.size());
-                //setEventList();
-                Log.e("Search Fragment", "Nearby Finish " + response.body().getSuccess());
+                Log.e("Search Fragment", "LAT " + response.body().getLat());
+                Log.e("Search Fragment", "LNG " + response.body().getLng());
+                searchListAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(Contextor.getInstance().getContext(), "Cannot Get Nearby Activities. Please try again.", Toast.LENGTH_LONG).show();
                 Log.e("Search Fragment", "Nearby Fail " + response.errorBody().toString());
@@ -144,11 +145,11 @@ public class SearchFragment extends Fragment {
         }
 
         @Override
-        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
+        public void onFailure(Call<NearbyDao> call, Throwable t) {
             Log.e("Search Fragment", "Nearby Fail " + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
         }
-    };*/
+    };
 
     private void setEventList() {
         eventList.clear();

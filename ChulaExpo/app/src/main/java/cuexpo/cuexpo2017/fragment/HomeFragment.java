@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ViewPager vpHighlight;
     TextView tvHighlightLabel;
     CircleIndicator indicatorHighlight;
-    ImageView ivToolbarQR, ivVPHighlight;
+    ImageView ivToolbarQR, ivVPHighlight, ivSearch;
     View rootView;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -126,6 +126,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ivToolbarQR = (ImageView) rootView.findViewById(R.id.home_toolbar_qr);
         ivToolbarQR.setOnClickListener(this);
         ivVPHighlight = (ImageView) rootView.findViewById(R.id.ivHighlight);
+        ivSearch = (ImageView) rootView.findViewById(R.id.home_toolbar_search);
+
+        ivSearch.setOnClickListener(this);
         //ivVPHighlight.setOnClickListener(this);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
@@ -369,6 +372,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.container, new QRFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }else if(v == ivSearch){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new SearchFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }

@@ -157,6 +157,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
             Log.e("Reserved Check Fragment", "Call Round Fail");
         }
     };
@@ -234,6 +235,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onFailure(Call<ReserveDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_LONG).show();
             Log.e("Reserved Check Fragment", "Call Round Fail");
         }
