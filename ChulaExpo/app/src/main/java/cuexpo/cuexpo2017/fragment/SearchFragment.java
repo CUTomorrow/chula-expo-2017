@@ -11,12 +11,16 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
@@ -65,9 +69,8 @@ public class SearchFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         query = ((EditText) rootView.findViewById(R.id.search));
-        search = (ImageView) rootView.findViewById(R.id.search_icon_button);
-        search.setOnClickListener(searchClickListener);
         rootView.findViewById(R.id.back).setOnClickListener(backOCL);
+        rootView.findViewById(R.id.search).setOnKeyListener(searchOEAL);
 
         searchListAdapter = new SearchListAdapter(eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -91,27 +94,41 @@ public class SearchFragment extends Fragment {
         }
     };
 
-    private View.OnClickListener searchClickListener = new OnClickListener() {
+    TextView.OnKeyListener searchOEAL = new TextView.OnKeyListener(){
         @Override
-        public void onClick(View v) {
-            String s = query.getText().toString();
-            if (!isSearching) {
-                isSearching = true;
-                searchListAdapter.setSearching(true);
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                View view = getActivity().getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+                search();
+                return true;
             }
-            Call<ActivitySearchItemCollectionDao> callSearchActivities;
-            Log.e("Search Fragment", "String : " + s);
+            return false;
+
+        }
+    };
+
+    private void search(){
+        String s = query.getText().toString();
+        if (!isSearching) {
+            isSearching = true;
+            searchListAdapter.setSearching(true);
+        }
+        Call<ActivitySearchItemCollectionDao> callSearchActivities;
+        Log.e("Search Fragment", "String : " + s);
             /*if (checkMap) {
                 callSearchActivities = HttpManagerSpecial.getInstance().
                         getService().searchActivities(id, lat, lng, 300, s);
             } else {*/
-            callSearchActivities =
-                    HttpManagerSpecial.getInstance().
-                            getService().searchActivities(s);
-            //}
-            callSearchActivities.enqueue(callbackSearch);
-        }
-    };
+        callSearchActivities =
+                HttpManagerSpecial.getInstance().
+                        getService().searchActivities(s);
+        //}
+        callSearchActivities.enqueue(callbackSearch);
+    }
 
     Callback<ActivitySearchItemCollectionDao> callbackSearch = new Callback<ActivitySearchItemCollectionDao>() {
         @Override
