@@ -49,7 +49,10 @@ public class LocationTask extends TimerTask{
                 fp.put("ap", jsonArray);
             }
         }
-        fp.put("user_id", "EN100F6");
+
+        fp.put("user_id", MainApplication.getApiToken());
+        Log.d("user_id", MainApplication.getApiToken());
+
         try {
             Location location = MainApplication.getCurrentLocation();
             fp.put("latitude", location.getLatitude());

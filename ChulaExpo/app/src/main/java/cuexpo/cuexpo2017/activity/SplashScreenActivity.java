@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -24,6 +25,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 SharedPreferences sharedPreferences = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                 String token = sharedPreferences.getString("apiToken", "");
+                MainApplication.setApiToken(token);
                 if(token.equals("")){
                     Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                     SplashScreenActivity.this.startActivity(intent);
