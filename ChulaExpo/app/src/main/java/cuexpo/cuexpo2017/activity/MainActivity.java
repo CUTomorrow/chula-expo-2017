@@ -57,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         setContentView(R.layout.activity_main);
         rootView = thisAcitivity.findViewById(android.R.id.content);
 
+        sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
+        if (!sharedPref.getString("apiToken", "").equals(""))
+            HttpManager.getInstance().setAPIKey(sharedPref.getString("apiToken", ""));
+
         initTab();
     }
 
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         });
 
 
-        runOnUiThread (new Thread(new Runnable() {
+        runOnUiThread(new Thread(new Runnable() {
             public void run() {
 
                 FragmentPagerAdapter adapter = new FragmentPagerItemAdapter(
@@ -114,10 +118,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     private void getTabInfo() {
 
-        sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
-        if(!sharedPref.getString("apiToken","").equals("")){
-            HttpManager.getInstance().setAPIKey(sharedPref.getString("apiToken",""));
-
+        if (!sharedPref.getString("apiToken", "").equals("")) {
             Call<UserDao> callUser = HttpManager.getInstance().getService().loadUserInfo();
             callUser.enqueue(new Callback<UserDao>() {
                 @Override
@@ -134,23 +135,23 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                             editor.putString("type", dao.getResults().getType());
                             editor.putString("profile", dao.getResults().getProfile());
                             editor.putString("gender", dao.getResults().getGender());
-                            editor.putString("name",dao.getResults().getName());
-                            editor.putString("emails",dao.getResults().getEmail());
+                            editor.putString("name", dao.getResults().getName());
+                            editor.putString("emails", dao.getResults().getEmail());
                             editor.putString("tags", TextUtils.join(",", dao.getResults().getTags()));
                             Log.e("UserInfo", TextUtils.join(",", dao.getResults().getTags()));
                             try {
                                 editor.putInt("age", dao.getResults().getAge());
-                            } catch (Exception e){
+                            } catch (Exception e) {
                                 editor.putInt("age", 0);
                             }
-                            if(dao.getResults().getType().equals("Academic")) {
-                                if(dao.getResults().getAcademic() != null) {
+                            if (dao.getResults().getType().equals("Academic")) {
+                                if (dao.getResults().getAcademic() != null) {
                                     editor.putString("academicSchool", dao.getResults().getAcademic().getAcademicSchool());
                                     editor.putString("academicYear", dao.getResults().getAcademic().getAcademicYear());
                                     editor.putString("academicLevel", dao.getResults().getAcademic().getAcademicLevel());
                                 }
-                            } else if(dao.getResults().getType().equals("Worker")){
-                                editor.putString("workerJob",dao.getResults().getWorker().getJob());
+                            } else if (dao.getResults().getType().equals("Worker")) {
+                                editor.putString("workerJob", dao.getResults().getWorker().getJob());
                             }
                             editor.apply();
                         } else {
@@ -160,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
                     }
                 }
+
                 @Override
                 public void onFailure(Call<UserDao> call, Throwable t) {
 
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onBackPressed() {
         Log.d("backPressed", "back stack = " + getSupportFragmentManager().getBackStackEntryCount());
-        if(getSupportFragmentManager().getBackStackEntryCount()>0){
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
         } else {
             Intent intent = new Intent(Intent.ACTION_MAIN);

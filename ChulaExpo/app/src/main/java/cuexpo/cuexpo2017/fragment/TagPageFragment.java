@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
@@ -46,7 +47,6 @@ public class TagPageFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class TagPageFragment extends Fragment {
         initInstances(rootView, savedInstanceState);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("TagDetail", Context.MODE_PRIVATE);
-        String tag = sharedPreferences.getString("tagEnName","");
+        String tag = sharedPreferences.getString("tagEnName", "");
 
         Call<ActivityItemCollectionDao> call = HttpManager.getInstance().getService().loadActivityByTags(tag);
         call.enqueue(callbackActivity);
@@ -68,10 +68,19 @@ public class TagPageFragment extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 eventList = response.body().getResults();
-                Log.e("Tag Fragment","Successful with Size of " + eventList.size());
+                Log.e("Tag Fragment", "Successful with Size of " + eventList.size());
+                if (eventList.size() > 0)
+                    adapter.setIsZero(false);
                 adapter.setEvent(eventList);
+                if (adapter.getIsZero()) {
+                    adapter.setHolder("ไม่มี Event เกี่ยวกับ tag นี้");
+                }
                 adapter.notifyDataSetChanged();
             } else {
+                if (adapter.getIsZero()) {
+                    adapter.setHolder("ไม่มี Event เกี่ยวกับ tag นี้");
+                    adapter.notifyDataSetChanged();
+                }
                 try {
                     Log.e("Tag Fragment", response.errorBody().string());
                     Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
@@ -80,6 +89,7 @@ public class TagPageFragment extends Fragment {
                 }
             }
         }
+
         @Override
         public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
             Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
@@ -90,7 +100,7 @@ public class TagPageFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             if (position >= 3) {
-                String activityId = eventList.get(position-3).getId();
+                String activityId = eventList.get(position - 3).getId();
                 SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
                 activitySharedPref.edit().putString("EventID", activityId).apply();
 

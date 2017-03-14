@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:overScrollMode="never"
+        android:scrollbars="none|vertical">
+
+        <LinearLayout
+        android:id="@+id/credit_pic_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- design -->
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/credit_design" />
+
+        <TextView
+            fontPath="@string/font_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Application Designer"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="26dp"
+            android:textStyle="bold" />
+
+        <TextView
+            fontPath="@string/font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Nuthawat Pradujdecha (CP41)"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22dp" />
+
+        <!-- iOS -->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_ios" />
+
+        <TextView
+            fontPath="@string/font_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="iOS Developer"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            android:textStyle="bold" />
+
+        <TextView
+            fontPath="@string/font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Pakppom Thaweesitthichat (CP41)\nPanupong Tongtawach(CP41)\nThanapon Sirisompark (CP41)\nEkkalak Leelasornchai (CP42)"
+            android:lineSpacingExtra="-4sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22dp" />
+
+        <!-- Android -->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_android" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Android Developer"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            fontPath="@string/font_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Sirinthra Chantharaj (CP41)\nNutthaphol Rakratchatakul (CP41)\nSupakrit Paoliwat (CP41)\nTeerapat Poompunjai (CP42)\nKosate Limpongsa (CP41)"
+            android:lineSpacingExtra="-4sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            fontPath="@string/font" />
+
+        <!-- Backend & Frontend -->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_backend" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Frontend &amp; Backend Developer"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            fontPath="@string/font_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Atikun Orisoon (CP40)\nApiruj Choomwattana (CP41)\nKitipong Sirirueangsakul (CP41)\nNuttapat Kirawittaya (CP41)\nPongsathorn Chootipanvidhayakul (CP41)\nPuttiphat Sriratpinyo (CP41)\nNoppawit Thairungroj (CP41)\nSitthichai Saeji (CP41)"
+            android:lineSpacingExtra="-4sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            fontPath="@string/font" />
+
+        <!-- Project Initiator -->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_project_initiator" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Project Initiator"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            fontPath="@string/font_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Chonpeeti Pornrungroj\nKrit Pattarawongvisut\nNarut Wasoontaramas"
+            android:lineSpacingExtra="-4sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            fontPath="@string/font" />
+
+        <!-- Project Monitoring -->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_monitor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Project Initiator"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            fontPath="@string/font_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Krit Gangwanpongpun (CP40)\nTananan Tangthanachaikun (CP40)"
+            android:lineSpacingExtra="-4sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            fontPath="@string/font" />
+
+        <!-- Recommendation -->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_recommendation" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Recommendation System"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            fontPath="@string/font_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Asst.Prof. Dr.Natawut Nupairoj"
+            android:lineSpacingExtra="-4sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            fontPath="@string/font" />
+
+        <!-- Indoor -->
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_indoor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Recommendation System"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            fontPath="@string/font_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Asst.Prof. Dr.Kultida Rojviboonchai\nTeerapat Vongsuteera (CP39)"
+            android:lineSpacingExtra="-4sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            fontPath="@string/font" />
+
+        <!-- Project Advisor -->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_advisor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Project Advisor"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            fontPath="@string/font_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Asst.Prof. Dr.Athasit Surarerks"
+            android:lineSpacingExtra="-4sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            fontPath="@string/font" />
+
+        <!-- supported & sponsored -->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_project_initiator" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Supported By"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            fontPath="@string/font_bold" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/credit_support" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/credit_project_initiator" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Sponsored By"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            fontPath="@string/font_bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="750dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/credit_sponsor" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/credit_post" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <ImageView
+        android:id="@+id/about_close"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:alpha="0.5"
+        android:padding="15dp"
+        android:src="@drawable/close_button" />
+
+</RelativeLayout>

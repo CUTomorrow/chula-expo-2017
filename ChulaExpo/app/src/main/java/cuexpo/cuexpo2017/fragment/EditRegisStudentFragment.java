@@ -40,16 +40,17 @@ import retrofit2.Response;
 public class EditRegisStudentFragment extends Fragment implements TextWatcher {
 
     private static EditRegisStudentFragment instance;
-    EditText  etRegisName,etEmail, etBirth,etSchool;
-    Spinner   spGender, spAcademicYear, spAcademicLevel;
-    View    btnNext, rootView;
+    EditText etRegisName, etEmail, etBirth, etSchool;
+    Spinner spGender, spAcademicYear, spAcademicLevel;
+    View btnNext, rootView;
     ImageView ivRegisProfile;
-    String id,name,email,gender, profile,academicLevel, academicYear, academicSchool;
+    String id, name, email, gender, profile, academicLevel, academicYear, academicSchool;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
     String[] academicYear1List, academicLevelList, academicYear2List, academicYear3List, academicYear4List, genderList;
-    ArrayAdapter<String> adapterGender, adapterAcademicLevel ,adapterAcademicYear1, adapterAcademicYear2, adapterAcademicYear3, adapterAcademicYear4;
+    ArrayAdapter<String> adapterGender, adapterAcademicLevel, adapterAcademicYear1, adapterAcademicYear2, adapterAcademicYear3, adapterAcademicYear4;
     int age;
+    int yearPosition;
 
     public static EditRegisStudentFragment newInstance() {
         instance = new EditRegisStudentFragment();
@@ -58,8 +59,8 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
         return instance;
     }
 
-    public static EditRegisStudentFragment getInstance(){
-        if(instance == null) return newInstance();
+    public static EditRegisStudentFragment getInstance() {
+        if (instance == null) return newInstance();
         return instance;
     }
 
@@ -68,20 +69,25 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_regis_student_edit, container, false);
+        rootView.setClickable(true);
         initInstances();
         rootView.findViewById(R.id.btnCancel).setOnClickListener(cancelOCL);
         rootView.findViewById(R.id.btnSave).setOnClickListener(saveOCL);
 
         //get SharedPref
         sharedPref = getActivity().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
-        profile = sharedPref.getString("profile","");
+        profile = sharedPref.getString("profile", "");
         name = sharedPref.getString("name", "");
         email = sharedPref.getString("email", "");
         gender = sharedPref.getString("gender", "Male");
-        age = sharedPref.getInt("age",0);
-        academicLevel = sharedPref.getString("academicLevel","");
-        academicYear = sharedPref.getString("academicYear","");
-        academicSchool = sharedPref.getString("academicSchool","");
+        age = sharedPref.getInt("age", 0);
+        academicLevel = sharedPref.getString("academicLevel", "");
+        academicYear = sharedPref.getString("academicYear", "");
+        academicSchool = sharedPref.getString("academicSchool", "");
+
+        yearPosition = 0;
+
+        Log.e("STUDENT", academicLevel + " " + academicYear + " " + academicSchool);
 
         //birthday = sharedPref.getString("birthday", "");
         //editor.putString("type","Worker");
@@ -89,8 +95,8 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
 
         etRegisName.setText(name);
         etEmail.setText(email);
-        etBirth.setText(age+"");
-
+        etBirth.setText(age + "");
+        etSchool.setText(academicSchool);
 
         etRegisName.addTextChangedListener(this);
         //etEmail.addTextChangedListener(this);
@@ -127,74 +133,81 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
                 android.R.layout.simple_dropdown_item_1line, academicYear4List);
 
         spGender.setAdapter(adapterGender);
-        if(gender.equals("Male"))spGender.setSelection(0,true);
-        else if(gender.equals("Female"))spGender.setSelection(1,true);
-        else spGender.setSelection(2,true);
+        if (gender.equals("Male")) spGender.setSelection(0, true);
+        else if (gender.equals("Female")) spGender.setSelection(1, true);
+        else spGender.setSelection(2, true);
         View spinnerSelectedView = spGender.getSelectedView();
-        ((TextView)spinnerSelectedView).setTextColor(Color.WHITE);
+        ((TextView) spinnerSelectedView).setTextColor(Color.WHITE);
 
         spAcademicLevel.setAdapter(adapterAcademicLevel);
-        spAcademicLevel.setSelection(1,true);
-        for(int i=0;i<academicLevelList.length-1;i++){
-            if(academicLevel.equals(academicLevelList[i])){
-                spAcademicLevel.setSelection(i,true);
+        spAcademicLevel.setSelection(1, true);
+        for (int i = 0; i < academicLevelList.length - 1; i++) {
+            if (academicLevel.equals(academicLevelList[i])) {
+                spAcademicLevel.setSelection(i, true);
+                break;
             }
         }
         View spAcademicLevelSelectedView = spAcademicLevel.getSelectedView();
-        ((TextView)spAcademicLevelSelectedView).setTextColor(Color.WHITE);
+        ((TextView) spAcademicLevelSelectedView).setTextColor(Color.WHITE);
 
         spAcademicYear.setAdapter(adapterAcademicYear2);
-        spAcademicYear.setSelection(0,true);
-        if(spAcademicLevel.getSelectedItemPosition() == 0){
+        spAcademicYear.setSelection(0, true);
+        if (spAcademicLevel.getSelectedItemPosition() == 0) {
             spAcademicYear.setAdapter(adapterAcademicYear1);
-            spAcademicYear.setSelection(0,true);
-            for(int i=0;i<academicYear1List.length-1;i++){
-                if(academicYear.equals(academicYear1List[i])){
-                    spAcademicYear.setSelection(i,true);
+            spAcademicYear.setSelection(0, true);
+            for (int i = 0; i < academicYear1List.length - 1; i++) {
+                if (academicYear.equals(academicYear1List[i])) {
+                    yearPosition = i;
+                    break;
                 }
             }
-        } else if(spAcademicLevel.getSelectedItemPosition() == 1) {
+        } else if (spAcademicLevel.getSelectedItemPosition() == 1) {
             spAcademicYear.setAdapter(adapterAcademicYear2);
-            spAcademicYear.setSelection(0,true);
-            for(int i=0;i<academicYear2List.length-1;i++){
-                if(academicYear.equals(academicYear2List[i])){
-                    spAcademicYear.setSelection(i,true);
+            spAcademicYear.setSelection(0, true);
+            for (int i = 0; i < academicYear2List.length - 1; i++) {
+                if (academicYear.equals(academicYear2List[i])) {
+                    yearPosition = i;
+                    break;
                 }
             }
-        }else if(spAcademicLevel.getSelectedItemPosition() == 2) {
+        } else if (spAcademicLevel.getSelectedItemPosition() == 2) {
             spAcademicYear.setAdapter(adapterAcademicYear3);
-            spAcademicYear.setSelection(0,true);
-            for(int i=0;i<academicYear3List.length-1;i++){
-                if(academicYear.equals(academicYear3List[i])){
-                    spAcademicYear.setSelection(i,true);
+            spAcademicYear.setSelection(0, true);
+            for (int i = 0; i < academicYear3List.length - 1; i++) {
+                if (academicYear.equals(academicYear3List[i])) {
+                    yearPosition = i;
+                    break;
                 }
             }
-        }else if(spAcademicLevel.getSelectedItemPosition() == 3) {
+        } else if (spAcademicLevel.getSelectedItemPosition() == 3) {
             spAcademicYear.setAdapter(adapterAcademicYear4);
-            spAcademicYear.setSelection(0,true);
-            for(int i=0;i<academicYear4List.length-1;i++){
-                if(academicYear.equals(academicYear4List[i])){
-                    spAcademicYear.setSelection(i,true);
+            spAcademicYear.setSelection(0, true);
+            for (int i = 0; i < academicYear4List.length - 1; i++) {
+                if (academicYear.equals(academicYear4List[i])) {
+                    yearPosition = i;
+                    break;
                 }
             }
         } else {
             spAcademicYear.setAdapter(adapterAcademicYear3);
-            spAcademicYear.setSelection(0,true);
-            for(int i=0;i<academicYear3List.length-1;i++){
-                if(academicYear.equals(academicYear3List[i])){
-                    spAcademicYear.setSelection(i,true);
+            spAcademicYear.setSelection(0, true);
+            for (int i = 0; i < academicYear3List.length - 1; i++) {
+                if (academicYear.equals(academicYear3List[i])) {
+                    yearPosition = i;
+                    break;
                 }
             }
         }
+
         View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
-        ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
+        ((TextView) spAcademicYearSelectedView).setTextColor(Color.WHITE);
 
         return rootView;
     }
 
     private void initInstances() {
-        etRegisName = (EditText)rootView.findViewById(R.id.etRegisName);
-        etEmail = (EditText)rootView.findViewById(R.id.etEmail);
+        etRegisName = (EditText) rootView.findViewById(R.id.etRegisName);
+        etEmail = (EditText) rootView.findViewById(R.id.etEmail);
         etBirth = (EditText) rootView.findViewById(R.id.etBirth);
         etSchool = (EditText) rootView.findViewById(R.id.etSchool);
         spGender = (Spinner) rootView.findViewById(R.id.spGender);
@@ -210,7 +223,7 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
         @Override
         public void onClick(View v) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };
 
@@ -223,33 +236,38 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
             name = etRegisName.getText().toString();
             try {
                 age = Integer.parseInt(etBirth.getText().toString());
-            } catch (NumberFormatException exception){
+            } catch (NumberFormatException exception) {
                 age = 0;
             }
             academicSchool = etSchool.getText().toString();
 
             //Save to sharedPref
-            editor.putString("name",etRegisName.getText().toString());
-            Log.d("regis","Name: "+etRegisName.getText().toString());
-            editor.putString("email",etEmail.getText().toString());
+            editor.putString("name", etRegisName.getText().toString());
+            Log.d("regis", "Name: " + etRegisName.getText().toString());
+            editor.putString("email", etEmail.getText().toString());
             try {
                 editor.putInt("age", Integer.parseInt(etBirth.getText().toString()));
-            } catch (NumberFormatException exception){
+            } catch (NumberFormatException exception) {
                 editor.putInt("age", 0);
             }
-            editor.putString("gender",gender);
-            editor.putString("academicSchool",etSchool.getText().toString());
-            editor.putString("academicYear",academicYear);
-            editor.putString("academicLevel",academicLevel);
+            editor.putString("gender", gender);
+            editor.putString("academicSchool", etSchool.getText().toString());
+            editor.putString("academicYear", academicYear);
+            editor.putString("academicLevel", academicLevel);
             editor.commit();
 
             //PUT API
-            EditStudentUser editStudentUser = new EditStudentUser(name,age,gender,academicLevel,academicYear,academicSchool);
+            EditStudentUser editStudentUser = new EditStudentUser(name, age, gender, academicLevel, academicYear, academicSchool);
             Call<UserDao> callUserInfo = HttpManager.getInstance().getService().editStudentUserInfo(editStudentUser);
             callUserInfo.enqueue(callbackUserInfo);
 
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            for (Fragment fragment : fragmentManager.getFragments()) {
+                if (fragment instanceof ProfileFragment) {
+                    ((ProfileFragment) fragment).updateProfile();
+                }
+            }
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };
 
@@ -274,7 +292,7 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
 
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         Log.d("EditProfile", "Clear Memory");
         instance = null;
         super.onDestroy();
@@ -299,12 +317,12 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             View spinnerSelectedView = spGender.getSelectedView();
-            ((TextView)spinnerSelectedView).
-                    setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(),R.color.dark_blue));
+            ((TextView) spinnerSelectedView).
+                    setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(), R.color.dark_blue));
 
             String gen = genderList[spGender.getSelectedItemPosition()];
-            if(gen.equals("ชาย")) gender = "Male";
-            else if(gen.equals("หญิง")) gender = "Female";
+            if (gen.equals("ชาย")) gender = "Male";
+            else if (gen.equals("หญิง")) gender = "Female";
             else gender = "Other";
         }
 
@@ -321,31 +339,31 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
             ((TextView) spinnerSelectedView)
                     .setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(), R.color.dark_blue));
             academicLevel = academicLevelList[spAcademicLevel.getSelectedItemPosition()];
-            if(spAcademicLevel.getSelectedItemPosition() == 0){
+            if (spAcademicLevel.getSelectedItemPosition() == 0) {
                 spAcademicYear.setAdapter(adapterAcademicYear1);
-                spAcademicYear.setSelection(0,true);
+                spAcademicYear.setSelection(yearPosition, true);
                 View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
-                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
-            } else if(spAcademicLevel.getSelectedItemPosition() == 1) {
+                ((TextView) spAcademicYearSelectedView).setTextColor(Color.WHITE);
+            } else if (spAcademicLevel.getSelectedItemPosition() == 1) {
                 spAcademicYear.setAdapter(adapterAcademicYear2);
-                spAcademicYear.setSelection(0,true);
+                spAcademicYear.setSelection(yearPosition, true);
                 View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
-                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
-            }else if(spAcademicLevel.getSelectedItemPosition() == 2) {
+                ((TextView) spAcademicYearSelectedView).setTextColor(Color.WHITE);
+            } else if (spAcademicLevel.getSelectedItemPosition() == 2) {
                 spAcademicYear.setAdapter(adapterAcademicYear3);
-                spAcademicYear.setSelection(0,true);
+                spAcademicYear.setSelection(yearPosition, true);
                 View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
-                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
-            }else if(spAcademicLevel.getSelectedItemPosition() == 3) {
+                ((TextView) spAcademicYearSelectedView).setTextColor(Color.WHITE);
+            } else if (spAcademicLevel.getSelectedItemPosition() == 3) {
                 spAcademicYear.setAdapter(adapterAcademicYear4);
-                spAcademicYear.setSelection(0,true);
+                spAcademicYear.setSelection(yearPosition, true);
                 View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
-                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
+                ((TextView) spAcademicYearSelectedView).setTextColor(Color.WHITE);
             } else {
                 spAcademicYear.setAdapter(adapterAcademicYear3);
-                spAcademicYear.setSelection(0,true);
+                spAcademicYear.setSelection(yearPosition, true);
                 View spAcademicYearSelectedView = spAcademicYear.getSelectedView();
-                ((TextView)spAcademicYearSelectedView).setTextColor(Color.WHITE);
+                ((TextView) spAcademicYearSelectedView).setTextColor(Color.WHITE);
             }
         }
 
@@ -361,10 +379,14 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
             View spinnerSelectedView = spAcademicYear.getSelectedView();
             ((TextView) spinnerSelectedView)
                     .setTextColor(ContextCompat.getColor(Contextor.getInstance().getContext(), R.color.dark_blue));
-            if(spAcademicLevel.getSelectedItemPosition() == 0) academicYear = academicYear1List[spAcademicYear.getSelectedItemPosition()];
-            else if(spAcademicLevel.getSelectedItemPosition() == 1) academicYear =  academicYear2List[spAcademicYear.getSelectedItemPosition()];
-            else if(spAcademicLevel.getSelectedItemPosition() == 2) academicYear = academicYear3List[spAcademicYear.getSelectedItemPosition()];
-            else if(spAcademicLevel.getSelectedItemPosition() == 3) academicYear = academicYear4List[spAcademicYear.getSelectedItemPosition()];
+            if (spAcademicLevel.getSelectedItemPosition() == 0)
+                academicYear = academicYear1List[spAcademicYear.getSelectedItemPosition()];
+            else if (spAcademicLevel.getSelectedItemPosition() == 1)
+                academicYear = academicYear2List[spAcademicYear.getSelectedItemPosition()];
+            else if (spAcademicLevel.getSelectedItemPosition() == 2)
+                academicYear = academicYear3List[spAcademicYear.getSelectedItemPosition()];
+            else if (spAcademicLevel.getSelectedItemPosition() == 3)
+                academicYear = academicYear4List[spAcademicYear.getSelectedItemPosition()];
             else academicYear = academicYear3List[spAcademicYear.getSelectedItemPosition()];
         }
 
