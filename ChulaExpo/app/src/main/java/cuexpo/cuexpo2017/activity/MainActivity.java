@@ -158,13 +158,13 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
                         }
                     } else {
-
+                        Log.e("UserInfo", "Load UserInfo Incomplete");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<UserDao> call, Throwable t) {
-
+                    Log.e("UserInfo", "Load UserInfo Failure " + t.toString());
                 }
             });
         }
