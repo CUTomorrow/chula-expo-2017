@@ -103,7 +103,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            Toast.makeText(Contextor.getInstance().getContext(), "กำลังเข้าสู่ระบบ...", Toast.LENGTH_SHORT).show();
             //container.setClickable(true);
             countClick++;
             Log.e("LoginFB","Click count = " + countClick);
@@ -168,6 +167,9 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onCompleted(JSONObject object, GraphResponse response) {
             try {
+
+                Toast.makeText(Contextor.getInstance().getContext(), "กำลังเข้าสู่ระบบ...", Toast.LENGTH_SHORT).show();
+
                 Log.e("LoginFB","facebook login complete");
                 SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
