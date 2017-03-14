@@ -129,7 +129,8 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 setMapItem((MapViewHolder) holder);
                 break;
             case EVENT:
-                setEventItem((EventViewHolder) holder, position-3);
+                if(!isSearching) setEventItem((EventViewHolder) holder, position-3);
+                else setEventItem((EventViewHolder) holder, position);
                 break;
         }
     }
