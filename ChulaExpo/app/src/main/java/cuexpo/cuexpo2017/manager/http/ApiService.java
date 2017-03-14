@@ -49,11 +49,8 @@ public interface ApiService {
                                                                 @Query("sort") String sort,
                                                                 @Query("limit") int limit);
 
-    @GET("/api/activities")
-    Call<ActivityItemCollectionDao> loadHighlightActivity(@Query("highlight") boolean highlight,
-                                                          @Query("fields") String fields,
-                                                          @Query("end") JSONObject end,
-                                                          @Query("limit") int limit);
+    @GET("/api/activities/highlight")
+    Call<ActivityItemCollectionDao> loadHighlightActivity();
 
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadActivityByZone(@Query("zone") String zone,
