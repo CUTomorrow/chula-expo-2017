@@ -221,7 +221,8 @@
                         android:id="@+id/interest"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/show_interest"

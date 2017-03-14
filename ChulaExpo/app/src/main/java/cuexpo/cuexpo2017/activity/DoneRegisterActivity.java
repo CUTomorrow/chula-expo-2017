@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.LoginDao;
 import cuexpo.cuexpo2017.dao.Token;
@@ -77,6 +78,7 @@ public class DoneRegisterActivity extends AppCompatActivity {
                         sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                         editor = sharedPref.edit();
                         editor.putString("apiToken",dao.getResults().getToken());
+                        MainApplication.setApiToken(dao.getResults().getToken());
                         //Log.e("signup","apitoken: "+ dao.getResults().getToken());
                         editor.apply();
                     }

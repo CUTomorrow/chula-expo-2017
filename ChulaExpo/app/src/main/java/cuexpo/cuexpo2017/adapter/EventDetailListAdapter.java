@@ -501,7 +501,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                             editor.putString(id, "");
                             editor.apply();
                             favouritePlaceEditor = favouritePlace.edit();
-                            favouritePlaceEditor.putString(id, title + lat + lng);
+                            favouritePlaceEditor.putString(id, title+","+lat+","+lng);
                             favouritePlaceEditor.apply();
                             isFavourite = true;
                             // Add alert notification when time arrive
