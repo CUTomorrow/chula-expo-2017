@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="#f3f3f3"
         android:overScrollMode="never"
-        android:scrollbars="none"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,6 +37,7 @@
                 android:src="@drawable/logo_dark_blue" />
 
             <TextView
+                fontPath="fonts/ThaiSansNeue-Bold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -42,9 +45,8 @@
                 android:text="เข้าสู่ระบบผ่านบัญชีผู้ใช้"
                 android:textAlignment="center"
                 android:textColor="@color/blue_dark"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                fontPath="fonts/ThaiSansNeue-Bold.ttf" />
+                android:textSize="24dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,10 +82,13 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:hint="ชื่อผู้ใช้"
+                        android:maxLines="1"
                         android:imeOptions="actionNext"
                         android:textColor="#7a7d84"
                         android:textColorLink="@color/transparent"
-                        android:textSize="16sp" />
+                        android:textSize="20sp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -112,15 +117,17 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:hint="รหัสผ่าน"
+                        android:maxLines="1"
                         android:imeOptions="actionNext"
                         android:textColor="#7a7d84"
                         android:textColorLink="@color/transparent"
-                        android:textSize="16sp" />
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/login_user_submit"
+                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -128,8 +135,7 @@
                     android:background="@color/blue_dark"
                     android:text="เข้าสู่ระบบ"
                     android:textColor="#FFFFFF"
-                    android:textSize="18dp"
-                    fontPath="fonts/ThaiSansNeue-Bold.ttf" />
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
@@ -151,16 +157,17 @@
 
                 <TextView
                     android:id="@+id/textView9"
+                    fontPath="fonts/ThaiSansNeue.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="สามารถลงทะเบียนเพื่อรับ ผู้ใช้ และ รหัสผ่านได้ที่หน้างาน สำหรับผู้ใช้ที่ไม่มี Facebook"
-                    fontPath="fonts/ThaiSansNeue.ttf" />
+                    android:textSize="18dp" />
+
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
 
     <ImageView
         android:id="@+id/login_user_close"
@@ -170,5 +177,14 @@
         android:alpha="0.5"
         android:padding="15dp"
         android:src="@drawable/close_button" />
+
+    <ProgressBar
+        android:id="@+id/login_user_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:layout_anchorGravity="center_vertical|center_horizontal" />
 
 </RelativeLayout>
