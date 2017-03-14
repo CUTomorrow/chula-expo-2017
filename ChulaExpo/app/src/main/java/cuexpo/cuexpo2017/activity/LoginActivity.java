@@ -102,6 +102,8 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener facebookLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            Toast.makeText(Contextor.getInstance().getContext(), "กำลังเข้าสู่ระบบ...", Toast.LENGTH_SHORT).show();
             //container.setClickable(true);
             countClick++;
             Log.e("LoginFB","Click count = " + countClick);
@@ -212,7 +214,6 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.apply();
 
                                 progress.setVisibility(View.VISIBLE);
-                                Toast.makeText(Contextor.getInstance().getContext(), "กำลังเข้าหน้าหลัก...", Toast.LENGTH_LONG).show();
 
                                 new AsyncTask<Void, Void, Void>() {
 
@@ -272,8 +273,6 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener guestLoginOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-            Toast.makeText(getApplicationContext(),"กำลังเข้าหน้าหลัก...",Toast.LENGTH_LONG).show();
 
             new AsyncTask<Void, Void, Void>() {
 
