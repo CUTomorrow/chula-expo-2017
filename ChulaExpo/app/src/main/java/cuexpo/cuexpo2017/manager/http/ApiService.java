@@ -9,6 +9,7 @@ import cuexpo.cuexpo2017.dao.EditAdultUser;
 import cuexpo.cuexpo2017.dao.EditStudentUser;
 import cuexpo.cuexpo2017.dao.FacilityDao;
 import cuexpo.cuexpo2017.dao.LoginDao;
+import cuexpo.cuexpo2017.dao.LoginUser;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.ReserveDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
@@ -33,6 +34,10 @@ import retrofit2.http.Query;
  */
 
 public interface ApiService {
+
+    @POST("/api/login")
+    Call<LoginDao> loadLoginStatus(@Body LoginUser loginUser);
+
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadActivityList(@Query("fields") String fields,
                                                      @Query("limit") int limit,
