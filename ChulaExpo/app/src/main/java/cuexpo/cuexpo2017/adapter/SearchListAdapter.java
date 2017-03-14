@@ -191,7 +191,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         googleMap.addMarker(
                 new MarkerOptions()
                         .position(new LatLng(lat, lng))
-                        .icon(BitmapDescriptorFactory.fromResource(Resource.getDrawable("pin_event")))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_event))
         );
     }
 }
