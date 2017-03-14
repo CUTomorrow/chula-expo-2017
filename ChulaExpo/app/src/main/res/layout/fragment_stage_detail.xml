@@ -16,7 +16,6 @@
             android:background="@drawable/stage_left" />
 
         <TextView
-            android:textColor="@color/black"
             android:layout_gravity="center"
             android:id="@+id/stage_loading_text"
             fontPath="@string/font_bold"
@@ -24,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Loading..."
+            android:text="Loading Data..."
             android:textSize="18sp" />
     </LinearLayout>
 

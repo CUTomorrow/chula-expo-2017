@@ -234,7 +234,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (!access) {
                 error("แก้ไขข้อมูล");
             } else {
-                //comingSoon();
+                comingSoon();
             }
         } else if (v == btnSetting) {
             if (!access) {
