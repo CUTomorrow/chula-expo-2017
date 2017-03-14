@@ -121,6 +121,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     getInstance().getService().getUserInfo
                     ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool,workerJob");
             callUserInfo.enqueue(callBackUserInfo);
+            Glide.with(this)
+                    .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
+                    .placeholder(R.drawable.iv_profile_temp)
+                    .error(R.drawable.iv_profile_temp)
+                    .bitmapTransform(new CropCircleTransformation(getActivity()))
+                    .into(ivProfile);
         } else {
             tvLogout.setText("กลับไปหน้า Login");
         }
