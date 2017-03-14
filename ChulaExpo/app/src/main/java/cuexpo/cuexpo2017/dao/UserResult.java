@@ -34,13 +34,14 @@ public class UserResult {
     private Academic academic;
     @SerializedName("staff")
     @Expose
-    private String staff;
+    private Object staff;
     @SerializedName("worker")
     @Expose
     private Worker worker;
     @SerializedName("tags")
     @Expose
     private List<Object> tags = null;
+
 
     public String getId() {
         return id;
@@ -106,14 +107,6 @@ public class UserResult {
         this.academic = academic;
     }
 
-    public String getStaff() {
-        return staff;
-    }
-
-    public void setStaff(String staff) {
-        this.staff = staff;
-    }
-
     public Worker getWorker() {
         return worker;
     }
@@ -128,5 +121,13 @@ public class UserResult {
 
     public void setTags(List<Object> tags) {
         this.tags = tags;
+    }
+
+    public Object getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Object staff) {
+        this.staff = staff;
     }
 }
