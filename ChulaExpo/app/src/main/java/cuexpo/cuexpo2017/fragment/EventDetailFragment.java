@@ -192,7 +192,7 @@ public class EventDetailFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentManager.popBackStack();
         }
     };
 }

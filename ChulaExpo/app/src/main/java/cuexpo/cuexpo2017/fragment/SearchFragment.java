@@ -80,7 +80,6 @@ public class SearchFragment extends Fragment {
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("FacebookInfo", Context.MODE_PRIVATE);
         id = sharedPref.getString("id", "");
-        HttpManagerSpecial.getInstance().setAPIKey(sharedPref.getString("apiToken", ""));
         Log.e("Search Fragment", "ID : " + id);
         initEventList();
         return rootView;
@@ -94,7 +93,7 @@ public class SearchFragment extends Fragment {
         }
     };
 
-    TextView.OnKeyListener searchOEAL = new TextView.OnKeyListener(){
+    TextView.OnKeyListener searchOEAL = new TextView.OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -111,33 +110,34 @@ public class SearchFragment extends Fragment {
         }
     };
 
-    private void search(){
+    private void search() {
         String s = query.getText().toString();
         if (!isSearching) {
             isSearching = true;
             searchListAdapter.setSearching(true);
         }
-        Call<ActivitySearchItemCollectionDao> callSearchActivities;
+        Call<ActivityItemCollectionDao> callSearchActivities;
         Log.e("Search Fragment", "String : " + s);
             /*if (checkMap) {
                 callSearchActivities = HttpManagerSpecial.getInstance().
                         getService().searchActivities(id, lat, lng, 300, s);
             } else {*/
         callSearchActivities =
-                HttpManagerSpecial.getInstance().
+                HttpManager.getInstance().
                         getService().searchActivities(s);
         //}
         callSearchActivities.enqueue(callbackSearch);
+        eventList.clear();
+        searchListAdapter.notifyDataSetChanged();
     }
 
-    Callback<ActivitySearchItemCollectionDao> callbackSearch = new Callback<ActivitySearchItemCollectionDao>() {
+    Callback<ActivityItemCollectionDao> callbackSearch = new Callback<ActivityItemCollectionDao>() {
         @Override
-        public void onResponse(Call<ActivitySearchItemCollectionDao> call, Response<ActivitySearchItemCollectionDao> response) {
+        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
-                dao = response.body().getActivities();
-                Log.e("Search Fragment", "Search Finish " + response.body().getStatus().getStatus());
-                Log.e("Search Fragment", "Search Finish " + response.body().getActivities().size());
+                dao = response.body().getResults();
                 setEventList();
+                Log.e("Search Fragment", "Search Finish with Size : " + dao.size());
             } else {
                 Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_LONG).show();
                 Log.e("Search Fragment", "Search Fail " + response.errorBody().toString());
@@ -145,7 +145,7 @@ public class SearchFragment extends Fragment {
         }
 
         @Override
-        public void onFailure(Call<ActivitySearchItemCollectionDao> call, Throwable t) {
+        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
             Log.e("Search Fragment", "Search Fail " + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
         }
@@ -164,7 +164,7 @@ public class SearchFragment extends Fragment {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
                 setEventList();
-                Log.e("Search Fragment", "Size " + response.body().getResults().size());
+                Log.e("Search Fragment", "Nearby Finish with Size : " + response.body().getResults().size());
             } else {
                 Toast.makeText(Contextor.getInstance().getContext(), "Cannot Get Nearby Activities. Please try again.", Toast.LENGTH_LONG).show();
                 Log.e("Search Fragment", "Nearby Fail " + response.errorBody().toString());
@@ -179,7 +179,6 @@ public class SearchFragment extends Fragment {
     };
 
     private void setEventList() {
-        eventList.clear();
         SharedPreferences sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
         for (int i = 0; i < dao.size(); i++) {
             eventList.add(new EventListItem(

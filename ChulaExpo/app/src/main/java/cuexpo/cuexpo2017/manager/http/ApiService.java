@@ -132,11 +132,14 @@ public interface ApiService {
                                            @Query("lat") double lat,
                                            @Query("lng") double lng,
                                            @Query("cutoff") int distance,
-                                           @Query("q") String queryString);
+                                           @Query("text") String queryString);
 
     @GET("/api/activities/search")
     Call<ActivityItemCollectionDao> searchActivities(@Query("u") String user,
-                                                     @Query("q") String queryString);
+                                                     @Query("text") String queryString);
+
+    @GET("/api/activities/search")
+    Call<ActivityItemCollectionDao> searchActivities(@Query("text") String queryString);
 
     @GET("/api/activities/nearby")
     Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("lat") double lat,

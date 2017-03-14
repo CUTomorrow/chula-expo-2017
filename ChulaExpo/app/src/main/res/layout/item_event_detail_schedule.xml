@@ -99,13 +99,15 @@
                 android:padding="7dp">
 
                 <TextView
+                    android:clickable="true"
                     android:id="@+id/event_detail_loading"
                     fontPath="fonts/ThaiSansNeue-Bold.ttf"
                     android:layout_centerInParent="true"
                     android:text="Loading Data..."
                     android:textSize="17sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="40dp" />
 
                 <TextView
                     android:id="@+id/button_title"
