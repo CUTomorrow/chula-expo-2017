@@ -1,5 +1,7 @@
 package cuexpo.cuexpo2017.adapter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +42,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final short HEADER = 1;
     private final short MAP = 2;
     private FragmentManager fragmentManager;
+    private Context context;
 
     public class EventViewHolder extends RecyclerView.ViewHolder{
         public TextView title, time, tag;
@@ -55,6 +58,13 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private View.OnClickListener onEventClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            int viewId = v.getId();
+            String id;
+            if (isSearching) id = eventList.get(viewId).getId();
+            else id = eventList.get(viewId-3).getId();
+            SharedPreferences activitySharedPref = context.getSharedPreferences("Event", Context.MODE_PRIVATE);
+            activitySharedPref.edit().putString("EventID", id).apply();
+
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.container, new EventDetailFragment());
             fragmentTransaction.addToBackStack(null);
@@ -83,7 +93,8 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public SearchListAdapter(List<EventListItem> eventList, boolean isSearching, FragmentManager fragmentManager) {
+    public SearchListAdapter(Context context, List<EventListItem> eventList, boolean isSearching, FragmentManager fragmentManager) {
+        this.context = context;
         this.eventList = eventList;
         this.isSearching = isSearching;
         this.fragmentManager = fragmentManager;
