@@ -502,7 +502,7 @@
                             android:src="@drawable/ic_about_app" />
 
                         <TextView
-                            android:id="@+id/textView7"
+                            android:id="@+id/textView8"
                             fontPath="@string/font_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
