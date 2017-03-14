@@ -61,10 +61,19 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         if (!sharedPref.getString("apiToken", "").equals(""))
             HttpManager.getInstance().setAPIKey(sharedPref.getString("apiToken", ""));
 
-        initTab();
+        new AsyncTask<Void,Void,Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                initTab();
+                return null;
+            }
+        }.execute();
     }
 
     private void initTab() {
+
+
 
         viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         final LayoutInflater inflater = LayoutInflater.from(viewPagerTab.getContext());

@@ -3,6 +3,7 @@ package cuexpo.cuexpo2017.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -87,9 +88,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
+
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        initInstances(rootView, savedInstanceState);
+
+        new AsyncTask<Void,Void,Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+
+                getActivity().runOnUiThread(new Thread(new Runnable() {
+                    public void run() {
+                        initInstances(rootView, savedInstanceState);
+                    }
+                }));
+                return null;
+            }
+        }.execute();
+
+
         return rootView;
     }
 
