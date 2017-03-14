@@ -1,21 +1,30 @@
 package cuexpo.cuexpo2017.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.google.android.gms.maps.SupportMapFragment;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import cuexpo.cuexpo2017.R;
+import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
+import cuexpo.cuexpo2017.dao.FacilityDao;
+import cuexpo.cuexpo2017.manager.HttpManager;
+import retrofit2.Call;
 
 public class EventPageFragment extends Fragment implements View.OnClickListener {
     private Toolbar toolbar;
@@ -29,11 +38,23 @@ public class EventPageFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_event_page, container, false);
-        initTab();
-        initInstances(savedInstanceState);
+        new AsyncTask<Void,Void,Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                getActivity().runOnUiThread(new Thread(new Runnable() {
+                    public void run() {
+                        initTab();
+                        initInstances(savedInstanceState);
+                    }
+                }));
+                return null;
+            }
+        }.execute();
+
         return rootView;
     }
 
