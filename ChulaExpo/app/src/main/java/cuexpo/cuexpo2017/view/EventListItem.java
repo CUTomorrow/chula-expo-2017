@@ -10,10 +10,19 @@ public class EventListItem {
     private String time;
     private String tag;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public EventListItem(String id, String title, String time, String tag) {
         this.id = id;
         this.title = title;
         this.time = time;
+
         this.tag = tag;
     }
 

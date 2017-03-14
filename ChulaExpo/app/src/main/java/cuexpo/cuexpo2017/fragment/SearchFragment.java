@@ -58,7 +58,6 @@ public class SearchFragment extends Fragment {
     private SearchListAdapter searchListAdapter;
     private List<EventListItem> eventList = new ArrayList<>();
     private List<ActivityItemResultDao> dao = new ArrayList<>();
-    private ImageView search;
     private EditText query;
     private String id;
     private boolean isSearching = false;
@@ -72,7 +71,7 @@ public class SearchFragment extends Fragment {
         rootView.findViewById(R.id.back).setOnClickListener(backOCL);
         rootView.findViewById(R.id.search).setOnKeyListener(searchOEAL);
 
-        searchListAdapter = new SearchListAdapter(eventList, false, getFragmentManager());
+        searchListAdapter = new SearchListAdapter(getContext(), eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(searchListAdapter);
@@ -111,6 +110,9 @@ public class SearchFragment extends Fragment {
     };
 
     private void search() {
+        eventList.clear();
+        searchListAdapter.notifyDataSetChanged();
+
         String s = query.getText().toString();
         if (!isSearching) {
             isSearching = true;
@@ -127,8 +129,6 @@ public class SearchFragment extends Fragment {
                         getService().searchActivities(s);
         //}
         callSearchActivities.enqueue(callbackSearch);
-        eventList.clear();
-        searchListAdapter.notifyDataSetChanged();
     }
 
     Callback<ActivityItemCollectionDao> callbackSearch = new Callback<ActivityItemCollectionDao>() {
