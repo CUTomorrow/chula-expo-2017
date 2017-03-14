@@ -37,16 +37,22 @@ public class LocationTask extends TimerTask{
         JSONObject fp = new JSONObject();
         if (state == WifiManager.WIFI_STATE_ENABLED) {
             if (wifiManager.startScan()) {
-                List<ScanResult> results = wifiManager.getScanResults();
-                JSONArray jsonArray = new JSONArray();
-                for (int i = 0; i < results.size(); i++) {
-                    JSONObject accesspoint = new JSONObject();
-                    accesspoint.put("BSSID", results.get(i).BSSID);
-                    accesspoint.put("SSID", results.get(i).SSID);
-                    accesspoint.put("RSSI", results.get(i).level + "");
-                    jsonArray.add(accesspoint);
+                try {
+                    List<ScanResult> results = wifiManager.getScanResults();
+                    JSONArray jsonArray = new JSONArray();
+                    for (int i = 0; i < results.size(); i++) {
+                        JSONObject accesspoint = new JSONObject();
+                        accesspoint.put("BSSID", results.get(i).BSSID);
+                        accesspoint.put("SSID", results.get(i).SSID);
+                        accesspoint.put("RSSI", results.get(i).level + "");
+                        jsonArray.add(accesspoint);
+                    }
+                    fp.put("ap", jsonArray);
+                }catch (SecurityException e){
+                    Log.e("Location Task", e.toString());
+                    MainApplication.setCurrentLocationDetail("Please allow location permission");
+                    return;
                 }
-                fp.put("ap", jsonArray);
             }
         }
 
