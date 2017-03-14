@@ -45,7 +45,7 @@
             android:layout_alignTop="@+id/search"
             android:layout_toRightOf="@+id/back"
             android:layout_toEndOf="@+id/back"
-            android:id="@+id/imageView7"
+            android:id="@+id/search_icon_button"
             android:padding="9dp"
             android:layout_width="40dp" />
     </RelativeLayout>
