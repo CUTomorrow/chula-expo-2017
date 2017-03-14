@@ -120,4 +120,26 @@ public interface ApiService {
     @PUT("/api/me")
     Call<UserDao> editStudentUserInfo(@Body EditStudentUser editStudentUser);
 
+    @GET("/api/activities/search")
+    Call<ActivityItemCollectionDao> searchActivities(@Query("u") String user,
+                                           @Query("lat") double lat,
+                                           @Query("lng") double lng,
+                                           @Query("cutoff") int distance,
+                                           @Query("q") String queryString);
+
+    @GET("/api/activities/search")
+    Call<ActivityItemCollectionDao> searchActivities(@Query("u") String user,
+                                                     @Query("q") String queryString);
+
+    @GET("/api/activities/nearby")
+    Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("lat") double lat,
+                                                         @Query("lng") double lng);
+
+    @GET("/api/activities/nearby")
+    Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("u") String user,
+                                                         @Query("lat") double lat,
+                                                         @Query("lng") double lng);
+
+
+
 }

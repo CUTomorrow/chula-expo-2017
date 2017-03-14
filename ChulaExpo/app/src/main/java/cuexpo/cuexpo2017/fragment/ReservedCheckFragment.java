@@ -225,7 +225,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             } else {
                 try {
                     Toast.makeText(Contextor.getInstance().getContext(), "จองไม่สำเร็จ", Toast.LENGTH_LONG).show();
-                    Log.e("Reserved Check Fragment", "Reserve Round Not Success " + response.errorBody().string());
+                    Log.e("Reserved Check Fragment", "Reserve Round Not Success" + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

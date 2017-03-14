@@ -83,6 +83,14 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.fragmentManager = fragmentManager;
     }
 
+    public boolean isSearching() {
+        return isSearching;
+    }
+
+    public void setSearching(boolean searching) {
+        isSearching = searching;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder;
