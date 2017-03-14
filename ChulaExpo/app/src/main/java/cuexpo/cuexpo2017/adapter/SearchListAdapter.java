@@ -3,6 +3,7 @@ package cuexpo.cuexpo2017.adapter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -178,10 +179,17 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onMapReady(GoogleMap googleMap) {
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
-//        googleMap.setOnMarkerClickListener(this);
-//        googleMap.setOnMapClickListener(this);
-        double lat = MainApplication.getCurrentLocation().getLatitude();
-        double lng = MainApplication.getCurrentLocation().getLongitude();
+
+        double lat = 13.74010;
+        double lng = 100.53045;
+
+        try {
+            lat = MainApplication.getCurrentLocation().getLatitude();
+            lng = MainApplication.getCurrentLocation().getLongitude();
+        } catch (NullPointerException e) {
+            Log.e("searchWhereAmI", e.toString());
+        }
+
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition.Builder()
                         .target(new LatLng(lat, lng))
