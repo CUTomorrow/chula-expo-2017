@@ -146,6 +146,7 @@ public interface ApiService {
     Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("u") String user,
                                                          @Query("lat") double lat,
                                                          @Query("lng") double lng);
+
     @GET("/api/me/where")
     Call<WhereDao> getLocationInfo(@Query("latitude") double latitude, @Query("longitude") double longitude);
 
