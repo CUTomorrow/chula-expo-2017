@@ -83,16 +83,19 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     private boolean access;
-
+    private SharedPreferences.Editor favouritePlaceEditor;
+    private SharedPreferences.Editor reservedPlaceEditor;
+    private SharedPreferences favouritePlace;
+    private SharedPreferences reservedPlace;
     private String startTimeISO;
     private String endTimeISO;
     private HashMap<String, Integer> NotificationIDMapping;
     public static int notiID = 0;
 
     public EventDetailListAdapter(
-        Fragment fragment, Context context, String id, String place,
-        String contact, String time, String startTimeISO, String endTimeISO, String description,
-        double lat, double lng, String[] imageUrls, String title
+            Fragment fragment, Context context, String id, String place,
+            String contact, String time, String startTimeISO, String endTimeISO, String description,
+            double lat, double lng, String[] imageUrls, String title
     ) {
 
         this.fragment = fragment;
@@ -117,7 +120,8 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         access = !sharedPref2.getString("fbToken", "").equals("");
 
         sharedPref = context.getSharedPreferences("favouriteActivity", Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
+        favouritePlace = context.getSharedPreferences("FavouritePlaces", Context.MODE_PRIVATE);
+        reservedPlace = context.getSharedPreferences("ReservedPlaces", Context.MODE_PRIVATE);
 
         Call<PlaceItemDao> call = HttpManager.getInstance().getService().loadPlaceItem(place);
         call.enqueue(callbackPlace);
@@ -404,13 +408,13 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
     public void scheduleNotification() {
 
-        if(!DateUtil.isSameDay(this.startTimeISO, this.endTimeISO)) {
+        if (!DateUtil.isSameDay(this.startTimeISO, this.endTimeISO)) {
             // Don't show notification if the duration of event isn't the same day.
-            return ;
+            return;
         }
 
         String notiDesc = this.time + "\n" + this.description;
-        if(notiDesc.length() > 140) {
+        if (notiDesc.length() > 140) {
             notiDesc = notiDesc.subSequence(0, 140) + "...";
         }
 
@@ -428,7 +432,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 .setAutoCancel(true);
 
         int curNotiID = 0;
-        if(NotificationIDMapping.containsKey(this.id)) {
+        if (NotificationIDMapping.containsKey(this.id)) {
             curNotiID = NotificationIDMapping.get(this.id);
         } else {
             curNotiID = notiID++;
@@ -440,7 +444,7 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
 
         long currentTimestamp = System.currentTimeMillis();
 
-        if(currentTimestamp < notificationTimestamp) {
+        if (currentTimestamp < notificationTimestamp) {
             Intent notificationIntent = new Intent(this.context, NotificationReceiver.class);
             notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notiBuilder.build());
             notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, curNotiID);
@@ -462,33 +466,41 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                 if (canReserve) {
                     FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id, title));
+                    fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id, title, lat, lng));
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else {
                     if (isReserve) {
-                        System.out.println("Already Reserved");
                         Call<DeleteResultDao> callDelete = HttpManager.getInstance().getService().removeRound(reserveId);
                         callDelete.enqueue(callbackDelete);
                         canReserve = true;
                         notifyDataSetChanged();
                     } else {
                         if (!isFavourite) {
+                            editor = sharedPref.edit();
                             editor.putString(id, "");
-                            editor.commit();
+                            editor.apply();
+                            favouritePlaceEditor = favouritePlace.edit();
+                            favouritePlaceEditor.putString(id, title+","+lat+","+lng);
+                            favouritePlaceEditor.apply();
                             isFavourite = true;
-                            System.out.println("LET's LOVE");
-
                             // Add alert notification when time arrive
                             scheduleNotification();
 
                             notifyDataSetChanged();
                         } else {
                             isFavourite = false;
-                            editor.remove(id);
-                            editor.commit();
-                            System.out.println("LET's NOT LOVE");
+                            if (sharedPref.contains(id)) {
+                                editor = sharedPref.edit();
+                                editor.remove(id);
+                                editor.apply();
+                            }
+                            if (favouritePlace.contains(id)) {
+                                favouritePlaceEditor = favouritePlace.edit();
+                                favouritePlaceEditor.remove(id);
+                                favouritePlaceEditor.apply();
+                            }
                             notifyDataSetChanged();
                         }
                     }
@@ -502,7 +514,13 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
         public void onResponse(Call<DeleteResultDao> call, Response<DeleteResultDao> response) {
             if (response.isSuccessful()) {
                 DeleteResultDao dao = response.body();
-                Toast.makeText(Contextor.getInstance().getContext(), "ยกเลิกการจองสำเร็จ", Toast.LENGTH_LONG).show();
+                if (dao.getSuccess() && reservedPlace.contains(id)) {
+                    reservedPlaceEditor = reservedPlace.edit();
+                    reservedPlaceEditor.remove(id);
+                    reservedPlaceEditor.apply();
+                }
+                Toast.makeText(Contextor.getInstance().getContext(), dao.getSuccess() ? "ยกเลิกการจองสำเร็จ" : "ยกเลิกการจองไม่สำเร็จ "
+                        + dao.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e("EventDetail", "Delete Round " + dao.getSuccess() + " " + dao.getMessage());
             } else {
                 Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().toString(), Toast.LENGTH_LONG).show();

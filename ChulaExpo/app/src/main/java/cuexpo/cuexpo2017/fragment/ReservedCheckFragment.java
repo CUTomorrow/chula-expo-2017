@@ -1,5 +1,7 @@
 package cuexpo.cuexpo2017.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -53,17 +55,21 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
     private int selectedPos;
     private String aid;
     private String aName;
+    private double lat;
+    private double lng;
 
     public ReservedCheckFragment() {
         super();
     }
 
     @SuppressWarnings("unused")
-    public static ReservedCheckFragment newInstance(String aid, String aName) {
+    public static ReservedCheckFragment newInstance(String aid, String aName, Double lat, Double lng) {
         ReservedCheckFragment fragment = new ReservedCheckFragment();
         Bundle args = new Bundle();
         args.putString("aid", aid);
         args.putString("aName", aName);
+        args.putDouble("lat", lat);
+        args.putDouble("lng", lng);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,6 +81,8 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
 
         aid = getArguments().getString("aid", "");
         aName = getArguments().getString("aName", "");
+        lat = getArguments().getDouble("lat", 0);
+        lng = getArguments().getDouble("lng", 0);
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
@@ -204,6 +212,13 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         public void onResponse(Call<ReserveDao> call, Response<ReserveDao> response) {
             if (response.isSuccessful()) {
                 dao2 = response.body();
+                if (dao.getSuccess()) {
+                    SharedPreferences reservedPlace =
+                            Contextor.getInstance().getContext().getSharedPreferences("ReservedPlaces", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor reservedPlaceEditor = reservedPlace.edit();
+                    reservedPlaceEditor.putString(aid, aName +","+ lat +","+ lng);
+                    reservedPlaceEditor.apply();
+                }
                 Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() ? "จองสำเร็จ" : "จองไม่สำเร็จ "
                         + dao2.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e("Reserved Check Fragment", "Reserve Round " + dao2.getSuccess() + " " + dao2.getMessage());

@@ -1,5 +1,6 @@
 package cuexpo.cuexpo2017.utility;
 
+import android.content.Context;
 import android.location.Location;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.TimerTask;
 
 import cuexpo.cuexpo2017.MainApplication;
+import cuexpo.cuexpo2017.activity.MainActivity;
 
 /**
  * Created by APTX-4869 (LOCAL) on 1/9/2017.
@@ -47,7 +49,10 @@ public class LocationTask extends TimerTask{
                 fp.put("ap", jsonArray);
             }
         }
-        fp.put("user_id", "EN100F6");
+
+        fp.put("user_id", MainApplication.getApiToken());
+        Log.d("user_id", MainApplication.getApiToken());
+
         try {
             Location location = MainApplication.getCurrentLocation();
             fp.put("latitude", location.getLatitude());

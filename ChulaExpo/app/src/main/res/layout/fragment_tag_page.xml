@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="cuexpo.cuexpo2017.fragment.TagPageFragment"
     android:background="@color/light_grey">
 
@@ -30,8 +29,7 @@
                 android:textSize="@dimen/title_toolbar_size"
                 android:layout_gravity="center"
                 android:text="Interest"
-                android:textColor="@android:color/black"
-                />
+                android:textColor="@android:color/black" />
         </android.support.v7.widget.Toolbar>
 
         <ListView
@@ -40,10 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="none"
-            android:divider="@color/light_grey"
-            />
+            android:divider="@color/light_grey" />
 
     </RelativeLayout>
-
 
 </FrameLayout>

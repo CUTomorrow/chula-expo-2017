@@ -92,10 +92,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center"
+
                                 android:background="@color/profile_bg_dark"
                                 android:gravity="center"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
                                 android:text="@string/profile_button_edit"
                                 android:textColor="@color/white"
                                 android:textSize="15sp" />
@@ -108,6 +109,7 @@
                         android:layout_margin="5dp"
                         android:layout_weight="0.6"
                         android:orientation="vertical">
+>>>>>>> 07d87edba4edc24fc448dedde26a6b801e212724
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -238,7 +240,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="8dp"
                             android:text="@string/profile_button_1"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
@@ -279,7 +281,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="8dp"
                             android:layout_weight="0.2"
                             android:gravity="center"
                             android:text="@string/profile_button_2"
@@ -329,7 +331,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="8dp"
                             android:gravity="center"
                             android:text="@string/profile_button_3"
                             android:textColor="@color/white"
@@ -372,7 +374,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="8dp"
                             android:gravity="center"
                             android:text="@string/profile_button_4"
                             android:textColor="@color/white"
@@ -414,7 +416,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="8dp"
                             android:gravity="center"
                             android:text="@string/profile_button_5"
                             android:textColor="@color/white"
@@ -465,7 +467,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="8dp"
                             android:gravity="center"
                             android:text="@string/profile_button_6"
                             android:textColor="@color/white"
@@ -518,8 +520,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="@dimen/profile_margin"
+                android:layout_marginBottom="@dimen/profile_margin"
                 android:orientation="horizontal"
                 android:weightSum="1">
 

@@ -104,6 +104,7 @@
     <string name="profile_button_5">FAQ</string>
     <string name="profile_button_6">เกี่ยวกับ จุฬาฯ Expo</string>
     <string name="profile_button_7">เกี่ยวกับแอพพลิเคชั่น</string>
+    <string name="profile_button_8">ออกจากระบบ</string>
 
     <!--Zone main page-->
     <string name="related_event_header_text">RELATED EVENTS</string>
@@ -122,6 +123,13 @@
     <string name="upcoming_events">UPCOMING EVENTS</string>
     <string name="previous_event_desc">Event ที่เริ่มไปแล้ว</string>
     <string name="upcoming_event_desc">Event ที่กำลังจะเกิดขึ้น</string>
-    <string name="profile_button_8">ออกจากระบบ</string>
+
+    <!--Reserved Check-->
+    <string name="reserved_check_prompt">คุณต้องการจอง Event</string>
+    <string name="reserved_check_reserve">จอง EVENT นี้</string>
+    <string name="reserved_check_line1">แอพลิเคชันจะแจ้งเตือนก่อน Event เริ่มล่วงหน้า 15 นาที</string>
+    <string name="reserved_check_line2">คุณสามารถตรวจสอบ Event ที่สนใจทั้งหมดได้ใน</string>
+    <string name="reserved_check_line3">เมนู</string>
+    <string name="reserved_check_line4"><![CDATA[> Event ที่สนใจทั้งหมด]]></string>
 
 </resources>

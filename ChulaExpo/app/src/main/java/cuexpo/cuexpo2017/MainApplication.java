@@ -43,7 +43,15 @@ public class MainApplication extends Application implements
     }
 
     private static String currentLocationDetail = "Loading...";
+    private static String apiToken = "";
 
+    public static String getApiToken() {
+        return apiToken;
+    }
+
+    public static void setApiToken(String apiToken) {
+        MainApplication.apiToken = apiToken;
+    }
 
     @Override
     public void onCreate() {

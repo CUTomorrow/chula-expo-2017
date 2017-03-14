@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/login_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,7 +14,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -27,56 +25,56 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="60dp"
-                android:src="@drawable/ic_about_big" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="จุฬาฯ เอ็กซ์โป\nจุฬาฯ 100 ปี นวัตกรรม คิดทำเพื่อสังคม"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:text="Chula Expo\nCU@100 Toward Greater\nInnovation for Society"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:src="@drawable/logo"
+                android:tint="@color/black" />
 
             <TextView
                 fontPath="@string/font_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:text="แนวคิดหลักของงาน"
+                android:text="&quot;จุฬาฯ 100 ปี นวัตกรรม\nคิดทำเพื่อสังคม&quot;"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Innovation   Social Responsibility   Sustainability"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textColor="@color/black"
+                android:textSize="22sp" />
 
             <TextView
                 fontPath="@string/font_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:text="กลุ่มเป้าหมาย"
+                android:text="15-19 มีนาคม 2560\nจุฬาลงกรณ์มหาวิทยาลัย"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="งานที่จัดขึ้นเนื่องในวาระจุฬาลงกรณ์มหาวิทยาลัย\nครบรอบ 100 ปี โดยภายในงานจะเป็นการนำเสนอ\n&quot;นวัตกรรม&quot; ของจุฬาลงกรณ์มหาวิทยาลัยที่ผลิตขึ้น\nเพื่อพัฒนาสังคมไทยอย่างยั่งยืน"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="จึงเป็นที่มาของชื่องานที่ว่า\n&quot;จุฬาฯ 100 ปี นวัตกรรม คิดทำเพื่อสังคม&quot;"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="หรือ"
+                android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <TextView
@@ -84,13 +82,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="CU Family: ครอบครัวจุฬาฯหมายถึง นิสิตปัจจุบัน นิสิตเก่า\nคณาจารย์ และเจ้าหน้าที่ ที่มีความเกี่ยวข้องกับจุฬาฯ โดยตรง\nรวมทั้งนักเรียนที่มีความมุ่งหมายจะเข้ามาเป็นส่วนหนึ่งของ\nจุฬาลงกรณ์มหาวิทยาลัย"
+                android:text="&quot;CU@100 - Toward greater innovation for society&quot;\nตามแนวคิดหลักซึ่งก็คือ\nInnovation (นวัตกรรม),\nSocial responsibility (การรับผิดชอบต่อสังคม)\nและ Sustainability (ความยั่งยืน)"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="16dp" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
 
@@ -102,6 +99,6 @@
         android:layout_alignParentRight="true"
         android:alpha="0.5"
         android:padding="15dp"
-        android:src="@drawable/close_button" />
+        android:src="@drawable/map_close_btn" />
 
 </RelativeLayout>

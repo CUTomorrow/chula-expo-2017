@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.LoginDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
@@ -206,6 +207,7 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("apiToken",dao.getResults().getToken());
+                                MainApplication.setApiToken(dao.getResults().getToken());
                                 //Log.e("LoginFB","apiToken = " + dao.getResults().getToken());
                                 editor.apply();
 
