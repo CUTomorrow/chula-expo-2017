@@ -5,10 +5,12 @@ import android.location.Location;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.indoorlocalization.Localization;
 import com.example.indoorlocalization.OnTaskCompleteListener;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,7 +19,12 @@ import java.util.List;
 import java.util.TimerTask;
 
 import cuexpo.cuexpo2017.MainApplication;
-import cuexpo.cuexpo2017.activity.MainActivity;
+import cuexpo.cuexpo2017.dao.MyLocation;
+import cuexpo.cuexpo2017.dao.WhereDao;
+import cuexpo.cuexpo2017.manager.HttpManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by APTX-4869 (LOCAL) on 1/9/2017.
@@ -76,16 +83,45 @@ public class LocationTask extends TimerTask{
         public void onCompleteListerner(JSONObject result) {
             String location;
             if (result.get("faculty_id") == null) {
-                location = "Please enable your Wi-Fi and GPS";
+                location = "Fetching data...";
+                MainApplication.setCurrentLocationDetail(location);
+                callWhereAmI();
             } else if (result.get("building_id").equals("-1")) {
-                // TODO call go here
-                location = "ไม่มีข้อมูลของห้องนี้";
+                location = "Fetching data...";
+                MainApplication.setCurrentLocationDetail(location);
+                callWhereAmI();
             } else {
                 location = "คณะ " + result.get("faculty_id") + " ตึก " + result.get("building_id");
                 if (!result.get("floor").equals("-1"))
                     location += " ชั้น " + result.get("floor") + " ห้อง " + result.get("room_number");
+                MainApplication.setCurrentLocationDetail(location);
             }
-            MainApplication.setCurrentLocationDetail(location);
+        }
+    };
+
+    private void callWhereAmI(){
+        Location loc = MainApplication.getCurrentLocation();
+        Log.d("whereAmI call", loc.getLatitude()+", "+loc.getLongitude());
+        Call<WhereDao> callWhere = HttpManager.getInstance().getService().getLocationInfo(
+                loc.getLatitude(), loc.getLongitude());
+        callWhere.enqueue(callbackWhere);
+    }
+
+    Callback<WhereDao> callbackWhere = new Callback<WhereDao>() {
+        @Override
+        public void onResponse(Call<WhereDao> call, Response<WhereDao> response) {
+            if (response.isSuccessful()) {
+                WhereDao dao = response.body();
+                MainApplication.setCurrentLocationDetail(dao.getResults().getText().getTh());
+                Log.d("whereAmI success", dao.getResults().getText().getTh());
+            } else {
+                Log.e("whereAmI not success", response.errorBody().toString());
+            }
+        }
+
+        @Override
+        public void onFailure(Call<WhereDao> call, Throwable t) {
+            Log.e("whereAmI fail", t.toString());
         }
     };
 }
