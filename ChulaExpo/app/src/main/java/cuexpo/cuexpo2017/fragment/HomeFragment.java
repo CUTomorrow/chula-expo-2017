@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ViewPager vpHighlight;
     TextView tvHighlightLabel;
     CircleIndicator indicatorHighlight;
-    ImageView ivToolbarQR, ivVPHighlight;
+    ImageView ivToolbarQR, ivVPHighlight, ivToolbarSearch;
     View rootView;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -108,6 +108,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         toolbar.setTitle("");
         ivToolbarQR = (ImageView) rootView.findViewById(R.id.home_toolbar_qr);
         ivToolbarQR.setOnClickListener(this);
+        ivToolbarSearch = (ImageView) rootView.findViewById(R.id.home_toolbar_search);
+        ivToolbarSearch.setOnClickListener(this);
         ivVPHighlight = (ImageView) rootView.findViewById(R.id.ivHighlight);
         //ivVPHighlight.setOnClickListener(this);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
