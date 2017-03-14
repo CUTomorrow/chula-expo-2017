@@ -27,13 +27,14 @@
         <!-- design -->
 
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/credit_design" />
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="60dp"
+                android:src="@drawable/credit_design" />
 
         <TextView
             fontPath="@string/font_bold"
@@ -58,13 +59,14 @@
 
         <!-- iOS -->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_ios" />
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_ios" />
 
         <TextView
             fontPath="@string/font_bold"
@@ -90,13 +92,14 @@
 
         <!-- Android -->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_android" />
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_android" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,13 +124,14 @@
 
         <!-- Backend & Frontend -->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_backend" />
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_backend" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -152,13 +156,14 @@
 
         <!-- Project Initiator -->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_project_initiator" />
+            <ImageView
+                android:id="@+id/image5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_project_initiator" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -183,13 +188,14 @@
 
         <!-- Project Monitoring -->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_monitor" />
+            <ImageView
+                android:id="@+id/image6"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_monitor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -214,13 +220,14 @@
 
         <!-- Recommendation -->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_recommendation" />
+            <ImageView
+                android:id="@+id/image7"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_recommendation" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -245,14 +252,14 @@
 
         <!-- Indoor -->
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_indoor" />
+            <ImageView
+                android:id="@+id/image8"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_indoor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -277,13 +284,14 @@
 
         <!-- Project Advisor -->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_advisor" />
+            <ImageView
+                android:id="@+id/image9"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_advisor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -308,13 +316,14 @@
 
         <!-- supported & sponsored -->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_project_initiator" />
+            <ImageView
+                android:id="@+id/image10"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_project_initiator" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -326,21 +335,22 @@
             android:textSize="28dp"
             fontPath="@string/font_bold" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:src="@drawable/credit_support" />
+            <ImageView
+                android:id="@+id/image11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/credit_support" />
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/credit_project_initiator" />
+            <ImageView
+                android:id="@+id/image12"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/credit_project_initiator" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -352,21 +362,23 @@
             android:textSize="28dp"
             fontPath="@string/font_bold" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="750dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:src="@drawable/credit_sponsor" />
+            <ImageView
+                android:id="@+id/image13"
+                android:layout_width="wrap_content"
+                android:layout_height="750dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/credit_sponsor" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="40dp"
-            android:src="@drawable/credit_post" />
+            <ImageView
+                android:id="@+id/image14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/credit_post" />
 
 
         </LinearLayout>

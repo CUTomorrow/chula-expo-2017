@@ -54,6 +54,7 @@ public class EventPageFragment extends Fragment implements View.OnClickListener 
 
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(2);
 
         SmartTabLayout viewPagerTab = (SmartTabLayout) rootView.findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(viewPager);

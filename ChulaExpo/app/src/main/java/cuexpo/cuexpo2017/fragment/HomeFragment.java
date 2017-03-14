@@ -35,6 +35,7 @@ import cuexpo.cuexpo2017.adapter.ActivityListAdapter;
 import cuexpo.cuexpo2017.adapter.HighlightListAdapter;
 import cuexpo.cuexpo2017.adapter.HomeStageListAdapter;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
+import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.dao.ZoneDao;
 import cuexpo.cuexpo2017.dao.ZoneResult;
 import cuexpo.cuexpo2017.datatype.MutableInteger;
@@ -65,7 +66,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     Vector<String> stageObjId;
     boolean firstStage;
     String apiToken;
-
 
 
     @Override
@@ -144,12 +144,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         sharedPref = getActivity().getSharedPreferences("FacebookInfo", Context.MODE_PRIVATE);
         apiToken = sharedPref.getString("apiToken", "");
         Call<ActivityItemCollectionDao> call;
-        if(!apiToken.equals("")){
+        if (!apiToken.equals("")) {
             call = HttpManager.getInstance().getService()
                     .loadRecommendedActivityList();
         } else {
             call = HttpManager.getInstance().getService()
-                .loadActivityList("name,thumbnail,start,end,zone", 20, "start");
+                    .loadActivityList("name,thumbnail,start,end,zone", 20, "start");
         }
         call.enqueue(callbackActivity);
         Call<ZoneDao> callZone = HttpManager.getInstance().getService().loadZoneList("name_EN");
@@ -190,7 +190,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 ZoneDao dao = response.body();
                 //get SharedPref
                 sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref2 = getActivity().getSharedPreferences("ZoneKeyEn", Context.MODE_PRIVATE);
                 editor = sharedPref.edit();
+                SharedPreferences.Editor editor2 = sharedPref2.edit();
                 SharedPreferences reverseZoneKeySharedPref = getActivity().getSharedPreferences("ReverseZoneKey", Context.MODE_PRIVATE);
                 SharedPreferences.Editor reverseZoneKeyEditor = reverseZoneKeySharedPref.edit();
                 for (int i = 0; i < dao.getResults().size(); i++) {
@@ -201,13 +203,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         Log.d("StageHome", zone.getId());
                         stageObjId.add(zone.getId());
                         editor.putString(zone.getId(), zone.getShortName().getTh());
+                        editor2.putString(zone.getId(), zone.getShortName().getEn());
                     }
                 }
                 Log.d("StageHome", "stage size = " + stageObjId.size());
                 editor.commit();
+                editor2.commit();
                 reverseZoneKeyEditor.commit();
-                for(int k=0; k<stageObjId.size(); k++){
-                    if(k==0) firstStage = true;
+                for (int k = 0; k < stageObjId.size(); k++) {
+                    if (k == 0) firstStage = true;
                     Call<ActivityItemCollectionDao> callActivityOfStage = HttpManager.getInstance().getService()
                             .loadIncomingActivityOnStage(stageObjId.get(k), "name,start,end,zone", getCurrentTime("gte"), "start", 1);
                     callActivityOfStage.enqueue(callbackStageObjId);
@@ -239,7 +243,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 if (firstStage) {
                     homeStageListAdapter.setDao(dao);
                     firstStage = false;
-                } else homeStageListAdapter.addDao(dao.getResults().get(0));
+                } else if (dao.getResults().size() > 0)
+                    homeStageListAdapter.addDao(dao.getResults().get(0));
                 Log.d("StageHome", dao + "");
                 homeStageListAdapter.notifyDataSetChanged();
             } else {
@@ -343,7 +348,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v == ivToolbarQR){
+        if (v == ivToolbarQR) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.container, new QRFragment());
@@ -373,7 +378,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         String currentTime = df.format(new Date());
         Log.d("HomeTime", "CurrentTime = " + currentTime);
         JSONObject range = new JSONObject();
-            try {
+        try {
             range.put(operator, currentTime);
         } catch (JSONException e) {
             e.printStackTrace();

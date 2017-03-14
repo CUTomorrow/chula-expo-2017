@@ -1,5 +1,7 @@
 package cuexpo.cuexpo2017.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -62,8 +64,8 @@ public class StageFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_stage, container, false);
         initInstances(rootView, savedInstanceState);
-        tvStageName.setText("Stage " + stageNo +" Schedule");
-
+        SharedPreferences sharePref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
+        tvStageName.setText(sharePref.getString(stageId,""));
         return rootView;
     }
 

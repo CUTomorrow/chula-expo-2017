@@ -1,5 +1,6 @@
 package cuexpo.cuexpo2017.adapter;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,10 @@ import android.widget.BaseAdapter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
@@ -19,14 +22,13 @@ import cuexpo.cuexpo2017.view.HomeStageListItem;
  * Created by dragonnight on 26/12/2559.
  */
 
-public class HomeStageListAdapter extends BaseAdapter{
+public class HomeStageListAdapter extends BaseAdapter {
 
-    ActivityItemCollectionDao dao;
-    SharedPreferences sharedPref;
-    SharedPreferences.Editor editor;
+    private ActivityItemCollectionDao dao;
+    private SharedPreferences sharedPref;
+    private SharedPreferences sharedPref2;
 
     public HomeStageListAdapter() {
-
     }
 
     public ActivityItemCollectionDao getDao() {
@@ -37,21 +39,19 @@ public class HomeStageListAdapter extends BaseAdapter{
         this.dao = dao;
     }
 
-    public void addDao(ActivityItemResultDao dao){
+    public void addDao(ActivityItemResultDao dao) {
         this.dao.addResults(dao);
     }
 
-
     @Override
     public int getCount() {
-        if(dao == null) return  0;
-        if(dao.getResults() == null) return 0;
+        if (dao == null) return 0;
+        if (dao.getResults() == null) return 0;
         return dao.getResults().size();
     }
 
     @Override
-    public ActivityItemResultDao getItem(int position)
-    {
+    public ActivityItemResultDao getItem(int position) {
         return dao.getResults().get(position);
     }
 
@@ -63,44 +63,25 @@ public class HomeStageListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         HomeStageListItem item;
-        if(convertView!=null)
+        if (convertView != null)
             item = (HomeStageListItem) convertView;
         else
             item = new HomeStageListItem(parent.getContext());
 
         //prepare data
-        ActivityItemResultDao dao = (ActivityItemResultDao) getItem(position);
-        sharedPref = parent.getContext().getSharedPreferences("ZoneKey",parent.getContext().MODE_PRIVATE);
-        String zoneShortName = sharedPref.getString(dao.getZone(),"");
-        item.setTvStageId("STAGE " + (position+1));
-        item.setTvStageLocation(zoneShortName);
-        item.setTvStageTime(dateThai(dao.getStart())+" \u2022 "+dao.getStart().substring(11,16) + "-"+dao.getEnd().substring(11,16));
+        ActivityItemResultDao dao = getItem(position);
+        sharedPref = parent.getContext().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
+        sharedPref2 = parent.getContext().getSharedPreferences("ZoneKeyEn", Context.MODE_PRIVATE);
+        String zoneShortName = sharedPref.getString(dao.getZone(), "");
+        String zoneShortNameEn = sharedPref2.getString(dao.getZone(), "");
+        item.setTvStageId(zoneShortName);
+        item.setTvStageLocation(zoneShortNameEn);
+        item.setTvStageTime(dateThai(dao.getStart()) + " \u2022 " + dao.getStart().substring(11, 16) + "-" + dao.getEnd().substring(11, 16));
         item.setTvStageTitle(dao.getName().getTh());
-        /*Mock
-        if(position%3==0){
-            item.setTvStageId("STAGE 1");
-            item.setTvStageLocation("เวทีหลัก");
-            item.setTvStageTime("08.30 - 09.30");
-            item.setTvStageTitle("Innovation Show");
-        }
-        else if(position%3==1){
-            item.setTvStageId("STAGE 2");
-            item.setTvStageLocation("หอประชุม จุฬาฯ");
-            item.setTvStageTime("09.00 - 10.30");
-            item.setTvStageTitle("โครงการหุ่นยนต์ดำน้ำ");
-        } else {
-            item.setTvStageId("STAGE 3");
-            item.setTvStageLocation("ศาลาพระเกี้ยว");
-            item.setTvStageTime("10.00 - 10.30");
-            item.setTvStageTitle("Chula 100 years showcase");
-        }
-        */
-
         return item;
     }
 
-    public static String dateThai(String strDate)
-    {
+    public static String dateThai(String strDate) {
         String Months[] = {
                 "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",
                 "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม",
@@ -108,7 +89,7 @@ public class HomeStageListAdapter extends BaseAdapter{
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        int year=0,month=0,day=0;
+        int year = 0, month = 0, day = 0;
         try {
             Date date = df.parse(strDate);
             Calendar c = Calendar.getInstance();
@@ -123,6 +104,6 @@ public class HomeStageListAdapter extends BaseAdapter{
             e.printStackTrace();
         }
 
-        return String.format("%s %s", day,Months[month]);
+        return String.format("%s %s", day, Months[month]);
     }
 }

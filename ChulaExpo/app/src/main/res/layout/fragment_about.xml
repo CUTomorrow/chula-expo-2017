@@ -78,10 +78,10 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:layout_marginBottom="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:text="&quot;CU@100 - Toward greater innovation for society&quot;\nตามแนวคิดหลักซึ่งก็คือ\nInnovation (นวัตกรรม),\nSocial responsibility (การรับผิดชอบต่อสังคม)\nและ Sustainability (ความยั่งยืน)"

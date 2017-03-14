@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuexpo.cuexpo2017.SearchFragment"
+    tools:context="cuexpo.cuexpo2017.fragment.SearchFragment"
     android:orientation="vertical"
     android:background="@color/light_grey">
 
@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/search"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="12dp"
             android:layout_marginRight="12dp"
@@ -42,7 +42,7 @@
         <ImageView
             android:layout_height="32dp"
             app:srcCompat="@drawable/ic_search"
-            android:layout_alignTop="@+id/editText"
+            android:layout_alignTop="@+id/search"
             android:layout_toRightOf="@+id/back"
             android:layout_toEndOf="@+id/back"
             android:id="@+id/imageView7"

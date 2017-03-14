@@ -19,7 +19,7 @@
             android:id="@+id/tvStageId"
             fontPath="@string/font_bold"
             android:layout_width="wrap_content"
-            android:layout_height="18dp"
+            android:layout_height="22dp"
             android:text="STAGE 1"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
@@ -29,6 +29,7 @@
             fontPath="@string/font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-3dp"
             android:lineSpacingExtra="-3sp"
             android:text="หอประชุมจุฬา"
             android:textColor="@android:color/black"

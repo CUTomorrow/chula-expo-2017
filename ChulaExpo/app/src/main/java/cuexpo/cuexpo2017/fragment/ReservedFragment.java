@@ -135,8 +135,8 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
         dao2.setResults(new ArrayList<ActivityItemResultDao>());
         dao3.setResults(new ArrayList<ActivityItemResultDao>());
 
-        upComingAdapter.setHolder("Loading Data..");
-        previousAdapter.setHolder("Loading Data..");
+        upComingAdapter.setHolder("Loading Data...");
+        previousAdapter.setHolder("Loading Data...");
         upComingEventListView.setEnabled(false);
         previousEventListView.setEnabled(false);
         upComingAdapter.notifyDataSetChanged();
