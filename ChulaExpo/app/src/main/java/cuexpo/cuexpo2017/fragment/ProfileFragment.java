@@ -124,7 +124,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
                         sharedPref = getContext().getSharedPreferences("FacebookInfo", getContext().MODE_PRIVATE);
 
-                        access = !sharedPref.getString("fbToken", "").equals("");
+                        access = !sharedPref.getString("fbToken", "").equals("") || !sharedPref.getString("type", "").equals("");
 
                         if (access) {
                             setName(sharedPref.getString("name", ""));
