@@ -154,8 +154,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         call.enqueue(callbackActivity);
         Call<ZoneDao> callZone = HttpManager.getInstance().getService().loadZoneList("name_EN");
         callZone.enqueue(callbackZone);
-        Call<ActivityItemCollectionDao> callHighlight = HttpManager.getInstance().getService().loadHighlightActivity(true,
-                "banner,name,shortDescription", getCurrentTime("gte"), 6);
+        Call<ActivityItemCollectionDao> callHighlight = HttpManager.getInstance().getService().loadHighlightActivity();
         callHighlight.enqueue(callbackHighlight);
     }
 
