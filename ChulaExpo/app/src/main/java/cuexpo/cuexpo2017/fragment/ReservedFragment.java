@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -215,6 +218,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onFailure(Call<RoundDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
             Log.e("Reserved Fragment", "Call Reserved List Fail");
         }
     };
@@ -295,6 +299,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onFailure(Call<ActivityItemDao> call, Throwable t) {
+            Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
             Log.e("Reserved Fragment", "Call Activity Fail");
         }
     };

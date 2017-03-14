@@ -208,6 +208,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/profile_center_margin"
                     android:layout_weight="0.5"
+                    android:background="@color/colorAccent"
                     app:cardBackgroundColor="@color/profile_bg_dark"
                     app:cardCornerRadius="6dp">
 

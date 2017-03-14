@@ -16,23 +16,43 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white">
 
-            <ImageView
-                android:id="@+id/home_toolbar_qr"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:padding="18dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/iv_qr_black_icon" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/home_toolbar_title"
-                fontPath="@string/font_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/home_title"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/title_toolbar_size" />
+                <ImageView
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/home_toolbar_qr"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:padding="18dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/iv_qr_black_icon" />
+
+                <TextView
+                    android:id="@+id/home_toolbar_title"
+                    fontPath="@string/font_bold"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/home_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_toolbar_size" />
+
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/home_toolbar_search"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_search" />
+            </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
         <ScrollView

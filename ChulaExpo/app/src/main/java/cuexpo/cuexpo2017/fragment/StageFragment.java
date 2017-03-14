@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +32,10 @@ public class StageFragment extends Fragment implements View.OnClickListener {
     private  SmartTabLayout viewPagerTab;
     private TextView tvStageName;
     private ImageView ivBack;
+    private ImageView ivSearch;
     private int stageNo;
     private String stageId;
+
 
     public StageFragment() {
         super();
@@ -79,10 +83,12 @@ public class StageFragment extends Fragment implements View.OnClickListener {
 
         tvStageName = (TextView) rootView.findViewById(R.id.stage_toolbar_title);
         ivBack = (ImageView) rootView.findViewById(R.id.stage_back);
+        ivSearch = (ImageView) rootView.findViewById(R.id.stage_toolbar_search);
         viewPager = (ViewPager) rootView.findViewById(R.id.stage_pager);
         viewPagerTab = (SmartTabLayout) rootView.findViewById(R.id.stage_pager_tab);
 
         ivBack.setOnClickListener(this);
+        ivSearch.setOnClickListener(this);
 
         Bundle date15 = new Bundle();
         date15.putInt("day", 15);
@@ -148,6 +154,12 @@ public class StageFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if(v==ivBack){
             getActivity().finish();
+        }else if(v == ivSearch){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.stage_overlay, new SearchFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     }
 
