@@ -55,8 +55,7 @@ public class SearchFragment extends Fragment {
     private ImageView search;
     private EditText query;
     private String id;
-    private double lat;
-    private double lng;
+    private boolean isSearching = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,16 +63,14 @@ public class SearchFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         query = ((EditText) rootView.findViewById(R.id.search));
-        query.addTextChangedListener(searchWatcher);
         search = (ImageView) rootView.findViewById(R.id.search_icon_button);
         search.setOnClickListener(searchClickListener);
+
         searchListAdapter = new SearchListAdapter(eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(searchListAdapter);
-//        scaleAdapter.setDuration(3000);
         recyclerView.setAdapter(scaleAdapter);
-
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("FacebookInfo", Context.MODE_PRIVATE);
         id = sharedPref.getString("id", "");
@@ -87,16 +84,12 @@ public class SearchFragment extends Fragment {
         @Override
         public void onClick(View v) {
             String s = query.getText().toString();
-            Call<ActivitySearchItemCollectionDao> callSearchActivities;
-            boolean checkMap;
-            Log.e("Search Fragment", "String : " + s);
-            try {
-                lat = MainApplication.getCurrentLocation().getLatitude();
-                lng = MainApplication.getCurrentLocation().getLatitude();
-                checkMap = true;
-            } catch (Exception e) {
-                checkMap = false;
+            if (!isSearching) {
+                isSearching = true;
+                searchListAdapter.setSearching(true);
             }
+            Call<ActivitySearchItemCollectionDao> callSearchActivities;
+            Log.e("Search Fragment", "String : " + s);
             /*if (checkMap) {
                 callSearchActivities = HttpManagerSpecial.getInstance().
                         getService().searchActivities(id, lat, lng, 300, s);
@@ -106,22 +99,6 @@ public class SearchFragment extends Fragment {
                             getService().searchActivities(s);
             //}
             callSearchActivities.enqueue(callbackSearch);
-        }
-    };
-
-    private TextWatcher searchWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
         }
     };
 
