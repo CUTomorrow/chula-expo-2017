@@ -72,6 +72,7 @@ public class LocationTask extends TimerTask{
             if (result.get("faculty_id") == null) {
                 location = "Please enable your Wi-Fi and GPS";
             } else if (result.get("building_id").equals("-1")) {
+                // TODO call go here
                 location = "ไม่มีข้อมูลของห้องนี้";
             } else {
                 location = "คณะ " + result.get("faculty_id") + " ตึก " + result.get("building_id");
