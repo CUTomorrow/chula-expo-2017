@@ -36,7 +36,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="95dp"
+        android:layout_marginBottom="76dp"
         android:layout_marginTop="61dp">
 
         <RelativeLayout
@@ -74,11 +74,11 @@
 
                     <ImageView
                         android:id="@+id/ic_photo"
-                        android:visibility="gone"
                         android:layout_width="37dp"
                         android:layout_height="37dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
+                        android:visibility="gone"
                         app:srcCompat="@drawable/ic_photo" />
 
                 </RelativeLayout>
@@ -137,10 +137,10 @@
                         style="@style/etRegis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:focusable="false"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
+                        android:enabled="false"
+                        android:focusable="false"
                         android:imeOptions="actionNext"
                         android:inputType="none"
                         android:text="Chula.Expo@hotmail.com"
@@ -182,8 +182,8 @@
                             android:layout_height="wrap_content"
                             android:background="@color/transparent"
                             android:backgroundTint="@color/transparent"
-                            android:imeOptions="actionNext"
                             android:hint="25"
+                            android:imeOptions="actionNext"
                             android:inputType="number"
                             android:textColor="@color/dark_blue"
                             android:textColorLink="@color/transparent" />
@@ -247,8 +247,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
-                        android:imeOptions="actionNext"
                         android:hint="นักธุรกิจ"
+                        android:imeOptions="actionNext"
                         android:textColor="@color/dark_blue"
                         android:textColorLink="@color/transparent" />
                 </LinearLayout>
