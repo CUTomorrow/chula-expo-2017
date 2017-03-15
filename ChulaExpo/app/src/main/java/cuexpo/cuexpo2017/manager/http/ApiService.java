@@ -4,6 +4,8 @@ import org.json.JSONObject;
 
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemDao;
+import cuexpo.cuexpo2017.dao.ArtGalMessage;
+import cuexpo.cuexpo2017.dao.ArtGalMessageDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
 import cuexpo.cuexpo2017.dao.EditAdultUser;
 import cuexpo.cuexpo2017.dao.EditStudentUser;
@@ -114,6 +116,9 @@ public interface ApiService {
 
     @POST("/api/signup")
     Call<LoginDao> registerUser(@Body UserProfile userProfile);
+
+    @POST("/api/comments")
+    Call<ArtGalMessageDao> sendArtGalMessage(@Body ArtGalMessage artGalMessage);
 
     @GET("/api/me")
     Call<UserDao> loadUserInfo();
