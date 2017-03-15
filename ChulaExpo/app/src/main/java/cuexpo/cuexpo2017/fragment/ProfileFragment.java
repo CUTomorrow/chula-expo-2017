@@ -127,20 +127,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                         access = !sharedPref.getString("fbToken", "").equals("") || !sharedPref.getString("type", "").equals("");
 
                         if (access) {
-                            setName(sharedPref.getString("name", ""));
-                            setEmail(sharedPref.getString("email", ""));
-                            setGender(sharedPref.getString("gender", ""));
-                            setAge(sharedPref.getInt("age", 0));
+                            updateProfile();
                             Call<UserDao> callUserInfo = HttpManager.
                                     getInstance().getService().getUserInfo
                                     ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool,workerJob");
                             callUserInfo.enqueue(callBackUserInfo);
-                            Glide.with(ProfileFragment.this)
-                                    .load("http://graph.facebook.com/" + sharedPref.getString("id", "") + "/picture?type=large")
-                                    .placeholder(R.drawable.iv_profile_temp)
-                                    .error(R.drawable.iv_profile_temp)
-                                    .bitmapTransform(new CropCircleTransformation(getActivity()))
-                                    .into(ivProfile);
                         } else {
                             setName("ไม่พบข้อมูลผู้ใช้");
                             setEmail("โปรดเข้าสู่ระบบอีกครั้ง");
