@@ -147,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Atikun Orisoon (CP40)\nApiruj Choomwattana (CP41)\nKitipong Sirirueangsakul (CP41)\nNuttapat Kirawittaya (CP41)\nPongsathorn Chootipanvidhayakul (CP41)\nPuttiphat Sriratpinyo (CP41)\nNoppawit Thairungroj (CP41)\nSitthichai Saejia (CP41)"
+            android:text="Atikhun Orisoon (CP40)\nApiruj Choomwattana (CP41)\nKitipong Sirirueangsakul (CP41)\nNuttapat Kirawittaya (CP41)\nPongsathorn Chootipanvidhayakul (CP41)\nPuttiphat Sriratpinyo (CP41)\nNoppawit Thairungroj (CP41)\nSitthichai Saejia (CP41)"
             android:lineSpacingExtra="-4sp"
             android:textAlignment="center"
             android:textColor="@color/black"
