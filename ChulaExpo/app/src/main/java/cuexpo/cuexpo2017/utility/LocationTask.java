@@ -74,7 +74,7 @@ public class LocationTask extends TimerTask{
             localization.execute(fp);
         } catch (NullPointerException e) {
             Log.e("Location Task", e.toString());
-            MainApplication.setCurrentLocationDetail("Please enable your Wi-Fi and GPS");
+            MainApplication.setCurrentLocationDetail("Please enable your Wi-Fi and GPS and reopen the application.");
         }
     }
 
