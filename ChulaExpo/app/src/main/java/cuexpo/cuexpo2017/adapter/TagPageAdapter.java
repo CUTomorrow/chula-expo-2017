@@ -100,15 +100,16 @@ public class TagPageAdapter extends BaseAdapter {
                 break;
             default:
                 if(isZero){
-                    convertView = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
-                            inflate(R.layout.item_empty, null);
+                    convertView = inflater.inflate(R.layout.item_empty, null);
                     ((TextView) convertView.findViewById(R.id.item_empty_text)).setText(holder);
                     return convertView;
                 }else {
                     convertView = inflater.inflate(R.layout.item_event, null);
                     ActivityItemResultDao event = eventList.get(position - 3);
                     ((TextView) convertView.findViewById(R.id.title)).setText(event.getName().getTh());
-                    String time = DateUtil.getDateThai(event.getStart());
+                    String time = DateUtil.getDateRangeThai(event.getStart(), event.getEnd())
+                            + " \u2022 " + event.getStart().substring(11, 16)
+                            + "-" + event.getEnd().substring(11, 16);
                     ((TextView) convertView.findViewById(R.id.time)).setText(time);
 
                     SharedPreferences sharedPref = context.getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);

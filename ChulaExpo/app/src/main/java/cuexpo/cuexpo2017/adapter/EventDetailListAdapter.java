@@ -548,11 +548,11 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     reservedPlaceEditor.remove(id);
                     reservedPlaceEditor.apply();
                 }
-                Toast.makeText(Contextor.getInstance().getContext(), dao.getSuccess() ? "ยกเลิกการจองสำเร็จ" : "ยกเลิกการจองไม่สำเร็จ"
+                Toast.makeText(Contextor.getInstance().getContext(), dao.getSuccess() ? "Reservation Cancellation Success" : "Reservation Cancellation Fail"
                         + dao.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e("EventDetail", "Delete Round " + dao.getSuccess() + " " + dao.getMessage());
             } else {
-                Toast.makeText(Contextor.getInstance().getContext(), "ยกเลิกการจองไม่สำเร็จ", Toast.LENGTH_LONG).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "Reservation Cancellation Fail", Toast.LENGTH_LONG).show();
                 Log.e("EventDetail", "Delete Round Not Success " + response.errorBody().toString());
             }
         }

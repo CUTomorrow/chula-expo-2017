@@ -45,6 +45,8 @@ public class SearchFragment extends Fragment {
     private List<EventListItem> eventList = new ArrayList<>();
     private List<ActivityItemResultDao> dao = new ArrayList<>();
     private EditText query;
+    private TextView loadingNearby;
+    private TextView loadingSearch;
     private String id;
     private boolean isSearching = false;
 
@@ -56,6 +58,8 @@ public class SearchFragment extends Fragment {
         query = ((EditText) rootView.findViewById(R.id.search));
         rootView.findViewById(R.id.back).setOnClickListener(backOCL);
         rootView.findViewById(R.id.search).setOnKeyListener(searchOEAL);
+        loadingNearby = (TextView) rootView.findViewById(R.id.nearby_loading);
+        loadingSearch = (TextView) rootView.findViewById(R.id.search_loading);
 
         searchListAdapter = new SearchListAdapter(getContext(), eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -88,6 +92,7 @@ public class SearchFragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
+                loadingSearch.setVisibility(View.VISIBLE);
                 search();
                 return true;
             }
@@ -118,8 +123,14 @@ public class SearchFragment extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
-                setEventList();
-                Toast.makeText(Contextor.getInstance().getContext(), "No result Found", Toast.LENGTH_SHORT).show();
+                if(dao.size()>0) {
+                    loadingSearch.setVisibility(View.GONE);
+                    setEventList();
+                } else{
+                    loadingSearch.setText("ไม่พบข้อมูลกิจกรรม");
+                }
+                Toast.makeText(Contextor.getInstance().getContext(), "Result Found "
+                        + dao.size() + ((dao.size() > 1)?" Entries":" Entry"), Toast.LENGTH_SHORT).show();
                 Log.e("Search Fragment", "Search Finish with Size : " + dao.size());
             } else {
                 Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_SHORT).show();
@@ -157,6 +168,7 @@ public class SearchFragment extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
+                loadingNearby.setVisibility(View.GONE);
                 setEventList();
                 Log.e("Search Fragment", "Nearby Finish with Size : " + response.body().getResults().size());
             } else {

@@ -18,6 +18,7 @@ import java.util.Date;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
+import cuexpo.cuexpo2017.utility.DateUtil;
 import cuexpo.cuexpo2017.utility.Resource;
 import cuexpo.cuexpo2017.view.ActivityListItem;
 
@@ -32,11 +33,11 @@ public class FavouriteListAdapter extends BaseAdapter {
     private Boolean isZero = true;
     private String holder = "";
 
-    public boolean getIsZero(){
+    public boolean getIsZero() {
         return isZero;
     }
 
-    public void setHolder(String text){
+    public void setHolder(String text) {
         holder = text;
     }
 
@@ -69,8 +70,8 @@ public class FavouriteListAdapter extends BaseAdapter {
         ActivityListItem item;
         if (convertView != null) {
             if (!isZero && convertView instanceof ActivityListItem) {
-                item = (ActivityListItem)convertView;
-            } else{
+                item = (ActivityListItem) convertView;
+            } else {
                 item = new ActivityListItem(parent.getContext());
             }
         } else
@@ -88,9 +89,9 @@ public class FavouriteListAdapter extends BaseAdapter {
             String zoneShortName = sharedPref.getString(dao.getZone(), "");
 
             item.setNameText(dao.getName().getTh());
-            item.setTimeText(dateThai(activityDao.getResults().get(position).getStart())
-                    + " \u2022 " + activityDao.getResults().get(position).getStart().substring(11, 16) + "-"
-                    + activityDao.getResults().get(position).getEnd().substring(11, 16));
+            item.setTimeText(DateUtil.getDateRangeThai(dao.getStart(), dao.getEnd())
+                    + " \u2022 " + dao.getStart().substring(11, 16)
+                    + "-" + dao.getEnd().substring(11, 16));
             //Handle with Faculty with Light Background Color
             boolean isLight = false;
             for (int i = 0; i < lightZone.length - 1; i++) {
@@ -105,29 +106,4 @@ public class FavouriteListAdapter extends BaseAdapter {
         }
     }
 
-    public static String dateThai(String strDate) {
-        String Months[] = {
-                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",
-                "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม",
-                "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"};
-
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-        int year = 0, month = 0, day = 0;
-        try {
-            Date date = df.parse(strDate);
-            Calendar c = Calendar.getInstance();
-            c.setTime(date);
-
-            year = c.get(Calendar.YEAR);
-            month = c.get(Calendar.MONTH);
-            day = c.get(Calendar.DATE);
-
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return String.format("%s %s", day, Months[month]);
-    }
 }

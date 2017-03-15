@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,12 @@ import android.widget.TextView;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import cuexpo.cuexpo2017.R;
 
@@ -118,12 +125,44 @@ public class StageFragment extends Fragment implements View.OnClickListener {
                 .add("19\nMAR", StageDetailFragment.class, date19)
                 .create());
 
-
         viewPager.setAdapter(pagerItemAdapter);
         viewPager.setOffscreenPageLimit(4);
 
-        viewPagerTab.setViewPager(viewPager);
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        int day, month, year;
+        Date current = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(current);
+        day = c.get(Calendar.DATE);
+        month = c.get(Calendar.MONTH);
+        year = c.get(Calendar.YEAR);
+        Log.e("STAGE",day + " " + month + " " + year);
+        if(year==2017){
+            if(month==2){
+                switch(day) {
+                    case 15:
+                        viewPager.setCurrentItem(0);
+                        break;
+                    case 16:
+                        viewPager.setCurrentItem(1);
+                        break;
+                    case 17:
+                        viewPager.setCurrentItem(2);
+                        break;
+                    case 18:
+                        viewPager.setCurrentItem(3);
+                        break;
+                    case 19:
+                        viewPager.setCurrentItem(4);
+                        break;
+                    default:
+                        viewPager.setCurrentItem(0);
+                        break;
+                }
+            }
+        }
 
+        viewPagerTab.setViewPager(viewPager);
     }
 
     @Override
