@@ -175,7 +175,7 @@ public class EditRegisAdultFragment extends Fragment implements TextWatcher {
             editor.commit();
 
             //PUT API
-            EditAdultUser editAdultUser = new EditAdultUser(name,age,gender,workerJob);
+            EditAdultUser editAdultUser = new EditAdultUser(name,age,gender,"Worker",workerJob);
             Call<UserDao> callUserInfo = HttpManager.getInstance().getService().editAdultUserInfo(editAdultUser);
             callUserInfo.enqueue(callbackUserInfo);
 

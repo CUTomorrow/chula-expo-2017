@@ -257,7 +257,8 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
             editor.commit();
 
             //PUT API
-            EditStudentUser editStudentUser = new EditStudentUser(name, age, gender, academicLevel, academicYear, academicSchool);
+            EditStudentUser editStudentUser = new EditStudentUser(name, age, gender,"Academic", academicLevel, academicYear, academicSchool);
+            Log.e("STUDENT","sendAcademic: "+academicSchool);
             Call<UserDao> callUserInfo = HttpManager.getInstance().getService().editStudentUserInfo(editStudentUser);
             callUserInfo.enqueue(callbackUserInfo);
 
@@ -276,6 +277,7 @@ public class EditRegisStudentFragment extends Fragment implements TextWatcher {
         public void onResponse(Call<UserDao> call, Response<UserDao> response) {
             if (response.isSuccessful()) {
                 UserDao dao2 = response.body();
+                Log.e("STUDENT","academic: "+dao2.getResults().getAcademic().getAcademicSchool());
                 Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() ? "Saved" : "Fail"
                         , Toast.LENGTH_LONG).show();
             } else {
