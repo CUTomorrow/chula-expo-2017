@@ -2,12 +2,14 @@ package cuexpo.cuexpo2017.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progress;
     private RelativeLayout facebookLogin;
     private int countClick = 0;
+    public static boolean missUID = false;
 
 
     @Override
@@ -79,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         facebookLogin.setOnClickListener(facebookLoginOnClick);
         guestLogin.setOnClickListener(guestLoginOnClick);
         userLogin.setOnClickListener(userLoginClick);
-
+        if(missUID) notifyMissUIDError();
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
@@ -306,5 +309,20 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private void notifyMissUIDError(){
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("ขออภัย");
+        alert.setMessage("เนื่องจากเกิดความผิดพลาดในการบันทึกข้อมูลในแอพพลิเคชันรุ่นเก่า กรุณาลงทะเบียนอีกครั้ง ขออภัยในความไม่สะดวก");
+        missUID = false;
+        alert.setCancelable(false);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert2 = alert.create();
+        alert2.show();
     }
 }
