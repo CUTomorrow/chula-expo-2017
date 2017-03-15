@@ -15,8 +15,8 @@ android {
         applicationId "cuexpo.cuexpo2017"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 12
-        versionName "3.0.1"
+        versionCode 13
+        versionName "3.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
