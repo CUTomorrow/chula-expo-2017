@@ -86,15 +86,17 @@ public class SearchFragment extends Fragment {
     TextView.OnKeyListener searchOEAL = new TextView.OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
-            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                View view = getActivity().getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            if (event.getAction() == KeyEvent.ACTION_DOWN)
+            {
+                switch (keyCode)
+                {
+                    case KeyEvent.KEYCODE_ENTER:
+                        loadingSearch.setVisibility(View.VISIBLE);
+                        search();
+                        return true;
+                    default:
+                        break;
                 }
-                loadingSearch.setVisibility(View.VISIBLE);
-                search();
-                return true;
             }
             return false;
 
