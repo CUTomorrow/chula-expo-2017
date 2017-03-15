@@ -104,7 +104,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         final View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        new AsyncTask<Void,Void,Void>() {
+        new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
@@ -130,6 +130,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                             setName(sharedPref.getString("name", ""));
                             setEmail(sharedPref.getString("email", ""));
                             setGender(sharedPref.getString("gender", ""));
+                            setAge(sharedPref.getInt("age", 0));
                             Call<UserDao> callUserInfo = HttpManager.
                                     getInstance().getService().getUserInfo
                                     ("name,_id,email,age,gender,profile,type,academic,academicLevel,academicYear,academicSchool,workerJob");
@@ -381,7 +382,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             editor.apply();
             Log.d("facebookId", facebookId);
 
-            if(!facebookId.equals("")) {
+            if (!facebookId.equals("")) {
                 new GraphRequest(AccessToken.getCurrentAccessToken(), "/" + facebookId + "/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
                     @Override
                     public void onCompleted(GraphResponse graphResponse) {

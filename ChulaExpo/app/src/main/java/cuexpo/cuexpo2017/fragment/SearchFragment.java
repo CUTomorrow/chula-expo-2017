@@ -6,6 +6,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -58,8 +59,6 @@ public class SearchFragment extends Fragment {
     private SearchListAdapter searchListAdapter;
     private List<EventListItem> eventList = new ArrayList<>();
     private List<ActivityItemResultDao> dao = new ArrayList<>();
-    private TextView loadingNearby;
-    private TextView loadingSearch;
     private EditText query;
     private String id;
     private boolean isSearching = false;
@@ -72,12 +71,11 @@ public class SearchFragment extends Fragment {
         query = ((EditText) rootView.findViewById(R.id.search));
         rootView.findViewById(R.id.back).setOnClickListener(backOCL);
         rootView.findViewById(R.id.search).setOnKeyListener(searchOEAL);
-        loadingNearby = (TextView) rootView.findViewById(R.id.nearby_loading);
-        loadingSearch = (TextView) rootView.findViewById(R.id.search_loading);
 
-        searchListAdapter = new SearchListAdapter(eventList, false, getFragmentManager());
+        searchListAdapter = new SearchListAdapter(getContext(), eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
         ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(searchListAdapter);
         recyclerView.setAdapter(scaleAdapter);
 
@@ -105,7 +103,6 @@ public class SearchFragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
-                loadingSearch.setVisibility(View.VISIBLE);
                 search();
                 return true;
             }
@@ -115,6 +112,9 @@ public class SearchFragment extends Fragment {
     };
 
     private void search() {
+        eventList.clear();
+        searchListAdapter.notifyDataSetChanged();
+
         String s = query.getText().toString();
         if (!isSearching) {
             isSearching = true;
@@ -131,8 +131,6 @@ public class SearchFragment extends Fragment {
                         getService().searchActivities(s);
         //}
         callSearchActivities.enqueue(callbackSearch);
-        eventList.clear();
-        searchListAdapter.notifyDataSetChanged();
     }
 
     Callback<ActivityItemCollectionDao> callbackSearch = new Callback<ActivityItemCollectionDao>() {
@@ -140,11 +138,11 @@ public class SearchFragment extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
-                loadingSearch.setVisibility(View.GONE);
                 setEventList();
+                Toast.makeText(Contextor.getInstance().getContext(), "No result Found", Toast.LENGTH_SHORT).show();
                 Log.e("Search Fragment", "Search Finish with Size : " + dao.size());
             } else {
-                Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_SHORT).show();
                 Log.e("Search Fragment", "Search Fail " + response.errorBody().toString());
             }
         }
@@ -158,8 +156,19 @@ public class SearchFragment extends Fragment {
 
     private void initEventList() {
         eventList.clear();
+
+        double lat = 13.74010;
+        double lng = 100.53045;
+
+        try {
+            lat = MainApplication.getCurrentLocation().getLatitude();
+            lng = MainApplication.getCurrentLocation().getLongitude();
+        } catch (NullPointerException e) {
+            Log.e("searchWhereAmI", e.toString());
+        }
+
         Call<ActivityItemCollectionDao> callNearbyActivities =
-                HttpManager.getInstance().getService().loadNearbyActivities(13.73826, 100.53272);
+                HttpManager.getInstance().getService().loadNearbyActivities(lat, lng);
         callNearbyActivities.enqueue(callbackNearbyActivities);
     }
 
@@ -168,7 +177,6 @@ public class SearchFragment extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
-                loadingNearby.setVisibility(View.GONE);
                 setEventList();
                 Log.e("Search Fragment", "Nearby Finish with Size : " + response.body().getResults().size());
             } else {
@@ -193,7 +201,8 @@ public class SearchFragment extends Fragment {
                     DateUtil.getDateThai(dao.get(i).getStart()) + " \u2022 "
                             + dao.get(i).getStart().substring(11, 16)
                             + "-" + dao.get(i).getEnd().substring(11, 16),
-                    sharedPref.getString(dao.get(i).getZone(), "")));
+                    sharedPref.getString(dao.get(i).getZone(), ""),
+                    dao.get(i).getThumbnail()));
         }
         searchListAdapter.notifyDataSetChanged();
     }
