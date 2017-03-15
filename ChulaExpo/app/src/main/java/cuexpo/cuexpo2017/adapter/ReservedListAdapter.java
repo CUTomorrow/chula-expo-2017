@@ -21,6 +21,7 @@ import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
+import cuexpo.cuexpo2017.utility.DateUtil;
 import cuexpo.cuexpo2017.utility.Resource;
 import cuexpo.cuexpo2017.view.ActivityListItem;
 
@@ -96,7 +97,7 @@ public class ReservedListAdapter extends BaseAdapter {
             String zoneShortName = sharedPref.getString(dao.getZone(), "");
 
             item.setNameText(dao.getName().getTh());
-            item.setTimeText(dateThai(roundDao.getResults().get(position).getStart())
+            item.setTimeText(DateUtil.getDateThai(roundDao.getResults().get(position).getStart())
                     + " \u2022 " + roundDao.getResults().get(position).getStart().substring(11, 16) + "-"
                     + roundDao.getResults().get(position).getEnd().substring(11, 16));
             //Handle with Faculty with Light Background Color

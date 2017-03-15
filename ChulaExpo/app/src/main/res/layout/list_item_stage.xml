@@ -47,8 +47,8 @@
             fontPath="@string/font_bold"
             android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:ellipsize="end"
             android:maxLines="1"
+            android:ellipsize="end"
             android:text="จุฬาฯ กับ Innovation"
             android:textColor="@android:color/black"
             android:textSize="20dp" />

@@ -26,9 +26,9 @@
             fontPath="@string/font_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
             android:maxLines="1"
             android:text="สาธิตอาจารย์ใหญ่"
+            android:ellipsize="end"
             android:textColor="@android:color/primary_text_light"
             android:textSize="@dimen/activity_title"/>
 

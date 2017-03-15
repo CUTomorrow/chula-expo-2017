@@ -28,6 +28,7 @@
 
             <TextView
                 android:id="@+id/title"
+                android:ellipsize="end"
                 fontPath="fonts/ThaiSansNeue-Bold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,13 +36,13 @@
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/event_image"
                 android:maxLines="1"
-                android:ellipsize="end"
                 android:text="The Accountant"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_13" />
 
             <TextView
                 android:id="@+id/time"
+                android:ellipsize="end"
                 fontPath="fonts/ThaiSansNeue-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +63,6 @@
                 android:background="@color/booking_full"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
-                android:ellipsize="end"
                 android:text="ENG"
                 android:textColor="@color/white" />
 

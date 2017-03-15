@@ -9,6 +9,7 @@ public class EventListItem {
     private String title;
     private String time;
     private String tag;
+    private String thumbnail;
 
     public String getId() {
         return id;
@@ -18,12 +19,12 @@ public class EventListItem {
         this.id = id;
     }
 
-    public EventListItem(String id, String title, String time, String tag) {
+    public EventListItem(String id, String title, String time, String tag, String thumbnail) {
         this.id = id;
         this.title = title;
         this.time = time;
-
         this.tag = tag;
+        this.thumbnail = thumbnail;
     }
 
     public String getTitle() {
@@ -48,5 +49,13 @@ public class EventListItem {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

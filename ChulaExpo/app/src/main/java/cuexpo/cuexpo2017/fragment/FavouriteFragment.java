@@ -36,6 +36,7 @@ import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
 import cuexpo.cuexpo2017.datatype.MutableInteger;
 import cuexpo.cuexpo2017.manager.ActivityListManager;
 import cuexpo.cuexpo2017.manager.HttpManager;
+import cuexpo.cuexpo2017.utility.DateUtil;
 import cuexpo.cuexpo2017.view.ExpandableHeightListView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -157,24 +158,47 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
                 callBackCount++;
                 Log.e("Favourite Fragment", "CallBackCount = " + callBackCount);
                 if (dao.getSuccess()) {
-                    if (getCurrentTime().before(setCompareDate(dao.getResults().getStart()))) {
-                        Log.e("Favourite Fragment", "Upcoming " + getCurrentTime().toString()
-                                + " " + setCompareDate(dao.getResults().getStart()));
-                        upComingAdapter.setIsZero(false);
-                        upComingEventListView.setEnabled(true);
-                        dao2.setSuccess(true);
-                        dao2.addResults(dao.getResults());
-                        upComingAdapter.setActivityDao(dao2);
-                        upComingAdapter.notifyDataSetChanged();
+
+                    if (DateUtil.isSameDay(dao.getResults().getStart(), dao.getResults().getEnd())) {
+                        if (getCurrentTime().before(setCompareDate(dao.getResults().getStart()))) {
+                            Log.e("Favourite Fragment", "Upcoming " + getCurrentTime().toString()
+                                    + " " + setCompareDate(dao.getResults().getStart()));
+                            upComingAdapter.setIsZero(false);
+                            upComingEventListView.setEnabled(true);
+                            dao2.setSuccess(true);
+                            dao2.addResults(dao.getResults());
+                            upComingAdapter.setActivityDao(dao2);
+                            upComingAdapter.notifyDataSetChanged();
+                        } else {
+                            Log.e("Favourite Fragment", "Previous " + getCurrentTime().toString()
+                                    + " " + setCompareDate(dao.getResults().getEnd()));
+                            previousAdapter.setIsZero(false);
+                            previousEventListView.setEnabled(true);
+                            dao3.setSuccess(true);
+                            dao3.addResults(dao.getResults());
+                            previousAdapter.setActivityDao(dao3);
+                            previousAdapter.notifyDataSetChanged();
+                        }
                     } else {
-                        Log.e("Favourite Fragment", "Previous " + getCurrentTime().toString()
-                                + " " + setCompareDate(dao.getResults().getEnd()));
-                        previousAdapter.setIsZero(false);
-                        previousEventListView.setEnabled(true);
-                        dao3.setSuccess(true);
-                        dao3.addResults(dao.getResults());
-                        previousAdapter.setActivityDao(dao3);
-                        previousAdapter.notifyDataSetChanged();
+                        if (getCurrentTime().before(setCompareDate(dao.getResults().getEnd()))) {
+                            Log.e("Favourite Fragment", "Upcoming " + getCurrentTime().toString()
+                                    + " " + setCompareDate(dao.getResults().getStart()));
+                            upComingAdapter.setIsZero(false);
+                            upComingEventListView.setEnabled(true);
+                            dao2.setSuccess(true);
+                            dao2.addResults(dao.getResults());
+                            upComingAdapter.setActivityDao(dao2);
+                            upComingAdapter.notifyDataSetChanged();
+                        } else {
+                            Log.e("Favourite Fragment", "Previous " + getCurrentTime().toString()
+                                    + " " + setCompareDate(dao.getResults().getEnd()));
+                            previousAdapter.setIsZero(false);
+                            previousEventListView.setEnabled(true);
+                            dao3.setSuccess(true);
+                            dao3.addResults(dao.getResults());
+                            previousAdapter.setActivityDao(dao3);
+                            previousAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
                 if (callBackCount == callBackSize) {

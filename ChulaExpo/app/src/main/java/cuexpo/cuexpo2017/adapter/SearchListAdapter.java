@@ -2,6 +2,7 @@ package cuexpo.cuexpo2017.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -20,6 +22,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import java.util.List;
 
@@ -44,15 +47,18 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final short MAP = 2;
     private FragmentManager fragmentManager;
     private Context context;
+    String[] lightZone = {"SCI", "ECON", "LAW", "VET"};
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
         public TextView title, time, tag;
+        public ImageView thumbnail;
         public View view;
         public EventViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             time = (TextView) view.findViewById(R.id.time);
             tag = (TextView) view.findViewById(R.id.event_tag);
+            thumbnail = (ImageView) view.findViewById(R.id.event_image);
             this.view = view;
         }
     }
@@ -166,6 +172,26 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         EventListItem movie = eventList.get(eventPosition);
         holder.title.setText(movie.getTitle());
         holder.time.setText(movie.getTime());
+        String zoneShortName = movie.getTag();
+        boolean isLight = false;
+        for(int i=0;i<lightZone.length-1;i++){
+            if(zoneShortName.equals(lightZone[i])) isLight =true;
+        }
+        if(isLight) {
+            holder.tag.setText(zoneShortName);
+            holder.tag.setTextColor(Color.BLACK);
+            holder.tag.setBackgroundResource(Resource.getColor(zoneShortName));
+        }
+        else {
+            holder.tag.setText(zoneShortName);
+            holder.tag.setTextColor(Color.WHITE);
+            holder.tag.setBackgroundResource(Resource.getColor(zoneShortName));
+        }
+        Glide.with(Contextor.getInstance().getContext())
+                .load("https://api.chulaexpo.com" + movie.getThumbnail())
+                .placeholder(R.drawable.thumb)
+                .error(R.drawable.thumb)
+                .into(holder.thumbnail);
     }
 
     private void setMapItem(MapViewHolder holder) {

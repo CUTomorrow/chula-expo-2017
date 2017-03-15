@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,12 @@ import android.widget.TextView;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import cuexpo.cuexpo2017.R;
 
@@ -29,7 +36,7 @@ public class StageFragment extends Fragment implements View.OnClickListener {
 
     private FragmentPagerItemAdapter pagerItemAdapter;
     private ViewPager viewPager;
-    private  SmartTabLayout viewPagerTab;
+    private SmartTabLayout viewPagerTab;
     private TextView tvStageName;
     private ImageView ivBack;
     private ImageView ivSearch;
@@ -45,8 +52,8 @@ public class StageFragment extends Fragment implements View.OnClickListener {
     public static StageFragment newInstance(int stageNo, String stageId) {
         StageFragment fragment = new StageFragment();
         Bundle args = new Bundle();
-        args.putInt("stageNo",stageNo);
-        args.putString("stageId",stageId);
+        args.putInt("stageNo", stageNo);
+        args.putString("stageId", stageId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,7 +76,10 @@ public class StageFragment extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_stage, container, false);
         initInstances(rootView, savedInstanceState);
         SharedPreferences sharePref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
-        tvStageName.setText(sharePref.getString(stageId,""));
+        if (sharePref.getString(stageId, "").equals("SALA ST"))
+            tvStageName.setText("ศาลาพระเกี้ยว");
+        else
+            tvStageName.setText(sharePref.getString(stageId, ""));
         return rootView;
     }
 
@@ -92,19 +102,19 @@ public class StageFragment extends Fragment implements View.OnClickListener {
 
         Bundle date15 = new Bundle();
         date15.putInt("day", 15);
-        date15.putString("stageId",stageId);
+        date15.putString("stageId", stageId);
         Bundle date16 = new Bundle();
         date16.putInt("day", 16);
-        date16.putString("stageId",stageId);
+        date16.putString("stageId", stageId);
         Bundle date17 = new Bundle();
         date17.putInt("day", 17);
-        date17.putString("stageId",stageId);
+        date17.putString("stageId", stageId);
         Bundle date18 = new Bundle();
         date18.putInt("day", 18);
-        date18.putString("stageId",stageId);
+        date18.putString("stageId", stageId);
         Bundle date19 = new Bundle();
         date19.putInt("day", 19);
-        date19.putString("stageId",stageId);
+        date19.putString("stageId", stageId);
 
         pagerItemAdapter = new FragmentPagerItemAdapter(
                 this.getChildFragmentManager(), FragmentPagerItems.with(getActivity())
@@ -115,12 +125,44 @@ public class StageFragment extends Fragment implements View.OnClickListener {
                 .add("19\nMAR", StageDetailFragment.class, date19)
                 .create());
 
-
         viewPager.setAdapter(pagerItemAdapter);
         viewPager.setOffscreenPageLimit(4);
 
-        viewPagerTab.setViewPager(viewPager);
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        int day, month, year;
+        Date current = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(current);
+        day = c.get(Calendar.DATE);
+        month = c.get(Calendar.MONTH);
+        year = c.get(Calendar.YEAR);
+        Log.e("STAGE",day + " " + month + " " + year);
+        if(year==2017){
+            if(month==2){
+                switch(day) {
+                    case 15:
+                        viewPager.setCurrentItem(0);
+                        break;
+                    case 16:
+                        viewPager.setCurrentItem(1);
+                        break;
+                    case 17:
+                        viewPager.setCurrentItem(2);
+                        break;
+                    case 18:
+                        viewPager.setCurrentItem(3);
+                        break;
+                    case 19:
+                        viewPager.setCurrentItem(4);
+                        break;
+                    default:
+                        viewPager.setCurrentItem(0);
+                        break;
+                }
+            }
+        }
 
+        viewPagerTab.setViewPager(viewPager);
     }
 
     @Override
@@ -152,9 +194,9 @@ public class StageFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v==ivBack){
+        if (v == ivBack) {
             getActivity().finish();
-        }else if(v == ivSearch){
+        } else if (v == ivSearch) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.stage_overlay, new SearchFragment());

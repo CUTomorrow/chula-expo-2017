@@ -103,7 +103,9 @@ public class ZoneDetailListAdapter extends BaseAdapter implements OnMapReadyCall
                 convertView = inflater.inflate(R.layout.item_event, null);
                 ActivityItemResultDao event = eventList.get(position - 2);
                 ((TextView) convertView.findViewById(R.id.title)).setText(event.getName().getTh());
-                String time = DateUtil.getDateThai(event.getStart())+" \u2022 "+event.getStart().substring(11,16) + "-"+event.getEnd().substring(11,16);
+                String time = DateUtil.getDateRangeThai(event.getStart(), event.getEnd())
+                        + " \u2022 " + event.getStart().substring(11, 16)
+                        + "-" + event.getEnd().substring(11, 16);
                 ((TextView) convertView.findViewById(R.id.time)).setText(time);
 
                 SharedPreferences sharedPref = context.getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
