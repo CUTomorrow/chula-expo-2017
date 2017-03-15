@@ -2,36 +2,25 @@ package cuexpo.cuexpo2017.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import cuexpo.cuexpo2017.MainApplication;
@@ -39,11 +28,7 @@ import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.adapter.SearchListAdapter;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
-import cuexpo.cuexpo2017.dao.ActivitySearchItemCollectionDao;
-import cuexpo.cuexpo2017.dao.DeleteResultDao;
-import cuexpo.cuexpo2017.dao.NearbyDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
-import cuexpo.cuexpo2017.manager.HttpManagerSpecial;
 import cuexpo.cuexpo2017.utility.DateUtil;
 import cuexpo.cuexpo2017.view.EventListItem;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
@@ -60,6 +45,8 @@ public class SearchFragment extends Fragment {
     private List<EventListItem> eventList = new ArrayList<>();
     private List<ActivityItemResultDao> dao = new ArrayList<>();
     private EditText query;
+    private TextView loadingNearby;
+    private TextView loadingSearch;
     private String id;
     private boolean isSearching = false;
 
@@ -71,6 +58,8 @@ public class SearchFragment extends Fragment {
         query = ((EditText) rootView.findViewById(R.id.search));
         rootView.findViewById(R.id.back).setOnClickListener(backOCL);
         rootView.findViewById(R.id.search).setOnKeyListener(searchOEAL);
+        loadingNearby = (TextView) rootView.findViewById(R.id.nearby_loading);
+        loadingSearch = (TextView) rootView.findViewById(R.id.search_loading);
 
         searchListAdapter = new SearchListAdapter(getContext(), eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -103,6 +92,7 @@ public class SearchFragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
+                loadingSearch.setVisibility(View.VISIBLE);
                 search();
                 return true;
             }
@@ -122,14 +112,9 @@ public class SearchFragment extends Fragment {
         }
         Call<ActivityItemCollectionDao> callSearchActivities;
         Log.e("Search Fragment", "String : " + s);
-            /*if (checkMap) {
-                callSearchActivities = HttpManagerSpecial.getInstance().
-                        getService().searchActivities(id, lat, lng, 300, s);
-            } else {*/
         callSearchActivities =
                 HttpManager.getInstance().
                         getService().searchActivities(s);
-        //}
         callSearchActivities.enqueue(callbackSearch);
     }
 
@@ -138,8 +123,14 @@ public class SearchFragment extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
-                setEventList();
-                Toast.makeText(Contextor.getInstance().getContext(), "No result Found", Toast.LENGTH_SHORT).show();
+                if(dao.size()>0) {
+                    loadingSearch.setVisibility(View.GONE);
+                    setEventList();
+                } else{
+                    loadingSearch.setText("ไม่พบข้อมูลกิจกรรม");
+                }
+                Toast.makeText(Contextor.getInstance().getContext(), "Result Found "
+                        + dao.size() + ((dao.size() > 1)?" Entries":" Entry"), Toast.LENGTH_SHORT).show();
                 Log.e("Search Fragment", "Search Finish with Size : " + dao.size());
             } else {
                 Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_SHORT).show();
@@ -177,6 +168,7 @@ public class SearchFragment extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
+                loadingNearby.setVisibility(View.GONE);
                 setEventList();
                 Log.e("Search Fragment", "Nearby Finish with Size : " + response.body().getResults().size());
             } else {
@@ -201,7 +193,8 @@ public class SearchFragment extends Fragment {
                     DateUtil.getDateThai(dao.get(i).getStart()) + " \u2022 "
                             + dao.get(i).getStart().substring(11, 16)
                             + "-" + dao.get(i).getEnd().substring(11, 16),
-                    sharedPref.getString(dao.get(i).getZone(), "")));
+                    sharedPref.getString(dao.get(i).getZone(), ""),
+                    dao.get(i).getThumbnail()));
         }
         searchListAdapter.notifyDataSetChanged();
     }

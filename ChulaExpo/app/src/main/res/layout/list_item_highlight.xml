@@ -42,9 +42,9 @@
                 fontPath="@string/font_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/highlight_title"
-                android:ellipsize="end"
                 android:maxLines="1"
                 android:text="Vidva Highlight"
+                android:ellipsize="end"
                 android:textColor="@color/highlight_tab_text"
                 android:textSize="@dimen/highlight_title"
                 android:textStyle="bold" />

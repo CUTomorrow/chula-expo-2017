@@ -93,7 +93,7 @@ public class EventDetailFragment extends Fragment {
 
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
                 String zoneShortName = sharedPref.getString(dao.getZone(), "");
-                TextView eventTag = (TextView) rootView.findViewById(R.id.event_tag);
+                TextView eventTag = (TextView) rootView.findViewById(R.id.event_detail_tag);
                 eventTag.setText(zoneShortName);
                 eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
                 for (int i = 0; i < lightZone.length - 1; i++) {
