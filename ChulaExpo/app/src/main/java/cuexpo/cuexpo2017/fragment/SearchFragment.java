@@ -58,7 +58,8 @@ public class SearchFragment extends Fragment {
     private SearchListAdapter searchListAdapter;
     private List<EventListItem> eventList = new ArrayList<>();
     private List<ActivityItemResultDao> dao = new ArrayList<>();
-    private ImageView search;
+    private TextView loadingNearby;
+    private TextView loadingSearch;
     private EditText query;
     private String id;
     private boolean isSearching = false;
@@ -71,6 +72,8 @@ public class SearchFragment extends Fragment {
         query = ((EditText) rootView.findViewById(R.id.search));
         rootView.findViewById(R.id.back).setOnClickListener(backOCL);
         rootView.findViewById(R.id.search).setOnKeyListener(searchOEAL);
+        loadingNearby = (TextView) rootView.findViewById(R.id.nearby_loading);
+        loadingSearch = (TextView) rootView.findViewById(R.id.search_loading);
 
         searchListAdapter = new SearchListAdapter(eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -102,6 +105,7 @@ public class SearchFragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
+                loadingSearch.setVisibility(View.VISIBLE);
                 search();
                 return true;
             }
@@ -136,6 +140,7 @@ public class SearchFragment extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
+                loadingSearch.setVisibility(View.GONE);
                 setEventList();
                 Log.e("Search Fragment", "Search Finish with Size : " + dao.size());
             } else {
@@ -163,6 +168,7 @@ public class SearchFragment extends Fragment {
         public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
+                loadingNearby.setVisibility(View.GONE);
                 setEventList();
                 Log.e("Search Fragment", "Nearby Finish with Size : " + response.body().getResults().size());
             } else {

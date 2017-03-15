@@ -1,5 +1,7 @@
 package cuexpo.cuexpo2017.adapter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import java.util.List;
 
@@ -36,13 +39,15 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<EventListItem> eventList;
     private boolean isSearching;
+    private boolean isLoading;
     private final short EVENT = 0;
     private final short HEADER = 1;
     private final short MAP = 2;
     private FragmentManager fragmentManager;
 
-    public class EventViewHolder extends RecyclerView.ViewHolder{
+    public class EventViewHolder extends RecyclerView.ViewHolder {
         public TextView title, time, tag;
+
         public EventViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -65,6 +70,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description;
         public ImageView icon;
+
         public HeaderViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -76,6 +82,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public class MapViewHolder extends RecyclerView.ViewHolder {
         public TextView location;
         MapView mapView;
+
         public MapViewHolder(View view) {
             super(view);
             location = (TextView) view.findViewById(R.id.location);
@@ -121,7 +128,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (holder.getItemViewType()){
+        switch (holder.getItemViewType()) {
             case HEADER:
                 setHeaderItem((HeaderViewHolder) holder, position);
                 break;
@@ -129,7 +136,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 setMapItem((MapViewHolder) holder);
                 break;
             case EVENT:
-                if(!isSearching) setEventItem((EventViewHolder) holder, position-3);
+                if (!isSearching) setEventItem((EventViewHolder) holder, position - 3);
                 else setEventItem((EventViewHolder) holder, position);
                 break;
         }
@@ -137,8 +144,8 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        if(isSearching) return eventList.size();
-        return eventList.size()+3;
+        if (isSearching) return eventList.size();
+        return eventList.size() + 3;
     }
 
     @Override
@@ -165,7 +172,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void setHeaderItem(HeaderViewHolder holder, int position) {
-        if(position == 0){
+        if (position == 0) {
             holder.title.setText("WHERE AM I?");
             holder.description.setText("แนะนำ event จากสถานที่ปัจจุบันของคุณ");
             holder.icon.setImageResource(R.drawable.ic_pin_white);
