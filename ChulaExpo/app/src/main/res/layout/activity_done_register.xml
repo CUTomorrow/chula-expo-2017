@@ -33,6 +33,13 @@
                 fontPath="fonts/ThaiSansNeue-Bold.ttf"
                 android:textSize="24sp" />
 
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_below="@+id/finish"
+                app:srcCompat="@drawable/help_text" />
+
         </RelativeLayout>
     </RelativeLayout>
 
