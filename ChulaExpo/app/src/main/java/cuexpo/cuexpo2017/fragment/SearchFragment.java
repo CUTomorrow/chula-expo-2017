@@ -6,6 +6,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -74,6 +75,7 @@ public class SearchFragment extends Fragment {
         searchListAdapter = new SearchListAdapter(getContext(), eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
         ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(searchListAdapter);
         recyclerView.setAdapter(scaleAdapter);
 
@@ -137,9 +139,10 @@ public class SearchFragment extends Fragment {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
                 setEventList();
+                Toast.makeText(Contextor.getInstance().getContext(), "No result Found", Toast.LENGTH_SHORT).show();
                 Log.e("Search Fragment", "Search Finish with Size : " + dao.size());
             } else {
-                Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_SHORT).show();
                 Log.e("Search Fragment", "Search Fail " + response.errorBody().toString());
             }
         }
