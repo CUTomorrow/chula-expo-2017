@@ -139,9 +139,10 @@ public class SearchFragment extends Fragment {
             if (response.isSuccessful()) {
                 dao = response.body().getResults();
                 setEventList();
+                Toast.makeText(Contextor.getInstance().getContext(), "No result Found", Toast.LENGTH_SHORT).show();
                 Log.e("Search Fragment", "Search Finish with Size : " + dao.size());
             } else {
-                Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_SHORT).show();
                 Log.e("Search Fragment", "Search Fail " + response.errorBody().toString());
             }
         }
