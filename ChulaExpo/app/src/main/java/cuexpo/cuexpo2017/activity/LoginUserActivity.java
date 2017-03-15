@@ -21,6 +21,8 @@ import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.dao.LoginDao;
 import cuexpo.cuexpo2017.dao.LoginResultDao;
 import cuexpo.cuexpo2017.dao.LoginUser;
+import cuexpo.cuexpo2017.dao.LoginUsernameDao;
+import cuexpo.cuexpo2017.dao.LoginUsernameResultDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
 import cuexpo.cuexpo2017.dao.UserDao;
 import cuexpo.cuexpo2017.dao.UserResult;
@@ -75,7 +77,7 @@ public class LoginUserActivity extends AppCompatActivity {
                 } else if (pass.length() == 0) {
                     Toast.makeText(context, "กรุณาใส่ รหัสผ่าน", Toast.LENGTH_SHORT).show();
                 } else {
-                    Call<LoginDao> loginStatusList = HttpManager.getInstance().getService().loadLoginStatus(
+                    Call<LoginUsernameDao> loginStatusList = HttpManager.getInstance().getService().loginWithUsername(
                         new LoginUser(user, pass)
                     );
                     loginStatusList.enqueue(callbackLoginStatus);
@@ -86,14 +88,13 @@ public class LoginUserActivity extends AppCompatActivity {
         }
     };
 
-    Callback<LoginDao> callbackLoginStatus = new Callback<LoginDao>() {
+    Callback<LoginUsernameDao> callbackLoginStatus = new Callback<LoginUsernameDao>() {
         @Override
-        public void onResponse(Call<LoginDao> call, Response<LoginDao> response) {
+        public void onResponse(Call<LoginUsernameDao> call, Response<LoginUsernameDao> response) {
             if (response.isSuccessful()) {
-                LoginDao result = response.body();
-                if(result.getSuccess()) {
-
-                    apiToken = result.getResults().getToken();
+                LoginUsernameDao dao = response.body();
+                if(dao.getSuccess()) {
+                    apiToken = dao.getResults().getToken();
 
                     SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
@@ -118,7 +119,7 @@ public class LoginUserActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<LoginDao> call, Throwable t) {
+        public void onFailure(Call<LoginUsernameDao> call, Throwable t) {
             Toast.makeText(Contextor.getInstance().getContext(), "กรุณาเชื่อมต่ออินเตอร์เน็ต เพื่อเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
             Log.e("LoginUser", t.toString());
         }
