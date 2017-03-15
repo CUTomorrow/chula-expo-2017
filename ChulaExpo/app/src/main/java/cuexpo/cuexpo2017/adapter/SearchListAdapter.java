@@ -34,7 +34,8 @@ import cuexpo.cuexpo2017.view.EventListItem;
  * Created by APTX-4869 (LOCAL) on 1/25/2017.
  */
 
-public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnMapReadyCallback {
+public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+        implements OnMapReadyCallback {
 
     private List<EventListItem> eventList;
     private boolean isSearching;
@@ -44,33 +45,17 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private FragmentManager fragmentManager;
     private Context context;
 
-    public class EventViewHolder extends RecyclerView.ViewHolder{
+    public static class EventViewHolder extends RecyclerView.ViewHolder {
         public TextView title, time, tag;
+        public View view;
         public EventViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             time = (TextView) view.findViewById(R.id.time);
             tag = (TextView) view.findViewById(R.id.event_tag);
-            view.setOnClickListener(onEventClick);
+            this.view = view;
         }
     }
-
-    private View.OnClickListener onEventClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int viewId = v.getId();
-            String id;
-            if (isSearching) id = eventList.get(viewId).getId();
-            else id = eventList.get(viewId-3).getId();
-            SharedPreferences activitySharedPref = context.getSharedPreferences("Event", Context.MODE_PRIVATE);
-            activitySharedPref.edit().putString("EventID", id).apply();
-
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.container, new EventDetailFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        }
-    };
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description;
@@ -131,7 +116,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         switch (holder.getItemViewType()){
             case HEADER:
                 setHeaderItem((HeaderViewHolder) holder, position);
@@ -142,6 +127,21 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case EVENT:
                 if(!isSearching) setEventItem((EventViewHolder) holder, position-3);
                 else setEventItem((EventViewHolder) holder, position);
+                ((EventViewHolder)holder).view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String id;
+                        if (isSearching) id = eventList.get(position).getId();
+                        else id = eventList.get(position-3).getId();
+                        SharedPreferences activitySharedPref = context.getSharedPreferences("Event", Context.MODE_PRIVATE);
+                        activitySharedPref.edit().putString("EventID", id).apply();
+
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.add(R.id.container, new EventDetailFragment());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
                 break;
         }
     }
