@@ -228,7 +228,7 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
         public void onResponse(Call<ArtGalMessageDao> call, Response<ArtGalMessageDao> response) {
             if (response.isSuccessful()) {
                 ArtGalMessageResult dao = response.body().getResults();
-                Log.d("artGal sent success", dao.getActivity());
+                Log.d("artGal sent success", "|"+dao.getMessage()+"| "+dao.getId());
             } else {
                 try {
                     Log.e("fetch error", response.errorBody().string());
@@ -246,11 +246,12 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
 
     private void showArtGalDialog(){
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-        alert.setTitle("คุรรู้สึกยังไงกับภาพนี้");
+        alert.setTitle("คุณรู้สึกยังไงกับภาพนี้");
 
         final EditText input = new EditText(getContext());
         input.setHeight(100);
-        input.setWidth(340);
+        input.setWidth(250);
+//        input.setPadding(20, 10, 20, 0);
         input.setGravity(Gravity.LEFT);
 
         input.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -259,9 +260,12 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
         alert.setNeutralButton("ส่ง", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d("artGal message", "|"+input.getText().toString());
                 sendRequest(input.getText().toString(), eventId);
             }
         });
+
+        alert.show();
     }
 
     private void goToEventDetail(){
