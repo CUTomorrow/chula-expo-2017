@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                             SharedPreferences sharedPref = getSharedPreferences("FacebookInfo", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString("uid", dao.getResults().getId());
+                            //Log.e("UserInfo","uid:"+dao.getResults().getId());
                             editor.putString("type", dao.getResults().getType());
                             editor.putString("profile", dao.getResults().getProfile());
                             editor.putString("gender", dao.getResults().getGender());
