@@ -53,6 +53,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public TextView title, time, tag;
         public ImageView thumbnail;
         public View view;
+
         public EventViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -66,6 +67,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description;
         public ImageView icon;
+
         public HeaderViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -77,6 +79,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public class MapViewHolder extends RecyclerView.ViewHolder {
         public TextView location;
         MapView mapView;
+
         public MapViewHolder(View view) {
             super(view);
             location = (TextView) view.findViewById(R.id.location);
@@ -123,7 +126,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        switch (holder.getItemViewType()){
+        switch (holder.getItemViewType()) {
             case HEADER:
                 setHeaderItem((HeaderViewHolder) holder, position);
                 break;
@@ -131,14 +134,14 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 setMapItem((MapViewHolder) holder);
                 break;
             case EVENT:
-                if(!isSearching) setEventItem((EventViewHolder) holder, position-3);
+                if (!isSearching) setEventItem((EventViewHolder) holder, position - 3);
                 else setEventItem((EventViewHolder) holder, position);
-                ((EventViewHolder)holder).view.setOnClickListener(new View.OnClickListener() {
+                ((EventViewHolder) holder).view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String id;
                         if (isSearching) id = eventList.get(position).getId();
-                        else id = eventList.get(position-3).getId();
+                        else id = eventList.get(position - 3).getId();
                         SharedPreferences activitySharedPref = context.getSharedPreferences("Event", Context.MODE_PRIVATE);
                         activitySharedPref.edit().putString("EventID", id).apply();
 
@@ -154,8 +157,8 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        if(isSearching) return eventList.size();
-        return eventList.size()+3;
+        if (isSearching) return eventList.size();
+        return eventList.size() + 3;
     }
 
     @Override
@@ -174,15 +177,14 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.time.setText(movie.getTime());
         String zoneShortName = movie.getTag();
         boolean isLight = false;
-        for(int i=0;i<lightZone.length-1;i++){
-            if(zoneShortName.equals(lightZone[i])) isLight =true;
+        for (int i = 0; i < lightZone.length - 1; i++) {
+            if (zoneShortName.equals(lightZone[i])) isLight = true;
         }
-        if(isLight) {
+        if (isLight) {
             holder.tag.setText(zoneShortName);
             holder.tag.setTextColor(Color.BLACK);
             holder.tag.setBackgroundResource(Resource.getColor(zoneShortName));
-        }
-        else {
+        } else {
             holder.tag.setText(zoneShortName);
             holder.tag.setTextColor(Color.WHITE);
             holder.tag.setBackgroundResource(Resource.getColor(zoneShortName));
@@ -202,7 +204,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void setHeaderItem(HeaderViewHolder holder, int position) {
-        if(position == 0){
+        if (position == 0) {
             holder.title.setText("WHERE AM I?");
             holder.description.setText("แนะนำ event จากสถานที่ปัจจุบันของคุณ");
             holder.icon.setImageResource(R.drawable.ic_pin_white);

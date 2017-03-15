@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class LoginUserActivity extends AppCompatActivity {
 
     private Context context;
     private String apiToken;
+    private Button submitButton;
 
     public LoginUserActivity() {
         super();
@@ -59,7 +61,8 @@ public class LoginUserActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.login_user_submit).setOnClickListener(submitOnClick);
+        submitButton = (Button)findViewById(R.id.login_user_submit);
+        submitButton.setOnClickListener(submitOnClick);
 
     }
 
@@ -67,6 +70,7 @@ public class LoginUserActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             try {
+                submitButton.setClickable(false);
                 String user = ((EditText) findViewById(R.id.login_user_input)).getText().toString();
                 String pass = ((EditText) findViewById(R.id.login_password_input)).getText().toString();
 
@@ -114,6 +118,7 @@ public class LoginUserActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(Contextor.getInstance().getContext(), "การเชื่อมต่อ Server มีปัญหา (errNo: 002)", Toast.LENGTH_LONG).show();
                 }
+                submitButton.setClickable(true);
 
             }
         }
@@ -122,6 +127,7 @@ public class LoginUserActivity extends AppCompatActivity {
         public void onFailure(Call<LoginUsernameDao> call, Throwable t) {
             Toast.makeText(Contextor.getInstance().getContext(), "กรุณาเชื่อมต่ออินเตอร์เน็ต เพื่อเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
             Log.e("LoginUser", t.toString());
+            submitButton.setClickable(true);
         }
     };
 
@@ -164,6 +170,7 @@ public class LoginUserActivity extends AppCompatActivity {
             } else {
                 Log.e("LOGIN USER", response.code() + " " + response.errorBody());
                 Toast.makeText(Contextor.getInstance().getContext(), "การเชื่อมต่อ Server มีปัญหา (errNo: 004)", Toast.LENGTH_LONG).show();
+                submitButton.setClickable(true);
             }
         }
 
@@ -171,6 +178,7 @@ public class LoginUserActivity extends AppCompatActivity {
         public void onFailure(Call<UserDao> call, Throwable t) {
             Toast.makeText(Contextor.getInstance().getContext(), "กรุณาเชื่อมต่ออินเตอร์เน็ต เพื่อเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
             Log.e("LoginUser", t.toString());
+            submitButton.setClickable(true);
         }
     };
 
