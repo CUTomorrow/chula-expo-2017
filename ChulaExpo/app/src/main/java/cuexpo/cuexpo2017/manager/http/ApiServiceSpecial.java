@@ -10,6 +10,7 @@ import cuexpo.cuexpo2017.dao.EditAdultUser;
 import cuexpo.cuexpo2017.dao.EditStudentUser;
 import cuexpo.cuexpo2017.dao.FacilityDao;
 import cuexpo.cuexpo2017.dao.LoginDao;
+import cuexpo.cuexpo2017.dao.NearbyDao;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.ReserveDao;
 import cuexpo.cuexpo2017.dao.RoundDao;
@@ -47,14 +48,14 @@ public interface ApiServiceSpecial {
     @GET("/search")
     Call<ActivitySearchItemCollectionDao> searchActivities(@Query("q") String queryString);
 
-    @GET("/nearby")
-    Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("lat") double lat,
-                                                         @Query("lng") double lng);
+    @GET("/area")
+    Call<NearbyDao> loadNearbyActivities(@Query("lat") double lat,
+                                         @Query("lng") double lng);
 
-    @GET("/nearby")
-    Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("u") String user,
-                                                         @Query("lat") double lat,
-                                                         @Query("lng") double lng);
+    @GET("/area")
+    Call<NearbyDao> loadNearbyActivities(@Query("u") String user,
+                                         @Query("lat") double lat,
+                                         @Query("lng") double lng);
 
 
 

@@ -198,8 +198,17 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Call<RoundDao> callReservedList = HttpManager.getInstance().getService().loadReservedRounds();
-                    callReservedList.enqueue(callbackReservedList);
+                    Log.e("Event Detail", "ACCESS " + access);
+                    if (access) {
+                        Call<RoundDao> callReservedList = HttpManager.getInstance().getService().loadReservedRounds();
+                        callReservedList.enqueue(callbackReservedList);
+                    } else {
+                        canReserve = true;
+                        isReserve = false;
+                        isFavourite = false;
+                        isLoading = false;
+                        notifyDataSetChanged();
+                    }
                 }
             } else {
                 try {
@@ -479,10 +488,9 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
     private View.OnClickListener reserveOCL = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (!access) {
-                error("การจอง");
-            } else {
-                if (canReserve) {
+
+            if (canReserve) {
+                if (access) {
                     FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.add(R.id.event_detail_overlay, ReservedCheckFragment.newInstance(id, title, lat, lng));
@@ -490,38 +498,40 @@ public class EventDetailListAdapter extends BaseAdapter implements OnMapReadyCal
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else {
-                    if (isReserve) {
-                        Call<DeleteResultDao> callDelete = HttpManager.getInstance().getService().removeRound(reserveId);
-                        callDelete.enqueue(callbackDelete);
-                        canReserve = true;
+                    error("การจอง");
+                }
+            } else {
+                if (isReserve) {
+                    Call<DeleteResultDao> callDelete = HttpManager.getInstance().getService().removeRound(reserveId);
+                    callDelete.enqueue(callbackDelete);
+                    canReserve = true;
+                    notifyDataSetChanged();
+                } else {
+                    if (!isFavourite) {
+                        editor = sharedPref.edit();
+                        editor.putString(id, "");
+                        editor.apply();
+                        favouritePlaceEditor = favouritePlace.edit();
+                        favouritePlaceEditor.putString(id, title + "," + lat + "," + lng);
+                        favouritePlaceEditor.apply();
+                        isFavourite = true;
+                        // Add alert notification when time arrive
+                        scheduleNotification();
+
                         notifyDataSetChanged();
                     } else {
-                        if (!isFavourite) {
+                        isFavourite = false;
+                        if (sharedPref.contains(id)) {
                             editor = sharedPref.edit();
-                            editor.putString(id, "");
+                            editor.remove(id);
                             editor.apply();
-                            favouritePlaceEditor = favouritePlace.edit();
-                            favouritePlaceEditor.putString(id, title+","+lat+","+lng);
-                            favouritePlaceEditor.apply();
-                            isFavourite = true;
-                            // Add alert notification when time arrive
-                            scheduleNotification();
-
-                            notifyDataSetChanged();
-                        } else {
-                            isFavourite = false;
-                            if (sharedPref.contains(id)) {
-                                editor = sharedPref.edit();
-                                editor.remove(id);
-                                editor.apply();
-                            }
-                            if (favouritePlace.contains(id)) {
-                                favouritePlaceEditor = favouritePlace.edit();
-                                favouritePlaceEditor.remove(id);
-                                favouritePlaceEditor.apply();
-                            }
-                            notifyDataSetChanged();
                         }
+                        if (favouritePlace.contains(id)) {
+                            favouritePlaceEditor = favouritePlace.edit();
+                            favouritePlaceEditor.remove(id);
+                            favouritePlaceEditor.apply();
+                        }
+                        notifyDataSetChanged();
                     }
                 }
             }

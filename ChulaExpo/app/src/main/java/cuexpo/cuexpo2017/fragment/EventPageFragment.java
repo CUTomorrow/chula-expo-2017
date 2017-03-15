@@ -29,6 +29,7 @@ import retrofit2.Call;
 public class EventPageFragment extends Fragment implements View.OnClickListener {
     private Toolbar toolbar;
     private ImageView ivToolbarQR;
+    private ImageView ivSearch;
     private View rootView;
 
     @Override
@@ -62,7 +63,9 @@ public class EventPageFragment extends Fragment implements View.OnClickListener 
         toolbar = (Toolbar)rootView.findViewById(R.id.event_page_toolbar);
         toolbar.setTitle("");
         ivToolbarQR = (ImageView) rootView.findViewById(R.id.event_Page_toolbar_qr);
+        ivSearch = (ImageView) rootView.findViewById(R.id.event_toolbar_search);
         ivToolbarQR.setOnClickListener(this);
+        ivSearch.setOnClickListener(this);
     }
 
     private void initTab() {
@@ -88,6 +91,12 @@ public class EventPageFragment extends Fragment implements View.OnClickListener 
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.container, new QRFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }else if(v == ivSearch){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container, new SearchFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
