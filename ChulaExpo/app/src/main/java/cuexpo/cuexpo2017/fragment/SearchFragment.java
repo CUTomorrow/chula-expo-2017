@@ -156,8 +156,19 @@ public class SearchFragment extends Fragment {
 
     private void initEventList() {
         eventList.clear();
+
+        double lat = 13.74010;
+        double lng = 100.53045;
+
+        try {
+            lat = MainApplication.getCurrentLocation().getLatitude();
+            lng = MainApplication.getCurrentLocation().getLongitude();
+        } catch (NullPointerException e) {
+            Log.e("searchWhereAmI", e.toString());
+        }
+
         Call<ActivityItemCollectionDao> callNearbyActivities =
-                HttpManager.getInstance().getService().loadNearbyActivities(13.73826, 100.53272);
+                HttpManager.getInstance().getService().loadNearbyActivities(lat, lng);
         callNearbyActivities.enqueue(callbackNearbyActivities);
     }
 
