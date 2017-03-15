@@ -175,13 +175,13 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                 if (reserveDao != null) {
                     if (reserveDao.getResults() == null) {
                         upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
-                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.setHolder("ไม่มี Event ที่เริ่มไปแล้ว");
                         upComingAdapter.notifyDataSetChanged();
                         previousAdapter.notifyDataSetChanged();
                     } else if (reserveDao.getResults().size() == 0) {
                         upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
                         upComingAdapter.notifyDataSetChanged();
-                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.setHolder("ไม่มี Event ที่เริ่มไปแล้ว");
                         previousAdapter.notifyDataSetChanged();
                     } else {
 
@@ -275,7 +275,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                         upComingAdapter.notifyDataSetChanged();
                     }
                     if (previousAdapter.getIsZero()) {
-                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.setHolder("ไม่มี Event ที่เริ่มไปแล้ว");
                         previousAdapter.notifyDataSetChanged();
                     }
                 }
@@ -288,7 +288,7 @@ public class ReservedFragment extends Fragment implements View.OnClickListener {
                         upComingAdapter.notifyDataSetChanged();
                     }
                     if (previousAdapter.getIsZero()) {
-                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.setHolder("ไม่มี Event ที่เริ่มไปแล้ว");
                         previousAdapter.notifyDataSetChanged();
                     }
                 } catch (IOException e) {
