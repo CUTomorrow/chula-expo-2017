@@ -39,48 +39,50 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/header_background"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:weightSum="1">
+                android:layout_height="50dp"
+                android:background="@color/colorAccent"
+                android:paddingLeft="15dp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/reserved_ue_header"
+                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.98"
-                    android:orientation="vertical">
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/upcoming_events"
+                    android:textColor="@color/white"
+                    android:textSize="19sp" />
 
-                    <TextView
-                        android:id="@+id/reserved_ue_header"
-                        style="@style/tvHighlightHeader"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:lineSpacingExtra="-4sp"
-                        android:paddingLeft="10dp"
-                        android:text="@string/upcoming_events"
-                        fontPath="@string/font_bold" />
-
-                    <TextView
-                        android:id="@+id/reserved_ue_desc"
-                        style="@style/tvHeaderDesc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="-3dp"
-                        android:text="@string/upcoming_event_desc"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/reserved_ue_desc"
+                    fontPath="fonts/ThaiSansNeue-Regular.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/reserved_ue_header"
+                    android:layout_below="@+id/reserved_ue_header"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="-6dp"
+                    android:text="@string/upcoming_event_desc"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_11" />
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:id="@+id/icon"
+                    android:layout_width="53dp"
+                    android:layout_height="55dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="15dp"
                     android:src="@drawable/ic_event" />
-            </LinearLayout>
+
+            </RelativeLayout>
 
             <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:divider="@color/transparent"
@@ -89,47 +91,50 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8sp"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/header_background"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:weightSum="1">
+                android:layout_height="50dp"
+                android:background="@color/colorAccent"
+                android:paddingLeft="15dp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/reserved_pe_header"
+                    fontPath="fonts/ThaiSansNeue-Bold.ttf"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.98"
-                    android:orientation="vertical">
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/previous_events"
+                    android:textColor="@color/white"
+                    android:textSize="19sp" />
 
-                    <TextView
-                        android:id="@+id/reserved_pe_header"
-                        style="@style/tvHighlightHeader"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:lineSpacingExtra="-4sp"
-                        android:paddingLeft="10dp"
-                        android:text="@string/previous_events"
-                        fontPath="@string/font_bold"/>
-
-                    <TextView
-                        android:id="@+id/reserved_pe_desc"
-                        style="@style/tvHeaderDesc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="-3dp"
-                        android:text="@string/previous_event_desc"
-                        android:textColor="@color/white" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/reserved_pe_desc"
+                    fontPath="fonts/ThaiSansNeue-Regular.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/reserved_pe_header"
+                    android:layout_below="@+id/reserved_pe_header"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="-6dp"
+                    android:text="@string/previous_event_desc"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_11" />
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:id="@+id/icon"
+                    android:layout_width="53dp"
+                    android:layout_height="55dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="15dp"
                     android:src="@drawable/ic_event" />
-            </LinearLayout>
+
+            </RelativeLayout>
 
             <cuexpo.cuexpo2017.view.ExpandableHeightListView
                 android:divider="@color/transparent"

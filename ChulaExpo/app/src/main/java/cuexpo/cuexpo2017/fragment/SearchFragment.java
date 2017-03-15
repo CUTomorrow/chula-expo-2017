@@ -103,6 +103,7 @@ public class SearchFragment extends Fragment {
 
     private void search() {
         eventList.clear();
+        loadingSearch.setText("Loading Data...");
         searchListAdapter.notifyDataSetChanged();
 
         String s = query.getText().toString();
