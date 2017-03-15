@@ -41,9 +41,6 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @POST("/api/login")
-    Call<LoginDao> loadLoginStatus(@Body LoginUser loginUser);
-
-    @POST("/api/login")
     Call<LoginUsernameDao> loginWithUsername(@Body LoginUser loginUser);
 
     @GET("/api/activities")
