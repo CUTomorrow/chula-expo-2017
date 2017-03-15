@@ -12,6 +12,7 @@ import cuexpo.cuexpo2017.dao.EditStudentUser;
 import cuexpo.cuexpo2017.dao.FacilityDao;
 import cuexpo.cuexpo2017.dao.LoginDao;
 import cuexpo.cuexpo2017.dao.LoginUser;
+import cuexpo.cuexpo2017.dao.LoginUsernameDao;
 import cuexpo.cuexpo2017.dao.MyLocation;
 import cuexpo.cuexpo2017.dao.PlaceItemDao;
 import cuexpo.cuexpo2017.dao.ReserveDao;
@@ -41,6 +42,9 @@ public interface ApiService {
 
     @POST("/api/login")
     Call<LoginDao> loadLoginStatus(@Body LoginUser loginUser);
+
+    @POST("/api/login")
+    Call<LoginUsernameDao> loginWithUsername(@Body LoginUser loginUser);
 
     @GET("/api/activities")
     Call<ActivityItemCollectionDao> loadActivityList(@Query("fields") String fields,
