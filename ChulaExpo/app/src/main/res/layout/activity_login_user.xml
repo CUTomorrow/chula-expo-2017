@@ -12,12 +12,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:background="#f3f3f3"
         android:overScrollMode="never"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,12 +80,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
-                        android:backgroundTint="@color/transparent"
                         android:hint="ชื่อผู้ใช้"
                         android:maxLines="1"
+                        android:inputType="text"
                         android:imeOptions="actionNext"
-                        android:textColor="#7a7d84"
-                        android:textColorLink="@color/transparent"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
                         android:focusable="true"
                         android:focusableInTouchMode="true" />
@@ -115,12 +114,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
-                        android:backgroundTint="@color/transparent"
                         android:hint="รหัสผ่าน"
+                        android:inputType="textPassword"
                         android:maxLines="1"
-                        android:imeOptions="actionNext"
-                        android:textColor="#7a7d84"
-                        android:textColorLink="@color/transparent"
+                        android:imeOptions="actionDone"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -131,7 +129,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_weight="0"
                     android:background="@color/blue_dark"
                     android:text="เข้าสู่ระบบ"
                     android:textColor="#FFFFFF"
@@ -162,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="สามารถลงทะเบียนเพื่อรับ ผู้ใช้ และ รหัสผ่านได้ที่หน้างาน สำหรับผู้ใช้ที่ไม่มี Facebook"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
