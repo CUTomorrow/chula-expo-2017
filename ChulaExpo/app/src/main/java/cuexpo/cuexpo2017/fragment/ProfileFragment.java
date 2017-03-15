@@ -355,7 +355,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (v == btnLogout) {
-
+            btnLogout.setClickable(false);
             SharedPreferences.Editor editor = sharedPref.edit();
             String facebookId = sharedPref.getString("id", "");
             editor.putString("fbToken", "");

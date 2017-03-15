@@ -132,7 +132,7 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
 
         if (allEntries.size() == 0) {
             upComingAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
-            previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+            previousAdapter.setHolder("ไม่มี Event ที่เริ่มไปแล้ว");
             upComingAdapter.notifyDataSetChanged();
             previousAdapter.notifyDataSetChanged();
         } else {
@@ -208,7 +208,7 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
                         upComingAdapter.notifyDataSetChanged();
                     }
                     if (previousAdapter.getIsZero()) {
-                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.setHolder("ไม่มี Event ที่เริ่มไปแล้ว");
                         previousAdapter.notifyDataSetChanged();
                     }
                 }
@@ -221,7 +221,7 @@ public class FavouriteFragment extends Fragment implements View.OnClickListener 
                         upComingAdapter.notifyDataSetChanged();
                     }
                     if (previousAdapter.getIsZero()) {
-                        previousAdapter.setHolder("ไม่มี Event ที่กำลังจะเกิดขึ้น");
+                        previousAdapter.setHolder("ไม่มี Event ที่เริ่มไปแล้ว");
                         previousAdapter.notifyDataSetChanged();
                     }
                 } catch (IOException e) {

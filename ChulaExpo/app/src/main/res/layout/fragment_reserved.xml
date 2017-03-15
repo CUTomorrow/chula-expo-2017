@@ -70,7 +70,7 @@
                     android:textSize="@dimen/font_11" />
 
                 <ImageView
-                    android:id="@+id/icon"
+                    android:id="@+id/icon_ue"
                     android:layout_width="53dp"
                     android:layout_height="55dp"
                     android:layout_alignParentEnd="true"
@@ -122,7 +122,7 @@
                     android:textSize="@dimen/font_11" />
 
                 <ImageView
-                    android:id="@+id/icon"
+                    android:id="@+id/icon_pe"
                     android:layout_width="53dp"
                     android:layout_height="55dp"
                     android:layout_alignParentEnd="true"
