@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         if (!sharedPref.getString("apiToken", "").equals(""))
             HttpManager.getInstance().setAPIKey(sharedPref.getString("apiToken", ""));
 
-        new AsyncTask<Void,Void,Void>() {
+        new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
 
     private void initTab() {
-
 
 
         viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
@@ -183,15 +182,31 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onBackPressed() {
         Log.d("backPressed", "back stack = " + getSupportFragmentManager().getBackStackEntryCount());
+
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
         } else {
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-            System.exit(0);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("ต้องการออกจากแอปพลิเคชัน ?");
+            alert.setMessage("กด OK เพื่อออก");
+            alert.setCancelable(false);
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                    System.exit(0);
+                }
+            });
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).create().show();
         }
     }
 

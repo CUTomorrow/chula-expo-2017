@@ -50,6 +50,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
     private LinearLayout btnSave;
     private Spinner spnSelectTime;
     private TextView tvName;
+    private TextView loadingRounds;
     private RoundDao dao;
     private ReserveDao dao2;
     private int selectedPos;
@@ -106,6 +107,7 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
         btnSave = (LinearLayout) rootView.findViewById(R.id.reserved_check_save);
         spnSelectTime = (Spinner) rootView.findViewById(R.id.reserved_check_spinner);
         tvName = (TextView) rootView.findViewById(R.id.reserved_check_name);
+        loadingRounds = (TextView) rootView.findViewById(R.id.reserved_check_loading);
 
         ivClose.setOnClickListener(this);
         btnSave.setOnClickListener(this);
@@ -121,6 +123,8 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             e.printStackTrace();
         }
 
+        tvName.setText(aName);
+
         Call<RoundDao> callRound = HttpManager.getInstance().getService().loadRoundsById(aid, range, "start");
         callRound.enqueue(callbackRound);
 
@@ -132,20 +136,23 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
             if (response.isSuccessful()) {
                 dao = response.body();
 
-                tvName.setText(aName);
+                if (dao.getResults().size() > 0) {
+                    loadingRounds.setVisibility(View.GONE);
+                    String[] items = new String[dao.getResults().size()];
 
-                String[] items = new String[dao.getResults().size()];
-
-                for (int i = 0; i < dao.getResults().size(); i++) {
-                    items[i] = DateConversionManager.getInstance()
-                            .ConvertDate(dao.getResults().get(i).getStart()
-                                    , dao.getResults().get(i).getEnd());
+                    for (int i = 0; i < dao.getResults().size(); i++) {
+                        items[i] = DateConversionManager.getInstance()
+                                .ConvertDate(dao.getResults().get(i).getStart()
+                                        , dao.getResults().get(i).getEnd());
+                    }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>
+                            (getContext(), R.layout.spinner_reserved_check_item, R.id.reserved_check_spinner_text, items);
+                    adapter.setDropDownViewResource(R.layout.spinner_reserved_check_drop_item);
+                    spnSelectTime.setAdapter(adapter);
+                    selectedPos = 0;
+                } else {
+                    loadingRounds.setText("ไม่พบรอบของกิจกรรมนี้");
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>
-                        (getContext(), R.layout.spinner_reserved_check_item, R.id.reserved_check_spinner_text, items);
-                adapter.setDropDownViewResource(R.layout.spinner_reserved_check_drop_item);
-                spnSelectTime.setAdapter(adapter);
-                selectedPos = 0;
             } else {
                 try {
                     Log.e("Reserved Check Fragment", "Call Round Not Success " + response.errorBody().string());
@@ -192,21 +199,24 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == btnSave) {
-            String aid = dao.getResults().get(selectedPos).getActivityId();
-            String rid = dao.getResults().get(selectedPos).getId();
+            if (spnSelectTime.getAdapter().getCount() != 0) {
+                String aid = dao.getResults().get(selectedPos).getActivityId();
+                String rid = dao.getResults().get(selectedPos).getId();
 
-            Call<ReserveDao> callReserve = HttpManager.getInstance().getService().reserveSelectedRound(aid, rid);
-            callReserve.enqueue(callbackReserve);
-            getFragmentManager().popBackStack();
+                Call<ReserveDao> callReserve = HttpManager.getInstance().getService().reserveSelectedRound(aid, rid);
+                callReserve.enqueue(callbackReserve);
+                getFragmentManager().popBackStack();
 
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.event_detail_overlay, new EventDetailFragment());
-            fragmentTransaction.commit();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.event_detail_overlay, new EventDetailFragment());
+                fragmentTransaction.commit();
+            }
         } else if (v == ivClose) {
             getFragmentManager().popBackStack();
         }
     }
+
 
     Callback<ReserveDao> callbackReserve = new Callback<ReserveDao>() {
         @Override
@@ -217,15 +227,15 @@ public class ReservedCheckFragment extends Fragment implements View.OnClickListe
                     SharedPreferences reservedPlace =
                             Contextor.getInstance().getContext().getSharedPreferences("ReservedPlaces", Context.MODE_PRIVATE);
                     SharedPreferences.Editor reservedPlaceEditor = reservedPlace.edit();
-                    reservedPlaceEditor.putString(aid, aName +","+ lat +","+ lng);
+                    reservedPlaceEditor.putString(aid, aName + "," + lat + "," + lng);
                     reservedPlaceEditor.apply();
                 }
-                Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() ? "จองสำเร็จ" : "จองไม่สำเร็จ "
+                Toast.makeText(Contextor.getInstance().getContext(), dao2.getSuccess() ? "Reservation Success" : "Reservation Fail "
                         + dao2.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e("Reserved Check Fragment", "Reserve Round " + dao2.getSuccess() + " " + dao2.getMessage());
             } else {
                 try {
-                    Toast.makeText(Contextor.getInstance().getContext(), "จองไม่สำเร็จ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Contextor.getInstance().getContext(), "Reservation Fail", Toast.LENGTH_LONG).show();
                     Log.e("Reserved Check Fragment", "Reserve Round Not Success" + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();

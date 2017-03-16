@@ -93,7 +93,7 @@ public class EventDetailFragment extends Fragment {
 
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
                 String zoneShortName = sharedPref.getString(dao.getZone(), "");
-                TextView eventTag = (TextView) rootView.findViewById(R.id.event_tag);
+                TextView eventTag = (TextView) rootView.findViewById(R.id.event_detail_tag);
                 eventTag.setText(zoneShortName);
                 eventTag.setBackgroundResource(Resource.getColor(zoneShortName));
                 for (int i = 0; i < lightZone.length - 1; i++) {
@@ -106,6 +106,7 @@ public class EventDetailFragment extends Fragment {
                 ViewTreeObserver vto = headerView.getViewTreeObserver();
                 vto.addOnGlobalLayoutListener(onGlobalLayoutListener);
             } else {
+                title.setText("ไม่พบกิจกรรมนี้: กิจกรรมนี้ถูกลบไปแล้ว");
                 try {
                     Log.e("fetch error", response.errorBody().string());
                     Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
@@ -191,7 +192,7 @@ public class EventDetailFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentManager.popBackStack();
         }
     };
 }

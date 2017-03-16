@@ -24,10 +24,11 @@
                 android:layout_width="88dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                card_view:srcCompat="@drawable/highlight_vidva_2" />
+                card_view:srcCompat="@drawable/thumb" />
 
             <TextView
                 android:id="@+id/title"
+                android:ellipsize="end"
                 fontPath="fonts/ThaiSansNeue-Bold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
 
             <TextView
                 android:id="@+id/time"
+                android:ellipsize="end"
                 fontPath="fonts/ThaiSansNeue-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

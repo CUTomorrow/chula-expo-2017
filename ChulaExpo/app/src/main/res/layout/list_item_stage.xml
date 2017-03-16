@@ -37,7 +37,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:orientation="vertical">
@@ -45,16 +45,17 @@
         <TextView
             android:id="@+id/tvStageTitle"
             fontPath="@string/font_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
             android:maxLines="1"
+            android:ellipsize="end"
             android:text="จุฬาฯ กับ Innovation"
             android:textColor="@android:color/black"
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tvStageTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="08.30 - 09.30"
             android:textColor="@color/home_secondary_text_light"

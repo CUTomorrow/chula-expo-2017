@@ -13,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,11 +27,16 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,9 +46,11 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import net.glxn.qrgen.android.QRCode;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,9 +58,20 @@ import cuexpo.cuexpo2017.MainApplication;
 import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.activity.MainActivity;
 import cuexpo.cuexpo2017.adapter.ScannerActivity;
+import cuexpo.cuexpo2017.dao.ActivityItemDao;
+import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
+import cuexpo.cuexpo2017.dao.ArtGalMessage;
+import cuexpo.cuexpo2017.dao.ArtGalMessageDao;
+import cuexpo.cuexpo2017.dao.ArtGalMessageResult;
+import cuexpo.cuexpo2017.dao.LoginDao;
+import cuexpo.cuexpo2017.manager.HttpManager;
 import cuexpo.cuexpo2017.utility.CameraPermissionUtils;
 import cuexpo.cuexpo2017.utility.CameraPermissionUtils;
+import cuexpo.cuexpo2017.utility.Resource;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -67,8 +86,8 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
     SharedPreferences.Editor editor;
     String uid,name,year,school,level,workerJob,type, profile;
     private final static int REQUEST_QR = 0;
-
     private static Bitmap QRCache = null;
+    String eventId;
 
     public QRFragment() {
         super();
@@ -144,16 +163,17 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
             if (qrValue.contains("chulaexpo.com/api/activities/")) {
                 int startIndex = qrValue.indexOf("activities/") + 11;
                 int endIndex = qrValue.indexOf('/', startIndex);
-                String eventId = qrValue.substring(startIndex, endIndex);
+                eventId = qrValue.substring(startIndex, endIndex);
 
                 SharedPreferences activitySharedPref = getActivity().getSharedPreferences("Event", Context.MODE_PRIVATE);
                 activitySharedPref.edit().putString("EventID", eventId).apply();
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.qr_container, new EventDetailFragment());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                Call<ActivityItemDao> call = HttpManager.getInstance().getService().loadActivityItem(eventId);
+                call.enqueue(callbackActivity);
+
+            } else if (qrValue.contains("http")) {
+                Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(qrValue));
+                startActivity(viewIntent);
             } else {
                 new AlertDialog.Builder(getContext())
                         .setTitle("Message")
@@ -168,6 +188,92 @@ public class QRFragment extends Fragment implements View.OnClickListener, Activi
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.detach(this).attach(this).commit();
         }
+    }
+
+    Callback<ActivityItemDao> callbackActivity = new Callback<ActivityItemDao>() {
+        @Override
+        public void onResponse(Call<ActivityItemDao> call, Response<ActivityItemDao> response) {
+            if (response.isSuccessful()) {
+                ActivityItemResultDao dao = response.body().getResults();
+                String zone = dao.getZone();
+                if(zone.equals("589c52b4a8bbbb1c7165d3f0")) {
+                    showArtGalDialog();
+                } else {
+                    sendRequest("", eventId);
+                }
+            } else {
+                try {
+                    Log.e("fetch error", response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ActivityItemDao> call, Throwable t) {
+            System.out.println("ERROR Fragment" + t.toString());
+        }
+    };
+
+    private void sendRequest(String message, String activity){
+        Call<ArtGalMessageDao> call = HttpManager.getInstance().getService().sendArtGalMessage(new ArtGalMessage(message, activity));
+        call.enqueue(callbackMessage);
+
+        goToEventDetail();
+    }
+
+    Callback<ArtGalMessageDao> callbackMessage = new Callback<ArtGalMessageDao>() {
+        @Override
+        public void onResponse(Call<ArtGalMessageDao> call, Response<ArtGalMessageDao> response) {
+            if (response.isSuccessful()) {
+                ArtGalMessageResult dao = response.body().getResults();
+                Log.d("artGal sent success", "|"+dao.getMessage()+"| "+dao.getId());
+            } else {
+                try {
+                    Log.e("fetch error", response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ArtGalMessageDao> call, Throwable t) {
+            Log.e("artGal sent fail", t.toString());
+        }
+    };
+
+    private void showArtGalDialog(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setTitle("คุณรู้สึกยังไงกับภาพนี้");
+
+        final EditText input = new EditText(getContext());
+        input.setHeight(100);
+        input.setWidth(250);
+//        input.setPadding(20, 10, 20, 0);
+        input.setGravity(Gravity.LEFT);
+
+        input.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        alert.setView(input);
+
+        alert.setNeutralButton("ส่ง", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d("artGal message", "|"+input.getText().toString());
+                sendRequest(input.getText().toString(), eventId);
+            }
+        });
+
+        alert.show();
+    }
+
+    private void goToEventDetail(){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.qr_container, new EventDetailFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     private void init() {

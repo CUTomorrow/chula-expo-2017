@@ -16,6 +16,7 @@ import java.util.List;
 
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
+import cuexpo.cuexpo2017.utility.DateUtil;
 import cuexpo.cuexpo2017.view.HomeStageListItem;
 
 /**
@@ -74,36 +75,17 @@ public class HomeStageListAdapter extends BaseAdapter {
         sharedPref2 = parent.getContext().getSharedPreferences("ZoneKeyEn", Context.MODE_PRIVATE);
         String zoneShortName = sharedPref.getString(dao.getZone(), "");
         String zoneShortNameEn = sharedPref2.getString(dao.getZone(), "");
+
+        if(zoneShortName.equals("SALA ST")) {
+            zoneShortName = "ศาลาพระเกี้ยว";
+            zoneShortNameEn = "CU@100";
+        }
+
         item.setTvStageId(zoneShortName);
         item.setTvStageLocation(zoneShortNameEn);
-        item.setTvStageTime(dateThai(dao.getStart()) + " \u2022 " + dao.getStart().substring(11, 16) + "-" + dao.getEnd().substring(11, 16));
+        item.setTvStageTime(DateUtil.getDateThai(dao.getStart()) + " \u2022 " + dao.getStart().substring(11, 16) + "-" + dao.getEnd().substring(11, 16));
         item.setTvStageTitle(dao.getName().getTh());
         return item;
     }
 
-    public static String dateThai(String strDate) {
-        String Months[] = {
-                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",
-                "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม",
-                "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"};
-
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-        int year = 0, month = 0, day = 0;
-        try {
-            Date date = df.parse(strDate);
-            Calendar c = Calendar.getInstance();
-            c.setTime(date);
-
-            year = c.get(Calendar.YEAR);
-            month = c.get(Calendar.MONTH);
-            day = c.get(Calendar.DATE);
-
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return String.format("%s %s", day, Months[month]);
-    }
 }

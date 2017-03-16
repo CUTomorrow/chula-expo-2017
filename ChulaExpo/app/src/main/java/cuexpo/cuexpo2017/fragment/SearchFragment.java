@@ -2,30 +2,25 @@ package cuexpo.cuexpo2017.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import cuexpo.cuexpo2017.MainApplication;
@@ -33,11 +28,7 @@ import cuexpo.cuexpo2017.R;
 import cuexpo.cuexpo2017.adapter.SearchListAdapter;
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemResultDao;
-import cuexpo.cuexpo2017.dao.ActivitySearchItemCollectionDao;
-import cuexpo.cuexpo2017.dao.DeleteResultDao;
-import cuexpo.cuexpo2017.dao.NearbyDao;
 import cuexpo.cuexpo2017.manager.HttpManager;
-import cuexpo.cuexpo2017.manager.HttpManagerSpecial;
 import cuexpo.cuexpo2017.utility.DateUtil;
 import cuexpo.cuexpo2017.view.EventListItem;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
@@ -53,11 +44,11 @@ public class SearchFragment extends Fragment {
     private SearchListAdapter searchListAdapter;
     private List<EventListItem> eventList = new ArrayList<>();
     private List<ActivityItemResultDao> dao = new ArrayList<>();
-    private ImageView search;
     private EditText query;
+    private TextView loadingNearby;
+    private TextView loadingSearch;
     private String id;
-    private double lat;
-    private double lng;
+    private boolean isSearching = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,83 +56,91 @@ public class SearchFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         query = ((EditText) rootView.findViewById(R.id.search));
-        query.addTextChangedListener(searchWatcher);
-        search = (ImageView) rootView.findViewById(R.id.search_icon_button);
-        search.setOnClickListener(searchClickListener);
-        searchListAdapter = new SearchListAdapter(eventList, false, getFragmentManager());
+        rootView.findViewById(R.id.back).setOnClickListener(backOCL);
+        rootView.findViewById(R.id.search).setOnKeyListener(searchOEAL);
+        loadingNearby = (TextView) rootView.findViewById(R.id.nearby_loading);
+        loadingSearch = (TextView) rootView.findViewById(R.id.search_loading);
+
+        searchListAdapter = new SearchListAdapter(getContext(), eventList, false, getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(searchListAdapter);
-//        scaleAdapter.setDuration(3000);
-        recyclerView.setAdapter(scaleAdapter);
 
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(searchListAdapter);
+        recyclerView.setAdapter(scaleAdapter);
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("FacebookInfo", Context.MODE_PRIVATE);
         id = sharedPref.getString("id", "");
-        HttpManagerSpecial.getInstance().setAPIKey(sharedPref.getString("apiToken", ""));
         Log.e("Search Fragment", "ID : " + id);
         initEventList();
         return rootView;
     }
 
-    private View.OnClickListener searchClickListener = new OnClickListener() {
+    private OnClickListener backOCL = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            String s = query.getText().toString();
-            Call<ActivitySearchItemCollectionDao> callSearchActivities;
-            boolean checkMap;
-            Log.e("Search Fragment", "String : " + s);
-            try {
-                lat = MainApplication.getCurrentLocation().getLatitude();
-                lng = MainApplication.getCurrentLocation().getLatitude();
-                checkMap = true;
-            } catch (Exception e) {
-                checkMap = false;
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    };
+
+    TextView.OnKeyListener searchOEAL = new TextView.OnKeyListener() {
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                View view = getActivity().getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+                loadingSearch.setVisibility(View.VISIBLE);
+                search();
+                return true;
             }
-            /*if (checkMap) {
-                callSearchActivities = HttpManagerSpecial.getInstance().
-                        getService().searchActivities(id, lat, lng, 300, s);
-            } else {*/
-            callSearchActivities =
-                    HttpManagerSpecial.getInstance().
-                            getService().searchActivities(s);
-            //}
-            callSearchActivities.enqueue(callbackSearch);
+            return false;
+
         }
     };
 
-    private TextWatcher searchWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    private void search() {
+        eventList.clear();
+        loadingSearch.setText("Loading Data...");
+        searchListAdapter.notifyDataSetChanged();
 
+        String s = query.getText().toString();
+        if (!isSearching) {
+            isSearching = true;
+            searchListAdapter.setSearching(true);
         }
+        Call<ActivityItemCollectionDao> callSearchActivities;
+        Log.e("Search Fragment", "String : " + s);
+        callSearchActivities =
+                HttpManager.getInstance().
+                        getService().searchActivities(s);
+        callSearchActivities.enqueue(callbackSearch);
+    }
 
+    Callback<ActivityItemCollectionDao> callbackSearch = new Callback<ActivityItemCollectionDao>() {
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-        }
-    };
-
-    Callback<ActivitySearchItemCollectionDao> callbackSearch = new Callback<ActivitySearchItemCollectionDao>() {
-        @Override
-        public void onResponse(Call<ActivitySearchItemCollectionDao> call, Response<ActivitySearchItemCollectionDao> response) {
+        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
-                dao = response.body().getActivities();
-                Log.e("Search Fragment", "Search Finish " + response.body().getStatus().getStatus());
-                Log.e("Search Fragment", "Search Finish " + response.body().getActivities().size());
-                setEventList();
+                dao = response.body().getResults();
+                if(dao.size()>0) {
+                    loadingSearch.setVisibility(View.GONE);
+                    setEventList();
+                } else{
+                    loadingSearch.setText("ไม่พบข้อมูลกิจกรรม");
+                }
+                Toast.makeText(Contextor.getInstance().getContext(), "Result Found "
+                        + dao.size() + ((dao.size() > 1)?" Entries":" Entry"), Toast.LENGTH_SHORT).show();
+                Log.e("Search Fragment", "Search Finish with Size : " + dao.size());
             } else {
-                Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "Cannot Search. Please try again.", Toast.LENGTH_SHORT).show();
                 Log.e("Search Fragment", "Search Fail " + response.errorBody().toString());
             }
         }
 
         @Override
-        public void onFailure(Call<ActivitySearchItemCollectionDao> call, Throwable t) {
+        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
             Log.e("Search Fragment", "Search Fail " + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
         }
@@ -149,18 +148,30 @@ public class SearchFragment extends Fragment {
 
     private void initEventList() {
         eventList.clear();
-        Call<NearbyDao> callNearbyActivities =
-                HttpManagerSpecial.getInstance().getService().loadNearbyActivities(13.73826, 100.53272);
+
+        double lat = 13.74010;
+        double lng = 100.53045;
+
+        try {
+            lat = MainApplication.getCurrentLocation().getLatitude();
+            lng = MainApplication.getCurrentLocation().getLongitude();
+        } catch (NullPointerException e) {
+            Log.e("searchWhereAmI", e.toString());
+        }
+
+        Call<ActivityItemCollectionDao> callNearbyActivities =
+                HttpManager.getInstance().getService().loadNearbyActivities(lat, lng);
         callNearbyActivities.enqueue(callbackNearbyActivities);
     }
 
-   Callback<NearbyDao> callbackNearbyActivities = new Callback<NearbyDao>() {
+    Callback<ActivityItemCollectionDao> callbackNearbyActivities = new Callback<ActivityItemCollectionDao>() {
         @Override
-        public void onResponse(Call<NearbyDao> call, Response<NearbyDao> response) {
+        public void onResponse(Call<ActivityItemCollectionDao> call, Response<ActivityItemCollectionDao> response) {
             if (response.isSuccessful()) {
-                Log.e("Search Fragment", "LAT " + response.body().getLat());
-                Log.e("Search Fragment", "LNG " + response.body().getLng());
-                searchListAdapter.notifyDataSetChanged();
+                dao = response.body().getResults();
+                loadingNearby.setVisibility(View.GONE);
+                setEventList();
+                Log.e("Search Fragment", "Nearby Finish with Size : " + response.body().getResults().size());
             } else {
                 Toast.makeText(Contextor.getInstance().getContext(), "Cannot Get Nearby Activities. Please try again.", Toast.LENGTH_LONG).show();
                 Log.e("Search Fragment", "Nearby Fail " + response.errorBody().toString());
@@ -168,16 +179,14 @@ public class SearchFragment extends Fragment {
         }
 
         @Override
-        public void onFailure(Call<NearbyDao> call, Throwable t) {
+        public void onFailure(Call<ActivityItemCollectionDao> call, Throwable t) {
             Log.e("Search Fragment", "Nearby Fail " + t.toString());
             Toast.makeText(Contextor.getInstance().getContext(), "Cannot connect to server. Please try again.", Toast.LENGTH_LONG).show();
         }
     };
 
     private void setEventList() {
-        eventList.clear();
         SharedPreferences sharedPref = getActivity().getSharedPreferences("ZoneKey", Context.MODE_PRIVATE);
-        searchListAdapter.notifyDataSetChanged();
         for (int i = 0; i < dao.size(); i++) {
             eventList.add(new EventListItem(
                     dao.get(i).getId(),
@@ -185,9 +194,9 @@ public class SearchFragment extends Fragment {
                     DateUtil.getDateThai(dao.get(i).getStart()) + " \u2022 "
                             + dao.get(i).getStart().substring(11, 16)
                             + "-" + dao.get(i).getEnd().substring(11, 16),
-                    sharedPref.getString(dao.get(i).getZone(), "")));
+                    sharedPref.getString(dao.get(i).getZone(), ""),
+                    dao.get(i).getThumbnail()));
         }
         searchListAdapter.notifyDataSetChanged();
     }
-
 }

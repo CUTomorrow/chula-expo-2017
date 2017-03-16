@@ -1,4 +1,4 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -56,8 +56,30 @@
         app:srcCompat="@color/light_grey_header"
         android:id="@+id/imageView8" />
 
+    <TextView
+        android:visibility="gone"
+        android:textSize="20sp"
+        android:id="@+id/search_loading"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:text="Loading Data..."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/recycler_view" />
-</LinearLayout>
+
+    <TextView
+        android:layout_below="@id/recycler_view"
+        android:paddingTop="20dp"
+        android:textSize="20sp"
+        android:id="@+id/nearby_loading"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:text="Loading Data..."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

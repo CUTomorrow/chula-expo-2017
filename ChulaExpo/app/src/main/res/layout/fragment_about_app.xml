@@ -147,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Atikun Orisoon (CP40)\nApiruj Choomwattana (CP41)\nKitipong Sirirueangsakul (CP41)\nNuttapat Kirawittaya (CP41)\nPongsathorn Chootipanvidhayakul (CP41)\nPuttiphat Sriratpinyo (CP41)\nNoppawit Thairungroj (CP41)\nSitthichai Saeji (CP41)"
+            android:text="Atikun Orisoon (CP40)\nApiruj Choomwattana (CP41)\nKitipong Sirirueangsakul (CP41)\nNuttapat Kirawittaya (CP41)\nPongsathorn Chootipanvidhayakul (CP41)\nPuttiphat Sriratpinyo (CP41)\nNoppawit Thairungroj (CP41)\nSitthichai Saejia (CP41)"
             android:lineSpacingExtra="-4sp"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -323,7 +323,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/credit_project_initiator" />
+                android:src="@drawable/credit_support_icon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -350,7 +350,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/credit_project_initiator" />
+                android:src="@drawable/credit_sponsor_icon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -370,6 +370,16 @@
                 android:layout_marginRight="30dp"
                 android:src="@drawable/credit_sponsor" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Thank you for using our application"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                fontPath="@string/font" />
+
             <ImageView
                 android:id="@+id/image14"
                 android:layout_width="match_parent"
@@ -383,7 +393,6 @@
 
         </LinearLayout>
     </ScrollView>
-
 
     <ImageView
         android:id="@+id/about_close"

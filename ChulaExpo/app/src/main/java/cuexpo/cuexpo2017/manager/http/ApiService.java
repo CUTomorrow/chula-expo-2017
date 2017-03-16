@@ -4,6 +4,8 @@ import org.json.JSONObject;
 
 import cuexpo.cuexpo2017.dao.ActivityItemCollectionDao;
 import cuexpo.cuexpo2017.dao.ActivityItemDao;
+import cuexpo.cuexpo2017.dao.ArtGalMessage;
+import cuexpo.cuexpo2017.dao.ArtGalMessageDao;
 import cuexpo.cuexpo2017.dao.DeleteResultDao;
 import cuexpo.cuexpo2017.dao.EditAdultUser;
 import cuexpo.cuexpo2017.dao.EditStudentUser;
@@ -115,6 +117,9 @@ public interface ApiService {
     @POST("/api/signup")
     Call<LoginDao> registerUser(@Body UserProfile userProfile);
 
+    @POST("/api/comments")
+    Call<ArtGalMessageDao> sendArtGalMessage(@Body ArtGalMessage artGalMessage);
+
     @GET("/api/me")
     Call<UserDao> loadUserInfo();
 
@@ -132,11 +137,14 @@ public interface ApiService {
                                            @Query("lat") double lat,
                                            @Query("lng") double lng,
                                            @Query("cutoff") int distance,
-                                           @Query("q") String queryString);
+                                           @Query("text") String queryString);
 
     @GET("/api/activities/search")
     Call<ActivityItemCollectionDao> searchActivities(@Query("u") String user,
-                                                     @Query("q") String queryString);
+                                                     @Query("text") String queryString);
+
+    @GET("/api/activities/search")
+    Call<ActivityItemCollectionDao> searchActivities(@Query("text") String queryString);
 
     @GET("/api/activities/nearby")
     Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("lat") double lat,
@@ -146,6 +154,7 @@ public interface ApiService {
     Call<ActivityItemCollectionDao> loadNearbyActivities(@Query("u") String user,
                                                          @Query("lat") double lat,
                                                          @Query("lng") double lng);
+
     @GET("/api/me/where")
     Call<WhereDao> getLocationInfo(@Query("latitude") double latitude, @Query("longitude") double longitude);
 
