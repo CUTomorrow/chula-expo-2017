@@ -370,6 +370,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             editor.putString("academicLevel", "");
             editor.putString("workerJob", "");
             editor.putString("type", "");
+            editor.putString("profile","");
+            editor.putString("uid","");
             editor.apply();
             Log.d("facebookId", facebookId);
 
